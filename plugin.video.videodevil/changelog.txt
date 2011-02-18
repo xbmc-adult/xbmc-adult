@@ -1,0 +1,34 @@
+[B]Version 1.6.7[/B]
+
+- Updated: cookies are saved to the userdata profile path now
+- Added: description in addon.xml
+- Added: disclaimer in addon.xml
+- Added: enable debug logging option in plugin settings
+- Added: action=decode (catcher)
+
+
+[B]Version 1.6.6[/B]
+
+- Updated: youporn
+- Added: ext_action=decode (catcher)
+
+
+[B]Version 1.6.5[/B]
+
+- Added: StileProject (thx tiben20)
+- Updated: extremetube, boysfood
+- Removed: mofosex
+
+
+[B]Version 1.6.4[/B]
+
+- Replaced: os.getcwd() with addon.getAddonInfo('path')
+- Replaced: full setting path with addon.getAddonInfo('profile')
+
+
+[B]Version 1.6.3[/B]
+
+- Updated: pornhub, mofosex, extremetube
+- Added: moviesand, xhamster (re-added)
+- Updated: xhamster icon
+- Added: license.txt and changelog.txt

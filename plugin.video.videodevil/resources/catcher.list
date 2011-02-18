@@ -1,0 +1,209 @@
+﻿########################################################
+# VideoDevil Catcher list
+########################################################
+# title: str <- Start flag
+# target: RegEx <- Start flag
+# url: *%s*
+# data: *%s*
+# header str|str
+# limit: int
+# action: str
+# build: *%s*
+# ext_target: RegEx
+# ext_url: *%s*
+# ext_data: *%s*
+# ext_header str|str
+# ext_limit: int
+# ext_action: str
+# ext_build: *%s*
+# extension: str (default = flv)
+# info: str
+# quality: low, standard, high or fallback <- End flag
+########################################################
+# Catcher sites
+########################################################
+title=2video.de
+target=<div id="box">[^<]*<h2>Download</h2>[^<]*<p><a href="([^"]+)" target="_blank">
+url=http://www.2video.de/index.php?dl=%s&skill=download
+quality=standard
+########################################################
+title=clipnabber.com
+target=<a href='([^']+)' *><strong>FLV
+url=http://clipnabber.com/gethint.php
+data=mode=1&url=%s
+header=Referer|http://www.clipnabber.com
+extension=flv
+quality=standard
+target=<a href='([^']+)' *><strong>MP4
+extension=mp4
+quality=high
+target=<a href='([^']+)' *><strong>
+quality=fallback
+########################################################
+title=atrapavideo.com
+target=so.addVariable\('file','(.+?.flv)
+url=http://www.atrapavideo.com/video
+data=data[url]=%s
+header=Referer|http://www.atrapavideo.com/en/
+quality=standard
+########################################################
+title=getvids.de
+target=href="([^"]+)" title="Download">
+url=http://getvids.de/video.cgi
+data=downloadurl=%s
+header=Referer|http://getvids.de/video.cgi
+quality=standard
+########################################################
+title=clipsave.de
+target=<a href="([^"]+)"><span class="[^"]+"><strong>Download von
+url=http://www.nachrichtenmann.de/cgi-bin/video/video.cgi
+data=action=index&downloadurl=%s
+header=Referer|http://www.nachrichtenmann.de/cgi-bin/video/video.cgi
+quality=standard
+########################################################
+title=degrab.de
+target=Download Link.+?<a href="([^"]+)"
+url=http://www.degrab.de/?url=%s
+action=unquote
+quality=standard
+########################################################
+title=kcoolonline.com
+target=<a href='(.+?)' title='Download Flv Here'>
+url=http://www.kcoolonline.com/index.php?url=%s
+quality=standard
+########################################################
+title=videodown.net.pacoporn
+target=<a href="([^"]+)">:: Start Download ::
+url=http://www.videodown.net/?op=18
+data=url=%s&sitio=pacoporn
+header=Referer|http://www.videodown.net/?op=18
+quality=standard
+########################################################
+title=downloadshufunivideos.com
+target='/dl_videos/(http.+?\.flv).+?'\);">Click Here to Download Video
+url=http://www.downloadshufunivideos.com/?v=%s
+quality=standard
+########################################################
+title=youporn.com
+target=so.addVariable[(]'file', encodeURIComponent[(]'(http://download.youporn.com/download/[^"]+xml=1)'[)][)];
+url=%s
+ext_target=<location>(http[^"]+)</location>
+ext_action=decode
+header=Cookie|age_check=1
+quality=standard
+########################################################
+title=tube8.com
+target=var videourl="([^"]+flv)";
+url=%s
+header=Cookie|t8disclaimer=1
+quality=standard
+########################################################
+title=extremetube.com
+target=flashvars.video_url = '(http[^']+[.]fl[^']+)';
+url=%s
+header=Cookie|age_verified=1
+quality=standard
+########################################################
+title=xvideos.com
+target=flv_url=(http[^']+[.]flv[^']+)&amp;
+url=%s
+quality=standard
+########################################################
+title=moviesand.com
+target=so.addVariable[(]"file", "(http[^']+.flv)"[)];
+url=%s
+quality=standard
+########################################################
+title=redtube.com
+target=so[.]addParam[(]"flashvars","[^"]+hashlink=([^"]+)"[)];
+url=%s
+quality=standard
+########################################################
+title=mofosex.com
+target=videoPath: "http://www.mofosex.com/playlist.php[?]v=([^"]+)%
+url=%s
+build=http://cdn1.public.mofosex.com/media/flvs/%s.flv?nvb=20101108151507&nva=20101108155507&hash=02d8bf9584ab79f8a1ec0&ib=13&fs=0
+quality=standard
+ ########################################################
+title=pornrabbit.com
+target=span class="download".+?href="(.+?)"
+url=%s
+quality=standard
+ ########################################################
+title=stileproject.com
+target=file":'(.+?)'
+url=%s
+quality=standard
+ ########################################################
+title=xhamster.com
+target='file': '(.+?flv)',
+url=%s
+build=http://xhamster.com/flv2/%s
+quality=standard
+#########################################################
+title=hotgoo.com
+target=so.addVariable\('file','(.+?)'
+url=%s
+quality=standard
+########################################################
+title=boysfood.com
+target=href="([^"]+wmv)">GET</a></td>
+url=%s
+extension=wmv
+quality=standard
+target=href="([^"]+\d+.flv)">GET</a></td>
+extension=flv
+quality=standard
+target=href="([^"]+hd.flv)">GET</a></td>
+extension=flv
+quality=high
+########################################################
+title=keezmovies.com
+target=flashvars.video_url.+?(http.+?)';
+url=%s
+header=Cookie|age_verified=1
+quality=standard
+########################################################
+title=clipa.tv
+target=<a href="([/]get-video.flv[?]uri=.+?)" class="download"
+url=http://en.clipa.tv/?uri=%s
+build=http://en.clipa.tv%s
+quality=standard
+########################################################
+#title=grabit.to
+#target=<h1>Der Downloadlink wurde erfolgreich gefunden\!</h1>[^<]+<p>Video: </p>[^<]+<p><strong><a href="([^"]+)">
+#url=http://www.grabit.to/index.php?txt_url=%s
+#quality=standard
+########################################################
+#title=porn2pc.com
+#target=<a href="([^"]+)"[^>]+><b>CLICK HERE TO DOWNLOAD MOVIE</b></a>
+#url=http://porn2pc.com/post.php
+#data=url=%s&Submit=Downlod+video+with+Porn2PC
+#header=Referer|http://porn2pc.com/
+#ext_target=<h2>([^<]+)</h2>
+#quality=standard
+########################################################
+#title=keepvid.com
+#target=<a href="([^"]+)" class="link" target="\_blank">[^<]+</a>[^<]+<em>\(video\.flv - Low Quality\)
+#url=http://keepvid.com/?url=%s
+#header=Referer|http://keepvid.com/
+#extension=flv
+#quality=standard
+#target=<a href="([^"]+)" class="link" target="\_blank">[^<]+</a>[^<]+<em>\(video\.mp4 - High Quality\)
+#extension=mp4
+#quality=high
+#target=<a href="([^"]+)" class="link" target="\_blank">
+#quality=fallback
+########################################################
+title=pornhub.com
+target=addVariable\("video_url","(.+?)"
+url=%s
+quality=standard
+########################################################
+#title=viloader.net
+#target=unescape%28%22(http.+?\.flv)%22%29%3
+#url=http://www.viloader.net/mybic_server.php
+#data=skill=formDownload&url=%s&json=false
+#header=Referer|http://www.viloader.net
+#quality=standard
+########################################################

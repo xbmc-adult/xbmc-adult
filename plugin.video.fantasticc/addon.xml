@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="Fantasti.cc"
+       name="Fantasti.cc"
+       version="1.0"
+       provider-name="Ksosez">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource"
+               library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <license>GPL 2.0</license>
+        <summary lang="en">Fantasti.cc -  Welcome to the best place to enjoy free porn and have fun with your friends online.</summary>
+        <description lang="en">Welcome to the best place to enjoy free porn and have fun with your friends online.
+		Get started now by watching a video or an image. It's free.</description>
+    </extension>
+</addon>
