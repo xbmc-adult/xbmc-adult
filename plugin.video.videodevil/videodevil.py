@@ -602,6 +602,8 @@ class CCurrentList:
         url = ''
         info_idx = 0
         firstInfo = True
+        #this is added for handling the stupid &nbsp;
+        item.infos_values[url_idx] = item.infos_values[url_idx].replace(u'\xa0', ' ')
         for info_name in item.infos_names:
             if info_idx != url_idx and item.infos_names[info_idx].find('.once') == -1:
                 #info_value = urllib.quote(item.infos_values[info_idx])
@@ -1360,10 +1362,12 @@ class Main:
             if enable_debug:
                 xbmc.output('Play: ' + str(flv_file))
             xbmc.Player(player_type).play(str(flv_file), listitem)
+            #xbmc.Player(player_type).play(str(flv_file))
         else:
             if enable_debug:
                 xbmc.output('Play: ' + str(url))
             xbmc.Player(player_type).play(str(url), listitem)
+            #xbmc.Player(player_type).play(str(url))
         xbmc.sleep(200)
 
     def downloadMovie(self, url, title):

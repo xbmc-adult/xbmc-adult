@@ -22,22 +22,26 @@
 ########################################################
 # Catcher sites
 ########################################################
+title=gfvideos.com
+target=href="(/videos.+?flv)">Download this video
+url=%s
+build=http://www.girlfriendvideos.com%s
+quality=standard
+########################################################
+title=eporner.com
+target=<file>(.+?)</file>
+url=http://www.eporner.com/config/%s
+quality=standard
+########################################################
 title=2video.de
 target=<div id="box">[^<]*<h2>Download</h2>[^<]*<p><a href="([^"]+)" target="_blank">
 url=http://www.2video.de/index.php?dl=%s&skill=download
 quality=standard
 ########################################################
 title=clipnabber.com
-target=<a href='([^']+)' *><strong>FLV
-url=http://clipnabber.com/gethint.php
-data=mode=1&url=%s
-header=Referer|http://www.clipnabber.com
-extension=flv
-quality=standard
-target=<a href='([^']+)' *><strong>MP4
-extension=mp4
-quality=high
-target=<a href='([^']+)' *><strong>
+target=<div id="Math">(\d+)</div>
+url=http://clipnabber.com
+build=%s
 quality=fallback
 ########################################################
 title=atrapavideo.com
@@ -93,7 +97,7 @@ header=Cookie|age_check=1
 quality=standard
 ########################################################
 title=tube8.com
-target=var videourl="([^"]+flv)";
+target=var videourl="(http[^"]+)";
 url=%s
 header=Cookie|t8disclaimer=1
 quality=standard
@@ -120,9 +124,10 @@ url=%s
 quality=standard
 ########################################################
 title=mofosex.com
-target=videoPath: "http://www.mofosex.com/playlist.php[?]v=([^"]+)%
+target=videoPath: "(http://www.mofosex.com/playlist.php[?]v=[^"]+)%
 url=%s
-build=http://cdn1.public.mofosex.com/media/flvs/%s.flv?nvb=20101108151507&nva=20101108155507&hash=02d8bf9584ab79f8a1ec0&ib=13&fs=0
+ext_target=<url>(http[^"]+)</url>
+ext_action=decode
 quality=standard
  ########################################################
 title=pornrabbit.com
@@ -159,7 +164,7 @@ extension=flv
 quality=high
 ########################################################
 title=keezmovies.com
-target=flashvars.video_url.+?(http.+?)';
+target="video_url":"(http.+?)"
 url=%s
 header=Cookie|age_verified=1
 quality=standard
