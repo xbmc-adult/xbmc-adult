@@ -15,7 +15,7 @@
     </extension>
 </addon>
 
-<addon id="Fantasticc"
+<addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
        version="1.0.1"
        provider-name="Ksosez">
