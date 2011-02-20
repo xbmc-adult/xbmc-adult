@@ -4,7 +4,7 @@
        version="1.0"
        provider-name="Ksosez">
     <requires>
-        <import addon="xbmc.python" version="1.0"/>
+        <import addon="xbmc.python" version="1.0.1"/>
     </requires>
     <extension point="xbmc.python.pluginsource"
                library="default.py">
