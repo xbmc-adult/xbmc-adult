@@ -13,8 +13,7 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <license>GPL 2.0</license>
-        <summary lang="en">Fantasti.cc -  Welcome to the best place to enjoy free porn and have fun with your friends online.</summary>
-        <description lang="en">Welcome to the best place to enjoy free porn and have fun with your friends online.
-		Get started now by watching a video or an image. It's free.</description>
+        <summary lang="en">Fantasti.cc -  Browse videos from a site that aggregates the best porn videos online using the votes of users as the deciding factor</summary>
+        <description lang="en">Browse collections (user designed categories) as well as the most popular videos today/week/month as decided by the users of the site</description>
     </extension>
 </addon>
