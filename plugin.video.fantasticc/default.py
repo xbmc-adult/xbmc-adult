@@ -88,7 +88,6 @@ def SEARCH(url):
                           if not match:
                                   # ...directly call the results scraper for the first page to add the directories.
                                   SEARCH_RESULTS(url=False,html=first_page)
-                                  INDEX(url=False)
 
                           # if there were any multiple pages of search results
                           if match:
