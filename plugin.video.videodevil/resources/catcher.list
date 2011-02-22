@@ -33,6 +33,11 @@ target=<file>(.+?)</file>
 url=http://www.eporner.com/config/%s
 quality=standard
 ########################################################
+title=youjizz.com
+target=so[.]addVariable[(]"file","(http[^"]+flv)"[)];
+url=%s
+quality=standard
+########################################################
 title=2video.de
 target=<div id="box">[^<]*<h2>Download</h2>[^<]*<p><a href="([^"]+)" target="_blank">
 url=http://www.2video.de/index.php?dl=%s&skill=download
