@@ -1,0 +1,3 @@
+<settings>
+   <setting id="dvdplayer" type="bool" label="30000" default="false"/>
+</settings>

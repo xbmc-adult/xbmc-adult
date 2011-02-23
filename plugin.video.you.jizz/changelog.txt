@@ -1,0 +1,6 @@
+
+1.0.1 
+  - Converted plugin to work with XBMC's new addon framework (by philw132) 
+
+1.0.0
+  - Initial release
