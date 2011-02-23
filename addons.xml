@@ -36,7 +36,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.6"
+       version="1.7"
        provider-name="notme">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
@@ -105,7 +105,7 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.1"
+       version="1.0.2"
        provider-name="Pillager">
     <requires>
         <import addon="xbmc.python" version="1.0"/>

@@ -1,3 +1,5 @@
+1.0.2
+ - (anarchintosh) added icon
 
 1.0.1 
   - Converted plugin to work with XBMC's new addon framework (by philw132) 
