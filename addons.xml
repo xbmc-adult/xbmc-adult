@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.empflix" name="Empflix" version="2.0.0" provider-name="xbmcadult">
     <requires>
@@ -101,6 +101,25 @@
     <disclaimer>The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
     <platform>all</platform>
   </extension>
+</addon>
+
+<addon id="plugin.video.you.jizz"
+       name="YouJizz.com"
+       version="1.0.1"
+       provider-name="Pillager">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource"
+               library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <license>GPL 2.0</license>
+        <summary lang="en">YouJizz.com</summary>
+        <description lang="en">****ADULT CONTENT***** Watch Content from YouJizz.com</description>
+    </extension>
 </addon>
 
 <addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.0" provider-name="xbmcadult">
