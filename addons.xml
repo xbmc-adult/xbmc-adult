@@ -84,7 +84,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.6.9"
+  version="1.7.0"
   name="VideoDevil"
   provider-name="sfaxman / bootsy">
   <requires>

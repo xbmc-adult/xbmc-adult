@@ -1,3 +1,11 @@
+[B]Version 1.7.0[/B]
+
+- Fixed: encoding problems for atv users (thx tiben20 and cipher_)
+- Fixed: download problem
+- Removed: girlfriendvideos
+- Updated: youjizz, boysfood
+
+
 [B]Version 1.6.9[/B]
 
 - Updated: xhamster
