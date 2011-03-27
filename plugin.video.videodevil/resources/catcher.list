@@ -86,9 +86,16 @@ url=http://www.degrab.de/?url=%s
 action=unquote
 quality=standard
 ########################################################
+title=pornotube.com
+target=
+url=%s
+build=%s
+quality=standard
+########################################################
 title=kcoolonline.com
 target=<a href='(.+?)' title='Download Flv Here'>
-url=http://www.kcoolonline.com/index.php?url=%s
+url=http://kcoolonline.com/token.php
+data=url=%s
 quality=standard
 ########################################################
 title=videodown.net.pacoporn

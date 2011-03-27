@@ -21,6 +21,7 @@ settingsDir = xbmc.translatePath(settingsDir)
 cacheDir = os.path.join(settingsDir, 'cache')
 resDir = os.path.join(rootDir, 'resources')
 imgDir = os.path.join(resDir, 'images')
+current_url_page = ''
 #socket.setdefaulttimeout(20)
 
 urlopen = urllib2.urlopen
@@ -919,9 +920,9 @@ class CCurrentList:
                         search_phrase = self.getKeyboard(default = curr_phrase, heading = __language__(30102))
                         if search_phrase == '':
                             return -1
-                        addon.setSetting('curr_search',search_phrase)
+                        addon.setSetting('curr_search', search_phrase)
                         xbmc.sleep(10)
-                        curr_url = curr_url.replace('%25s',urllib.quote_plus(search_phrase))
+                        curr_url = curr_url.replace('%s',urllib.quote_plus(search_phrase))
                         lItem.infos_values[lItem.infos_names.index('url')] = curr_url
                         lItem.infos_values[lItem.infos_names.index('type')] = u'rss'
                 except:
@@ -933,7 +934,7 @@ class CCurrentList:
                 txheaders = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18', 'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7', self.reference:self.content}
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
-                f.write('<Titel>'+ curr_url + '</Title>\n\n')
+                f.write('<Title>'+ curr_url + '</Title>\n\n')
 	    curr_url = urllib.unquote_plus(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
@@ -945,6 +946,7 @@ class CCurrentList:
             data = handle.read()
             #cj.save(os.path.join(resDir, 'cookies.lwp'), ignore_discard=True)
             cj.save(os.path.join(settingsDir, 'cookies.lwp'))
+            current_url_page = curr_url
             if enable_debug:
                 f.write(data)
                 f.close()
@@ -1021,7 +1023,7 @@ class CCurrentList:
                 if item_rule.skill.find('append') != -1:
                     tmp.infos_values[info_idx] = curr_url + tmp.infos_values[info_idx]
 		if item_rule.skill.find('striptoslash') != -1:
-                    curr_match = re.search(r'(.+?/)[^/]+$', curr_url)
+                    curr_match = re.search(r'(.+?/)[^/]+$', current_url_page)
                     if curr_match:
 			if curr_match.group(1) == 'http://':
                             tmp.infos_values[info_idx] = curr_url + '/' + tmp.infos_values[info_idx]
