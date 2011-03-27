@@ -913,22 +913,19 @@ class CCurrentList:
                 try:
                     if lItem.infos_values[lItem.infos_names.index('type')] == u'search':
                         try:
-                            f = open(os.path.join(cacheDir, 'search'), 'r')
-                            curr_phrase = urllib.unquote_plus(f.read())
-                            f.close()
+                            curr_phrase = urllib.unquote_plus(addon.getSetting('curr_search'))
                         except:
-                            curr_phrase = ''
+                            addon.setSetting('curr_search','')
                         search_phrase = self.getKeyboard(default = curr_phrase, heading = __language__(30102))
                         if search_phrase == '':
                             return -1
+                        addon.setSetting('curr_search',search_phrase)
                         xbmc.sleep(10)
-                        f = open(os.path.join(cacheDir, 'search'), 'w')
-                        f.write(search_phrase)
-                        f.close()
-                        curr_url = curr_url % (search_phrase)
+                        curr_url = curr_url.replace('%25s',urllib.quote_plus(search_phrase))
                         lItem.infos_values[lItem.infos_names.index('url')] = curr_url
                         lItem.infos_values[lItem.infos_names.index('type')] = u'rss'
                 except:
+                    traceback.print_exc(file = sys.stdout)
                     pass
             if self.reference == '':
                 txheaders = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18', 'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
@@ -1023,6 +1020,13 @@ class CCurrentList:
                 tmp.infos_values[info_idx] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_values[info_idx])))
                 if item_rule.skill.find('append') != -1:
                     tmp.infos_values[info_idx] = curr_url + tmp.infos_values[info_idx]
+		if item_rule.skill.find('striptoslash') != -1:
+                    curr_match = re.search(r'(.+?/)[^/]+$', curr_url)
+                    if curr_match:
+			if curr_match.group(1) == 'http://':
+                            tmp.infos_values[info_idx] = curr_url + '/' + tmp.infos_values[info_idx]
+			else:
+			    tmp.infos_values[info_idx] = curr_match.group(1) + tmp.infos_values[info_idx]
                 if item_rule.skill.find('space') != -1:
                     try:
                         tmp.infos_values[tmp.infos_names.index('title')] = ' ' + tmp.infos_values[tmp.infos_names.index('title')].lstrip().rstrip() + ' '

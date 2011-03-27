@@ -6,7 +6,7 @@ __plugin__ = 'VideoDevil'
 __author__ = 'sfaxman'
 __svn_url__ = 'http://xbmc-adult.googlecode.com/svn/trunk/plugin.video.videodevil/'
 __credits__ = 'bootsy'
-__version__ = '1.7.0'
+__version__ = '1.7.1'
 
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 rootDir = addon.getAddonInfo('path')

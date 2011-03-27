@@ -22,6 +22,16 @@
 ########################################################
 # Catcher sites
 ########################################################
+title=madthumbs.com
+target=<source src="([^"]+)"
+url=%s
+quality=standard
+########################################################
+title=pornoxo.com
+target=so.addVariable\('file','([^']+)'
+url=%s
+quality=standard
+########################################################
 title=gfvideos.com
 target=href="(/videos.+?flv)">Download this video
 url=%s
@@ -88,9 +98,9 @@ data=url=%s&sitio=pacoporn
 header=Referer|http://www.videodown.net/?op=18
 quality=standard
 ########################################################
-title=downloadshufunivideos.com
-target='/dl_videos/(http.+?\.flv).+?'\);">Click Here to Download Video
-url=http://www.downloadshufunivideos.com/?v=%s
+title=shufuni.com
+target=embededFlashContainer.innerHTML = '([^']+)'
+url=%s
 quality=standard
 ########################################################
 title=youporn.com
@@ -124,8 +134,9 @@ url=%s
 quality=standard
 ########################################################
 title=redtube.com
-target=so[.]addParam[(]"flashvars","[^"]+hashlink=([^"]+)"[)];
+target=flashvars",".+?hashlink=(.+?)%0A&embed
 url=%s
+build=%s&ec_seek=0
 quality=standard
 ########################################################
 title=mofosex.com
