@@ -1,286 +1,300 @@
 # -*- coding: UTF-8 -*-
 
 """
- Support for megavideo links.
+ Megavideo and Megaporn-Video Resolver v0.4
+ Copyleft (Licensed under GPLv3) Anarchintosh 
+
+ This resolver is based on work from:
+ Alessio Glorioso, Ksosez, Pedro Guedes, Voinage and Coolblaze.
+
+
+
+
+ -------Commands:---------
+
+ for baseurl use either 'porn' or 'regular'.
+
+
+ TO RESOLVE A URL
+ - (None is a valid setting for cookiepath)
+ - This returns a list for these things;
+ - FLV_File,Original_File,title,description,runtime
+
+ ====================================================
+ print megavideo.resolveURL(baseurl, cookiepath, url)
+ ====================================================
+
  
- This link resolver supports the following configuration:
-  - megavideouser: the user to authenticate with megavideo servers
-  - megavideopassword: the password to authenticate the provided user
-  - megavideopremium: if the high quality download links should be used
-  
- If both username and password are set, this resolver will use the credentials
- and try to login to megavideo to get the user cookie.
+
+ TO CHECK IF A LINK IS STILL ONLINE (optional):
+ - Returns True or False
+
+ ====================================== 
+ print megavideo.is_online(baseurl,url)
+ ======================================
+
+
+
+ TO LOG IN (GET A LOGIN COOKIE) (optional):
+ - Returns 'Free' or 'Premium' if login is successful
+ - Returns None if login fails
+
+ ================================================================
+ print megavideo.doLogin(baseurl, cookiepath, username, password)
+ ================================================================
+
  
- If the megavideopremium option is set, the resolver will return the download
- link from megavideo which links to the original file (best quality)
- 
- This code is based on work from Voinage and Coolblaze.
- 
- @author: Pedro Guedes guedes.emigra@gmail.com
 """
-import os, re, urllib2, logging, string
-#import utils.settings as settings
 
+import os,re
+import urllib,urllib2,cookielib
+import logging
 
-COOKIEFILE = os.path.join(os.getcwd(), 'cookies.lwp')
+#global strings for valid baseurl
+porn = 'http://www.megaporn.com/video/'
+regular = 'http://www.megavideo.com/'
+
+firefox_header = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
 log = logging.getLogger("megavideo")
-log.info("Cookiefile: %s" % COOKIEFILE)
 
-def resolve(page):
-  #mega = re.compile('<param name="movie" value="http://video.megarotic.com/v/(.+?)">').findall(page)
- # mega[0] = mega[0][0:8]
-  mega = page
-  megavideoUrl = __getUrl(mega)
-  return megavideoUrl
+def setBaseURL(baseurl):
+    # API feature to neaten up how functions are used
+    if baseurl == 'regular':
+       return regular
+    elif baseurl == 'porn':
+       return porn
 
-def __doLogin():
-  """If the megavideo username and password parameters are set, will authenticate with
-  megavideo and return the user cookie that megavideo uses to track logged in users"""
- # megavideologin = settings.get("megavideouser")
- # log.debug("Authenticating on Megavideo with username: '%r'" % megavideologin)
-#  megavideopassword = settings.get("megavideopassword")
-#  if megavideologin and megavideopassword:
-  #return __getMegavideoUserCookie(megavideologin, megavideopassword)
-  
-  return None
+def openfile(filepath):
+     fh = open(filepath, 'r')
+     contents=fh.read()
+     fh.close()
+     return contents
 
-def __calcDecriptionMix(hash, keyMix):
-  """Mixes the decription keys into the hash and returns the updated hash
-  @param hash: the hash to merge the keys into
-  @param keyMix: the array of keys to mix"""
-  for i in range(128):
-    hash[i] = str(int(hash[i]) ^ int(keyMix[i + 256]) & 1)
-  return "".join(hash)
+def check_login(source):
+        #feed me some mega page source
+        #returns 'free' or 'premium' if logged in
+        #returns 'none' if not logged in
+        
+        login = re.search('Welcome', source)
+        premium = re.search('flashvars.status = "premium";', source)        
 
-def __toHexDecriptionString(binaryChunks):
-  """Converts an array of binary strings into a string of the corresponding hex chunks merged
-  This method will first loop through the binary strings converting each one into it's correspondent
-  hexadecimal string and then merge the resulting array into a string
-  @param binaryChunks: an array of binary strings
-  @return: a string of the corresponding hexadecimal strings, merged"""
-  hexChunks = []
-  for binChunk in binaryChunks:
-    hexChunks.append("%x" % int(binChunk, 2))    
-  return "".join(hexChunks)
+        if login is not None:
+             if premium is not None:
+                  return 'premium'
+             elif premium is None:
+                  return 'free'
+        else:
+             return login
 
-def __doDecriptionChunks(binaryMergedString):
-  """Break a string of 0's and 1's in pieces of 4 chars
-  @param binaryMergedString: a string of 0's and 1's to break in 4-part pieces
-  @return: an array of 4 character parts of the original string"""
-  binaryChunks = []
-  for index in range(0, len(binaryMergedString), 4):
-    binaryChunk = binaryMergedString[index:index + 4]
-    binaryChunks.append(binaryChunk)
-  return binaryChunks
+def doLogin(baseurl, cookiepath, username, password):
 
-def __doDecriptionSwaps(hash, keys):
-  """Swap the first 256 indices from keys on the hash with the last 128 elements from the hash
-  @param hash: the hash to do swaps on
-  @param keys: the generated keys to use as indices for the swaps
-  @return: hash after swaps"""
-  for index in range(256, 0, -1):
-    key = keys[index]
-    swapTarget = index % 128
-    oldHashKey = hash[key]
-    hash[key] = hash[swapTarget]
-    hash[swapTarget] = oldHashKey
-  return hash
+    baseurl=setBaseURL(baseurl)
 
-def __computeIndices(key1, key2):
-  """Generate an array of 384 indices with values 0-127
-  @param key1: first seed to generate indices from
-  @param key2: second seed to generate indices from
-  @return: an array of 384 indices with values between 0 and 127"""
-  indices = []
-  for i in range(384):
-    key1 = (int(key1) * 11 + 77213) % 81371
-    key2 = (int(key2) * 17 + 92717) % 192811
-    indices.append((int(key1) + int(key2)) % 128)
-  return indices
+    if username and password:
+        #delete the old cookie
+        try:
+              os.remove(cookiepath)
+        except:
+              pass
 
-def __explodeBin(str1):
-  # explode each char in str1 into it;s binary representation
-  # and collect the result into __reg1
-  __reg1 = []
-  __reg3 = 0
-  while (__reg3 < len(str1)):
-    __reg0 = str1[__reg3]
-    holder = __reg0
-    if (holder == "0"):
-      __reg1.append("0000")
+        #build the login code, from user, pass, baseurl and cookie
+        login_data = urllib.urlencode({'username' : username, 'password' : password, 'login' : 1, 'redir' : 1})   
+        req = urllib2.Request(baseurl + '?c=login', login_data)
+        req.add_header('User-Agent',firefox_header)
+        cj = cookielib.LWPCookieJar()
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+
+        #do the login and get the response
+        response = opener.open(req)
+        source = response.read()
+        response.close()
+
+        login = check_login(source)
+
+        if login == 'free' or login == 'premium':
+            cj.save(cookiepath)
+
+        return login
     else:
-      if (__reg0 == "1"):
-        __reg1.append("0001")
-      else:
-        if (__reg0 == "2"): 
-          __reg1.append("0010")
-        else: 
-          if (__reg0 == "3"):
-            __reg1.append("0011")
-          else: 
-            if (__reg0 == "4"):
-              __reg1.append("0100")
-            else: 
-              if (__reg0 == "5"):
-                __reg1.append("0101")
-              else: 
-                if (__reg0 == "6"):
-                  __reg1.append("0110")
-                else: 
-                  if (__reg0 == "7"):
-                    __reg1.append("0111")
-                  else: 
-                    if (__reg0 == "8"):
-                      __reg1.append("1000")
-                    else: 
-                      if (__reg0 == "9"):
-                        __reg1.append("1001")
-                      else: 
-                        if (__reg0 == "a"):
-                          __reg1.append("1010")
-                        else: 
-                          if (__reg0 == "b"):
-                            __reg1.append("1011")
-                          else: 
-                            if (__reg0 == "c"):
-                              __reg1.append("1100")
-                            else: 
-                              if (__reg0 == "d"):
-                                __reg1.append("1101")
-                              else: 
-                                if (__reg0 == "e"):
-                                  __reg1.append("1110")
-                                else: 
-                                  if (__reg0 == "f"):
-                                    __reg1.append("1111")
+        return None
 
-    __reg3 = __reg3 + 1
-  return list("".join(__reg1))
-    
-def __calculateFileHash(str1, key1, key2):
-  # explode hex to bin strings, collapse to a string and return char array
-  hash = __explodeBin(str1)
-  # based on the keys, generate an array of 384 (256 + 128) values
-  decriptIndices = __computeIndices(key1, key2)
-  # from 256 to 0, swap hash[decriptIndices[x]] with hash[__reg3 % 128]
-  hash = __doDecriptionSwaps(hash, decriptIndices)
-  # replace the first 128 chars in hash with the formula:
-  #  hash[x] = hash[x] * decriptIndices[x+256] & 1
-  hash = __calcDecriptionMix(hash, decriptIndices)
-  # split __reg12 in chunks of 4 chars
-  chunks = __doDecriptionChunks(hash)  
-  # convert each binary chunk to a hex string for the final hash
-  return __toHexDecriptionString(chunks)
+def __getPremiumUrl(baseurl, cookiepath, code, login_code):
 
-def __getUrl(mega):
-  megavideocookie = __doLogin()
-#  if settings.isSet("megavideopremium"):
-#    return __getPremiumUrl(mega, megavideocookie)
-#  else:
-  mega = string.split(mega, "v=")[1]
-  return __getPublicUrl(mega, megavideocookie)
-  
-def __getPremiumUrl(code, megavideocookie):
+  #this method is called from __resolveURL
+
   log.debug("Use premium mode")
-  log.debug("Megavideo cookie: '%s'" % megavideocookie)
-  req = urllib2.Request("http://www.megavideo.com/xml/player_login.php?u=" + megavideocookie + "&v=" + code)
-  req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-  patronvideos = 'downloadurl="([^"]+)"'
-  matches = re.compile(patronvideos, re.DOTALL).findall(urllib2.urlopen(req).read())
-  return matches[0].replace("%3A", ":").replace("%2F", "/").replace("%20", " ")
-  
-def __getPublicUrl(code, megavideocookie):
-  log.debug("Use normal mode")
-  url = "http://www.megaporn.com/video/xml/videolink.php?v=" + code
-#  print url
-  if megavideocookie:
-    print "Megavideo cookie: '%s'" % megavideocookie
-    url = "http://www.megaporn.com/video/xml/videolink.php?u="+megavideocookie+"&v=" + code
-    print url
-  req = urllib2.Request(url)
-  req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')
-  req.add_header('Referer', 'http://www.megavideo.com/')
-  page = urllib2.urlopen(req);response = page.read();page.close()
-  errort = re.compile(' errortext="(.+?)"').findall(response)
-#  print "testing"
-  if len(errort) <= 0:
-    s = re.compile(' s="(.+?)"').findall(response)
-    k1 = re.compile(' k1="(.+?)"').findall(response)
-    k2 = re.compile(' k2="(.+?)"').findall(response)
-    un = re.compile(' un="(.+?)"').findall(response)
-    return "http://www" + s[0] + ".megaporn.com/files/" + __calculateFileHash(un[0], k1[0], k2[0]) + "/"
-  
-def __getMegavideoUserCookie(login, password):
-  log.debug("getMegavideoUserCookie")
-  ficherocookies = COOKIEFILE
-  cj = None
-  ClientCookie = None
-  cookielib = None
+  log.debug("cookie: '%s'" % login_code)
 
-  try:
-    import cookielib
-  except ImportError:
-    try:
-      import ClientCookie
-    except ImportError:
-      urlopen = urllib2.urlopen
-      Request = urllib2.Request
-    else:
-      urlopen = ClientCookie.urlopen
-      Request = ClientCookie.Request
-      cj = ClientCookie.LWPCookieJar()
+  req = urllib2.Request(baseurl + "xml/player_login.php?u=" + login_code + "&v=" + code)
+  req.add_header('User-Agent',firefox_header)
+  req.add_header('Referer', baseurl+'?v='+code)
+  page = urllib2.urlopen(req);XML_FILE = page.read();page.close()
+
+  matches = re.compile('downloadurl="([^"]+)"', re.DOTALL).findall(XML_FILE)
+
+  if len(matches) > 0:
+       return [urllib.unquote_plus(matches[0])]
   else:
-    urlopen = urllib2.urlopen
-    Request = urllib2.Request
-    cj = cookielib.LWPCookieJar()
+       return None
 
-  if cj is not None:
-    if os.path.isfile(ficherocookies):
-      cj.load(ficherocookies)
+  
+def resolveURL(baseurl, cookiepath, url):
 
-    if cookielib is not None:
-      opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-      urllib2.install_opener(opener)
+  baseurl=setBaseURL(baseurl)
 
-    else:
-      opener = ClientCookie.build_opener(ClientCookie.HTTPCookieProcessor(cj))
-      ClientCookie.install_opener(opener)
+  #get the code from a url, unless only code is supplied.
+  l = len(url)
+  if(l > 8):
+     code = url[l-8 : l]
+  else:
+     code = url
 
-  url = "http://www.megavideo.com/?s=signup"
-  theurl = url
-  # an example url that sets a cookie,
-  # try different urls here and see the cookie collection you can make !
-  txdata = "action=login&cnext=&snext=&touser=&user=&nickname=" + login + "&password=" + password
-  txheaders = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
-          'Referer':'http://www.megavideo.com/?s=signup'}
-  req = Request(theurl, txdata, txheaders)
-  handle = urlopen(req)
-  cj.save(ficherocookies)                     # save the cookies again    
+  #if user supplies path to cookie, get the login data from it and use it to form the xml_url.
+  if cookiepath is not None:
+    login_code = (re.compile('user="(.+?)"').findall(openfile(cookiepath)))[0]
 
-  handle.read()
-  data = handle.read()
-  log.debug("----------------------")
-  log.debug("Respuesta de getUrl")
-  log.debug("----------------------")
-  log.debug(data)
-  log.debug("----------------------")
-  handle.close()
+    log.debug("get with cookie: '%s'" % login_code)
+    xml_url = baseurl + "xml/videolink.php?u=" + login_code + "&v=" + code
 
-  cookiedatafile = open(ficherocookies, 'r')
-  cookiedata = cookiedatafile.read()
-  cookiedatafile.close();
+  else:
+    log.debug("get without cookie")
+    xml_url = baseurl + "xml/videolink.php?v=" + code
 
-  log.debug("----------------------")
-  log.debug("Cookies despues")
-  log.debug("----------------------")
-  log.debug(cookiedata)
-  log.debug("----------------------")
+  #get the XML_FILE from the url.
+  req = urllib2.Request(xml_url)
+  req.add_header('User-Agent',firefox_header)
+  req.add_header('Referer', baseurl+'?v='+code)
+  page = urllib2.urlopen(req);XML_FILE = page.read();page.close()
 
-  patronvideos = 'user="([^"]+)"'
-  matches = re.compile(patronvideos, re.DOTALL).findall(cookiedata)
-  if len(matches) == 0:
-    patronvideos = 'user=([^\;]+);'
-    matches = re.compile(patronvideos, re.DOTALL).findall(cookiedata)
-    
-  return matches[0]
+  #check that the link is valid
+  if is_online(baseurl, XML_FILE = XML_FILE) == True:
+
+       #try getting the Original File url. (requires premium). Returns None if you are a non-premium user.
+       if cookiepath is not None: Original_File = __getPremiumUrl(baseurl, cookiepath, code, login_code)
+       else: Original_File = None
+       
+       #Initialize the decryptor.
+       decrypter = Megavideo_Decrypt(XML_FILE)
+
+       #Create the FLV url.
+       FLV_File = "http://www" + str(getServer(XML_FILE)) + baseurl[10:25] + "files/" + str(decrypter.getDecrypted()) + "/stream.flv"
+
+       #Fix the FLV url if it is a porn url
+       FLV_File = re.sub('vfiles', 'files', FLV_File)
+       
+       #Get some metadata from the XML_FILE
+       title = getTitle(XML_FILE)
+       description = getDescription(XML_FILE)
+       runtime = getRuntime(XML_FILE)
+  
+       return FLV_File,Original_File,title,description,runtime
+
+  else:
+       return None
+
+
+
+
+def is_online(baseurl,url=False,XML_FILE=False):
+
+     baseurl=setBaseURL(baseurl)
+       
+     if XML_FILE == False:
+          #get the code from a url, unless only code is supplied.
+          l = len(url)
+          if(l > 8):
+              code = url[l-8 : l]
+          else:
+              code = url
+          XML_FILE = GetURL(baseurl + "xml/videolink.php?v=" + code)
+              
+     try: error = re.findall('errortext="(.+?)"',XML_FILE,re.I)[0]
+     except: return True
+     else:
+         if len(error)>0:
+             print "ERROR: " + str(error)
+             return False
+         else:
+             return True
+
+def getServer(XML_FILE):
+     try: server = re.findall('s="([0-9]+)"',XML_FILE,re.I)[0]
+     except: return None
+     else: return str(server)
+
+def getTitle(XML_FILE):
+     try: title = re.findall('title="(.+?)"',XML_FILE,re.I)[0]
+     except: return None
+     else: return str(urllib.unquote_plus(title))
+
+def getDescription(XML_FILE):
+     try: description = re.findall('description="(.+?)"',XML_FILE,re.I)[0]
+     except: return None
+     else: return str(urllib.unquote_plus(description))
+
+def getRuntime(XML_FILE):
+     try: runtime = re.findall('runtimehms="(.+?)"',XML_FILE,re.I)[0].replace("+"," ")
+     except: return None
+     else: return str(runtime)
+
+def GetURL(url):
+     req = urllib2.Request(url)
+     req.add_header('User-Agent', firefox_header)       
+     response = urllib2.urlopen(req)
+     link=response.read()
+     response.close()
+     return link
+     
+class Megavideo_Decrypt:
+	def __init__(self,XML_FILE):
+		self.XML_FILE = XML_FILE
+		self.setKeys()
+
+		tobin = self.hex2bin(self.un)
+		keys = []
+		index = 0
+
+		while (index < 384):
+			self.k1 = ((int(self.k1) * 11) + 77213) % 81371
+			self.k2 = ((int(self.k2) * 17) + 92717) % 192811
+			keys.append((int(self.k1) + int(self.k2)) % 128)
+			index += 1
+
+		index = 256
+
+		while (index >= 0):
+			val1 = keys[index]
+			mod  = index%128
+			val2 = tobin[val1]
+			tobin[val1] = tobin[mod]
+			tobin[mod] = val2
+			index -= 1
+
+		index = 0
+		while(index<128):
+			tobin[index] = int(tobin[index]) ^ int(keys[index+256]) & 1
+			index += 1
+
+		self.decrypted = self.bin2hex(tobin)
+
+	def setKeys(self):
+		self.k1 = re.findall('k1="([0-9]+)"',self.XML_FILE,re.I)[0].replace("+"," ")
+		self.k2 = re.findall('k2="([0-9]+)"',self.XML_FILE,re.I)[0].replace("+"," ")
+		self.un = re.findall('un="(.+?)"',self.XML_FILE,re.I)[0].replace("+"," ")
+
+	def getDecrypted(self):
+		return str(self.decrypted)
+
+	def hex2bin(self,val):
+		bin_array = []
+		string =  bin(int(val, 16))[2:].zfill(128)
+		for value in string:
+			bin_array.append(value)
+		return bin_array
+
+	def bin2hex(self,val):
+		string = str("")
+		for char in val:
+			string+=str(char)
+		return "%x" % int(string, 2)

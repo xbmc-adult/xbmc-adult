@@ -124,6 +124,9 @@ def SEARCH(url):
 
 
 def SEARCH_RESULTS(url,html=False):
+        # this function scrapes the search results pages
+        # accepts page source code (html) for any searches where there is only one page of results
+       
 	if html is False:
 		html = get_html(url)
 	match=re.compile('<a href="(.+?)" onclick="document.cookie = \'ii=1;path=/\';"  class="xxx" target="_blank"><img alt="(.+?)"   src="(.+?)"').findall(html)
@@ -135,10 +138,7 @@ def SEARCH_RESULTS(url,html=False):
 					addLink(name,realurl, mode, thumbnail)
 				else:
 					pass
-       # use this function for scraping the search results pages
-       # accepts page source code for any searches where there is only one page of results
        
-       # i'll let you do this as you know more about the video links for fantasti.cc
 
    
 def INDEX(url):
@@ -325,10 +325,9 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 
 			videoid = string.split(urlget2, "/v/")[1]
 			videoid = videoid[0:8]
-			wurl = "http://www.megaporn.com/video/?v=%s" % videoid
-			fetchurl = megavideo.resolve(wurl)
-			print "Fetchurl:%s" % fetchurl
-			return str(fetchurl)
+			fetchurl = (megavideo.resolveURL('porn', None, videoid))[0]
+			print "Megaporn/Megarotic Fetchurl:%s" % fetchurl
+			return fetchurl
 
 	else:
 		pass
