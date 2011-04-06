@@ -1,0 +1,86 @@
+<scraper framework="1.1" date="2010-06-09" name="AEBN.net" content="movies" thumb="aebn.jpg" language="en">
+	<CreateSearchUrl dest="3">
+		<RegExp input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
+			<RegExp input="$$6" output="http://gay.theater.aebn.net/dispatcher/fts?userQuery=\1&amp;theaterId=14077&amp;targetSearchMode=basic&amp;isSearchCriteriaReset=true&amp;searchType=movie&amp;count=120&amp;imageType=Large&amp;sortType=Relevance" dest="5">
+				<RegExp input="$$1" output="\1+\2" dest="6">
+					<expression clear="no" repeat="yes">(.*?)\%20([^(?:\%20)]*)</expression>
+				</RegExp>
+				<expression />
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</CreateSearchUrl>
+	<GetSearchResults dest="3">
+		<RegExp input="$$5" output="&lt;results&gt;\1&lt;/results&gt;" dest="3">
+			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;id&gt;\1&lt;/id&gt;&lt;url&gt;http://gay.theater.aebn.net/dispatcher/movieDetail?movieId=\1&amp;tab=Description&amp;theaterId=14077&lt;/url&gt;&lt;thumb&gt;\3&lt;/thumb&gt;&lt;/entity&gt;" dest="5">
+				<expression repeat="yes" trim="1,2,3,4" noclean="1,4">&lt;a id="FTSMovieSearch_link_image_detail_[0-9]+" href="/dispatcher/movieDetail\?movieId=([0-9+]*)?&amp;amp;theaterId=14077" title="([^\"]+)"&gt;&lt;img src="(http://pic.aebn.net/Stream/Movie/Boxcovers/[^\"]+)" [^&gt;]+&gt;&lt;/a&gt;</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetSearchResults>
+	<GetDetails dest="12">
+		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="12">
+			<RegExp input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5">
+				<expression>movieTitle"[\s]*&gt;(.*?)&lt;/h1</expression>
+			</RegExp>
+			<RegExp input="$$2" output="&lt;id&gt;\1&lt;/id&gt;&lt;thumb spoof=&quot;http://gay.theater.aebn.net&quot;&gt;http://pic.aebn.net/Stream/Movie/Boxcovers/a\1_xlf.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;gay.theater.aebn.net&quot;&gt;http://pic.aebn.net/Stream/Movie/Boxcovers/a\1_xlb.jpg&lt;/thumb&gt;" dest="5+">
+				<expression />
+			</RegExp>
+			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
+				<expression>&lt;span class="detailsLabel"[\s]*&gt;Running Time:.*?&lt;/span&gt;\n[\s]*&lt;span class="runTime"&gt;([^&lt;]*)&lt;/span&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;premiered&gt;\1&lt;/premiered&gt;&lt;year&gt;\2\3&lt;/year&gt;" dest="5+">
+				<expression>&lt;span class="detailsLabel"[\s]*&gt;Released:.*?&lt;/span&gt;[\s]*&lt;span class="detailsLink"&gt;([0-9]{0,2}/*[0-9]{1,2}/([0-9]{4})|([0-9]{0,4}))&lt;/span&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
+				<expression trim="1">&lt;span class="detailsLabel"[\s]*&gt;Studio Name:.*?&lt;/span&gt;[\s]*?&lt;span class="detailsLink"&gt;[\s]*?&lt;a href="/dispatcher/studioDetail\?theaterId=14077&amp;amp;studioId=[0-9]*"&gt;([^&lt;]*)&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;director&gt;\1&lt;/director&gt;" dest="5+">
+				<expression>&lt;span class="detailsLabel"[\s]*&gt;Director:.*?&lt;/span&gt;[\s]*&lt;span class="detailsLink"&gt;\n[\s]*&lt;a href="/dispatcher/movieSearch\?directorId=[0-9]*&amp;amp;theaterId=14077"&gt;([^&lt;]*)&lt;/a&gt;&amp;</expression>
+			</RegExp>
+			<RegExp input="$$7" output="&lt;genre&gt;\2&lt;/genre&gt;" dest="5+">
+				<!--copies the genres block to buffer $$7-->
+				<RegExp input="$$1" output="\1" dest="7">
+					<expression noclean="1">&lt;span class="detailsLabel"&gt;Categories:&lt;/span&gt;(.*?)&lt;br class="clear" /&gt;</expression>
+				</RegExp>
+				<expression repeat="yes" trim="2">&lt;a href="/dispatcher/categoryDetail\?categoryId=([0-9]*).*?\1', \1, event\)" onmouseout="killPopUp\(\)"&gt;([^&lt;]*)&lt;/a&gt;</expression>
+			</RegExp>
+			<!--This path handles actors accordint to the "GetMultiple Actor Thumbs-->
+			<RegExp input="$$7" output="\1" dest="5+">
+				<!--Copies Actors block to $$8-->
+				<RegExp input="$$1" output="\1\2" dest="8">
+					<expression clear="yes" noclean="1,2">(&lt;div class="starsFull detailsLink longDescription"&gt;.*?&lt;/div&gt;)|(&lt;div class="detailsLink shortDescription"&gt;.*?&lt;/div&gt;)</expression>
+				</RegExp>
+				<!--Process actors that have no thumbnails-->
+				<RegExp input="$$8" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;/actor&gt;" dest="7+">
+					<expression repeat="yes" clear="yes" trim="2">&lt;a href="/dispatcher/starDetail\?theaterId=([0-9]+)&amp;amp;starId=([0-9]*)"[\s]+&gt;([^&lt;]*)&lt;/a&gt; </expression>
+				</RegExp>
+				<RegExp input="$$8" output="&lt;url function=&quot;GetActorInfo&quot;&gt;http://gay.theater.aebn.net/dispatcher/starDetail?theaterId=\1&amp;amp;starId=\2&lt;/url&gt;" dest="7+">
+					<expression repeat="yes">&lt;a href="/dispatcher/starDetail\?theaterId=([0-9]+)&amp;amp;starId=([0-9]*)"[\s]+class="linkWithPopup".*?&gt;([^&lt;]*)&lt;/a&gt; </expression>
+				</RegExp>
+				<expression repeat="yes" noclean="1" />
+			</RegExp>
+			<RegExp input="$$1" output="&lt;plot&gt;\2\4&lt;/plot&gt;" dest="5+">
+				<expression trim="2,4">(&lt;div class="movieDetailDescriptionFull longDescription"&gt;.*?Description:.*?span&gt;(.*?)&lt;span class="nowrap_link"&gt;)|( &lt;div.+?class="movieDetailDescriptionOnly"&gt;.*?Description:.*?span&gt;(.*?)&lt;/div&gt;)</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetDetails>
+	<GetActorInfo dest="3">
+		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="5">
+				<expression trim="1">&lt;div class="searchDetailStarName"&gt;(.*?) (?:Movies|Scenes)&lt;/div&gt;</expression>
+			</RegExp>
+			<RegExp input="$$6" output="&lt;actor&gt;\1&lt;/actor&gt;" dest="5">
+				<RegExp input="$$1" output="&lt;name&gt;\1&lt;/name&gt;" dest="6">
+					<expression trim="1">&lt;div class="name"&gt;([^&lt;]*)&lt;/div&gt;\n</expression>
+				</RegExp>
+				<RegExp input="$$1" output="&lt;thumb spoof=&quot;gay.theater.aebn.net&quot;&gt;\1&lt;/thumb&gt;" dest="6+">
+					<expression trim="1">&lt;a href="(http://pic.aebn.net/stream/movie/stars/s[0-9]*_i[0-9]*_l.jpg)" target="_blank" title=".*?"&gt;</expression>
+				</RegExp>
+				<expression trim="1" noclean="1" />
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetActorInfo>
+</scraper>

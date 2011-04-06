@@ -1,0 +1,14 @@
+HOW TO CONVERT THE REGULAR AEBN SCRAPER TO GAY PORN
+
+FROM POST http://forum.xbmc.org/showpost.php?s=5173343d1d4f0363a9bd749efee729d1&p=763190&postcount=10
+
+ON http://forum.xbmc.org/showthread.php?t=94942
+
+
+just to let you know, I've tweaked the aebn scraper so it now finds gay porn...
+
+Seems they use a different domain; all I had to change was theater.aebn.net to gay.theater.aebn.net and theaterId=822 to theaterId=14077.
+Simple search and replace in notepad, and save it in Program Files\XBMC\addons\metadata.movie.aebn.net (tell notepad to save it as utf-8 !).
+I also kept the old version by renaming it to aebn.xml.bak3 
+
+That's it! Work likes a charm.

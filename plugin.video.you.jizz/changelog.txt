@@ -1,3 +1,6 @@
+1.0.3
+ - (anarchintosh) changed play code to flatten extra step, updated icon
+
 1.0.2
  - (anarchintosh) added icon
 

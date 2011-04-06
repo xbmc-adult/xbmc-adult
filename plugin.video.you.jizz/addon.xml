@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.2"
+       version="1.0.3"
        provider-name="Pillager">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
@@ -14,6 +14,6 @@
         <platform>all</platform>
         <license>GPL 2.0</license>
         <summary lang="en">YouJizz.com</summary>
-        <description lang="en">****ADULT CONTENT***** Watch Content from YouJizz.com</description>
+        <description lang="en">****ADULT CONTENT***** Watch erotic and sexy videos from YouJizz.com</description>
     </extension>
 </addon>

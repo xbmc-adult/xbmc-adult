@@ -1,12 +1,12 @@
 __scriptname__ = "YouJizz.com"
 __author__ = "Pillager"
-__url__ = "http://www.mediafire.com/?ztp5y8k8zar4q90"
+__url__ = "http://code.google.com/p/xbmc-adult/"
 __scriptid__ = "plugin.video.you.jizz"
-__credits__ = "Pillager"
-__version__ = "1.0.1"
+__credits__ = "Pillager & anarchintosh"
+__version__ = "1.0.3"
 
 import urllib,urllib2,re
-import xbmcplugin,xbmcgui,sys
+import xbmc,xbmcplugin,xbmcgui,sys
 
 
 
@@ -41,7 +41,7 @@ def INDEX(url):
 	matchthumb=re.compile('\/videos\/[\s\S]+?src="(.+?jpg)').findall(link)
 	matchduration=re.compile('title1">[\s\S]+?Time[\s\S]+?>(\d{1,}:\d{2})').findall(link)
 	for name,url,thumb,duration in zip(matchname, matchurl, matchthumb, matchduration): 
-                addDir(name + ' ' + duration, url,2, thumb)
+                addDownLink(name + ' ' + duration, url,2, thumb)
 	matchpage=re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
 	for nexturl in matchpage: 
 		addDir('Next Page','http://www.youjizz.com' + nexturl,1,'')
@@ -56,7 +56,9 @@ def VIDEOLINKS(url,name):
         response.close()
         match=re.compile('so.addVariable[\s\S]+?(http.+?flv)').findall(link)
         for url in match:
-                addLink(name,url,'')
+                listitem = xbmcgui.ListItem(name)
+                listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
+                xbmc.Player().play(url, listitem)
 
 
 
@@ -94,11 +96,12 @@ def get_params():
 
 
 
-def addLink(name,url,iconimage):
+def addDownLink(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultVideo.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
 
 
