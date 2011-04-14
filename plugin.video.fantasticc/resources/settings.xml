@@ -1,0 +1,6 @@
+<settings>
+	<setting id="use-account" type="bool" label="30200" default="false"/>
+	<setting id="username" type="text" label="30201" default="" enable="!eq(-1,false)"/>
+	<setting id="password" type="text" label="30202" default="" option="hidden" enable="!eq(-2,false)"/>
+	<setting id="hide-successful-login-messages" type="bool" label="30203" default="false" enable="!eq(-3,false)"/>
+</settings>

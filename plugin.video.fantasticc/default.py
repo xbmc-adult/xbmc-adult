@@ -4,35 +4,113 @@
 # Written by Ksosez with help from anarchintosh
 # Released under GPL(v2)
 
-import urllib,urllib2,htmllib,re,string,megavideo
+import urllib,urllib2,htmllib,cookielib
+import re,string
 import os
-import xbmcplugin,xbmcgui,xbmc
+import xbmcplugin,xbmcaddon,xbmcgui,xbmc
+
+#addon name
+__addonname__ = "plugin.video.fantasticc"
+
+#get path the default.py is in.
+__addonpath__=os.getcwd()
+
+#datapath
+__datapath__ = xbmc.translatePath('special://profile/addon_data/'+__addonname__)
+
+#append lib directory
+sys.path.append( os.path.join( __addonpath__, 'resources', 'lib' ) )
+
+#import from lib directory
+import weblogin
+import gethtml
+import megavideo
+import img_merge
 
 pluginhandle = int(sys.argv[1])
 
-#get path the default.py is in.
-plugin_path=os.getcwd()
-
 # example of how to get path to an image
-default_image = os.path.join(plugin_path,'resources','images','provocative_logo.png')
+default_image = os.path.join(__addonpath__,'resources','images','provocative_logo.png')
 
 # string to simplify urls
 main_url = 'http://fantasti.cc/'
-
+# fantasti.cc's ip
+fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
 SUPPORTEDSITES = ["xvideos", "pornhub", "xhamster","empflix", "deviantclip", "tnaflix", "redtube", "you_porn", "megarotic"]
 
 
+def get_html(url):
+     return gethtml.get(url,__datapath__)
+
+def get_avatar(lc):
+        #using lowercase username, build the url to the user's avatar
+        url = fip+'avatar/'+lc[0]+'/'+lc[1]+'/'+lc[2]+'/'+lc
+
+        #trial and error to find the correct image format
+        urlist = [url+'.jpeg',url+'.jpg',url+'.png',url+'.gif']
+        for surl in urlist:
+                try:
+                    resp = urllib2.urlopen(surl)
+                except urllib2.URLError, e:
+                    pass
+                else:
+                    return surl
+                
+def Notify(title,message,times,icon):
+        xbmc.executebuiltin("XBMC.Notification("+title+","+message+","+times+","+icon+")")
+
+def LOGIN(username,password,hidesuccess):
+        uc = username[0].upper() + username[1:]
+        lc = username.lower()
+        
+        logged_in = weblogin.doLogin(__datapath__,username,password)
+        if logged_in == True:
+
+                avatar = get_avatar(lc)
+
+                if hidesuccess == 'false':
+                     Notify('Welcome back '+uc,'Fantasti.cc loves you','4000',avatar)
+
+                addDir(uc+"'s Videos",main_url+'user/'+lc+'/videos/save_date',1,avatar)           
+                addDir(uc+"'s Collections",main_url+'user/'+lc+'/collections',2,avatar)
+                addDir(uc+"'s Favourited Collections",main_url+'user/'+lc+'/collections/favorited',2,avatar)
+                addDir(uc+"'s Rated Collections",main_url+'user/'+lc+'/collections/rated',2,avatar)
+
+        elif logged_in == False:
+
+                Notify('Login Failure',uc+' could not login','4000',default_image)
+
+def STARTUP_ROUTINES():
+        #deal with bug that happens if the datapath doesn't exist
+        if not os.path.exists(__datapath__):
+          os.makedirs(__datapath__)
+
+        #check if user has enabled use-login setting
+        usrsettings = xbmcaddon.Addon(id=__addonname__)
+        use_account = usrsettings.getSetting('use-account')
+
+        if use_account == 'true':
+             #get username and password and do login with them
+             #also get whether to hid successful login notification
+             username = usrsettings.getSetting('username')
+             password = usrsettings.getSetting('password')
+             hidesuccess = usrsettings.getSetting('hide-successful-login-messages')
+
+             LOGIN(username,password,hidesuccess)
+
 def CATEGORIES():
+        STARTUP_ROUTINES()        
+        
 	mode = 1
-	
 	addDir('Popular Today',main_url+'videos/popular/today/',mode,default_image)
 	addDir('Popular Last 7 Days',main_url+'videos/popular/7days/',mode,default_image)
 	addDir('Popular Last Month',main_url+'videos/popular/31days/',mode,default_image)
 	addDir('Popular All Time',main_url+'videos/popular/all_time/',mode,default_image)
 	addDir('Upcoming',main_url+'videos/upcoming/',mode,default_image)
+
 	mode = 2
 	addDir('Collections Popular Today',main_url+'videos/collections/popular/today/',mode,default_image)
 	addDir('Collections Popular Last 7 Days',main_url+'videos/collections/popular/7days/',mode,default_image)
@@ -143,26 +221,8 @@ def SEARCH_RESULTS(url,html=False):
    
 def INDEX(url):
 		html = get_html(url)
-		if "popular" in url:
-			match=re.compile('<a href="(.+?)" >                 <img src="(.+?)" alt="(.+?)" border="0" >').findall(html)
-			for gurl,thumbnail,name in match:
-				for each in SUPPORTEDSITES:
-					if each in gurl:
-						realurl = "http://fantasti.cc%s" % gurl
-						mode = 4
-						addLink(name,realurl, mode, thumbnail)
-					else:
-						pass
-			html = get_html(url)
-			match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
-			for next in match:
-				mode = 1
-				next = string.split(next, '"')[-1]
-				fixedNext = "http://fantasti.cc%s" % next
-				addDir('Next Page',fixedNext,mode,default_image)
-			xbmcplugin.endOfDirectory(pluginhandle)  
-		else:  # Collections
-			match=re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)" border="0" alt="(.+?)"  width="100" height="100" class="collection_image" />').findall(html)
+		if "collections" in url: # Collections
+                        match=re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)" border="0" alt="(.+?)"  width="100" height="100" class="collection_image" />').findall(html)
 			for gurl,name,thumbnail,junk in match:
 				id = string.split(gurl, "=")[2][:-5]
 				realurl = "http://fantasti.cc/video.php?id=%s" % id
@@ -172,25 +232,62 @@ def INDEX(url):
 			html = get_html(url)
 #			match = re.compile('container_[0-9]*').findall(html)
 			match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\);return false;" href="#">next').findall(html)
+			fixedNext = None
 			for next in match:
 				mode = 1
 				page = next[0][-1]
 				id = next[1]
 				#id = string.split(next, '_')[1]
 				fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, id, id)
-			addDir('Next Page',fixedNext,mode,default_image)
-			xbmcplugin.endOfDirectory(pluginhandle)  
-				
+		                addDir('Next Page',fixedNext,mode,default_image)
+			xbmcplugin.endOfDirectory(pluginhandle)
+			 
+
+		else:  
+                       match=re.compile('<a href="(.+?)" >                 <img src="(.+?)" alt="(.+?)" border="0" >').findall(html)
+		       for gurl,thumbnail,name in match:
+				for each in SUPPORTEDSITES:
+					if each in gurl:
+						realurl = "http://fantasti.cc%s" % gurl
+						mode = 4
+						addLink(name,realurl, mode, thumbnail)
+					else:
+						pass
+                       html = get_html(url)
+                       match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
+		       for next in match:
+				mode = 1
+				next = string.split(next, '"')[-1]
+				fixedNext = "http://fantasti.cc%s" % next
+				addDir('Next Page',fixedNext,mode,default_image)
+		       xbmcplugin.endOfDirectory(pluginhandle)
+
+
+			
+			
+			
 
 def INDEXCOLLECT(url):   # Index Collections Pages
 	print "URL Loading: %s" % url
  	html = get_html(url)
-	match = re.compile('<div style="font-size:24px; line-height:30px; "><a href="(.+?)">(.+?)</a>').findall(html)
-	for gurl,name in match:
+	match = re.compile('<div style="font-size:24px; line-height:30px; "><a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>(.+?)</div>',re.DOTALL).findall(html)
+	for gurl,name,chtml,description in match:
+                print name
 		realurl = "http://fantasti.cc%s" % gurl
 		name = unescape(name)
 		mode = 1
-		addDir(name,realurl, mode, default_image)
+
+                #scrape number of vids
+                num_of_vids = (re.compile('line-height:100\%;">(.+?) videos<br>',re.DOTALL).findall(chtml))[0]
+                #trim whitespace from beginning of string
+                num_of_vids = re.sub('^[ \t\r\n]+','',num_of_vids)
+                
+                # do some cool stuff to get the images and join them.
+                icons = re.compile('<img src="(.+?)"').findall(chtml)
+
+                addDir(name+' *'+num_of_vids+' vids*',realurl, mode,icons[0])
+
+                        
 	match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
 	for next in match:
 		print "Next: %s" % next
@@ -223,20 +320,14 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			url = each
 
 	if "xvideos" in url:
-			match = re.compile(
-								'<param name="flashvars" value="(.+?)" />'
-								).findall(html)
+			match = re.compile('<param name="flashvars" value="(.+?)" />').findall(html)
 			for id in match:
 				getit = string.split(id, "=")[1]
 			urlget2="http://www.xvideos.com/video%s" % getit
 			html = get_html(urlget2)
-			match = re.compile(
-								'<embed type="application/x-shockwave-flash" src="http://static.xvideos.com/swf/xv-player.swf" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="(.+?)"'
-								).findall(html)
+			match = re.compile('<embed type="application/x-shockwave-flash" src="http://static.xvideos.com/swf/xv-player.swf" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="(.+?)"').findall(html)
 			for text in match:
-				match2 = re.compile(
-									'flv_url=(.+?)&amp'
-									).findall(html)
+				match2 = re.compile('flv_url=(.+?)&amp').findall(html)
 				for each in match2:
 					fetchurl=urllib.unquote(each)
 					print "fetchurl: %s" % fetchurl
@@ -319,12 +410,14 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				fetchurl = urllib.unquote(each)
 			return fetchurl
 	elif "megarotic":
+                        print html
 			match = re.compile('<param name="movie" value="(.+?)">').findall(html)
 			for gurl in match:
 				urlget2 = gurl
 
 			videoid = string.split(urlget2, "/v/")[1]
 			videoid = videoid[0:8]
+			print 'MEGAROTIC VIDEOID: '+videoid
 			fetchurl = (megavideo.resolveURL('porn', None, videoid))[0]
 			print "Megaporn/Megarotic Fetchurl:%s" % fetchurl
 			return fetchurl
@@ -332,13 +425,6 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 	else:
 		pass
 
-def get_html(url):
-	req = urllib2.Request(url)
-	req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-	response = urllib2.urlopen(req)
-	html=response.read()
-	response.close()
-	return html
 
 def get_params():
         param=[]

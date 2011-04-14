@@ -1,12 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 """
- Megavideo and Megaporn-Video Resolver v0.4
+ Megavideo and Megaporn-Video Resolver v0.5
  Copyleft (Licensed under GPLv3) Anarchintosh 
 
  This resolver is based on work from:
  Alessio Glorioso, Ksosez, Pedro Guedes, Voinage and Coolblaze.
-
 
 
 
@@ -50,6 +49,24 @@ import os,re
 import urllib,urllib2,cookielib
 import logging
 
+#check if bin is installed (it is on python 2.5+)
+#if it isn't, install it.
+try: bin(1)
+except:
+    def bin(n):
+        return bin_function(n)
+
+def bin_function(n):
+    '''convert denary integer n to binary string bStr.
+    also append 0b to the beginning just like bin does'''
+    bStr = ''
+    if n < 0:  raise ValueError, "must be a positive integer"
+    if n == 0: return '0'
+    while n > 0:
+        bStr = str(n % 2) + bStr
+        n = n >> 1
+    return '0b' + bStr
+
 #global strings for valid baseurl
 porn = 'http://www.megaporn.com/video/'
 regular = 'http://www.megavideo.com/'
@@ -57,6 +74,7 @@ regular = 'http://www.megavideo.com/'
 firefox_header = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
 log = logging.getLogger("megavideo")
+
 
 def setBaseURL(baseurl):
     # API feature to neaten up how functions are used
@@ -288,7 +306,7 @@ class Megavideo_Decrypt:
 
 	def hex2bin(self,val):
 		bin_array = []
-		string =  bin(int(val, 16))[2:].zfill(128)
+		string =  bin_function(int(val, 16))[2:].zfill(128)
 		for value in string:
 			bin_array.append(value)
 		return bin_array
