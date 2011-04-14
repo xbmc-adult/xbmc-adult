@@ -410,7 +410,6 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				fetchurl = urllib.unquote(each)
 			return fetchurl
 	elif "megarotic":
-                        print html
 			match = re.compile('<param name="movie" value="(.+?)">').findall(html)
 			for gurl in match:
 				urlget2 = gurl
