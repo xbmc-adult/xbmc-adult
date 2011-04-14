@@ -124,10 +124,11 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="1.0.3"
+       version="1.1.0"
        provider-name="Ksosez">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
+        <import addon="script.module.pil"/>
     </requires>
     <extension point="xbmc.python.pluginsource"
                library="default.py">
