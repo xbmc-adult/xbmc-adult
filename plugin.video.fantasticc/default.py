@@ -232,15 +232,16 @@ def INDEX(url):
 			html = get_html(url)
 #			match = re.compile('container_[0-9]*').findall(html)
 			match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\);return false;" href="#">next').findall(html)
-			fixedNext = None
-			for next in match:
-				mode = 1
-				page = next[0][-1]
-				id = next[1]
-				#id = string.split(next, '_')[1]
-				fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, id, id)
-				print fixedNext
-			addDir('Next Page',fixedNext,mode,default_image)
+			if len(match) > 5:
+				fixedNext = None
+				for next in match:
+					mode = 1
+					page = next[0][-1]
+					id = next[1]
+					#id = string.split(next, '_')[1]
+					fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, id, id)
+					print fixedNext
+				addDir('Next Page',fixedNext,mode,default_image)
 			xbmcplugin.endOfDirectory(pluginhandle)
 			 
 
