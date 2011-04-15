@@ -221,7 +221,7 @@ def SEARCH_RESULTS(url,html=False):
    
 def INDEX(url):
 		html = get_html(url)
-		if "collections" in url: # Collections
+		if "collection" in url: # Collections
                         match=re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)" border="0" alt="(.+?)"  width="100" height="100" class="collection_image" />').findall(html)
 			for gurl,name,thumbnail,junk in match:
 				id = string.split(gurl, "=")[2][:-5]
