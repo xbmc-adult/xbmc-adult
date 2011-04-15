@@ -239,7 +239,8 @@ def INDEX(url):
 				id = next[1]
 				#id = string.split(next, '_')[1]
 				fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, id, id)
-		                addDir('Next Page',fixedNext,mode,default_image)
+				print fixedNext
+			addDir('Next Page',fixedNext,mode,default_image)
 			xbmcplugin.endOfDirectory(pluginhandle)
 			 
 
