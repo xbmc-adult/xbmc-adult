@@ -4,7 +4,7 @@
 # Written by Ksosez with help from anarchintosh
 # Released under GPL(v2)
 
-import urllib,urllib2,htmllib,cookielib
+import urllib,urllib2,htmllib
 import re,string
 import os
 import xbmcplugin,xbmcaddon,xbmcgui,xbmc
@@ -25,7 +25,8 @@ sys.path.append( os.path.join( __addonpath__, 'resources', 'lib' ) )
 import weblogin
 import gethtml
 import megavideo
-import img_merge
+
+#import img_merge
 
 pluginhandle = int(sys.argv[1])
 
