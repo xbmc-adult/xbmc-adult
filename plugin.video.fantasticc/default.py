@@ -328,7 +328,7 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				getit = string.split(id, "=")[1]
 			urlget2="http://www.xvideos.com/video%s" % getit
 			html = get_html(urlget2)
-			match = re.compile('<embed type="application/x-shockwave-flash" src="http://static.xvideos.com/swf/xv-player.swf" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="(.+?)"').findall(html)
+			match = re.compile('allowscriptaccess="always" flashvars="(.+?)"').findall(html)
 			for text in match:
 				match2 = re.compile('flv_url=(.+?)&amp').findall(html)
 				for each in match2:
