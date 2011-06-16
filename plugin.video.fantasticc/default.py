@@ -343,7 +343,7 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 					urlget2 = "http://www.pornhub.com/embed_player.php?id=" + string.split(gurl, "=")[2]
 			html = get_html(urlget2)
 			match = re.compile(
-				'<flv_url>(.+?)</flv_url>'
+				'<video_url>(.+?)</video_url>'
 				).findall(html)
 			for each in match:
 				fetchurl=urllib.unquote(each)
