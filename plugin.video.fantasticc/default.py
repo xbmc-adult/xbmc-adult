@@ -233,9 +233,10 @@ def INDEX(url):
 			html = get_html(url)
 #			match = re.compile('container_[0-9]*').findall(html)
 			match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\);return false;" href="#">next').findall(html)
-			if len(match) > 5:
+			if len(match) >= 1:
 				fixedNext = None
 				for next in match:
+					print next
 					mode = 1
 					page = next[0][-1]
 					id = next[1]
@@ -360,13 +361,17 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "tnaflix" in url:
-			match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank" rel="nofollow">tnaflix</a></span>').findall(html)
+			match = re.compile('<param name="FlashVars" value="(.+?)"/>').findall(html)
 			for gurl in match:
-				urlget2 = gurl
+				print "gurl %s" % gurl
+				purl = string.split(gurl, "?")[1]
+				print purl
+				urlget2 = "http://www.tnaflix.com/embedding_player/embedding_feed.php?viewkey=" + purl
+				print urlget2
 			html = get_html(urlget2)
-			match = re.compile('<a href="(.+?)" class="downloadButton">Low Quality FLV</a>').findall(html)
+			match = re.compile('<file>(.+?)</file>').findall(html)
 			for each in match:
-				fetchurl=urllib.unquote(each)
+				fetchurl=each
 				print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "xhamster" in url:
