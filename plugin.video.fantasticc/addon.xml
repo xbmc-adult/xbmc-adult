@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="1.3"
-       provider-name="Ksosez">
+       version="2.0"
+       provider-name="Ksosez, anarchintosh">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
         <import addon="script.module.pil"/>
@@ -14,7 +14,7 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <license>GPL 2.0</license>
-        <summary lang="en">Fantasti.cc -  Browse videos from a site that aggregates the best porn videos online using the votes of users as the deciding factor</summary>
-        <description lang="en">Browse collections (user designed categories) as well as the most popular videos today/week/month as decided by the users of the site</description>
+        <summary lang="en">Browse videos from Fantasti.cc, a site that aggregates the best porn videos online using the votes of users as the deciding factor</summary>
+        <description lang="en">Browse user video collections as well as the most popular videos today/week/month as decided by the users of the site. Also supports images and logging in with your Fanstasti.cc account.</description>
     </extension>
 </addon>
