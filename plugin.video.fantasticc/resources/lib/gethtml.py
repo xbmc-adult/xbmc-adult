@@ -1,5 +1,5 @@
 '''
-gethtml with cookies support  v4
+gethtml with cookies support  v1
 by anarchintosh @ xbmcforums
 Copyleft = GNU GPL v3 (2011 onwards)
 
@@ -20,7 +20,7 @@ source = gethtml.get(url,'my-path-to-cookiefile')
 
 '''
 
-import htmllib,urllib,urllib2
+import urllib,urllib2
 import cookielib
 import os
 import re
@@ -32,17 +32,6 @@ import re
 compatible_urllist = ['http://fantasti.cc/','http://77.247.181.97/']
 
 
-def unescape(s):
-        if s:
-            try:
-                p = htmllib.HTMLParser(None)
-                p.save_bgn()
-                p.feed(s)
-                thing=p.save_end()
-            except: return s
-            else: return thing
-        else: return s
-    
 def url_for_cookies(url):
     #ascertain if the url contains any of the phrases in the list. return True if a match is found.
     
@@ -57,16 +46,11 @@ def url_for_cookies(url):
     return url_is_compatible        
 
 def get(url,cookiepath=None):
-    return unescape(_get(url,cookiepath))
-
-def get_no_unescape(url,cookiepath=None):
-    return _get(url,cookiepath)
-
-def _get(url,cookiepath):
     #print 'processing url: '+url
-    
+
+                 
     # use cookies if cookiepath is set and if the cookiepath exists.
-    if cookiepath:
+    if cookiepath is not None:
 
         #only use cookies for urls specified
         if url_for_cookies(url) == True:
@@ -100,4 +84,3 @@ def _loadwithoutcookies(url):
         link=response.read()
         response.close()
         return link  
-
