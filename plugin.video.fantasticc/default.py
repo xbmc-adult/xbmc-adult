@@ -402,7 +402,7 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			match = re.compile('"flashvars","(.+?)"').findall(html)
 			for each in match:
 				fetchurl = string.split(string.split(each, "&")[8], "=")[1]
-				fetchurl = urllib.unquote(fetch)
+				fetchurl = urllib.unquote(fetchurl)
 			return fetchurl
 	elif "you_porn" in url:
 			match = re.compile('<a id="side_sitelink" href="(.+?)" target="_blank" rel="nofollow" title="you_porn">you_porn</a></span>').findall(html)
@@ -417,7 +417,7 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			for each in match:
 				fetchurl = urllib.unquote(each)
 			return fetchurl
-	elif "megarotic":
+	elif "megarotic" in url:
 			match = re.compile('<param name="movie" value="(.+?)">').findall(html)
 			for gurl in match:
 				urlget2 = gurl
@@ -430,8 +430,18 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			return fetchurl
 
 	else:
-		pass
-
+		"""Clipnabber"""
+		#get the name of the resource
+		r = re.compile('permalink/(.*?)/').findall(url)[0]
+		print "Unknown source (%s). Trying clipnabber" % r
+		
+		#get the link
+		gurl = re.compile('<a[^>]+href="(.*?)"[^>]*>%s</a>' % r).findall(html)[0]
+		kid = re.compile('id="Math">(\d+)').findall(get_html('http://clipnabber.com/mini.php'))[0]
+		html = get_html('http://clipnabber.com/gethint.php?mode=1&sid=%s&url=%s' % (kid,urllib.quote(gurl)) )
+		fetchurl = re.compile("<a href='(.*?)'").findall(html)[0]
+		print "Fetchurl: %s" % fetchurl
+		return fetchurl
 
 def get_params():
         param=[]
