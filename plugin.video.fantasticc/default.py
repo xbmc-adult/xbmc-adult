@@ -375,11 +375,11 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "xhamster" in url:
-			match = re.compile('<iframe class="ui-layout-center" src="(.+?)"').findall(html)
+			match = re.compile('<iframe width="608" height="476" src="(.+?)"').findall(html)
 			for gurl in match:
 				urlget2 = gurl
 			html = get_html(urlget2)
-			match = re.compile("'file': '(.+?)'").findall(html)
+			match = re.compile("&file=(.+?)&image=").findall(html)
 		 	for each in match:
 				fetchurl = "http://xhamster.com/flv2/" + urllib.quote(each)
 				print "fetchurl: %s" % fetchurl
