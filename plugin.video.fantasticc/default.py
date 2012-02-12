@@ -324,31 +324,18 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			url = each
 
 	if "xvideos" in url:
-			match = re.compile('<param name="flashvars" value="(.+?)" />').findall(html)
-			for id in match:
-				getit = string.split(id, "=")[1]
-			urlget2="http://www.xvideos.com/video%s" % getit
-			html = get_html(urlget2)
-			match = re.compile('allowscriptaccess="always" flashvars="(.+?)"').findall(html)
-			for text in match:
-				match2 = re.compile('flv_url=(.+?)&amp').findall(html)
-				for each in match2:
-					fetchurl=urllib.unquote(each)
-					print "fetchurl: %s" % fetchurl
+			match = re.compile('(http://www.xvideos.com/.+?)"').findall(html)
+			html = get_html(match[0])
+			match = re.compile('flv_url=(.+?)&amp').findall(html)
+			fetchurl=urllib.unquote(match[0])
+			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "pornhub" in url:
-			match = re.compile(
-				'<param name="FlashVars" value="(.+?)"/>'
-			 ).findall(html)
-			for gurl in match:
-					urlget2 = "http://www.pornhub.com/embed_player.php?id=" + string.split(gurl, "=")[2]
-			html = get_html(urlget2)
-			match = re.compile(
-				'<video_url>(.+?)</video_url>'
-				).findall(html)
-			for each in match:
-				fetchurl=urllib.unquote(each)
-				print "fetchurl: %s" % fetchurl
+			match = re.compile('options=(.+?)"').findall(html)
+			html = get_html(match[0])
+			match = re.compile('<video_url><!\[CDATA\[(.+?)\]').findall(html)
+			fetchurl = match[0]
+			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "empflix" in url:
 			match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank" rel="nofollow">empflix</a></span>').findall(html)
@@ -375,14 +362,11 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "xhamster" in url:
-			match = re.compile('<iframe width="608" height="476" src="(.+?)"').findall(html)
-			for gurl in match:
-				urlget2 = gurl
-			html = get_html(urlget2)
-			match = re.compile("&file=(.+?)&image=").findall(html)
-		 	for each in match:
-				fetchurl = "http://xhamster.com/flv2/" + urllib.quote(each)
-				print "fetchurl: %s" % fetchurl
+			match = re.compile('xhamster.com/movies/(.+?)/').findall(html)
+			html = get_html('http://xhamster.com/xembed.php?video=%s' % match[0])
+			match = re.compile("srv=(.+?)&image").findall(html)
+			fetchurl = match[0].replace('&file', '/key')
+			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "deviantclip" in url:
 			match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank" rel="nofollow">deviantclip</a>').findall(html)
@@ -394,15 +378,11 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				fetchurl = urllib.unquote(each)
 			return fetchurl
 	elif "redtube" in url:
-			match = re.compile('<param name="FlashVars" value="(.+?)">').findall(html)
-			for gurl in match:
-				id = string.split(string.split(gurl, "&")[0], "=")[1]
-				urlget2 = "http://www.redtube.com/%s" % id
-			html = get_html(urlget2)
-			match = re.compile('"flashvars","(.+?)"').findall(html)
-			for each in match:
-				fetchurl = string.split(string.split(each, "&")[8], "=")[1]
-				fetchurl = urllib.unquote(fetchurl)
+			match = re.compile('(http://www.redtube.com/.+?)"').findall(html)
+			html = get_html(match[0])
+			match = re.compile('flv_h264_url=(.+?)"').findall(html)
+			fetchurl = urllib.unquote(match[0])
+			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "you_porn" in url:
 			match = re.compile('<a id="side_sitelink" href="(.+?)" target="_blank" rel="nofollow" title="you_porn">you_porn</a></span>').findall(html)
