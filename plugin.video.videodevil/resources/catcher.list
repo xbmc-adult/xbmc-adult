@@ -166,7 +166,7 @@ quality=standard
 title=xhamster.com
 target='file': '(.+?flv)',
 url=%s
-build=http://xhamster.com/flv2/%s
+build=http://xhcdn.com/key=%s
 quality=standard
 #########################################################
 title=hotgoo.com
