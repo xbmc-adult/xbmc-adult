@@ -125,7 +125,7 @@ header=Cookie|t8disclaimer=1
 quality=standard
 ########################################################
 title=extremetube.com
-target=flashvars.video_url = '(http[^']+[.](mp4|flv)[^']+)';
+target="flashvars" value=".*video_url=(http[^']+[.](mp4|flv)[^&]+)
 url=%s
 header=Cookie|age_verified=1
 quality=standard
