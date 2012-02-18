@@ -1,3 +1,29 @@
+[B]Version 1.7.6[/B]
+
+- Updated: fucktube
+- Fixed: catcher
+
+
+[B]Version 1.7.5[/B]
+
+- Updated: extremetube
+- Fixed: video listing
+- Fixed: catcher
+
+
+[B]Version 1.7.4[/B]
+
+- Updated: xhamster
+- Fixed: next button
+
+
+[B]Version 1.7.3[/B]
+
+- Updated: xhamster
+- Fixed: catcher
+- Fixed: video regex
+
+
 [B]Version 1.7.2[/B]
 
 - Updated: pornotube (catcher still broken)
