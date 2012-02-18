@@ -620,7 +620,10 @@ class CCurrentList:
         if firstInfo:
             url = smart_unicode(item.infos_names[url_idx]) + ':' + smart_unicode(item.infos_values[url_idx])
         else:
-            url = smart_unicode(url) + '&' + smart_unicode(item.infos_names[url_idx]) + ':' + smart_unicode(urllib.quote_plus(item.infos_values[url_idx]))
+            try:
+                url = smart_unicode(url) + '&' + smart_unicode(item.infos_names[url_idx]) + ':' + smart_unicode(urllib.quote_plus(item.infos_values[url_idx]))
+            except KeyError:
+                xbmc.log('Skipping %s probably has unicode' % item.infos_values[url_idx].encode('utf-8'))
         if len(suffix) > 0:
             url = url + '.' + suffix
         return url

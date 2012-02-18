@@ -1,6 +1,7 @@
 [B]Version 1.7.7[/B]
 
 - Updated: keez
+- Updated: mofosex
 - Fixed: catcher
 - Fixed: video listing
 

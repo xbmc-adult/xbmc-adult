@@ -147,10 +147,8 @@ build=%s&ec_seek=0
 quality=standard
 ########################################################
 title=mofosex.com
-target=videoPath: "(http://www.mofosex.com/playlist.php[?]v=[^"]+)%
+target=<a href="(http://[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
 url=%s
-ext_target=<url>(http[^"]+)</url>
-ext_action=decode
 quality=standard
  ########################################################
 title=pornrabbit.com
