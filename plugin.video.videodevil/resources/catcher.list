@@ -28,7 +28,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornoxo.com
-target=so.addVariable\('file','([^']+)'
+target='file': "([^"]+)"
 url=%s
 quality=standard
 ########################################################
@@ -197,7 +197,7 @@ build=http://en.clipa.tv%s
 quality=standard
 ########################################################
 title=simple-match
-target="(http://[^"]+.flv)"
+target=(http://[^"<]+?.flv)
 url=%s
 quality=standard
 ########################################################

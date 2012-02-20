@@ -4,6 +4,8 @@
 - Fixed: categories
 - Updated: pornhub
 - Fixed: catcher
+- Updated: pornoxo
+- Fixed: catcher
 
 
 [B]Version 1.7.7[/B]
