@@ -150,23 +150,23 @@ title=mofosex.com
 target=<a href="(http://[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
 url=%s
 quality=standard
- ########################################################
+########################################################
 title=pornrabbit.com
 target=span class="download".+?href="(.+?)"
 url=%s
 quality=standard
- ########################################################
+########################################################
 title=stileproject.com
 target=file":'(.+?)'
 url=%s
 quality=standard
- ########################################################
+########################################################
 title=xhamster.com
 target='file': '(.+?flv)',
 url=%s
 build=http://xhcdn.com/key=%s
 quality=standard
-#########################################################
+########################################################
 title=hotgoo.com
 target=so.addVariable\('file','(.+?)'
 url=%s
@@ -227,7 +227,7 @@ quality=standard
 #quality=fallback
 ########################################################
 title=pornhub.com
-target=addVariable\("video_url","(.+?)"
+target='video_url'[^:]+:[^"]+"([^"]+)"
 url=%s
 quality=standard
 ########################################################
