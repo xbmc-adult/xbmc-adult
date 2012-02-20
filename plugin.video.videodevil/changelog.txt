@@ -6,6 +6,9 @@
 - Fixed: catcher
 - Updated: pornoxo
 - Fixed: catcher
+- Updated: pornotube
+- Fixed: catcher
+- Fixed: video listing
 
 
 [B]Version 1.7.7[/B]
