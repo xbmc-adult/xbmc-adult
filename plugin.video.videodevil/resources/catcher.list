@@ -87,9 +87,8 @@ action=unquote
 quality=standard
 ########################################################
 title=pornotube.com
-target=
+target=url: "(http[^"]+)"
 url=%s
-build=%s
 quality=standard
 ########################################################
 title=kcoolonline.com

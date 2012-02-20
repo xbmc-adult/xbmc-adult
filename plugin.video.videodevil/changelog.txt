@@ -1,3 +1,9 @@
+[B]Version 1.7.9[/B]
+
+- Updated: pornotube
+- Fixed: catcher
+
+
 [B]Version 1.7.8[/B]
 
 - Updated: moviesand
