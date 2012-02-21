@@ -140,7 +140,7 @@ url=%s
 quality=standard
 ########################################################
 title=redtube.com
-target=flashvars",".+?hashlink=(.+?)%0A&embed
+target=source src='([^']+)'
 url=%s
 build=%s&ec_seek=0
 quality=standard

@@ -1,3 +1,11 @@
+[B]Version 1.7.10[/B]
+
+- Updated: redtube
+- Fixed: catcher
+- Fixed: category
+- Fixed: next button
+
+
 [B]Version 1.7.9[/B]
 
 - Updated: pornotube
