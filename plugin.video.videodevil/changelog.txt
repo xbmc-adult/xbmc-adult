@@ -4,6 +4,8 @@
 - Fixed: catcher
 - Fixed: category
 - Fixed: next button
+- Updated: youjizz
+- Fixed: catcher
 
 
 [B]Version 1.7.9[/B]

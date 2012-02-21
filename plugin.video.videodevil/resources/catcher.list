@@ -44,7 +44,7 @@ url=http://www.eporner.com/config/%s
 quality=standard
 ########################################################
 title=youjizz.com
-target=so[.]addVariable[(]"file","(http[^"]+flv)"[)];
+target=so[.]addVariable[(]"file",[^"]+"(http[^"]+flv)
 url=%s
 quality=standard
 ########################################################
