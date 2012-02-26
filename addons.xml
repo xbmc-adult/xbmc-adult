@@ -74,7 +74,7 @@
 
 <addon id="metadata.movie.excaliburfilms.com"
        name="excalibur films"
-       version="1.0.0"
+       version="1.0.1"
        provider-name="britenite">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -82,7 +82,7 @@
   </requires>
   <extension point="xbmc.metadata.scraper.movies"
              language="en"
-             library="excalibur.xml"/>
+             library="Excalibur.xml"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Excalibur Films scraper</summary>
     <description lang="en">Download Movie information from www.excaliburfilms.com</description>
