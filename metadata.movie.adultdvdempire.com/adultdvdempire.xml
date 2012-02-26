@@ -20,14 +20,14 @@
 	</GetSearchResults>
 	<GetDetails dest="3">
 		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
-			<RegExp input="$$1" output="&lt;thumb&gt;http://\1.dvdempire.org/products/\2h.jpg&lt;/thumb&gt;" dest="5+">
-				<expression>boxcover[^&gt;]*&gt;&lt;img src="http://(.*?).dvdempire.org/products/([^m]*)</expression>
+			<RegExp input="$$1" output="&lt;thumb&gt;http://\2.dvdempire.org/products/\3/\4h.jpg&lt;/thumb&gt;" dest="5+">
+				<expression>&lt;a href="/boxcover/\d*(.*?)&lt;img src="http://(.*?).dvdempire.org/products/(\d*)/(\d*.)m\.jpg</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;thumb&gt;http://\1.dvdempire.org/products/\2bh.jpg&lt;/thumb&gt;" dest="5+">
 				<expression>boxcover[^&gt;]*&gt;&lt;img src="http://(.*?).dvdempire.org/products/([^m]*)</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5+">
-				<expression>Item_Title"&gt;([^&lt;]*).Adult.DVD&lt;/div</expression>
+				<expression>Item_Title"&gt;([^&lt;]*)</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
 				<expression>StudioProductionRating"&gt;([^&lt;]*)</expression>
@@ -35,14 +35,13 @@
 			<RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="5+">
 				<expression>Year: ([0-9]*)</expression>
 			</RegExp>
-			<RegExp input="$$8" output="\1" dest="5+">
-				<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="8">
-					<expression>Item_InfoContainer"&gt;[\s]+([^&lt;]*)&lt;</expression>
-				</RegExp>
-				<RegExp input="$$1" output="&lt;tagline&gt;\1&lt;/tagline&gt;&lt;plot&gt;\2&lt;/plot&gt;" dest="8">
-					<expression>InfoTagLine"&gt;([^&lt;]*)&lt;/[^&gt;]*&gt;(.+?)&lt;</expression>
-				</RegExp>
-				<expression noclean="1" />
+
+			<RegExp input="$$1" output="&lt;tagline&gt;\1&lt;/tagline&gt;&lt;plot&gt;\2&lt;/plot&gt;" dest="5+">
+				<expression>InfoTagLine"&gt;([^&lt;]*)&lt;[^&gt;]*&gt;[^ ]*(.+?)&lt;span </expression>
+			</RegExp>
+
+			<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
+				<expression>Item_InfoContainer"&gt;*(.+?)&lt;(span|div)</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\2&lt;/name&gt;&lt;thumb&gt;http://images.dvdempire.com/pornstar/actors/\1.jpg&lt;/thumb&gt;&lt;/actor&gt;" dest="5+">
 				<expression repeat="yes">&lt;a href="/(\d+)/[\w-]*?-pornstars.html"&gt;([^&lt;]+)</expression>
