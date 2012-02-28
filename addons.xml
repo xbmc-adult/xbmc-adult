@@ -144,7 +144,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.7"
+       version="1.8"
        provider-name="notme">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
