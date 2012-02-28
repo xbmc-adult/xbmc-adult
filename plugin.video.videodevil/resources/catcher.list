@@ -73,13 +73,6 @@ data=downloadurl=%s
 header=Referer|http://getvids.de/video.cgi
 quality=standard
 ########################################################
-title=clipsave.de
-target=<a href="([^"]+)"><span class="[^"]+"><strong>Download von
-url=http://www.nachrichtenmann.de/cgi-bin/video/video.cgi
-data=action=index&downloadurl=%s
-header=Referer|http://www.nachrichtenmann.de/cgi-bin/video/video.cgi
-quality=standard
-########################################################
 title=degrab.de
 target=Download Link.+?<a href="([^"]+)"
 url=http://www.degrab.de/?url=%s
@@ -95,13 +88,6 @@ title=kcoolonline.com
 target=<a href='(.+?)' title='Download Flv Here'>
 url=http://kcoolonline.com/token.php
 data=url=%s
-quality=standard
-########################################################
-title=videodown.net.pacoporn
-target=<a href="([^"]+)">:: Start Download ::
-url=http://www.videodown.net/?op=18
-data=url=%s&sitio=pacoporn
-header=Referer|http://www.videodown.net/?op=18
 quality=standard
 ########################################################
 title=shufuni.com
@@ -203,14 +189,6 @@ quality=standard
 #title=grabit.to
 #target=<h1>Der Downloadlink wurde erfolgreich gefunden\!</h1>[^<]+<p>Video: </p>[^<]+<p><strong><a href="([^"]+)">
 #url=http://www.grabit.to/index.php?txt_url=%s
-#quality=standard
-########################################################
-#title=porn2pc.com
-#target=<a href="([^"]+)"[^>]+><b>CLICK HERE TO DOWNLOAD MOVIE</b></a>
-#url=http://porn2pc.com/post.php
-#data=url=%s&Submit=Downlod+video+with+Porn2PC
-#header=Referer|http://porn2pc.com/
-#ext_target=<h2>([^<]+)</h2>
 #quality=standard
 ########################################################
 #title=keepvid.com
