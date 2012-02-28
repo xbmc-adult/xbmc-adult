@@ -1,3 +1,10 @@
+[B]Version 1.7.11[/B]
+
+- Updated: timtube
+- Fixed: catcher
+- Fixed: video url
+
+
 [B]Version 1.7.10[/B]
 
 - Updated: redtube
