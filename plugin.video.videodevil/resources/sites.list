@@ -78,13 +78,6 @@ director=VideoDevil
 icon=video.devil.image|boysfood.png
 url=boysfood.com.cfg
 ########################################################
-#title=PacoPorn
-#type=rss
-#genre=PacoPorn
-#director=VideoDevil
-#icon=video.devil.image|pacoporn.png
-#url=pacoporn.com.cfg
-########################################################
 title=Shufuni
 type=rss
 genre=Shufuni
@@ -168,11 +161,4 @@ genre=StileProject
 director=VideoDevil
 icon=video.devil.image|stileproject.png
 url=stileproject.com.cfg
-########################################################
-#title=Metacafe
-#type=rss
-#genre=Metacafe
-#director=VideoDevil
-#icon=video.devil.image|metacafe.png
-#url=metacafe.com.cfg
 ########################################################
