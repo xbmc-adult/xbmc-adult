@@ -39,8 +39,10 @@ build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
 title=eporner.com
-target=<file>(.+?)</file>
-url=http://www.eporner.com/config/%s
+target='http:\\/\\/www.eporner.com\\/player4\\/(\d+/.+?)\\'
+url=%s
+ext_target=<file>(.+?)</file>
+ext_url=http://www.eporner.com/config4/%s
 quality=standard
 ########################################################
 title=youjizz.com

@@ -1,3 +1,11 @@
+[B]Version 1.7.12[/B]
+
+- Updated: eporner
+- Fixed: catcher
+- Fixed: video url
+- Fixed: category
+
+
 [B]Version 1.7.11[/B]
 
 - Updated: timtube
