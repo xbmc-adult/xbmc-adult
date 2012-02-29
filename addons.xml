@@ -56,7 +56,7 @@
 
 <addon id="metadata.movie.cduniverse.com"
        name="cduniverse"
-       version="1.0.0"
+       version="1.0.1"
        provider-name="britenite">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
