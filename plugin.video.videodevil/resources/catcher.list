@@ -98,10 +98,9 @@ url=%s
 quality=standard
 ########################################################
 title=youporn.com
-target=so.addVariable[(]'file', encodeURIComponent[(]'(http://download.youporn.com/download/[^"]+xml=1)'[)][)];
+target=<li><a href="([^"]+)">MP4
 url=%s
-ext_target=<location>(http[^"]+)</location>
-ext_action=decode
+action=decode
 header=Cookie|age_check=1
 quality=standard
 ########################################################
