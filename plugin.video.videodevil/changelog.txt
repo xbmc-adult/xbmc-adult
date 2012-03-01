@@ -1,3 +1,5 @@
+[B]Version 1.7.13[/B]
+
 - Updated: youporn
 - Fixed: video url
 - Fixed: catcher
@@ -6,6 +8,8 @@
 - Fixed category
 - Fixed catcher
 - Fixed Search
+- Updated: pornomovies
+- Fixed: catcher
 
 
 [B]Version 1.7.12[/B]
