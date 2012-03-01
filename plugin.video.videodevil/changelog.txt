@@ -1,6 +1,11 @@
 - Updated: youporn
 - Fixed: video url
 - Fixed: catcher
+- Updated: boysfood
+- Fixed video url
+- Fixed category
+- Fixed catcher
+- Fixed Search
 
 
 [B]Version 1.7.12[/B]

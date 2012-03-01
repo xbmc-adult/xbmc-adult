@@ -163,8 +163,9 @@ target=href="([^"]+wmv)">GET</a></td>
 url=%s
 extension=wmv
 quality=standard
-target=href="([^"]+\d+.flv)">GET</a></td>
+target=href="([^"]+\.(flv|mp4|wmv)[^"]+)">GET</a></td>
 extension=flv
+action=decode
 quality=standard
 target=href="([^"]+hd.flv)">GET</a></td>
 extension=flv
