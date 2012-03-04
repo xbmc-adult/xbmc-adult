@@ -1,10 +1,3 @@
-# Note: Only partially working.
-# Category Listing: Working
-# Being Watched / Most Recent / Most Viewed / Top Rated Listings: Working
-# Video Listings: Working
-# Video Thumbnails: Working
-# Video Playback: Not Working as requires login script / LWP cookie config
-
 import sys
 import os
 import xbmc
@@ -22,10 +15,7 @@ cookie_handler = urllib2.HTTPCookieProcessor(cookiejar)
 opener = urllib2.build_opener(cookie_handler)
 
 def CATEGORIES():
-        req = urllib2.Request('http://www.empflix.com/browse.php')
-        response = urllib2.urlopen(req)
-        link=response.read()
-        response.close()
+        link = openURL('http://www.empflix.com/browse.php')
         match=re.compile('(?:<li><a href=")(?:http://www.empflix.com/channels/watched-)(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
         addDir('All','http://www.empflix.com/browse.php',1,'',1)
         for channame,name in match:
@@ -49,10 +39,7 @@ def SORTMETHOD(url):
         
                        
 def VIDEOLIST(url,page):
-        req = urllib2.Request(url+'&page='+str(page))
-        response = urllib2.urlopen(req)
-        link=response.read()
-        response.close()
+        link = openURL(url+'&page='+str(page))
         match=re.compile('(?:<a href=")(http://www.empflix.com/videos/.*(?=.html).html)"  title="(.*)(?=">)"><img src="/images/blank.gif" data-src="(.*)(?=" alt=)').findall(link)
         for videourl,name,thumb in match:
                 addLink(name,videourl+'?',3,thumb.strip())
@@ -60,15 +47,14 @@ def VIDEOLIST(url,page):
                 addDir('Next Page',url,2,'',page+1)
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-# THIS SECTION IS BROKEN, REQUIRES LWP COOKIEJAR CONFIGURATION!
 def PLAYVIDEO(url):
-        req = urllib2.Request(url)
-        response = urllib2.urlopen(req)
-        link=response.read()
-        response.close()
-        match=re.compile('<a href="(.+?)" class="downloadButton">Download FLV</a>').findall(link)
-        for videourl in match:
-                xbmc.Player().play(videourl)
+        link = openURL(url)
+        match=re.compile('name="config" value="([^"]+)"').findall(link)
+        for configurl in match:
+                link = openURL(configurl)
+                match2=re.compile('<videoLink>([^<]+)</videoLink>').findall(link)
+                for videourl in match2:
+                    xbmc.Player().play(videourl)
 
         
         
@@ -103,6 +89,13 @@ def addDir(name,url,mode,iconimage,page):
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
+
+def openURL(url):
+        req = urllib2.Request(url)
+        response = urllib2.urlopen(req)
+        link=response.read()
+        response.close()
+        return link
 
 def main():
         
