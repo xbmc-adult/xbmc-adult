@@ -1,3 +1,10 @@
+# Note: Only partially working.
+# Category Listing: Working
+# Being Watched / Most Recent / Most Viewed / Top Rated Listings: Working
+# Video Listings: Working
+# Video Thumbnails: Working
+# Video Playback: Not Working as requires login script / LWP cookie config
+
 import sys
 import os
 import xbmc
@@ -6,27 +13,38 @@ import xbmcplugin
 import xbmcaddon
 import urllib
 import urllib2
+import cookielib
 import re
 
-Addon = xbmcaddon.Addon( id=os.path.basename( os.getcwd() ) )
+settings = xbmcaddon.Addon(id='plugin.video.empflix')
+cookiejar = cookielib.LWPCookieJar()
+cookie_handler = urllib2.HTTPCookieProcessor(cookiejar)
+opener = urllib2.build_opener(cookie_handler)
 
 def CATEGORIES():
         req = urllib2.Request('http://www.empflix.com/browse.php')
         response = urllib2.urlopen(req)
         link=response.read()
         response.close()
-        match=re.compile('<li><a href="http://www.empflix.com/browsecat\.php\?chid=(.+?)">(.+?)</a></li>').findall(link)
-        addDir('All','http://www.empflix.com/browse.php?',1,'',1)
-        for chid,name in match:
-                addDir(name,'http://www.empflix.com/browsecat.php?chid='+chid,1,'',1)
+        match=re.compile('(?:<li><a href=")(?:http://www.empflix.com/channels/watched-)(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
+        addDir('All','http://www.empflix.com/browse.php',1,'',1)
+        for channame,name in match:
+                addDir(name,'http://www.empflix.com/channels/'+channame+'.html',1,'',1)
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SORTMETHOD(url):
-        addDir('Being Watched',url+'&category=bw',2,'',1)
-        addDir('Most Recent',url+'&category=mr',2,'',1)
-        addDir('Most Viewed',url+'&category=mv',2,'',1)
-        addDir('Top Rated',url+'&category=tr',2,'',1)
-        addDir('Full Movies',url+'&category=rd',2,'',1)
+        if url == 'http://www.empflix.com/browse.php':
+                addDir('Being Watched',url+'?category=bw',2,'',1)
+                addDir('Most Recent',url+'?category=mr',2,'',1)
+                addDir('Most Viewed',url+'?category=mv',2,'',1)
+                addDir('Top Rated',url+'?category=tr',2,'',1)
+        else:
+                match=re.compile('(http://www.empflix.com/channels/)(.*)').findall(url)
+                for start,end in match:
+                        addDir('Being Watched',start+'watched-'+end,2,'',1)
+                        addDir('Most Recent',start+'new-'+end,2,'',1)
+                        addDir('Most Viewed',start+'popular-'+end,2,'',1)
+                        addDir('Top Rated',start+'rated-'+end,2,'',1)
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
                        
@@ -35,13 +53,14 @@ def VIDEOLIST(url,page):
         response = urllib2.urlopen(req)
         link=response.read()
         response.close()
-        match=re.compile('<a href="http://www.empflix.com/view.php\?id=(.+?)"  title="(.+?)"><img src="(.+?)"').findall(link)
-        for videoid,name,thumb in match:
-                addLink(name,'http://www.empflix.com/view.php?id='+videoid,3,thumb.strip())
+        match=re.compile('(?:<a href=")(http://www.empflix.com/videos/.*(?=.html).html)"  title="(.*)(?=">)"><img src="/images/blank.gif" data-src="(.*)(?=" alt=)').findall(link)
+        for videourl,name,thumb in match:
+                addLink(name,videourl+'?',3,thumb.strip())
         if (len(match) == 24):
-            addDir('Next Page',url,2,'',page+1)
+                addDir('Next Page',url,2,'',page+1)
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
+# THIS SECTION IS BROKEN, REQUIRES LWP COOKIEJAR CONFIGURATION!
 def PLAYVIDEO(url):
         req = urllib2.Request(url)
         response = urllib2.urlopen(req)
