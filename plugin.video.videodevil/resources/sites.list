@@ -162,3 +162,10 @@ director=VideoDevil
 icon=video.devil.image|stileproject.png
 url=stileproject.com.cfg
 ########################################################
+title=Yuvutu
+type=rss
+genre=Yuvutu
+director=VideoDevil
+icon=video.devil.image|yuvutu.png
+url=yuvutu.com.cfg
+########################################################

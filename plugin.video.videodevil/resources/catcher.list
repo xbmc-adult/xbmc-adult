@@ -188,6 +188,12 @@ target=(http://[^"<]+?.flv)
 url=%s
 quality=standard
 ########################################################
+title=yuvutu.com
+target='file': '([^']+)'
+url=%s
+header=Cookie|gndr=F
+quality=standard
+########################################################
 #title=grabit.to
 #target=<h1>Der Downloadlink wurde erfolgreich gefunden\!</h1>[^<]+<p>Video: </p>[^<]+<p><strong><a href="([^"]+)">
 #url=http://www.grabit.to/index.php?txt_url=%s
