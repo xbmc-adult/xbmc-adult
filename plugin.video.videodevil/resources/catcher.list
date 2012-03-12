@@ -188,6 +188,12 @@ target=(http://[^"<]+?.flv)
 url=%s
 quality=standard
 ########################################################
+title=spankwire.com
+target=video_url = "([^"]+)";
+url=%s
+extension=mp4
+quality=standard
+########################################################
 title=yuvutu.com
 target='file': '([^']+)'
 url=%s
