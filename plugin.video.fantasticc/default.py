@@ -357,7 +357,7 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 				print "gurl %s" % gurl
 				purl = string.split(gurl, "?")[1]
 				print purl
-				urlget2 = "http://www.tnaflix.com/embedding_player/embedding_feed.php?viewkey=" + purl
+				urlget2 = "http://www.tnaflix.com/embedding_player/embedding_feed.php?" + purl
 				print urlget2
 			html = get_html(urlget2)
 			match = re.compile('<file>(.+?)</file>').findall(html)
