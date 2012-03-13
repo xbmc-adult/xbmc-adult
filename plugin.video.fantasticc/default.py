@@ -338,14 +338,18 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "empflix" in url:
-			match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank" rel="nofollow">empflix</a></span>').findall(html)
+			match = re.compile('<a style="color:#BBB;" href="([^"]+)" target="_blank" rel="nofollow">empflix</a></span>').findall(html)
 			for gurl in match:
 					urlget2 = gurl
 			html = get_html(urlget2)
-			match = re.compile('<a href="(.+?)" class="downloadButton">Download FLV</a>').findall(html)
-			for each in match:
-				fetchurl=urllib.unquote(each)
-				print "fetchurl: %s" % fetchurl
+			match = re.compile('name="config" value="([^"]+)"').findall(html)
+			for configurl in match:
+				linkurl=urllib.unquote(configurl)
+			html = get_html(linkurl)
+			match2=re.compile('<videoLink>([^<]+)</videoLink>').findall(html)
+			fetchurl = match2[0]
+			print "fetchurl: %s" % fetchurl
+                
 			return fetchurl
 	elif "tnaflix" in url:
 			match = re.compile('<param name="FlashVars" value="(.+?)"/>').findall(html)
