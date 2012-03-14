@@ -1,6 +1,13 @@
 ﻿########################################################
 # VideoDevil Plugin: Adult sites list
 ########################################################
+title=Ah-Me
+type=rss
+genre=Ah-Me
+director=VideoDevil
+icon=video.devil.image|ahme.png
+url=ahme.com.cfg
+########################################################
 title=MadThumbs
 type=rss
 genre=madthumbs

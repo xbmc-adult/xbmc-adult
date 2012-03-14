@@ -22,6 +22,12 @@
 ########################################################
 # Catcher sites
 ########################################################
+title=ahme.com
+target=url: '([^']+)',[\s]+autoPlay:
+url=%s
+header=Cookie|gndr=F
+quality=standard
+########################################################
 title=madthumbs.com
 target=<source src="([^"]+)"
 url=%s
