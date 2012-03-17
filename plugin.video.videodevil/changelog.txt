@@ -1,3 +1,9 @@
+[B]Version 1.7.18[/B]
+
+- Updated: yuvutu
+- Fixed: video listing
+
+
 [B]Version 1.7.17[/B]
 
 - Added: ah-me
