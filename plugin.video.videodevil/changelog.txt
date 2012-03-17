@@ -2,6 +2,8 @@
 
 - Updated: yuvutu
 - Fixed: video listing
+- Updated: ah-me
+- Added: new links for long movies, top rated, most popular, HD
 
 
 [B]Version 1.7.17[/B]
