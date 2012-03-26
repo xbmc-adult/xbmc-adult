@@ -224,7 +224,7 @@ quality=standard
 #quality=fallback
 ########################################################
 title=pornhub.com
-target='video_url'[^:]+:[^"]+"([^"]+)"
+target="video_url":"([^"]+)"
 url=%s
 quality=standard
 ########################################################
