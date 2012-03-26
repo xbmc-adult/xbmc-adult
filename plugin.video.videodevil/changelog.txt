@@ -6,6 +6,9 @@
 - Added: video length
 - Updated: shufuni
 - Fixed: titles (strip leading spaces)
+- Updated: youporn
+- Fixed: video listing
+- Fixed: next button
 
 
 [B]Version 1.7.18[/B]
