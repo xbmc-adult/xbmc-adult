@@ -2,6 +2,8 @@
 
 - Updated: pornhub
 - Fixed: catcher
+- Updated: pornotube
+- Added: video length
 
 
 [B]Version 1.7.18[/B]
