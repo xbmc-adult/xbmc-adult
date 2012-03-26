@@ -4,6 +4,8 @@
 - Fixed: catcher
 - Updated: pornotube
 - Added: video length
+- Updated: shufuni
+- Fixed: titles (strip leading spaces)
 
 
 [B]Version 1.7.18[/B]
