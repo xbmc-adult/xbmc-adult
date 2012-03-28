@@ -44,6 +44,11 @@ url=%s
 build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
+title=hardsextube.com
+target=flvpathValue: "([^"]+)"
+url=%s
+quality=standard
+########################################################
 title=eporner.com
 target='http:\\/\\/www.eporner.com\\/player4\\/(\d+/.+?)\\'
 url=%s
