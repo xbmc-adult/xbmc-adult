@@ -204,3 +204,10 @@ director=VideoDevil
 icon=http://www.youpunish.com/templates/frontend/default/images/logo.png
 url=youpunish.com.cfg
 ########################################################
+title=Bookmark
+type=rss
+genre=Bookmark
+director=VideoDevil
+icon=video.devil.image|bookmark.png
+url=bookmark.com.cfg
+########################################################

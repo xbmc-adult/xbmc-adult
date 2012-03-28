@@ -28,6 +28,11 @@ url=%s
 header=Cookie|gndr=F
 quality=standard
 ########################################################
+title=bookmark.net
+target="file=(http://[^&]+)
+url=%s
+quality=standard
+########################################################
 title=madthumbs.com
 target=<source src="([^"]+)"
 url=%s
