@@ -211,3 +211,10 @@ director=VideoDevil
 icon=video.devil.image|bookmark.png
 url=bookmark.com.cfg
 ########################################################
+title=Motherless
+type=rss
+genre=Motherless
+director=VideoDevil
+icon=http://motherless.com/images/logo8888.gif
+url=motherless.com.cfg
+########################################################

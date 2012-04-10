@@ -193,6 +193,12 @@ url=%s
 header=Cookie|age_verified=1
 quality=standard
 ########################################################
+title=motherless.com
+target=fileurl = '([^']+flv)'
+url=%s
+build=%s?start=0
+quality=standard
+########################################################
 title=clipa.tv
 target=<a href="([/]get-video.flv[?]uri=.+?)" class="download"
 url=http://en.clipa.tv/?uri=%s
