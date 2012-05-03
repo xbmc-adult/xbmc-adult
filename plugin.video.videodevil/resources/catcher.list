@@ -237,6 +237,13 @@ target='video_player', '([^']+)'
 url=%s
 quality=standard
 ########################################################
+title=moviefap.com
+target=flashvars.config = escape."([^ ]+)VID=
+url=%s
+ext_target=<videoLink>(.+?)</videoLink>
+ext_url=%s
+quality=standard
+########################################################
 #title=grabit.to
 #target=<h1>Der Downloadlink wurde erfolgreich gefunden\!</h1>[^<]+<p>Video: </p>[^<]+<p><strong><a href="([^"]+)">
 #url=http://www.grabit.to/index.php?txt_url=%s

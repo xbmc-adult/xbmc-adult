@@ -218,3 +218,10 @@ director=VideoDevil
 icon=http://motherless.com/images/logo8888.gif
 url=motherless.com.cfg
 ########################################################
+title=MovieFap
+type=rss
+genre=MovieFap
+director=VideoDevil
+icon=http://www.moviefap.com/images/logo.gif
+url=moviefap.com.cfg
+########################################################

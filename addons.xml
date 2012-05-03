@@ -177,7 +177,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.24"
+  version="1.7.25"
   name="VideoDevil"
   provider-name="sfaxman / bootsy">
   <requires>
