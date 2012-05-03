@@ -2,6 +2,9 @@
 
 - Updated: yuvutu
 - Fixed: video regex
+- Updated: fucktube
+- Fixed: video regex
+- Fixed: catcher
 
 
 [B]Version 1.7.23[/B]
