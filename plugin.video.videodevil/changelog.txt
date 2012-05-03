@@ -5,6 +5,8 @@
 - Updated: fucktube
 - Fixed: video regex
 - Fixed: catcher
+- Updated: pornhub
+- Added: gay category
 
 
 [B]Version 1.7.23[/B]
