@@ -1,3 +1,9 @@
+[B]Version 1.7.24[/B]
+
+- Updated: yuvutu
+- Fixed: video regex
+
+
 [B]Version 1.7.23[/B]
 
 - Added: motherless
