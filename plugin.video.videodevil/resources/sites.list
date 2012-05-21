@@ -225,3 +225,10 @@ director=VideoDevil
 icon=http://www.moviefap.com/images/logo.gif
 url=moviefap.com.cfg
 ########################################################
+title=4tube
+type=rss
+genre=4tube
+director=VideoDevil
+icon=http://i.4tube.com/free-porn.png
+url=4tube.com.cfg
+########################################################
