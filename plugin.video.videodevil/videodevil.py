@@ -39,7 +39,7 @@ else:
 
 if addon.getSetting('enable_debug') == 'true':
     enable_debug = True
-    xbmc.output('VideoDevil debug logging enabled')
+    xbmc.log('VideoDevil debug logging enabled')
 else:
     enable_debug = False
 
@@ -718,7 +718,7 @@ class CCurrentList:
 
     def loadLocal(self, filename, recursive = True, lItem = None, lCatcher = False):
         if enable_debug:
-            xbmc.output(str(filename))
+            xbmc.log(str(filename))
         try:
             f = open(str(os.path.join(resDir, filename)), 'r')
             data = smart_unicode(f.read())
@@ -726,10 +726,10 @@ class CCurrentList:
             data = data.split('\n')
             f.close()
             if enable_debug:
-                xbmc.output('Local file ' + str(os.path.join(resDir, filename)) + ' opened')
+                xbmc.log('Local file ' + str(os.path.join(resDir, filename)) + ' opened')
         except:
             if enable_debug:
-                xbmc.output('File: ' + str(os.path.join(resDir, filename)) + ' not found')
+                xbmc.log('File: ' + str(os.path.join(resDir, filename)) + ' not found')
             try:
                 f = open(str(os.path.join(cacheDir, filename)), 'r')
                 data = smart_unicode(f.read())
@@ -737,10 +737,10 @@ class CCurrentList:
                 data = data.split('\n')
                 f.close()
                 if enable_debug:
-                    xbmc.output('Local file ' + str(os.path.join(cacheDir, filename)) + ' opened')
+                    xbmc.log('Local file ' + str(os.path.join(cacheDir, filename)) + ' opened')
             except:
                 if enable_debug:
-                    xbmc.output('File: ' + str(os.path.join(cacheDir, filename)) + ' not found')
+                    xbmc.log('File: ' + str(os.path.join(cacheDir, filename)) + ' not found')
                 try:
                     f = open(str(filename), 'r')
                     data = smart_unicode(f.read())
@@ -748,10 +748,10 @@ class CCurrentList:
                     data = data.split('\n')
                     f.close()
                     if enable_debug:
-                        xbmc.output('Local file ' + str(filename) + ' opened')
+                        xbmc.log('Local file ' + str(filename) + ' opened')
                 except:
                     if enable_debug:
-                        xbmc.output('File: ' + str(filename) + ' not found')
+                        xbmc.log('File: ' + str(filename) + ' not found')
                         traceback.print_exc(file = sys.stdout)
                     return -1
 
@@ -804,7 +804,7 @@ class CCurrentList:
                                 ret = self.loadCatcher(value)
                                 if ret != 0:
                                     if enable_debug:
-                                        xbmc.output('Error while loading catcher')
+                                        xbmc.log('Error while loading catcher')
                                     return ret
                             except:
                                 if enable_debug:
@@ -903,7 +903,7 @@ class CCurrentList:
     def loadRemote(self, remote_url, recursive = True, lItem = None):
 	remote_url = urllib.unquote_plus(remote_url)
         if enable_debug:
-            xbmc.output(repr(remote_url))
+            xbmc.log(repr(remote_url))
         if lItem == None:
             lItem = self.decodeUrl(remote_url)
         try:
@@ -953,7 +953,7 @@ class CCurrentList:
             if enable_debug:
                 f.write(data)
                 f.close()
-                xbmc.output('Remote URL ' + str(curr_url) + ' opened')
+                xbmc.log('Remote URL ' + str(curr_url) + ' opened')
         except IOError:
             if enable_debug:
                 traceback.print_exc(file = sys.stdout)
@@ -1137,7 +1137,7 @@ class CCurrentList:
 class Main:
     def __init__(self):
         if enable_debug:
-            xbmc.output('Initializing VideoDevil')
+            xbmc.log('Initializing VideoDevil')
         self.pDialog = None
         self.curr_file = ''
         self.urlList = []
@@ -1146,7 +1146,7 @@ class Main:
         self.videoExtension = '.flv'
         self.currentlist = CCurrentList()
         if enable_debug:
-            xbmc.output('VideoDevil initialized')
+            xbmc.log('VideoDevil initialized')
         self.run()
 
     def getDirectLink(self, orig_url):
@@ -1371,19 +1371,19 @@ class Main:
 	
         if flv_file != None and os.path.isfile(flv_file):
             if enable_debug:
-                xbmc.output('Play: ' + str(flv_file))
+                xbmc.log('Play: ' + str(flv_file))
             xbmc.Player(player_type).play(str(flv_file), listitem)
             #xbmc.Player().play(str(flv_file), listitem)
         else:
             if enable_debug:
-                xbmc.output('Play: ' + str(url))
+                xbmc.log('Play: ' + str(url))
             xbmc.Player(player_type).play(str(url), listitem)
             #xbmc.Player().play(str(url), listitem)
         xbmc.sleep(200)
 
     def downloadMovie(self, url, title):
         if enable_debug:
-            xbmc.output('Trying to download video ' + str(url))
+            xbmc.log('Trying to download video ' + str(url))
 	if addon.getSetting('download_path') == '':
 	    try:
 		dl_path = xbmcgui.Dialog().browse(0, __language__(30017),'files', '', False, False)
@@ -1397,7 +1397,7 @@ class Main:
         try:
             urllib.urlretrieve(url, file_path, self.video_report_hook)
             if enable_debug:
-                xbmc.output('Video ' + str(url) + ' downloaded to ' + repr(file_path))
+                xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
             return file_path
         except IOError:
             title = first_clean_filename(title)
@@ -1407,7 +1407,7 @@ class Main:
             try:
                 urllib.urlretrieve(url, file_path, self.video_report_hook)
                 if enable_debug:
-                    xbmc.output('Video ' + str(url) + ' downloaded to ' + repr(file_path))
+                    xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
                 return file_path
             except IOError:
                 title = second_clean_filename(title)
@@ -1417,7 +1417,7 @@ class Main:
                 try:
                     urllib.urlretrieve(url, file_path, self.video_report_hook)
                     if enable_debug:
-                        xbmc.output('Video ' + str(url) + ' downloaded to ' + repr(file_path))
+                        xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
                     return file_path
                 except IOError:
                     title = third_clean_filename(title)
@@ -1427,7 +1427,7 @@ class Main:
                     try:
                         urllib.urlretrieve(url, file_path, self.video_report_hook)
                         if enable_debug:
-                            xbmc.output('Video ' + str(url) + ' downloaded to ' + repr(file_path))
+                            xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
                         return file_path
                     except IOError:
                         title = self.currentlist.randomFilename()
@@ -1437,7 +1437,7 @@ class Main:
                         try:
                             urllib.urlretrieve(url, file_path, self.video_report_hook)
                             if enable_debug:
-                                xbmc.output('Video ' + str(url) + ' downloaded to ' + repr(file_path))
+                                xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
                             return file_path
                         except:
                             pass
@@ -1590,7 +1590,7 @@ class Main:
 
     def run(self):
         if enable_debug:
-            xbmc.output('VideoDevil running')
+            xbmc.log('VideoDevil running')
         try:
             self.handle = int(sys.argv[1])
             paramstring = sys.argv[2]
@@ -1600,41 +1600,41 @@ class Main:
                     if not dialog.yesno(__language__(30061), __language__(30062), __language__(30063), __language__(30064), __language__(30065), __language__(30066)):
                         return
                 if enable_debug:
-                    xbmc.output('Settings directory: ' + str(settingsDir))
-                    xbmc.output('Cache directory: ' + str(cacheDir))
-                    xbmc.output('Resource directory: ' + str(resDir))
-                    xbmc.output('Image directory: ' + str(imgDir))
+                    xbmc.log('Settings directory: ' + str(settingsDir))
+                    xbmc.log('Cache directory: ' + str(cacheDir))
+                    xbmc.log('Resource directory: ' + str(resDir))
+                    xbmc.log('Image directory: ' + str(imgDir))
                 if not os.path.exists(settingsDir):
                     if enable_debug:
-                        xbmc.output('Creating settings directory ' + str(settingsDir))
+                        xbmc.log('Creating settings directory ' + str(settingsDir))
                     os.mkdir(settingsDir)
                     if enable_debug:
-                        xbmc.output('Settings directory created')
+                        xbmc.log('Settings directory created')
                 if not os.path.exists(cacheDir):
                     if enable_debug:
-                        xbmc.output('Creating cache directory ' + str(cacheDir))
+                        xbmc.log('Creating cache directory ' + str(cacheDir))
                     os.mkdir(cacheDir)
                     if enable_debug:
-                        xbmc.output('Cache directory created')
+                        xbmc.log('Cache directory created')
                 if enable_debug:
-                    xbmc.output('Purging cache directory')
+                    xbmc.log('Purging cache directory')
                 self.purgeCache()
                 if enable_debug:
-                    xbmc.output('Cache directory purged')
+                    xbmc.log('Cache directory purged')
                 self.parseView('sites.list')
                 del self.currentlist.items[:]
                 if enable_debug:
-                    xbmc.output('End of directory')
+                    xbmc.log('End of directory')
                 xbmcplugin.endOfDirectory(handle = int(sys.argv[1]))
             else:
                 params = sys.argv[2]
                 currentView = params[5:]
                 if enable_debug:
-                    xbmc.output(repr(currentView))
+                    xbmc.log(repr(currentView))
                 if self.parseView(currentView) == 0:
                     xbmcplugin.endOfDirectory(int(sys.argv[1]))
                     if enable_debug:
-                        xbmc.output('End of directory')
+                        xbmc.log('End of directory')
         except Exception, e:
             if enable_debug:
                 traceback.print_exc(file = sys.stdout)
