@@ -66,9 +66,9 @@ def INDEX(url):
         response = urllib2.urlopen(req)
         link=response.read()
         response.close()
-        match=re.compile('<a class="frame.*" href="(http://lubetube.com/video/[A-Za-z-]*)" title="([A-Za-z ]*)">.*<img src="([A-Za-z0-9_.:/]*)"').findall(link)
-        for url,name,thumbnail in match:
-		addDownLink(name,url,2,thumbnail)
+        match=re.compile('<a class="frame[^"]*" href="(http://lubetube.com/video/[^"]+)" title="([^"]+)">.*?<img src="([^"]+)".+?Length:([^<]+)', re.DOTALL).findall(link)
+        for url,name,thumbnail,length in match:
+		addDownLink(name+length,url,2,thumbnail)
 
 
 def VIDEOLINKS(url,name):
