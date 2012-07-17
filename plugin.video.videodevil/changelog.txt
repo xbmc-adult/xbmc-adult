@@ -1,3 +1,9 @@
+[B]Version 1.7.29[/B]
+
+- Updated: youjizz
+- Fixed: video regex
+
+
 [B]Version 1.7.28[/B]
 
 - prefixed broken sites with zz for future removal.
