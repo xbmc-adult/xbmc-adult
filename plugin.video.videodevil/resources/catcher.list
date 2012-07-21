@@ -154,7 +154,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornrabbit.com
-target=span class="download".+?href="(.+?)"
+target=div class="download".+?href="(.+?)"
 url=%s
 quality=standard
 ########################################################

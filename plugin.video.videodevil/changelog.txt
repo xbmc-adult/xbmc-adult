@@ -4,6 +4,10 @@
 - Fixed: video regex
 - Updated: extremetube
 - Fixed: video regex
+- Updated: pornrabbit
+- Fixed: categories
+- Fixed: video regex
+- Fixed: catcher
 
 
 [B]Version 1.7.29[/B]
