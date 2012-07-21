@@ -2,6 +2,8 @@
 
 - Updated: eporner
 - Fixed: video regex
+- Updated: extremetube
+- Fixed: video regex
 
 
 [B]Version 1.7.29[/B]
