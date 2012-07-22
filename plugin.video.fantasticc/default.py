@@ -389,17 +389,14 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "you_porn" in url:
-			match = re.compile('<a id="side_sitelink" href="(.+?)" target="_blank" rel="nofollow" title="you_porn">you_porn</a></span>').findall(html)
+			match = re.compile('href="(http://www.youporn.com/watch/[^"]+)"').findall(html)
 			for gurl in match:
 				urlget2 = gurl
 			html = get_html(urlget2)
-			match = re.compile("so.addVariable('file', encodeURIComponent('(.+?)'));").findall(html)
+			match = re.compile('.+mpg.+?</span><a href="(.+?mp4.+?)">.+?iPad').findall(html)
 			for each in match:
-				urlget3 = each
-			html = get_html(urlget3)
-			match = re.compile('<location>(.+?)</location>').findall(html)
-			for each in match:
-				fetchurl = urllib.unquote(each)
+				fetchurl = each.replace('&amp;','&')
+			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "megarotic" in url:
 			match = re.compile('<param name="movie" value="(.+?)">').findall(html)
