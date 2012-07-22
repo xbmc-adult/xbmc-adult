@@ -331,10 +331,10 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "pornhub" in url:
-			match = re.compile('options=(.+?)"').findall(html)
+			match = re.compile('href="([^"]+viewkey[^"]+)"').findall(html)
 			html = get_html(match[0])
-			match = re.compile('<video_url><!\[CDATA\[(.+?)\]').findall(html)
-			fetchurl = match[0]
+			match = re.compile('"video_url":"([^"]+)"').findall(html)
+			fetchurl = urllib2.unquote(match[0])
 			print "fetchurl: %s" % fetchurl
 			return fetchurl
 	elif "empflix" in url:
