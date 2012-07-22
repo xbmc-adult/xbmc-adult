@@ -880,7 +880,7 @@ class CCurrentList:
     def infoFormatter(self, info_name, info_value, cfg_file): # Site specific info handling
         info_value = info_value.replace('|', '-')
         if cfg_file == 'zdf.de.cfg':
-		return clean_safe(info_value.replace('&nbsp;', ' ')).replace("\\'", "\'").replace('\\"', '\"')
+            return clean_safe(info_value.replace('&nbsp;', ' ')).replace("\\'", "\'").replace('\\"', '\"')
         if info_name == 'title':
             try:
                 info_value = clean_safe(info_value.replace('\r\n', '').replace('\n', '').replace('\t', ''))
@@ -901,7 +901,7 @@ class CCurrentList:
         return clean_safe(info_value)
 
     def loadRemote(self, remote_url, recursive = True, lItem = None):
-	remote_url = urllib.unquote_plus(remote_url)
+        remote_url = urllib.unquote_plus(remote_url)
         if enable_debug:
             xbmc.log(repr(remote_url))
         if lItem == None:
@@ -938,7 +938,7 @@ class CCurrentList:
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
                 f.write('<Title>'+ curr_url + '</Title>\n\n')
-	    curr_url = urllib.unquote_plus(curr_url)
+            curr_url = urllib.unquote_plus(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
                 handle = urlopen(req)
@@ -1025,13 +1025,13 @@ class CCurrentList:
                 tmp.infos_values[info_idx] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_values[info_idx])))
                 if item_rule.skill.find('append') != -1:
                     tmp.infos_values[info_idx] = curr_url + tmp.infos_values[info_idx]
-		if item_rule.skill.find('striptoslash') != -1:
+                if item_rule.skill.find('striptoslash') != -1:
                     curr_match = re.search(r'(.+?/)[^/]+$', current_url_page)
                     if curr_match:
-			if curr_match.group(1) == 'http://':
+                        if curr_match.group(1) == 'http://':
                             tmp.infos_values[info_idx] = curr_url + '/' + tmp.infos_values[info_idx]
-			else:
-			    tmp.infos_values[info_idx] = curr_match.group(1) + tmp.infos_values[info_idx]
+                        else:
+                            tmp.infos_values[info_idx] = curr_match.group(1) + tmp.infos_values[info_idx]
                 if item_rule.skill.find('space') != -1:
                     try:
                         tmp.infos_values[tmp.infos_names.index('title')] = ' ' + tmp.infos_values[tmp.infos_names.index('title')].lstrip().rstrip() + ' '
@@ -1190,7 +1190,7 @@ class Main:
                 if source.rule.action.find('unquote') != -1:
                     match = unquote_safe(match)
                 elif source.rule.action.find('decode') != -1:
-		    match = decode(match)
+                    match = decode(match)
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
                 if source.ext_rule != None:
@@ -1231,7 +1231,7 @@ class Main:
                         if source.ext_rule.action.find('unquote') != -1:
                             match = unquote_safe(match)
                         elif source.ext_rule.action.find('decode') != -1:
-			    match = decode(match)
+                            match = decode(match)
                         if source.ext_rule.build.find('%s') != -1:
                             match = source.ext_rule.build % match
                     else:
@@ -1343,7 +1343,7 @@ class Main:
             if addon.getSetting('download') == 'true':
                 self.pDialog = xbmcgui.DialogProgress()
                 self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
-		flv_file = self.downloadMovie(url, title)
+                flv_file = self.downloadMovie(url, title)
                 self.pDialog.close()
                 if flv_file == None:
                     dialog = xbmcgui.Dialog()
@@ -1368,7 +1368,7 @@ class Main:
             player_type = xbmc.PLAYER_CORE_MPLAYER
         elif self.currentlist.player == 'dvdplayer':
             player_type = xbmc.PLAYER_CORE_DVDPLAYER
-	
+
         if flv_file != None and os.path.isfile(flv_file):
             if enable_debug:
                 xbmc.log('Play: ' + str(flv_file))
@@ -1384,13 +1384,13 @@ class Main:
     def downloadMovie(self, url, title):
         if enable_debug:
             xbmc.log('Trying to download video ' + str(url))
-	if addon.getSetting('download_path') == '':
-	    try:
-		dl_path = xbmcgui.Dialog().browse(0, __language__(30017),'files', '', False, False)
-		addon.setSetting(id='download_path', value=dl_path)
-		if not os.path.exists(dl_path):
-		    os.mkdir(dl_path)
-	    except:pass
+        if addon.getSetting('download_path') == '':
+            try:
+                dl_path = xbmcgui.Dialog().browse(0, __language__(30017),'files', '', False, False)
+                addon.setSetting(id='download_path', value=dl_path)
+                if not os.path.exists(dl_path):
+                    os.mkdir(dl_path)
+            except:pass
         file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
         if os.path.isfile(file_path):
             file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
@@ -1474,18 +1474,18 @@ class Main:
         if ext == 'cfg' or ext == 'list':
             result = self.currentlist.loadLocal(url, lItem = lItem)
         elif ext == 'add':
-	    url = urllib.unquote_plus(url)
+            url = urllib.unquote_plus(url)
             self.currentlist.addItem(url[:len(url) - 4])
             return -2
         elif ext == 'remove':
             dia = xbmcgui.Dialog()
             if dia.yesno('', __language__(30054)):
-		url = urllib.unquote_plus(url)
+                url = urllib.unquote_plus(url)
                 self.currentlist.removeItem(url[:len(url) - 7])
                 xbmc.executebuiltin('Container.Refresh')
             return -2
         elif ext == 'videodevil' or ext == 'dwnlddevil':
-	    url = urllib.unquote_plus(url)		
+            url = urllib.unquote_plus(url)
             url = url[:len(url) - 11]
             lItem.infos_values[lItem.infos_names.index('url')] = url
             cfg_file = lItem.infos_values[lItem.infos_names.index('cfg')]
@@ -1544,7 +1544,7 @@ class Main:
         u = sys.argv[0] + '?url=' + url
         liz = xbmcgui.ListItem(title, title, icon, icon)
         if self.currentlist.getFileExtension(url) == 'videodevil' and self.currentlist.skill.find('nodownload') == -1:
-	    action = 'XBMC.RunPlugin(%s.dwnlddevil)' % u[:len(u)-11]
+            action = 'XBMC.RunPlugin(%s.dwnlddevil)' % u[:len(u)-11]
             try:
                 liz.addContextMenuItems([(__language__(30007), action)])
             except:
