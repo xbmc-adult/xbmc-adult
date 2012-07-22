@@ -1465,6 +1465,8 @@ class Main:
             raise KeyboardInterrupt
 
     def TargetFormatter(self, url, cfg_file): # Site specific target url handling
+        if 'hardsextube' in url:
+            url = url.replace('_@?_', '&')
         return url
 
     def parseView(self, url):
