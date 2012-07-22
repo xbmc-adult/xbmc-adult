@@ -124,7 +124,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.1.4"
+       version="2.1.5"
        provider-name="Ksosez">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
@@ -177,7 +177,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.30"
+  version="1.7.31"
   name="VideoDevil"
   provider-name="sfaxman / bootsy">
   <requires>

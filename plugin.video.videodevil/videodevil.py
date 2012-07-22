@@ -1330,7 +1330,7 @@ class Main:
             if enable_debug:
                 traceback.print_exc(file = sys.stdout)
             icon = os.path.join(imgDir, 'video.png')
-        url = urllib.unquote_plus(url)
+        url = urllib.unquote_plus(url).replace(' ', '%20')
         flv_file = url
         listitem = xbmcgui.ListItem(title, title, icon, icon)
         listitem.setInfo('video', {'Title':title})
