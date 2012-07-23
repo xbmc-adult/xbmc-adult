@@ -393,7 +393,7 @@ def GET_LINK(url,collections):    # Get the real video link and feed it into XBM
 			for gurl in match:
 				urlget2 = gurl
 			html = get_html(urlget2)
-			match = re.compile('.+mpg.+?</span><a href="(.+?mp4.+?)">.+?iPad').findall(html)
+			match = re.compile('</span><a href="(.+?mp4.+?)">.+?iPad').findall(html)
 			for each in match:
 				fetchurl = each.replace('&amp;','&')
 			print "fetchurl: %s" % fetchurl
