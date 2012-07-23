@@ -1,3 +1,4 @@
+import sesame
 import sys
 import os
 import xbmc
@@ -113,12 +114,16 @@ def playVideo(localpath, handle, url):
 	a=f.read()
 	f.close()
 
-	p=re.compile('var videourl="(.+?)";')
-	match=p.search(a)
-	if match:
-		video = match.group(1)
-		print "Playing: " + video
-		xbmc.Player().play(video)
+	p=re.compile('"video_url":"([^"]+)')
+	match=p.findall(a)
+	eurl=match[0].replace('\/', '/')
+
+	p2=re.compile('/([^/]+)/\d+')
+	iv=p2.findall(url)[0]
+
+	video=sesame.decrypt(eurl, iv, 256)
+	print "Playing: " + video
+	xbmc.Player().play(video)
 
 def get_params(args):
 	param=[]
