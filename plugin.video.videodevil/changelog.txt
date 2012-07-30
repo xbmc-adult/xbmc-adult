@@ -1,3 +1,9 @@
+[B]Version 1.7.33[/B]
+
+- Updated: fucktube
+- Fixed: Added direct links
+
+
 [B]Version 1.7.32[/B]
 
 - Updated: hardsextube
