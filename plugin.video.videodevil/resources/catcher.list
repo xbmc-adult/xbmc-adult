@@ -133,7 +133,7 @@ header=Cookie|age_verified=1
 quality=standard
 ########################################################
 title=xvideos.com
-target=flv_url=(http[^']+[.]flv[^']+)&amp;
+target=flv_url=(http[^"]+?)&amp;
 url=%s
 quality=standard
 ########################################################

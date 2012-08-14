@@ -1,3 +1,10 @@
+[B]Version 1.7.34[/B]
+
+- Updated: xvideos
+- Fixed: video regex
+- Fixed: catcher
+
+
 [B]Version 1.7.33[/B]
 
 - Updated: fucktube
