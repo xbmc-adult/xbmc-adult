@@ -222,7 +222,7 @@ url=%s
 quality=standard
 ########################################################
 title=yuvutu.com
-target='file': '([^']+)'
+target=file: "([^"]+)"
 url=%s
 header=Cookie|gndr=F
 quality=standard
