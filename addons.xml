@@ -75,7 +75,7 @@
 
 <addon id="metadata.movie.excaliburfilms.com"
        name="excalibur films"
-       version="1.0.1"
+       version="1.0.2"
        provider-name="britenite">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -88,12 +88,13 @@
     <summary lang="en">Excalibur Films scraper</summary>
     <description lang="en">Download Movie information from www.excaliburfilms.com</description>
     <platform>all</platform>
+    <broken>Broken due to site layout changes. See issue 25</broken>
   </extension>
 </addon>
 
 <addon id="metadata.movie.xonair.com"
        name="xonair.com"
-       version="1.0.1"
+       version="1.0.2"
        provider-name="britenite">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -105,6 +106,7 @@
     <summary lang="en">XONAIR scraper</summary>
     <description lang="en">Download Movie information from www.xonair.com</description>
     <platform>all</platform>
+    <broken>Broken due to site layout changes. See issue 41</broken>
   </extension>
 </addon>
 
