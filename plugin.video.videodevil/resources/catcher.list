@@ -50,8 +50,9 @@ build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
 title=hardsextube.com
-target=flvpathValue: "([^"]+)"
+target=flv: "([^"]+)"
 url=%s
+build=http://cdn.hardsextube.com%s
 quality=standard
 ########################################################
 title=eporner.com
