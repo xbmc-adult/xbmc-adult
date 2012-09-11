@@ -396,7 +396,7 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         print "Megaporn/Megarotic Fetchurl:%s" % fetchurl
         return fetchurl
     else:
-        """Clipnabber"""
+        #Clipnabber
         #get the name of the resource
         r = re.compile('permalink/(.*?)/').findall(url)[0]
         print "Unknown source (%s). Trying clipnabber" % r
@@ -450,22 +450,22 @@ def unescape(s):
     p.feed(s)
     return p.save_end()
 
-params = get_params()
+topparams = get_params()
 topurl = None
 topname = None
 topmode = None
 cookie = None
 
 try:
-    topurl = urllib.unquote_plus(params["url"])
+    topurl = urllib.unquote_plus(topparams["url"])
 except:
     pass
 try:
-    topname = urllib.unquote_plus(params["name"])
+    topname = urllib.unquote_plus(topparams["name"])
 except:
     pass
 try:
-    topmode = int(params["mode"])
+    topmode = int(topparams["mode"])
 except:
     pass
 
