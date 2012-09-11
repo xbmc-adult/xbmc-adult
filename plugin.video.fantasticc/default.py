@@ -451,13 +451,13 @@ def unescape(s):
     return p.save_end()
 
 params = get_params()
-url = None
+topurl = None
 name = None
 mode = None
 cookie = None
 
 try:
-    url = urllib.unquote_plus(params["url"])
+    topurl = urllib.unquote_plus(params["url"])
 except:
     pass
 try:
@@ -470,7 +470,7 @@ except:
     pass
 
 print "Mode: "+str(mode)
-print "URL: "+str(url)
+print "URL: "+str(topurl)
 print "Name: "+str(name)
 
 if mode == None:
@@ -478,19 +478,19 @@ if mode == None:
     CATEGORIES()
 elif mode == 1:
     print "Indexing Videos"
-    INDEX(url)
+    INDEX(topurl)
 elif mode == 2:
     print "Indexing Collections"
-    INDEXCOLLECT(url)
+    INDEXCOLLECT(topurl)
 elif mode == 4:
     print "Play Video"
-    PLAY(url)
+    PLAY(topurl)
 elif mode == 5:
     print "Category: Search"
-    SEARCH(url)
+    SEARCH(topurl)
 
 elif mode == 6:
     print "Category: SEARCH_RESULTS"
-    SEARCH_RESULTS(url)
+    SEARCH_RESULTS(topurl)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
