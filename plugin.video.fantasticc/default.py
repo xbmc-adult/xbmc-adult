@@ -231,7 +231,6 @@ def INDEX(url):
                         print realurl
                         addLink(name,realurl, mode, thumbnail)
                 html = get_html(url)
-                 match = re.compile('container_[0-9]*').findall(html)
                 match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\);return false;" href="#">next').findall(html)
                 if len(match) >= 1:
                         fixedNext = None
@@ -240,7 +239,6 @@ def INDEX(url):
                                 mode = 1
                                 page = next[0][-1]
                                 id = next[1]
-                                #id = string.split(next, '_')[1]
                                 fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, id, id)
                                 print fixedNext
                         addDir('Next Page',fixedNext,mode,default_image)
@@ -498,17 +496,9 @@ elif mode == 1:
 elif mode == 2:
     print "Indexing Collections"
     INDEXCOLLECT(url)
-
-#elif mode == "top rated":
-#    print "Category: Top Rated"
- #   TOPRATED()
 elif mode == 4:
     print "Play Video"
     PLAY(url)
-#elif mode =="categories":
-#    print "Category: Categories"
-#    CATEGORIES(url)
-
 elif mode == 5:
     print "Category: Search"
     SEARCH(url)
@@ -516,12 +506,5 @@ elif mode == 5:
 elif mode == 6:
     print "Category: SEARCH_RESULTS"
     SEARCH_RESULTS(url)
-
-#else:
-#    print ""+url
-#   INDEX(url)
-
-
-
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
