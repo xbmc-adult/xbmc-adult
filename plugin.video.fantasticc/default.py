@@ -223,8 +223,8 @@ def INDEX(url):
     if "collection" in url: # Collections
         match = re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)" border="0" alt="(.+?)"  width="100" height="100" class="collection_image" />').findall(html)
         for gurl, name, thumbnail, junk in match:
-            id = string.split(gurl, "=")[2][:-5]
-            realurl = "http://fantasti.cc/video.php?id=%s" % id
+            vid_id = string.split(gurl, "=")[2][:-5]
+            realurl = "http://fantasti.cc/video.php?id=%s" % vid_id
             mode = 4
             print realurl
             addLink(name, realurl, mode, thumbnail)
@@ -232,12 +232,12 @@ def INDEX(url):
         match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\);return false;" href="#">next').findall(html)
         if len(match) >= 1:
             fixedNext = None
-            for next in match:
-                print next
+            for next_match in match:
+                print next_match
                 mode = 1
-                page = next[0][-1]
-                id = next[1]
-                fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, id, id)
+                page = next_match[0][-1]
+                vid_id = next_match[1]
+                fixedNext = "http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657" % (page, vid_id, vid_id)
                 print fixedNext
             addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
@@ -254,10 +254,10 @@ def INDEX(url):
                     pass
         html = get_html(url)
         match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
-        for next in match:
+        for next_match in match:
             mode = 1
-            next = string.split(next, '"')[-1]
-            fixedNext = "http://fantasti.cc%s" % next
+            next_match = string.split(next_match, '"')[-1]
+            fixedNext = "http://fantasti.cc%s" % next_match
             addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
 
@@ -282,11 +282,11 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         addDir(name+' *'+num_of_vids+' vids*', realurl, mode, icons[0])
 
     match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
-    for next in match:
-        print "Next: %s" % next
+    for next_match in match:
+        print "Next: %s" % next_match
         mode = 2
-        next = string.split(next, '"')[-1]
-        fixedNext = "http://fantasti.cc%s" % next
+        next_match = string.split(next_match, '"')[-1]
+        fixedNext = "http://fantasti.cc%s" % next_match
         print "FixedNext: %s" % fixedNext
         addDir('Next Page', fixedNext, mode, default_image)
 
