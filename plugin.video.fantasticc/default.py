@@ -452,8 +452,8 @@ def unescape(s):
 
 params = get_params()
 topurl = None
-name = None
-mode = None
+topname = None
+topmode = None
 cookie = None
 
 try:
@@ -461,35 +461,35 @@ try:
 except:
     pass
 try:
-    name = urllib.unquote_plus(params["name"])
+    topname = urllib.unquote_plus(params["name"])
 except:
     pass
 try:
-    mode = int(params["mode"])
+    topmode = int(params["mode"])
 except:
     pass
 
-print "Mode: "+str(mode)
+print "Mode: "+str(topmode)
 print "URL: "+str(topurl)
-print "Name: "+str(name)
+print "Name: "+str(topname)
 
-if mode == None:
+if topmode == None:
     print "Generate Main Menu"
     CATEGORIES()
-elif mode == 1:
+elif topmode == 1:
     print "Indexing Videos"
     INDEX(topurl)
-elif mode == 2:
+elif topmode == 2:
     print "Indexing Collections"
     INDEXCOLLECT(topurl)
-elif mode == 4:
+elif topmode == 4:
     print "Play Video"
     PLAY(topurl)
-elif mode == 5:
+elif topmode == 5:
     print "Category: Search"
     SEARCH(topurl)
 
-elif mode == 6:
+elif topmode == 6:
     print "Category: SEARCH_RESULTS"
     SEARCH_RESULTS(topurl)
 
