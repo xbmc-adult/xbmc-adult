@@ -19,8 +19,6 @@ settingsDir = xbmc.translatePath(settingsDir)
 cacheDir = os.path.join(settingsDir, 'cache')
 resDir = os.path.join(rootDir, 'resources')
 imgDir = os.path.join(resDir, 'images')
-current_url_page = ''
-#socket.setdefaulttimeout(20)
 
 urlopen = urllib2.urlopen
 cj = cookielib.LWPCookieJar()
@@ -520,11 +518,11 @@ class CCurrentList:
         else:
             return ''
 
-    def randomFilename(self, dir = cacheDir, chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', length = 8, prefix = '', suffix = '', attempts = 10000):
+    def randomFilename(self, cachedir = cacheDir, chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', length = 8, prefix = '', suffix = '', attempts = 10000):
         for attempt in range(attempts):
             filename = ''.join([random.choice(chars) for i in range(length)])
             filename = prefix + filename + suffix
-            if not os.path.exists(os.path.join(dir, filename)):
+            if not os.path.exists(os.path.join(cachedir, filename)):
                 return filename
 
     def videoCount(self):
@@ -626,13 +624,13 @@ class CCurrentList:
             url = url + '.' + suffix
         return url
 
-    def decodeUrl(self, url, type = 'rss'):
+    def decodeUrl(self, url, url_type = 'rss'):
         item = CListItem()
         if url.find('&') == -1:
             item.infos_names.append('url')
             item.infos_values.append(clean_safe(url))
             item.infos_names.append('type')
-            item.infos_values.append(type)
+            item.infos_values.append(url_type)
             return item
         infos_names_values = url.split('&')
         for info_name_value in infos_names_values:
@@ -645,7 +643,7 @@ class CCurrentList:
             type_idx = item.infos_names.index('type')
         except:
             item.infos_names.append('type')
-            item.infos_values.append(type)
+            item.infos_values.append(url_type)
         return item
 
     def loadCatcher(self, title):
@@ -928,7 +926,6 @@ class CCurrentList:
                         lItem.infos_values[lItem.infos_names.index('type')] = u'rss'
                 except:
                     traceback.print_exc(file = sys.stdout)
-                    pass
             if self.reference == '':
                 txheaders = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18', 'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
             else:
@@ -1142,6 +1139,7 @@ class Main:
         self.extensionList = []
         self.selectionList = []
         self.videoExtension = '.flv'
+        self.handle = 0
         self.currentlist = CCurrentList()
         if enable_debug:
             xbmc.log('VideoDevil initialized')
@@ -1388,7 +1386,8 @@ class Main:
                 addon.setSetting(id='download_path', value=dl_path)
                 if not os.path.exists(dl_path):
                     os.mkdir(dl_path)
-            except:pass
+            except:
+                pass
         file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
         if os.path.isfile(file_path):
             file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
@@ -1421,7 +1420,7 @@ class Main:
                     title = third_clean_filename(title)
                     file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
                     if os.path.isfile(file_path):
-                        file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(dir = addon.getSetting('download_path'), suffix = self.videoExtension))
+                        file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(cachedir = addon.getSetting('download_path'), suffix = self.videoExtension))
                     try:
                         urllib.urlretrieve(url, file_path, self.video_report_hook)
                         if enable_debug:
@@ -1574,11 +1573,11 @@ class Main:
             if video_info_name.find('.append') == -1 and video_info_name != 'url' and video_info_name != 'title' and video_info_name != 'icon' and video_info_name != 'type' and video_info_name != 'extension' and video_info_name.find('.tmp') == -1 and video_info_name.find('.append') == -1 and video_info_name.find('context.') == -1:
                 try:
                     if video_info_name.find('.int') != -1:
-                        liz.setInfo(type = 'Video', infoLabels = {capitalize(video_info_name[:video_info_name.find('.int')]): int(lItem.infos_values[lItem.infos_names.index(video_info_name)])})
+                        liz.setInfo('Video', infoLabels = {capitalize(video_info_name[:video_info_name.find('.int')]): int(lItem.infos_values[lItem.infos_names.index(video_info_name)])})
                     elif video_info_name.find('.once') != -1:
-                        liz.setInfo(type = 'Video', infoLabels = {capitalize(video_info_name[:video_info_name.find('.once')]): lItem.infos_values[lItem.infos_names.index(video_info_name)]})
+                        liz.setInfo('Video', infoLabels = {capitalize(video_info_name[:video_info_name.find('.once')]): lItem.infos_values[lItem.infos_names.index(video_info_name)]})
                     else:
-                        liz.setInfo(type = 'Video', infoLabels = {capitalize(video_info_name): lItem.infos_values[lItem.infos_names.index(video_info_name)]})
+                        liz.setInfo('Video', infoLabels = {capitalize(video_info_name): lItem.infos_values[lItem.infos_names.index(video_info_name)]})
                 except:
                     pass
         xbmcplugin.addDirectoryItem(handle = int(sys.argv[1]), url = u, listitem = liz, isFolder = True, totalItems = totalItems)
