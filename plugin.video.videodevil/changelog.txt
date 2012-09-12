@@ -1,6 +1,9 @@
 [B]Version 1.7.37[/B]
 
 - Cleaned up the code
+- Updated: ah-me
+- Fixed: catcher
+- Fixed: video url
 
 
 [B]Version 1.7.36[/B]
