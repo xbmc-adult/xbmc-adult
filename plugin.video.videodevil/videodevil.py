@@ -1,14 +1,12 @@
 # -*- coding: latin-1 -*-
-
-from string import *
+from string import capitalize, lower
 import xbmcplugin, xbmcaddon
 import sys, os.path
-import urllib,urllib2, filecmp
-import re, random, string, shutil
+import urllib, urllib2 
+import re, random
 import xbmc, xbmcgui
-import re, os, time, datetime, traceback
+import os, traceback
 import cookielib, htmlentitydefs
-import socket, base64
 
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 __language__ = addon.getLocalizedString
@@ -368,7 +366,7 @@ def decode(s):
     if not s:
         return ''
     try:
-        dic=htmlentitydefs.name2codepoint
+        dic = htmlentitydefs.name2codepoint
         for key in dic.keys():
             entity = '&' + key + ';'
             s = s.replace(entity, unichr(dic[key]))
@@ -919,13 +917,13 @@ class CCurrentList:
                         try:
                             curr_phrase = urllib.unquote_plus(addon.getSetting('curr_search'))
                         except:
-                            addon.setSetting('curr_search','')
+                            addon.setSetting('curr_search', '')
                         search_phrase = self.getKeyboard(default = curr_phrase, heading = __language__(30102))
                         if search_phrase == '':
                             return -1
                         addon.setSetting('curr_search', search_phrase)
                         xbmc.sleep(10)
-                        curr_url = curr_url.replace('%s',urllib.quote_plus(search_phrase))
+                        curr_url = curr_url.replace('%s', urllib.quote_plus(search_phrase))
                         lItem.infos_values[lItem.infos_names.index('url')] = curr_url
                         lItem.infos_values[lItem.infos_names.index('type')] = u'rss'
                 except:
@@ -1386,7 +1384,7 @@ class Main:
             xbmc.log('Trying to download video ' + str(url))
         if addon.getSetting('download_path') == '':
             try:
-                dl_path = xbmcgui.Dialog().browse(0, __language__(30017),'files', '', False, False)
+                dl_path = xbmcgui.Dialog().browse(0, __language__(30017), 'files', '', False, False)
                 addon.setSetting(id='download_path', value=dl_path)
                 if not os.path.exists(dl_path):
                     os.mkdir(dl_path)
