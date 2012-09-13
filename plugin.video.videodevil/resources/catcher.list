@@ -200,6 +200,11 @@ url=%s
 build=%s?start=0
 quality=standard
 ########################################################
+title=pornomovies
+target=(http[^"]+.flv[^"]+)
+url=%s
+quality=standard
+########################################################
 title=clipa.tv
 target=<a href="([/]get-video.flv[?]uri=.+?)" class="download"
 url=http://en.clipa.tv/?uri=%s
