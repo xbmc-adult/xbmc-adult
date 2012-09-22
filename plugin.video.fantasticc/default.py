@@ -31,7 +31,8 @@ import gethtml
 pluginhandle = int(sys.argv[1])
 
 # example of how to get path to an image
-default_image = os.path.join(__addonpath__, 'resources', 'images', 'provocative_logo.png')
+default_image = os.path.join(__addonpath__, 'resources', 'images',
+                             'provocative_logo.png')
 
 # string to simplify urls
 main_url = 'http://fantasti.cc/'
@@ -40,7 +41,8 @@ fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
-SUPPORTEDSITES = ["xvideos", "pornhub", "xhamster", "empflix", "deviantclip", "tnaflix", "redtube", "you_porn"]
+SUPPORTEDSITES = ['xvideos', 'pornhub', 'xhamster', 'empflix', 'deviantclip',
+                  'tnaflix', 'redtube', 'you_porn']
 
 
 def get_html(url):
@@ -48,10 +50,10 @@ def get_html(url):
 
 def get_avatar(lc):
     #using lowercase username, build the url to the user's avatar
-    url = fip+'avatar/'+lc[0]+'/'+lc[1]+'/'+lc[2]+'/'+lc
+    url = fip + 'avatar/' + lc[0] + '/' + lc[1] + '/' + lc[2] + '/' + lc
 
     #trial and error to find the correct image format
-    urlist = [url+'.jpeg', url+'.jpg', url+'.png', url+'.gif']
+    urlist = [url + '.jpeg', url + '.jpg', url + '.png', url + '.gif']
     for surl in urlist:
         try:
             urllib2.urlopen(surl)
@@ -61,7 +63,8 @@ def get_avatar(lc):
             return surl
 
 def Notify(title, message, times, icon):
-    xbmc.executebuiltin("XBMC.Notification("+title+", "+message+", "+times+", "+icon+")")
+    xbmc.executebuiltin('XBMC.Notification(' + title + ', ' + message + ', ' +
+                        times + ', ' + icon + ')')
 
 def LOGIN(username, password, hidesuccess):
     uc = username[0].upper() + username[1:]
@@ -72,15 +75,20 @@ def LOGIN(username, password, hidesuccess):
         avatar = get_avatar(lc)
 
         if hidesuccess == 'false':
-            Notify('Welcome back '+uc, 'Fantasti.cc loves you', '4000', avatar)
+            Notify('Welcome back ' + uc, 'Fantasti.cc loves you', '4000',
+                   avatar)
 
-        addDir(uc+'\'s Videos', main_url+'user/'+lc+'/videos/save_date', 1, avatar)
-        addDir(uc+'\'s Collections', main_url+'user/'+lc+'/collections', 2, avatar)
-        addDir(uc+'\'s Favourited Collections', main_url+'user/'+lc+'/collections/favorited', 2, avatar)
-        addDir(uc+'\'s Rated Collections', main_url+'user/'+lc+'/collections/rated', 2, avatar)
+        addDir(uc + '\'s Videos', 
+               main_url + 'user/' + lc + '/videos/save_date', 1, avatar)
+        addDir(uc + '\'s Collections',
+               main_url + 'user/' + lc + '/collections', 2, avatar)
+        addDir(uc + '\'s Favourited Collections',
+               main_url + 'user/' + lc + '/collections/favorited', 2, avatar)
+        addDir(uc + '\'s Rated Collections',
+               main_url + 'user/' + lc + '/collections/rated', 2, avatar)
 
     elif logged_in == False:
-        Notify('Login Failure', uc+' could not login', '4000', default_image)
+        Notify('Login Failure', uc + ' could not login', '4000', default_image)
 
 def STARTUP_ROUTINES():
     #deal with bug that happens if the datapath doesn't exist
@@ -104,19 +112,28 @@ def CATEGORIES():
     STARTUP_ROUTINES()
 
     mode = 1
-    addDir('Popular Today', main_url+'videos/popular/today/', mode, default_image)
-    addDir('Popular Last 7 Days', main_url+'videos/popular/7days/', mode, default_image)
-    addDir('Popular Last Month', main_url+'videos/popular/31days/', mode, default_image)
-    addDir('Popular All Time', main_url+'videos/popular/all_time/', mode, default_image)
+    addDir('Popular Today',
+           main_url+'videos/popular/today/', mode, default_image)
+    addDir('Popular Last 7 Days',
+           main_url+'videos/popular/7days/', mode, default_image)
+    addDir('Popular Last Month',
+           main_url+'videos/popular/31days/', mode, default_image)
+    addDir('Popular All Time',
+           main_url+'videos/popular/all_time/', mode, default_image)
     addDir('Upcoming', main_url+'videos/upcoming/', mode, default_image)
 
     mode = 2
-    addDir('Collections Popular Today', main_url+'videos/collections/popular/today/', mode, default_image)
-    addDir('Collections Popular Last 7 Days', main_url+'videos/collections/popular/7days/', mode, default_image)
-    addDir('Collections Popular Last Month', main_url+'videos/collections/popular/31days/', mode, default_image)
-    addDir('Collections Popular All Time', main_url+'videos/collections/popular/all_time/', mode, default_image)
+    addDir('Collections Popular Today',
+           main_url+'videos/collections/popular/today/', mode, default_image)
+    addDir('Collections Popular Last 7 Days',
+           main_url+'videos/collections/popular/7days/', mode, default_image)
+    addDir('Collections Popular Last Month',
+           main_url+'videos/collections/popular/31days/', mode, default_image)
+    addDir('Collections Popular All Time',
+           main_url+'videos/collections/popular/all_time/', mode, default_image)
 
-    # didn't need to pass search a url. so i was lazy and passed it the main_url as a dummy
+    # didn't need to pass search a url. so i was lazy and passed it the
+    # main_url as a dummy
     addDir('Search', main_url, 5, default_image)
 
     print pluginhandle
@@ -138,10 +155,13 @@ def SEARCH(url):
         # if the search text is not nothing
         if search is not '':
 
-            # encode the search phrase to put in url (ie replace ' ' with '+' etc)
+            # encode the search phrase to put in url 
+            # (ie replace ' ' with '+' etc)
             # normally you would use: search = urllib.quoteplus(search)
             # but fantasti's search urls are a bit weird
-            search = re.sub('  ', '+', search) # this one is just in case the user accidently enters two spaces
+            search = re.sub('  ', '+', search) # this one is just in case the
+                                               # user accidently enters two
+                                               # spaces
             search = re.sub(' ', '+', search)
 
             # create the search url
@@ -152,31 +172,37 @@ def SEARCH(url):
             first_page = get_html(search_url)
 
             # do a search to see if no results found
-            no_results_found = re.search('did not match any content.', first_page)
+            no_results_found = re.search('did not match any content.',
+                                         first_page)
 
             # if there are results on page...
             if no_results_found is None:
 
-                # scrape to get the number of all the results pages (this is listed on the first page)
+                # scrape to get the number of all the results pages (this is
+                # listed on the first page)
                 match = re.compile('/videos/page_(.+?)">').findall(first_page)
                 print 'Number of pages:', match
 
-                # if there were'nt any multiple pages of search results
+                # if there weren't any multiple pages of search results
                 if not match:
-                    # ...directly call the results scraper for the first page to add the directories.
+                    # ...directly call the results scraper for the first page
+                    # to add the directories.
                     SEARCH_RESULTS(url=False, html=first_page)
 
                 # if there were any multiple pages of search results
                 if match:
 
-                    # convert the list of strings produced by re.compile to a list of integers, so we can use them for calculations
+                    # convert the list of strings produced by re.compile to a
+                    # list of integers, so we can use them for calculations
                     match = [int(result) for result in match]
 
-                    # get the highest results page number, to get the total number of results pages.
+                    # get the highest results page number, to get the total
+                    # number of results pages.
                     # this gets the highest integer in the list of integers
                     total_pages = max(match)
 
-                    # generate a list of numbers 1 to total_pages (eg if total_pages is 3 generate: 1, 2, 3)
+                    # generate a list of numbers 1 to total_pages (eg if
+                    # total_pages is 3 generate: 1, 2, 3)
                     num = 1
                     numlist = list('1')
                     while num < total_pages:
@@ -186,7 +212,8 @@ def SEARCH(url):
                     # for every number in the list
                     for thenumber in numlist:
 
-                        # transform thenumber from an integer to a string, to use in name and url strings
+                        # transform thenumber from an integer to a string, to
+                        # use in name and url strings
                         thenumber = str(thenumber)
 
                         # make the page name
@@ -202,11 +229,14 @@ def SEARCH(url):
 
 def SEARCH_RESULTS(url, html=False):
     # this function scrapes the search results pages
-    # accepts page source code (html) for any searches where there is only one page of results
+    # accepts page source code (html) for any searches where there is only one
+    # page of results
 
     if html is False:
         html = get_html(url)
-    match = re.compile('<a href="(.+?)" onclick="document.cookie = \'ii=1;path=/\';"  class="xxx" target="_blank"><img alt="(.+?)"   src="(.+?)"').findall(html)
+    match = re.compile('<a href="(.+?)" onclick="document.cookie = \'ii=1;'
+                       'path=/\';"  class="xxx" target="_blank"><img '
+                       'alt="(.+?)"   src="(.+?)"').findall(html)
     for gurl, name, thumbnail in match:
         for each in SUPPORTEDSITES:
             if each in gurl:
@@ -221,7 +251,9 @@ def SEARCH_RESULTS(url, html=False):
 def INDEX(url):
     html = get_html(url)
     if 'collection' in url: # Collections
-        match = re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)" border="0" alt="(.+?)"  width="100" height="100" class="collection_image" />').findall(html)
+        match = re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)"'
+                           ' border="0" alt="(.+?)"  width="100" height="100"'
+                           ' class="collection_image" />').findall(html)
         for gurl, name, thumbnail, junk in match:
             vid_id = string.split(gurl, '=')[2][:-5]
             realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
@@ -229,7 +261,8 @@ def INDEX(url):
             print realurl
             addLink(name, realurl, mode, thumbnail)
         html = get_html(url)
-        match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\);return false;" href="#">next').findall(html)
+        match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\)'
+                           ';return false;" href="#">next').findall(html)
         if len(match) >= 1:
             fixedNext = None
             for next_match in match:
@@ -237,13 +270,16 @@ def INDEX(url):
                 mode = 1
                 page = next_match[0][-1]
                 vid_id = next_match[1]
-                fixedNext = 'http://fantasti.cc/ajax/pager.php?page=%s&pid=%s&div=collection_%s&uid=14657' % (page, vid_id, vid_id)
+                fixedNext = 'http://fantasti.cc/ajax/pager.php?page=%s&pid=%s'\
+                            '&div=collection_%s&uid=14657' % \
+                            (page, vid_id, vid_id)
                 print fixedNext
             addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
 
     else:
-        match = re.compile('<a href="(.+?)" >                 <img src="(.+?)" alt="(.+?)" border="0" >').findall(html)
+        match = re.compile('<a href="(.+?)" >                 <img src="(.+?)"'
+                           ' alt="(.+?)" border="0" >').findall(html)
         for gurl, thumbnail, name in match:
             for each in SUPPORTEDSITES:
                 if each in gurl:
@@ -253,7 +289,8 @@ def INDEX(url):
                 else:
                     pass
         html = get_html(url)
-        match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
+        match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
+                          ).findall(html)
         for next_match in match:
             mode = 1
             next_match = string.split(next_match, '"')[-1]
@@ -264,7 +301,9 @@ def INDEX(url):
 def INDEXCOLLECT(url):   # Index Collections Pages
     print 'URL Loading: %s' % url
     html = get_html(url)
-    match = re.compile('<div style="font-size:24px; line-height:30px; "><a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>(.+?)</div>', re.DOTALL).findall(html)
+    match = re.compile('<div style="font-size:24px; line-height:30px; ">'
+                       '<a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>'
+                       '(.+?)</div>', re.DOTALL).findall(html)
     for gurl, name, chtml, description in match:
         print name
         realurl = 'http://fantasti.cc%s' % gurl
@@ -272,7 +311,8 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         mode = 1
 
         #scrape number of vids
-        num_of_vids = (re.compile('line-height:100\%;">(.+?) videos<br>', re.DOTALL).findall(chtml))[0]
+        num_of_vids = (re.compile('line-height:100\%;">(.+?) videos<br>',
+                       re.DOTALL).findall(chtml))[0]
         #trim whitespace from beginning of string
         num_of_vids = re.sub('^[ \t\r\n]+', '', num_of_vids)
 
@@ -281,7 +321,8 @@ def INDEXCOLLECT(url):   # Index Collections Pages
 
         addDir(name+' *'+num_of_vids+' vids*', realurl, mode, icons[0])
 
-    match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>').findall(html)
+    match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
+                      ).findall(html)
     for next_match in match:
         print 'Next: %s' % next_match
         mode = 2
@@ -302,11 +343,13 @@ def PLAY(url):
     item = xbmcgui.ListItem(path=realurl)
     return xbmcplugin.setResolvedUrl(pluginhandle, True, item)
 
-def GET_LINK(url, collections):    # Get the real video link and feed it into XBMC
+def GET_LINK(url, collections):
+# Get the real video link and feed it into XBMC
     print 'GET_LINK URL: %s' % url
     html = get_html(url)
     if collections == 1:   # Make sure we get a url we can parse
-        match = re.compile('<link rel="canonical" href="(.+?)" />').findall(html)
+        match = re.compile('<link rel="canonical" href="(.+?)" />'
+                          ).findall(html)
         for each in match:
             url = each
 
@@ -325,7 +368,9 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'empflix' in url:
-        match = re.compile('<a style="color:#BBB;" href="([^"]+)" target="_blank" rel="nofollow">empflix</a></span>').findall(html)
+        match = re.compile('<a style="color:#BBB;" href="([^"]+)"'
+                           ' target="_blank" rel="nofollow">empflix</a></span>'
+                          ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -338,12 +383,14 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'tnaflix' in url:
-        match = re.compile('<param name="FlashVars" value="(.+?)"/>').findall(html)
+        match = re.compile('<param name="FlashVars" value="(.+?)"/>'
+                          ).findall(html)
         for gurl in match:
             print 'gurl %s' % gurl
             purl = string.split(gurl, '?')[1]
             print purl
-            urlget2 = 'http://www.tnaflix.com/embedding_player/embedding_feed.php?' + purl
+            urlget2 = 'http://www.tnaflix.com/embedding_player/' \
+                      'embedding_feed.php?' + purl
             print urlget2
         html = get_html(urlget2)
         match = re.compile('<file>(.+?)</file>').findall(html)
@@ -359,7 +406,8 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'deviantclip' in url:
-        match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank" rel="nofollow">deviantclip</a>').findall(html)
+        match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank"'
+                           ' rel="nofollow">deviantclip</a>').findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -375,7 +423,8 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'you_porn' in url:
-        match = re.compile('href="(http://www.youporn.com/watch/[^"]+)"').findall(html)
+        match = re.compile('href="(http://www.youporn.com/watch/[^"]+)"'
+                          ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -391,9 +440,12 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         print 'Unknown source (%s). Trying clipnabber' % r
 
         #get the link
-        gurl = re.compile('<a[^>]+href="(.*?)"[^>]*>%s</a>' % r).findall(html)[0]
-        kid = re.compile('id="Math">(\d+)').findall(get_html('http://clipnabber.com/mini.php'))[0]
-        html = get_html('http://clipnabber.com/gethint.php?mode=1&sid=%s&url=%s' % (kid, urllib.quote(gurl)) )
+        gurl = re.compile('<a[^>]+href="(.*?)"[^>]*>%s</a>' % r
+                         ).findall(html)[0]
+        kid = re.compile('id="Math">(\d+)'
+                        ).findall(get_html('http://clipnabber.com/mini.php'))[0]
+        html = get_html('http://clipnabber.com/gethint.php?mode=1&sid=%s&url=%s'
+                        % (kid, urllib.quote(gurl)))
         fetchurl = re.compile("<a href='(.*?)'").findall(html)[0]
         print 'Fetchurl: %s' % fetchurl
         return fetchurl
@@ -416,21 +468,27 @@ def get_params():
     return param
 
 def addLink(name, url, mode, iconimage):
-    u = sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
+        + "&name=" + urllib.quote_plus(name)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png', thumbnailImage=iconimage)
+    liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png',
+                           thumbnailImage=iconimage)
     liz.setInfo( type='Video', infoLabels={ 'Title': name } )
     liz.setProperty('IsPlayable', 'true')
-    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz)
+    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
+                                     listitem=liz)
     return ok
 
 
 def addDir(name, url, mode, iconimage):
-    u = sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
+        + "&name=" + urllib.quote_plus(name)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
+                           thumbnailImage=iconimage)
     liz.setInfo( type='Video', infoLabels={ 'Title': name } )
-    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=True)
+    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
+                                     listitem=liz, isFolder=True)
     return ok
 
 def unescape(s):
