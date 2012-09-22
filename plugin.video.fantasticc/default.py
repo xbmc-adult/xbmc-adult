@@ -24,7 +24,6 @@ sys.path.append( os.path.join( __addonpath__, 'resources', 'lib' ) )
 #import from lib directory
 import weblogin
 import gethtml
-import megavideo
 
 #import img_merge
 
@@ -40,7 +39,7 @@ fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
-SUPPORTEDSITES = ["xvideos", "pornhub", "xhamster", "empflix", "deviantclip", "tnaflix", "redtube", "you_porn", "megarotic"]
+SUPPORTEDSITES = ["xvideos", "pornhub", "xhamster", "empflix", "deviantclip", "tnaflix", "redtube", "you_porn"]
 
 
 def get_html(url):
@@ -383,17 +382,6 @@ def GET_LINK(url, collections):    # Get the real video link and feed it into XB
         for each in match:
             fetchurl = each.replace('&amp;', '&')
         print "fetchurl: %s" % fetchurl
-        return fetchurl
-    elif "megarotic" in url:
-        match = re.compile('<param name="movie" value="(.+?)">').findall(html)
-        for gurl in match:
-            urlget2 = gurl
-
-        videoid = string.split(urlget2, "/v/")[1]
-        videoid = videoid[0:8]
-        print 'MEGAROTIC VIDEOID: '+videoid
-        fetchurl = (megavideo.resolveURL('porn', None, videoid))[0]
-        print "Megaporn/Megarotic Fetchurl:%s" % fetchurl
         return fetchurl
     else:
         #Clipnabber
