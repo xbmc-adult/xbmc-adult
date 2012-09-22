@@ -8,6 +8,7 @@ import urllib, urllib2, htmllib
 import re, string
 import os
 import sys
+import sesame
 import xbmcplugin, xbmcaddon, xbmcgui, xbmc
 
 #addon name
@@ -41,8 +42,9 @@ fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
-SUPPORTEDSITES = ['xvideos', 'pornhub', 'xhamster', 'empflix', 'deviantclip',
-                  'tnaflix', 'redtube', 'you_porn']
+SUPPORTEDSITES = ['deviantclip', 'empflix', 'pornhub', 'redtube', 'tnaflix',
+                  'tube8', 'xhamster', 'xvideos', 'you_porn']
+
 
 
 def get_html(url):
@@ -340,6 +342,9 @@ def PLAY(url):
     else:
         realurl = GET_LINK(url, 0)
     print 'Real url:%s' % realurl
+    if not realurl:
+        Notify('Failure', 'Try another video', '4000', default_image)
+
     item = xbmcgui.ListItem(path=realurl)
     return xbmcplugin.setResolvedUrl(pluginhandle, True, item)
 
@@ -365,6 +370,9 @@ def GET_LINK(url, collections):
         html = get_html(match[0])
         match = re.compile('"video_url":"([^"]+)"').findall(html)
         fetchurl = urllib2.unquote(match[0])
+        match = re.compile('"video_title":"([^"]+)"').findall(html)
+        title = urllib2.unquote(match[0])
+        fetchurl = sesame.decrypt(fetchurl, title, 256)
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'empflix' in url:
@@ -422,6 +430,16 @@ def GET_LINK(url, collections):
         fetchurl = urllib.unquote(match[0])
         print 'fetchurl: %s' % fetchurl
         return fetchurl
+    elif 'tube8' in url:
+        match = re.compile('href="(http://www.tube8.com/[^"]+)"').findall(html)
+        html = get_html(match[0])
+        match = re.compile('"video_url":"([^"]+)"').findall(html)
+        fetchurl = urllib2.unquote(match[0])
+        match = re.compile('"video_title":"([^"]+)"').findall(html)
+        title = urllib2.unquote(match[0])
+        fetchurl = sesame.decrypt(fetchurl, title, 256)
+        print 'fetchurl: %s' % fetchurl
+        return fetchurl
     elif 'you_porn' in url:
         match = re.compile('href="(http://www.youporn.com/watch/[^"]+)"'
                           ).findall(html)
@@ -440,14 +458,17 @@ def GET_LINK(url, collections):
         print 'Unknown source (%s). Trying clipnabber' % r
 
         #get the link
-        gurl = re.compile('<a[^>]+href="(.*?)"[^>]*>%s</a>' % r
-                         ).findall(html)[0]
-        kid = re.compile('id="Math">(\d+)'
-                        ).findall(get_html('http://clipnabber.com/mini.php'))[0]
-        html = get_html('http://clipnabber.com/gethint.php?mode=1&sid=%s&url=%s'
-                        % (kid, urllib.quote(gurl)))
-        fetchurl = re.compile("<a href='(.*?)'").findall(html)[0]
-        print 'Fetchurl: %s' % fetchurl
+        try:
+            gurl = re.compile('<a[^>]+href="(.*?)"[^>]*>%s</a>' % r
+                             ).findall(html)[0]
+            kid = re.compile('id="Math">(\d+)'
+                            ).findall(get_html('http://clipnabber.com/mini.php'))[0]
+            html = get_html('http://clipnabber.com/gethint.php?mode=1&sid=%s&url=%s'
+                            % (kid, urllib.quote(gurl)))
+            fetchurl = re.compile("<a href='(.*?)'").findall(html)[0]
+            print 'Fetchurl: %s' % fetchurl
+        except:
+            fetchurl = None
         return fetchurl
 
 def get_params():
