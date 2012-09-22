@@ -7,6 +7,7 @@
 import urllib, urllib2, htmllib
 import re, string
 import os
+import sys
 import xbmcplugin, xbmcaddon, xbmcgui, xbmc
 
 #addon name
@@ -53,8 +54,8 @@ def get_avatar(lc):
     urlist = [url+'.jpeg', url+'.jpg', url+'.png', url+'.gif']
     for surl in urlist:
         try:
-            resp = urllib2.urlopen(surl)
-        except urllib2.URLError, e:
+            urllib2.urlopen(surl)
+        except urllib2.URLError:
             pass
         else:
             return surl
@@ -264,7 +265,7 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     print "URL Loading: %s" % url
     html = get_html(url)
     match = re.compile('<div style="font-size:24px; line-height:30px; "><a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>(.+?)</div>', re.DOTALL).findall(html)
-    for gurl, name, chtml, description in match:
+    for gurl, name, chtml, unused in match:
         print name
         realurl = "http://fantasti.cc%s" % gurl
         name = unescape(name)
