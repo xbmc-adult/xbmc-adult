@@ -1,11 +1,11 @@
-<scraper framework="1.1" date="2010-06-07" name="Adult DVD Empire" content="movies" thumb="adultdvdempire.jpg" language="en">
+<scraper framework="1.1" date="2012-09-28" name="Adult DVD Empire" content="movies" thumb="adultdvdempire.jpg" language="en">
     <NfoUrl dest="3">
         <RegExp input="$$1" output="&lt;url&gt;http://www.\1&lt;/url&gt;" dest="3">
             <expression noclean="1">(adultdvdempire.com/\d+/\S+)</expression>
         </RegExp>
     </NfoUrl>
     <CreateSearchUrl dest="3">
-        <RegExp input="$$1" output="&lt;url&gt;http://www.adultdvdempire.com/AllSearch/Search?pageSize=20&view=list&q=\1&lt;/url&gt;" dest="3">
+        <RegExp input="$$1" output="&lt;url&gt;http://www.adultdvdempire.com/AllSearch/Search?pageSize=100&sort=released&view=list&q=\1&lt;/url&gt;" dest="3">
             <expression noclean="1" />
         </RegExp>
     </CreateSearchUrl>
