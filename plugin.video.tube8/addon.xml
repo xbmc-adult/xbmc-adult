@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.1" provider-name="xbmcadult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.2" provider-name="xbmcadult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
     </requires>

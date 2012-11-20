@@ -90,12 +90,10 @@ def showListCommon(localpath, handle, pageUrl):
 	f.close()
 
 	thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
-	videosRE = '<h2><a href="(.+?)" title="(.+?)">.+?</a></h2>'
+	videosRE = 'sh2"><a href="(.+?)" title="(.+?)">.+?</a>'
 	lenghtRE = '<div class="video-right-text float-right"><strong>(([0-9]{2}:)?[0-9]{2}:[0-9]{2})</strong></div>'
 
 	thumbPattern, videoPattern, lenghtPattern = re.compile(thumbRE), re.compile(videosRE), re.compile(lenghtRE)
-	#videosRE = '<img width="160" height="120" .+?src="(.+?)" /></a>\n\t\t\t\t\t<h2><a href="(.+?)" title="(.+?)">'
-	#videoPattern = re.compile(videosRE)
 
 	matchThumb=thumbPattern.findall(a)
 	matchVid=videoPattern.findall(a)
