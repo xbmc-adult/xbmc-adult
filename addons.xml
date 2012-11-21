@@ -180,7 +180,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.41"
+  version="1.7.42"
   name="VideoDevil"
   provider-name="sfaxman / bootsy">
   <requires>

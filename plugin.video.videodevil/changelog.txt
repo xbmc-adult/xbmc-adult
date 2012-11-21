@@ -1,3 +1,8 @@
+[B]Version 1.7.42[/B]
+
+- re-enable Pornhub it is not broken
+
+
 [B]Version 1.7.41[/B]
 
 - prefixed broken sites with zz for future removal.
