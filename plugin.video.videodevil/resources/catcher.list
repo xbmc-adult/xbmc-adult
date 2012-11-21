@@ -110,7 +110,7 @@ data=url=%s
 quality=standard
 ########################################################
 title=shufuni.com
-target=embededFlashContainer.innerHTML = '([^']+)'
+target=_videoFilePathHD = "([^"]+)"
 url=%s
 quality=standard
 ########################################################

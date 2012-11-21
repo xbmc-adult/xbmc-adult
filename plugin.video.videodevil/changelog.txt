@@ -1,6 +1,8 @@
 [B]Version 1.7.42[/B]
 
 - re-enable Pornhub it is not broken
+- Updated: shufuni
+- Fixed: catcher
 
 
 [B]Version 1.7.41[/B]
