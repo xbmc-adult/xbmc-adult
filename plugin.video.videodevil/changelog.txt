@@ -3,6 +3,8 @@
 - re-enable Pornhub it is not broken
 - Updated: shufuni
 - Fixed: catcher
+- Updated: yuvutu
+- Fixed: video listing
 
 
 [B]Version 1.7.41[/B]
