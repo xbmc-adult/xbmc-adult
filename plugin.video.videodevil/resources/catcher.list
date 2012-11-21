@@ -23,7 +23,7 @@
 # Catcher sites
 ########################################################
 title=ahme.com
-target=url: '([^']+flv)'
+target=video src="([^"]+)"
 url=%s
 header=Cookie|gndr=F
 quality=standard
