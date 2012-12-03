@@ -1,3 +1,8 @@
+[B]Version 1.7.44[/B]
+
+- Fix for Frodo
+
+
 [B]Version 1.7.43[/B]
 
 - Updated: Ah-Me

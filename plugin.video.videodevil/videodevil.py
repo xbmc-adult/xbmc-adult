@@ -1467,6 +1467,7 @@ class Main:
         return url
 
     def parseView(self, url):
+        url = urllib2.unquote(url)
         lItem = self.currentlist.decodeUrl(url)
         url = lItem.infos_values[lItem.infos_names.index('url')]
         ext = self.currentlist.getFileExtension(url)
@@ -1540,7 +1541,7 @@ class Main:
         return result
 
     def addListItem(self, title, url, icon, totalItems, lItem):
-        u = sys.argv[0] + '?url=' + url
+        u = sys.argv[0] + '?url=' + urllib2.quote(url)
         liz = xbmcgui.ListItem(title, title, icon, icon)
         if self.currentlist.getFileExtension(url) == 'videodevil' and self.currentlist.skill.find('nodownload') == -1:
             action = 'XBMC.RunPlugin(%s.dwnlddevil)' % u[:len(u)-11]
