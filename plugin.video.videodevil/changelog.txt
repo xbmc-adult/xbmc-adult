@@ -3,6 +3,7 @@
 - Updated: boysfood
 - Fixed: catcher
 - Reverted Frodo fix it broke some web sites
+- prefix pornhub with zz
 
 
 [B]Version 1.7.44[/B]
