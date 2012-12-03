@@ -1,3 +1,9 @@
+[B]Version 1.7.45[/B]
+
+- Updated: boysfood
+- Fixed: catcher
+
+
 [B]Version 1.7.44[/B]
 
 - Fix for Frodo

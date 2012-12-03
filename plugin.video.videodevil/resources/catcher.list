@@ -176,17 +176,10 @@ url=%s
 quality=standard
 ########################################################
 title=boysfood.com
-target=href="([^"]+wmv)">GET</a></td>
+target=href="([^"]+)"> mp4</a>
 url=%s
 extension=wmv
 quality=standard
-target=href="([^"]+\.(flv|mp4|wmv)[^"]+)">GET</a></td>
-extension=flv
-action=decode
-quality=standard
-target=href="([^"]+hd.flv)">GET</a></td>
-extension=flv
-quality=high
 ########################################################
 title=keezmovies.com
 target=video_url=(http.+)[&]amp;postroll_url
