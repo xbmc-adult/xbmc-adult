@@ -39,6 +39,7 @@ def INDEX(url):
         matchname=re.compile('title1">[\n]{0,1}(.+?)<').findall(link)
         matchurl=re.compile('(\/videos\/.+?.html)').findall(link)
         matchthumb=re.compile('\/videos\/[\s\S]+?src="(.+?jpg)').findall(link)
+        matchthumb=re.compile('data-original="([^"]+jpg)').findall(link)
         matchduration=re.compile('title1">[\s\S]+?Time[\s\S]+?>(\d{1,}:\d{2})').findall(link)
         for name,url,thumb,duration in zip(matchname, matchurl, matchthumb, matchduration): 
                 addDownLink(name + ' ' + duration, url,2, thumb)
