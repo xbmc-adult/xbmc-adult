@@ -11,12 +11,12 @@ import xbmc,xbmcplugin,xbmcgui,sys
 
 
 def _get_keyboard( default="", heading="", hidden=False ):
-	""" shows a keyboard and returns a value """
-	keyboard = xbmc.Keyboard( default, heading, hidden )
-	keyboard.doModal()
-	if ( keyboard.isConfirmed() ):
-		return unicode( keyboard.getText(), "utf-8" )
-	return default
+        """ shows a keyboard and returns a value """
+        keyboard = xbmc.Keyboard( default, heading, hidden )
+        keyboard.doModal()
+        if ( keyboard.isConfirmed() ):
+                return unicode( keyboard.getText(), "utf-8" )
+        return default
 
 def CATEGORIES():
         addDir('Search','http://www.youjizz.com/srch.php?q=',3,'')
@@ -24,7 +24,7 @@ def CATEGORIES():
         addDir('Newest','http://www.youjizz.com/newest-clips/1.html',1,'')
         addDir('Top Rated','http://www.youjizz.com/top-rated/1.html',1,'')
         addDir('Random Videos','http://www.youjizz.com/random.php',1,'')
-	INDEX('http://www.youjizz.com/page/1.html')
+        INDEX('http://www.youjizz.com/page/1.html')
 
 
                        
@@ -37,14 +37,14 @@ def INDEX(url):
         link=response.read()
         response.close()
         matchname=re.compile('title1">[\n]{0,1}(.+?)<').findall(link)
-	matchurl=re.compile('(\/videos\/.+?.html)').findall(link)
-	matchthumb=re.compile('\/videos\/[\s\S]+?src="(.+?jpg)').findall(link)
-	matchduration=re.compile('title1">[\s\S]+?Time[\s\S]+?>(\d{1,}:\d{2})').findall(link)
-	for name,url,thumb,duration in zip(matchname, matchurl, matchthumb, matchduration): 
+        matchurl=re.compile('(\/videos\/.+?.html)').findall(link)
+        matchthumb=re.compile('\/videos\/[\s\S]+?src="(.+?jpg)').findall(link)
+        matchduration=re.compile('title1">[\s\S]+?Time[\s\S]+?>(\d{1,}:\d{2})').findall(link)
+        for name,url,thumb,duration in zip(matchname, matchurl, matchthumb, matchduration): 
                 addDownLink(name + ' ' + duration, url,2, thumb)
-	matchpage=re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
-	for nexturl in matchpage: 
-		addDir('Next Page','http://www.youjizz.com' + nexturl,1,'')
+        matchpage=re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
+        for nexturl in matchpage: 
+                addDir('Next Page','http://www.youjizz.com' + nexturl,1,'')
 
 
 
@@ -63,15 +63,15 @@ def VIDEOLINKS(url,name):
 
 
 def SEARCHVIDEOS(url):
-	searchUrl = url
-	vq = _get_keyboard( heading="Enter the query" )
-	# if blank or the user cancelled the keyboard, return
-	if ( not vq ): return False, 0
-	# we need to set the title to our query
-	title = urllib.quote_plus(vq)
-	searchUrl += title
-	print "Searching URL: " + searchUrl
-	INDEX(searchUrl)
+        searchUrl = url
+        vq = _get_keyboard( heading="Enter the query" )
+        # if blank or the user cancelled the keyboard, return
+        if ( not vq ): return False, 0
+        # we need to set the title to our query
+        title = urllib.quote_plus(vq)
+        searchUrl += title
+        print "Searching URL: " + searchUrl
+        INDEX(searchUrl)
         
 
                 
