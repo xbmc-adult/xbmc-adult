@@ -5,7 +5,7 @@
         </RegExp>
     </NfoUrl>
     <CreateSearchUrl dest="3">
-        <RegExp input="$$1" output="&lt;url&gt;http://www.adultdvdempire.com/AllSearch/Search?pageSize=100&sort=released&view=list&q=\1&lt;/url&gt;" dest="3">
+        <RegExp input="$$1" output="&lt;url&gt;http://www.adultdvdempire.com/allsearch/search?pageSize=100&amp;view=list&amp;q=\1&lt;/url&gt;" dest="3">
             <expression noclean="1" />
         </RegExp>
     </CreateSearchUrl>
@@ -26,7 +26,7 @@
                 <expression>&lt;div id="Boxcover"&gt;&lt;a href="([^"]*)h\.jpg"</expression>
             </RegExp>
             <RegExp input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5+">
-                <expression>&lt;h1&gt;(.*?)&lt;/h1&gt;</expression>
+                <expression trim="1">&lt;h1&gt;(.*?)&lt;/h1&gt;</expression>
             </RegExp>
             <RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
                 <expression>Studio&lt;/strong&gt;[^&gt;]*.([^&lt;]*)</expression>
@@ -37,25 +37,32 @@
             <RegExp input="$$1" output="&lt;tagline&gt;\1&lt;/tagline&gt;" dest="5+">
                 <expression>Tagline"&gt;([^&lt;]*)</expression>
             </RegExp>
-
             <RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
                 <expression>&lt;/p&gt;&lt;p&gt;(.*?)&lt;/p&gt;&lt;/div</expression>
             </RegExp>
-
             <RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\2&lt;/name&gt;&lt;thumb&gt;http://cdn3a.adultempire.org/actors/\1.jpg&lt;/thumb&gt;&lt;/actor&gt;" dest="5+">
                 <expression repeat="yes">&lt;a href="/(\d+)/[\w-]*?-pornstars.html" class="PerformerName"&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp input="$$1" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="5+">
+            <RegExp input="$$7" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="5+">
+                <RegExp input="$$1" output="\1" dest="7">
+                    <expression noclean="1">Categories&lt;/h2&gt;&lt;p&gt;(.*?)&lt;/p&gt;&lt;/div&gt;</expression>
+                </RegExp>
                 <expression repeat="yes">&lt;a href="http://www.adultdvdempire.com/[0-9]+/category/[^&gt;]*.([^&lt;]*)</expression>
             </RegExp>
             <RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
                 <expression trim="1">Length&lt;/strong&gt;.([^&lt;]*)</expression>
             </RegExp>
             <RegExp input="$$1" output="&lt;mpaa&gt;\1&lt;/mpaa&gt;" dest="5+">
-                <expression>Overall Rating: ([^&lt;]*)</expression>
+                <expression>Rating&lt;/strong&gt;.([^&lt;]*)</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;rating max=&quot;5&quot;&gt;\1&lt;/rating&gt;" dest="5+">
+                <expression>Overall Rating:\s([\d.]*)\sout</expression>
             </RegExp>
             <RegExp input="$$1" output="&lt;director&gt;\3&lt;/director&gt;" dest="5+">
                 <expression repeat="yes">&lt;a href="/([0-9]*)/(.*)-directors.html" class="PerformerName"&gt;([^&lt;]*)</expression>
+            </RegExp>
+            <RegExp input="$$1" output="&lt;set&gt;\1&lt;/set&gt;" dest="5+">
+                <expression trim="1">&lt;a href=&quot;[^&quot;]*/series/[^&quot;]*&quot;&gt;([^&lt;]*?)(\sSeries)?&lt;/a&gt;</expression>
             </RegExp>
             <expression noclean="1" />
         </RegExp>
