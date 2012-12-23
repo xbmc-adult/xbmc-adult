@@ -200,7 +200,7 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.3"
+       version="1.0.4"
        provider-name="Pillager">
     <requires>
         <import addon="xbmc.python" version="1.0"/>

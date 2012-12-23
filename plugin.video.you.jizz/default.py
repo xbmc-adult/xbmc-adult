@@ -3,7 +3,7 @@ __author__ = "Pillager"
 __url__ = "http://code.google.com/p/xbmc-adult/"
 __scriptid__ = "plugin.video.you.jizz"
 __credits__ = "Pillager & anarchintosh"
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 import urllib,urllib2,re
 import xbmc,xbmcplugin,xbmcgui,sys
@@ -37,11 +37,11 @@ def INDEX(url):
         link=response.read()
         response.close()
         matchname=re.compile('title1">[\n]{0,1}(.+?)<').findall(link)
-        matchurl=re.compile('(\/videos\/.+?.html)').findall(link)
-        matchthumb=re.compile('\/videos\/[\s\S]+?src="(.+?jpg)').findall(link)
+        matchurl=re.compile('\/videos\/.+?(\d+).html').findall(link)
         matchthumb=re.compile('data-original="([^"]+jpg)').findall(link)
         matchduration=re.compile('title1">[\s\S]+?Time[\s\S]+?>(\d{1,}:\d{2})').findall(link)
         for name,url,thumb,duration in zip(matchname, matchurl, matchthumb, matchduration): 
+                url = '/videos/embed/' + url
                 addDownLink(name + ' ' + duration, url,2, thumb)
         matchpage=re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
         for nexturl in matchpage: 
@@ -55,7 +55,9 @@ def VIDEOLINKS(url,name):
         response = urllib2.urlopen(req)
         link=response.read()
         response.close()
-        match=re.compile('so.addVariable[\s\S]+?(http.+?flv)').findall(link)
+        match=re.compile('so.addVariable[(]"file",[^"]+"(http[^"]+flv[^"]+)').findall(link)
+        if not match:
+                print "Failed to find video URL"
         for url in match:
                 listitem = xbmcgui.ListItem(name)
                 listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})

@@ -1,3 +1,8 @@
+1.0.4
+ - Fixed thumbnail url
+ - Fixed video url
+ - Cleaned code
+
 1.0.3
  - (anarchintosh) changed play code to flatten extra step, updated icon
 
