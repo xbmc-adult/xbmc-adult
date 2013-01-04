@@ -371,7 +371,7 @@ def GET_LINK(url, collections):
         match = re.compile('"video_url":"([^"]+)"').findall(html)
         fetchurl = urllib2.unquote(match[0])
         match = re.compile('"video_title":"([^"]+)"').findall(html)
-        title = urllib2.unquote(match[0])
+        title = urllib.unquote_plus(match[0])
         fetchurl = sesame.decrypt(fetchurl, title, 256)
         print 'fetchurl: %s' % fetchurl
         return fetchurl
