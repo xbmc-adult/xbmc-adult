@@ -280,7 +280,7 @@ def INDEX(url):
         xbmcplugin.endOfDirectory(pluginhandle)
 
     else:
-        match = re.compile('<a href="(.+?)" >                 <img src="(.+?)"'
+        match = re.compile('<a href="([^"]+)"><img src="(.+?)"'
                            ' alt="(.+?)" border="0" >').findall(html)
         for gurl, thumbnail, name in match:
             for each in SUPPORTEDSITES:
