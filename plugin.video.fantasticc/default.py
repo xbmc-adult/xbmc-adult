@@ -46,9 +46,9 @@ SUPPORTEDSITES = ['deviantclip', 'empflix', 'pornhub', 'redtube', 'tnaflix',
                   'tube8', 'xhamster', 'xvideos', 'you_porn']
 
 
-
 def get_html(url):
     return gethtml.get(url, __datapath__)
+
 
 def get_avatar(lc):
     #using lowercase username, build the url to the user's avatar
@@ -64,9 +64,11 @@ def get_avatar(lc):
         else:
             return surl
 
+
 def Notify(title, message, times, icon):
     xbmc.executebuiltin('XBMC.Notification(' + title + ', ' + message + ', ' +
                         times + ', ' + icon + ')')
+
 
 def LOGIN(username, password, hidesuccess):
     uc = username[0].upper() + username[1:]
@@ -92,6 +94,7 @@ def LOGIN(username, password, hidesuccess):
     elif logged_in == False:
         Notify('Login Failure', uc + ' could not login', '4000', default_image)
 
+
 def STARTUP_ROUTINES():
     #deal with bug that happens if the datapath doesn't exist
     if not os.path.exists(__datapath__):
@@ -109,6 +112,7 @@ def STARTUP_ROUTINES():
         hidesuccess = usrsettings.getSetting('hide-successful-login-messages')
 
         LOGIN(username, password, hidesuccess)
+
 
 def CATEGORIES():
     STARTUP_ROUTINES()
@@ -138,8 +142,9 @@ def CATEGORIES():
     # main_url as a dummy
     addDir('Search', main_url, 5, default_image)
 
-    print pluginhandle
+    print 'pluginhandle %s' % pluginhandle
     xbmcplugin.endOfDirectory(pluginhandle)
+
 
 def SEARCH(url):
     # define the keyboard
@@ -228,7 +233,6 @@ def SEARCH(url):
                         addDir(name, url, 6, default_image)
 
 
-
 def SEARCH_RESULTS(url, html=False):
     # this function scrapes the search results pages
     # accepts page source code (html) for any searches where there is only one
@@ -240,14 +244,7 @@ def SEARCH_RESULTS(url, html=False):
                        'path=/\';"  class="xxx" target="_blank"><img '
                        'alt="(.+?)"   src="(.+?)"').findall(html)
     for gurl, name, thumbnail in match:
-        for each in SUPPORTEDSITES:
-            if each in gurl:
-                realurl = 'http://fantasti.cc%s' % gurl
-                mode = 4
-                addLink(name, realurl, mode, thumbnail)
-            else:
-                pass
-
+        addSupportedLinks(gurl, name, thumbnail)
 
 
 def INDEX(url):
@@ -260,7 +257,7 @@ def INDEX(url):
             vid_id = string.split(gurl, '=')[2][:-5]
             realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
             mode = 4
-            print realurl
+            print 'realurl %s' % realurl
             addLink(name, realurl, mode, thumbnail)
         html = get_html(url)
         match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\)'
@@ -268,28 +265,23 @@ def INDEX(url):
         if len(match) >= 1:
             fixedNext = None
             for next_match in match:
-                print next_match
                 mode = 1
                 page = next_match[0][-1]
                 vid_id = next_match[1]
                 fixedNext = 'http://fantasti.cc/ajax/pager.php?page=%s&pid=%s'\
                             '&div=collection_%s&uid=14657' % \
                             (page, vid_id, vid_id)
-                print fixedNext
+                print 'fixedNext %s' % fixedNext
             addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
 
     else:
-        match = re.compile('<a href="([^"]+)"><img src="(.+?)"'
-                           ' alt="(.+?)" border="0" >').findall(html)
-        for gurl, thumbnail, name in match:
-            for each in SUPPORTEDSITES:
-                if each in gurl:
-                    realurl = 'http://fantasti.cc%s' % gurl
-                    mode = 4
-                    addLink(name, realurl, mode, thumbnail)
-                else:
-                    pass
+        match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
+                           ' alt="([^"]+)" border="0" >.+?'
+                           'style="font-size:11px;">\s+([\d:h ]+)', re.DOTALL).findall(html)
+        for gurl, thumbnail, name, duration in match:
+            name = '%s  (%s min)' % (name, duration.rstrip())
+            addSupportedLinks(gurl, name, thumbnail)
         html = get_html(url)
         match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
                           ).findall(html)
@@ -300,6 +292,18 @@ def INDEX(url):
             addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
 
+
+def addSupportedLinks(gurl, name, thumbnail):
+    for each in SUPPORTEDSITES:
+        if each in gurl:
+            realurl = 'http://fantasti.cc%s' % gurl
+            mode = 4
+            addLink(name, realurl, mode, thumbnail)
+            break
+        else:
+            pass
+
+
 def INDEXCOLLECT(url):   # Index Collections Pages
     print 'URL Loading: %s' % url
     html = get_html(url)
@@ -307,7 +311,7 @@ def INDEXCOLLECT(url):   # Index Collections Pages
                        '<a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>'
                        '(.+?)</div>', re.DOTALL).findall(html)
     for gurl, name, chtml, description in match:
-        print name
+        print 'Name %s' % name
         realurl = 'http://fantasti.cc%s' % gurl
         name = unescape(name)
         mode = 1
@@ -326,7 +330,6 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
                       ).findall(html)
     for next_match in match:
-        print 'Next: %s' % next_match
         mode = 2
         next_match = string.split(next_match, '"')[-1]
         fixedNext = 'http://fantasti.cc%s' % next_match
@@ -334,6 +337,7 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         addDir('Next Page', fixedNext, mode, default_image)
 
     xbmcplugin.endOfDirectory(pluginhandle)
+
 
 def PLAY(url):
     print 'Play URL:%s' % url
@@ -347,6 +351,7 @@ def PLAY(url):
 
     item = xbmcgui.ListItem(path=realurl)
     return xbmcplugin.setResolvedUrl(pluginhandle, True, item)
+
 
 def GET_LINK(url, collections):
 # Get the real video link and feed it into XBMC
@@ -396,10 +401,10 @@ def GET_LINK(url, collections):
         for gurl in match:
             print 'gurl %s' % gurl
             purl = string.split(gurl, '?')[1]
-            print purl
+            print 'purl %s' % purl
             urlget2 = 'http://www.tnaflix.com/embedding_player/' \
                       'embedding_feed.php?' + purl
-            print urlget2
+            print 'urlget2 %s' % urlget2
         html = get_html(urlget2)
         match = re.compile('<file>(.+?)</file>').findall(html)
         for each in match:
@@ -471,6 +476,7 @@ def GET_LINK(url, collections):
             fetchurl = None
         return fetchurl
 
+
 def get_params():
     param = []
     paramstring = sys.argv[2]
@@ -487,6 +493,7 @@ def get_params():
             if (len(splitparams)) == 2:
                 param[splitparams[0]] = splitparams[1]
     return param
+
 
 def addLink(name, url, mode, iconimage):
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
@@ -512,11 +519,13 @@ def addDir(name, url, mode, iconimage):
                                      listitem=liz, isFolder=True)
     return ok
 
+
 def unescape(s):
     p = htmllib.HTMLParser(None)
     p.save_bgn()
     p.feed(s)
     return p.save_end()
+
 
 topparams = get_params()
 topurl = None
