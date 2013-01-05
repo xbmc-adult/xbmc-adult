@@ -325,7 +325,7 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         # do some cool stuff to get the images and join them.
         icons = re.compile('<img src="(.+?)"').findall(chtml)
 
-        addDir(name+' *'+num_of_vids+' vids*', realurl, mode, icons[0])
+        addDir(name+' ('+num_of_vids+' vids)', realurl, mode, icons[0])
 
     match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
                       ).findall(html)
