@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scraper language="en" thumb="hotmovies.jpg" date="2013-01-07T00:00:00.000" content="movies" framework="1.1" name="HotMovies.com">
+    <NfoUrl dest="3">
+        <RegExp dest="3" output="&lt;url&gt;http://www.\1/&lt;/url&gt;" input="$$1">
+            <expression noclean="1">(hotmovies.com/en/video/\d+/\S+)</expression>
+        </RegExp>
+    </NfoUrl>
+    <CreateSearchUrl dest="3">
+        <RegExp dest="3" output="&lt;url&gt;http://www.hotmovies.com/en/search.php?complete=on&amp;amp;search_in=video_title&amp;amp;words=\1&lt;/url&gt;" input="$$1">
+            <expression noclean="1"></expression>
+        </RegExp>
+    </CreateSearchUrl>
+    <GetSearchResults dest="6">
+        <RegExp dest="6" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" input="$$5">
+            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.hotmovies.com/en/video/\1&lt;/url&gt;&lt;/entity&gt;" input="$$1">
+                <expression repeat="yes" noclean="1" trim="2">&lt;a href=&quot;http://www.hotmovies.com/en/video/(\d+/\S+/)&quot; title=&quot;([^&quot;]*)</expression>
+            </RegExp>
+            <expression noclean="1"></expression>
+        </RegExp>
+    </GetSearchResults>
+    <GetDetails dest="3">
+        <RegExp dest="3" output="&lt;details&gt;\1&lt;/details&gt;" input="$$5">
+            <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$1">
+                <expression noclean="1">id=&quot;cover&quot; src=&quot;([^&quot;]*)&quot;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;title&gt;\1&lt;/title&gt;" input="$$1">
+                <expression trim="1">&lt;h1&gt;.*?&lt;span itemprop=&quot;name&quot;&gt;([^&lt;]*)&lt;/span&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;director&gt;\1&lt;/director&gt;" input="$$1">
+                <expression repeat="yes" trim="1">Director:.*?&lt;span itemprop=&quot;name&quot;&gt;([^&lt;]*)&lt;/span&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;studio&gt;\1&lt;/studio&gt;" input="$$1">
+                <expression trim="1">Studio:.*?&lt;span itemprop=&quot;name&quot;&gt;([^&lt;]*)&lt;/span&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;year&gt;\1&lt;/year&gt;" input="$$1">
+                <expression trim="1">&lt;span itemprop=&quot;copyrightYear&quot;&gt;(\d+)&lt;/span&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;plot&gt;\3&lt;/plot&gt;" input="$$1">
+                <expression trim="2">&lt;div[^&lt;]*itemprop=&quot;description&quot;&gt;\s*&lt;h2&gt;[^&lt;]*&lt;/h2&gt;\s*(&lt;p&gt;)+(.*?)([^&gt;&lt;]*)&lt;/p&gt;\s*&lt;/div&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;thumb&gt;\2&lt;/thumb&gt;&lt;/actor&gt;" input="$$7">
+                <RegExp dest="7" output="\1" input="$$1">
+                    <expression noclean="1" trim="1">Stars:&lt;/strong&gt;(.*?)&lt;/div&gt;</expression>
+                </RegExp>
+                <expression repeat="yes" trim="3">(&lt;span class=&quot;star_image_hover&quot;&gt;&lt;img[^&gt;]*key=&quot;([^&quot;]*)&quot;/&gt;.*?&lt;/span&gt;)?&lt;a[^&gt;]*itemprop=&quot;actor&quot;[^&gt;]*&gt;&lt;span itemprop=&quot;name&quot;&gt;([^&lt;]*)&lt;/span&gt;&lt;/a&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;genre&gt;\2&lt;/genre&gt;" input="$$8">
+                <RegExp dest="8" output="\1" input="$$1">
+                    <expression repeat="yes" noclean="1">&quot;&gt;[^&gt;]*?[\s]+(-&gt;[\s]+[^&lt;]*)&lt;/a&gt;</expression>
+                </RegExp>
+                <expression repeat="yes" trim="2">(-&gt;)([^(\-&gt;)]*)</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;set&gt;\1&lt;/set&gt;" input="$$1">
+                <expression trim="1">Series:&lt;/strong&gt;\s*&lt;a[^&lt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;runtime&gt;\1&lt;/runtime&gt;" input="$$1">
+                <expression trim="1">&lt;span itemprop=&quot;duration&quot;[^&gt;]*&gt;([\d:]+)&lt;/span&gt;</expression>
+            </RegExp>
+            <RegExp dest="5+" output="&lt;rating max=&quot;5&quot;&gt;\1.\2&lt;/rating&gt;" input="$$1">
+                <expression>images/stars-(\d)-(\d).png</expression>
+            </RegExp>
+            <expression noclean="1"></expression>
+        </RegExp>
+    </GetDetails>
+</scraper>
