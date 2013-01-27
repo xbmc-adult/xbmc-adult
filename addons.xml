@@ -74,8 +74,8 @@
 
 <addon id="metadata.movie.data18.com"
        name="Data18"
-       version="1.1"
-       provider-name="PureHemp">
+       version="1.2"
+       provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
     <import addon="metadata.common.themoviedb.org" version="1.0"/>
@@ -84,7 +84,7 @@
              language="en"
              library="data18.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">data18 scraper</summary>
+    <summary lang="en">Data18 Scraper</summary>
     <description lang="en">Download XXX Movie information from data18.com</description>
     <platform>all</platform>
   </extension>
