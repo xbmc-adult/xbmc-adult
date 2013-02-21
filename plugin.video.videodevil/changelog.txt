@@ -3,6 +3,8 @@
 - Updated: ah-me
 - Fixed: video listing
 - Fixed: category listing
+- Updated: eporner
+- Fixed: video listing
 
 
 [B]Version 1.7.50[/B]
