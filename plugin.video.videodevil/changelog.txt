@@ -1,5 +1,12 @@
 [B]Version 1.7.50[/B]
 
+- Updated: ah-me
+- Fixed: video listing
+- Fixed: category listing
+
+
+[B]Version 1.7.50[/B]
+
 - Fix for Frodo v2
 
 
