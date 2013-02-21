@@ -5,6 +5,8 @@
 - Fixed: category listing
 - Updated: eporner
 - Fixed: video listing
+- Updated: extremetube
+- Fixed: video listing
 
 
 [B]Version 1.7.50[/B]
