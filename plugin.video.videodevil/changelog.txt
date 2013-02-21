@@ -7,6 +7,8 @@
 - Fixed: video listing
 - Updated: extremetube
 - Fixed: video listing
+- Updated: motherless
+- Fixed: video listing
 
 
 [B]Version 1.7.50[/B]
