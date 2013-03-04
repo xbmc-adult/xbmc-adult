@@ -110,7 +110,7 @@
 
 <addon id="metadata.movie.hotmovies.com"
        name="HotMovies.com"
-       version="1.0.0"
+       version="1.0.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>

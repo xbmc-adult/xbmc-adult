@@ -2,18 +2,18 @@
 <scraper language="en" thumb="hotmovies.jpg" date="2013-01-07T00:00:00.000" content="movies" framework="1.1" name="HotMovies.com">
     <NfoUrl dest="3">
         <RegExp dest="3" output="&lt;url&gt;http://www.\1/&lt;/url&gt;" input="$$1">
-            <expression noclean="1">(hotmovies.com/en/video/\d+/\S+)</expression>
+            <expression noclean="1">(hotmovies.com/video/\d+/\S+)</expression>
         </RegExp>
     </NfoUrl>
     <CreateSearchUrl dest="3">
-        <RegExp dest="3" output="&lt;url&gt;http://www.hotmovies.com/en/search.php?complete=on&amp;amp;search_in=video_title&amp;amp;words=\1&lt;/url&gt;" input="$$1">
+        <RegExp dest="3" output="&lt;url&gt;http://www.hotmovies.com/search.php?complete=on&amp;amp;search_in=video_title&amp;amp;words=\1&lt;/url&gt;" input="$$1">
             <expression noclean="1"></expression>
         </RegExp>
     </CreateSearchUrl>
     <GetSearchResults dest="6">
         <RegExp dest="6" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" input="$$5">
-            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.hotmovies.com/en/video/\1&lt;/url&gt;&lt;/entity&gt;" input="$$1">
-                <expression repeat="yes" noclean="1" trim="2">&lt;a href=&quot;http://www.hotmovies.com/en/video/(\d+/\S+/)&quot; title=&quot;([^&quot;]*)</expression>
+            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.hotmovies.com/video/\1&lt;/url&gt;&lt;/entity&gt;" input="$$1">
+                <expression repeat="yes" noclean="1" trim="2">&lt;a href=&quot;http://www.hotmovies.com/video/(\d+/\S+/)&quot; title=&quot;([^&quot;]*)</expression>
             </RegExp>
             <expression noclean="1"></expression>
         </RegExp>
