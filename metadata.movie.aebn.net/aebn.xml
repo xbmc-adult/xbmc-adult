@@ -1,4 +1,4 @@
-<scraper framework="1.1" date="2013-01-03" name="AEBN.net" content="movies" thumb="aebn.jpg" language="en">
+<scraper framework="1.1" date="2013-03-09" name="AEBN.net" content="movies" thumb="aebn.jpg" language="en">
 	<CreateSearchUrl dest="3">
 		<RegExp input="$$1" output="&lt;url&gt;http://straight.theater.aebn.net/dispatcher/fts?userQuery=&quot;\1&quot;&amp;searchType=movie&amp;imageType=Small&lt;/url&gt;" dest="3">
 			<expression noclean="1" />
@@ -7,7 +7,7 @@
 	<GetSearchResults dest="3">
 		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="3">
 			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://straight.theater.aebn.net/dispatcher/movieDetail?movieId=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
-				<expression repeat="yes" trim="1,2">&lt;a id=&quot;FTSMovieSearch_link_title_detail_[0-9]+&quot; href=&quot;/dispatcher/movieDetail\?movieId=([0-9]+)[^&quot;]*&quot;[^&gt;]*&gt;([^&lt;]+)&lt;/a&gt;</expression>
+				<expression repeat="yes" trim="1,2">&lt;a id="FTSMovieSearch_link_title_detail_[0-9]+" href="/dispatcher/movieDetail\?movieId=([0-9]+)[^"]*"[^&gt;]*&gt;([^&lt;]+)&lt;/a&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
@@ -18,24 +18,24 @@
 				<expression trim="1">&lt;h1[^&gt;]*&gt;(.*?)&lt;/h1&gt;</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;thumb&gt;\1&lt;/thumb&gt;" dest="5+">
-				<expression>id=&quot;md-boxCover&quot;&gt;&lt;a href=&quot;([^&quot;]*)&quot;</expression>
+				<expression>id="md-boxCover"&gt;&lt;a href="([^"]*)"</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
-				<expression>class=&quot;runTime&quot;&gt;([^&lt;]*)&lt;</expression>
+				<expression>&lt;span itemprop="duration"[^&gt;]*&gt;(\d+)&lt;/span&gt;</expression>
 			</RegExp>
-			<RegExp input="$$1" output="&lt;year&gt;\2\3&lt;/year&gt;" dest="5+">
-				<expression>Released:[^&lt;]*&lt;/span&gt;\s*&lt;span[^&gt;]*&gt;([0-9]{0,2}/*[0-9]{1,2}/([0-9]{4})|([0-9]{0,4}))&lt;/span&gt;</expression>
+			<RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="5+">
+				<expression>&lt;span[^&gt;]*itemprop="datePublished"[^&gt;]*&gt;\d{2}/(\d{4})&lt;/span&gt;</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
-				<expression trim="1">&lt;a href=&quot;/dispatcher/studioDetail[^&quot;]*&quot;[^&gt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
+				<expression trim="1">&lt;a href="/dispatcher/studioDetail[^"]*"[^&gt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;director&gt;\1&lt;/director&gt;" dest="5+">
-				<expression repeat="yes" trim="1">&lt;a href=&quot;/dispatcher/movieSearch\?directorId[^&quot;]*&quot;[^&gt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
+				<expression repeat="yes" trim="1">&lt;a href="/dispatcher/movieSearch\?[^"]*directorId[^"]*"[^&gt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
 			<RegExp input="$$7" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="5+">
 				<!--copies the genres block to buffer $$7-->
 				<RegExp input="$$1" output="\1" dest="7">
-					<expression trim="1" noclean="1">&lt;span[^&gt;]*&gt;Categories:&lt;/span&gt;\s*&lt;span[^&gt;]*&gt;(.*?)&lt;/span&gt;</expression>
+					<expression clear="yes" trim="1" noclean="1">&lt;span[^&gt;]*&gt;Categories:&lt;/span&gt;\s*&lt;span[^&gt;]*&gt;(.*?)&lt;/span&gt;</expression>
 				</RegExp>
 				<expression repeat="yes" trim="1">&lt;a[^&gt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
@@ -43,26 +43,22 @@
 			<RegExp input="$$7" output="\1" dest="5+">
 				<!--Copies Actors block to $$8, handle both short and long blocks-->
 				<RegExp input="$$1" output="\1" dest="8">
-					<expression repeat="yes" trim="1" noclean="1">Stars:[^&lt;]*&lt;/span&gt;(.*?)&lt;/div</expression>
+					<expression repeat="yes" clear="yes" trim="1" noclean="1">Stars:[^&lt;]*&lt;/span&gt;(.*?)&lt;/div</expression>
+				</RegExp>
+				<!--Process actors that have no thumbnails-->
+				<RegExp input="$$8" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="7+">
+					<expression repeat="yes" clear="yes" trim="1">&lt;a href="/dispatcher/starDetail[^"]*"[^&gt;]*&gt;&lt;span[^&gt;]*&gt;([^&lt;]*)&lt;/span&gt;</expression>
 				</RegExp>
 				<RegExp input="$$8" output="&lt;url function=&quot;GetActorInfo&quot;&gt;http://straight.theater.aebn.net/dispatcher/starDetail?starId=\1&lt;/url&gt;" dest="7+">
 					<expression repeat="yes">/dispatcher/starPopupController\?[^']*starId=([0-9]+)</expression>
 				</RegExp>
-				<!--Process actors that have no thumbnails-->
-				<RegExp input="$$8" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="7+">
-					<expression repeat="yes" trim="1">&lt;a href=&quot;/dispatcher/starDetail[^&quot;]*&quot;\s*&gt;([^&lt;]*)&lt;/a&gt; </expression>
-				</RegExp>
 				<expression noclean="1" />
 			</RegExp>
-			<!--Handles both short and long descriptions-->
-			<RegExp input="$$7" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
-				<RegExp input="$$1" output="\1" dest="7">
-					<expression repeat="yes" trim="1">Description:[^&lt;]*&lt;/span&gt;([^&lt;]*)&lt;</expression>
-				</RegExp>
-				<expression />
+			<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
+				<expression trim="1">&lt;span itemprop="about"&gt;([^&lt;]*)&lt;/span&gt;</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;set&gt;\1&lt;/set&gt;" dest="5+">
-				<expression trim="1">&lt;a[^&gt;]*class=&quot;series&quot;&gt;([^&lt;]*)&lt;/a&gt;</expression>
+				<expression trim="1">&lt;a[^&gt;]*class="series"&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
@@ -70,10 +66,10 @@
 	<GetActorInfo dest="3">
 		<RegExp input="$$5" output="&lt;details&gt;&lt;actor&gt;\1&lt;/actor&gt;&lt;/details&gt;" dest="3">
 			<RegExp input="$$1" output="&lt;name&gt;\1&lt;/name&gt;" dest="5+">
-				<expression trim="1">&lt;div class=&quot;name&quot;&gt;([^&lt;]*)&lt;/div&gt;</expression>
+				<expression clear="yes" trim="1">pornStarDetailsBlock"&gt;\s*&lt;div class="componentHeader"&gt;&lt;div&gt;([^&lt;]*)&lt;/div&gt;</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;thumb&gt;\1&lt;/thumb&gt;" dest="5+">
-				<expression noclean="1">&lt;div class=&quot;starInfo&quot;&gt;\s*&lt;img src=&quot;([^&quot;]*)&quot;</expression>
+				<expression noclean="1">&lt;div class="starInfo"&gt;\s*&lt;img[^&gt;]*src="([^"]*)"</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
