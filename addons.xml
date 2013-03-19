@@ -2,7 +2,7 @@
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="adultdvdempire"
-       version="1.0.6"
+       version="1.0.7"
        provider-name="britenite">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -20,7 +20,7 @@
 
 <addon id="metadata.movie.aebn.gay.net"
        name="AEBN.gay.net"
-       version="1.1.0"
+       version="1.2.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -38,7 +38,7 @@
 
 <addon id="metadata.movie.aebn.net"
        name="AEBN.net"
-       version="1.1.0"
+       version="1.2.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
