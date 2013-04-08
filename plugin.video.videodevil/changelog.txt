@@ -1,4 +1,10 @@
-[B]Version 1.7.50[/B]
+[B]Version 1.7.52[/B]
+
+- Updated: gfvideos
+- Fixed: video listing
+
+
+[B]Version 1.7.51[/B]
 
 - Updated: ah-me
 - Fixed: video listing
