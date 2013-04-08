@@ -2,6 +2,9 @@
 
 - Updated: gfvideos
 - Fixed: video listing
+- Updated: xhamster
+- Fixed: video listing
+- Fixed: catcher
 
 
 [B]Version 1.7.51[/B]

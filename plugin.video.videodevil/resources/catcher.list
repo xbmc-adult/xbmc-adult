@@ -165,7 +165,7 @@ url=%s
 quality=standard
 ########################################################
 title=xhamster.com
-target='file': '(.+?flv)',
+target='file': '(.+?.flv)'
 url=%s
 build=http://xhcdn.com/key=%s
 quality=standard
