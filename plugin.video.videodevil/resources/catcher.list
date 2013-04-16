@@ -154,11 +154,6 @@ target=<a href="(http://[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
 url=%s
 quality=standard
 ########################################################
-title=pornrabbit.com
-target=div class="download".+?href="(.+?)"
-url=%s
-quality=standard
-########################################################
 title=stileproject.com
 target=file":'(.+?)'
 url=%s
