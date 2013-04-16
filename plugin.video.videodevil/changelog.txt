@@ -1,6 +1,7 @@
 [B]Version 1.7.53[/B]
 
 - Removed: pornrabbit
+- Removed: youpunish
 - Updated: moviesand
 - Fixed: video listing
 - Fixed: next button

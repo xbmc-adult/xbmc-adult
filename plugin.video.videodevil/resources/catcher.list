@@ -210,11 +210,6 @@ url=%s
 extension=mp4
 quality=standard
 ########################################################
-title=youpunish.com
-target=<src>([^ ]+)</src>
-url=%s
-quality=standard
-########################################################
 title=yuvutu.com
 target=file: "([^"]+)"
 url=%s
