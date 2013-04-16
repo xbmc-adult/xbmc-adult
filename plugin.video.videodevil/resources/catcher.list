@@ -263,10 +263,10 @@ quality=standard
 #quality=standard
 ########################################################
 title=4tube.com
-target='flashvars','config=([^']+)'.;
+target=videoUrl = '([^']+)'
 url=%s
-ext_target=<file>(.+?)</file>
-ext_url=http://www.4tube.com%s
-ext_action=decode
+#ext_target=<file>(.+?)</file>
+#ext_url=http://www.4tube.com%s
+#ext_action=decode
 quality=standard
 ########################################################

@@ -5,6 +5,8 @@
 - Updated: moviesand
 - Fixed: video listing
 - Fixed: next button
+- Updated: 4tube
+- Fixed: video listing
 
 [B]Version 1.7.52[/B]
 
