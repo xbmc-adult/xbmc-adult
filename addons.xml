@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
-       name="adultdvdempire"
-       version="1.0.7"
-       provider-name="britenite">
+       name="AdultDVDEmpire"
+       version="1.0.8"
+       provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
     <import addon="metadata.common.themoviedb.org" version="1.0"/>
@@ -12,51 +12,51 @@
              language="en"
              library="adultdvdempire.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">adultdvdempire scraper</summary>
-    <description lang="en">Download Movie information from www.adultdvdempire.com</description>
+    <summary lang="en">AdultDVDEmpire Scraper</summary>
+    <description lang="en">Download XXX Movie information from adultdvdempire.com</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <addon id="metadata.movie.aebn.gay.net"
-       name="AEBN.gay.net"
-       version="1.2.0"
+       name="AEBN Gay"
+       version="1.2.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
-	<import addon="metadata.common.themoviedb.org" version="1.0"/>
+		<import addon="metadata.common.themoviedb.org" version="1.0"/>
   </requires>
   <extension point="xbmc.metadata.scraper.movies"
              language="en"
              library="aebn.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">AEBN gay scraper</summary>
-    <description lang="en">Download Gay Movie information from www.aebn.net</description>
+    <summary lang="en">AEBN Gay Scraper</summary>
+    <description lang="en">Download XXX Movie information from gay.aebn.net</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <addon id="metadata.movie.aebn.net"
-       name="AEBN.net"
-       version="1.2.0"
+       name="AEBN"
+       version="1.2.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
-	<import addon="metadata.common.themoviedb.org" version="1.0"/>
+		<import addon="metadata.common.themoviedb.org" version="1.0"/>
   </requires>
   <extension point="xbmc.metadata.scraper.movies"
              language="en"
              library="aebn.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">AEBN scraper</summary>
-    <description lang="en">Download Movie information from www.aebn.net</description>
+    <summary lang="en">AEBN Scraper</summary>
+    <description lang="en">Download XXX Movie information from aebn.net</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <addon id="metadata.movie.cduniverse.com"
-       name="cduniverse"
-       version="1.0.5"
+       name="CDUniverse Adult"
+       version="1.0.6"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -66,15 +66,15 @@
              language="en"
              library="cduniverse.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Adult CDUniverse scraper</summary>
-    <description lang="en">Download Movie information from www.cduniverse.com</description>
+    <summary lang="en">CDUniverse Adult Scraper</summary>
+    <description lang="en">Download XXX Movie information from adult.cduniverse.com</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <addon id="metadata.movie.data18.com"
-       name="Data18"
-       version="1.3"
+       name="Data 18"
+       version="1.3.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -84,16 +84,16 @@
              language="en"
              library="data18.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Data18 Scraper</summary>
+    <summary lang="en">Data 18 Scraper</summary>
     <description lang="en">Download XXX Movie information from data18.com</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <addon id="metadata.movie.excaliburfilms.com"
-       name="excalibur films"
-       version="1.0.4"
-       provider-name="britenite">
+       name="Excalibur Films"
+       version="1.0.5"
+       provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
     <import addon="metadata.common.themoviedb.org" version="1.0"/>
@@ -102,25 +102,26 @@
              language="en"
              library="Excalibur.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Excalibur Films scraper</summary>
-    <description lang="en">Download Movie information from www.excaliburfilms.com</description>
+    <summary lang="en">Excalibur Films Scraper</summary>
+    <description lang="en">Download XXX Movie information from excaliburfilms.com</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <addon id="metadata.movie.hotmovies.com"
-       name="HotMovies.com"
-       version="1.0.1"
+       name="HotMovies"
+       version="1.0.2"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
+    <import addon="metadata.common.themoviedb.org" version="1.0"/>
   </requires>
   <extension point="xbmc.metadata.scraper.movies"
              language="en"
              library="hotmovies.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">HotMovies.com scraper</summary>
-    <description lang="en">Download movie information from www.hotmovies.com</description>
+    <summary lang="en">HotMovies Scraper</summary>
+    <description lang="en">Download XXX movie information from hotmovies.com</description>
     <platform>all</platform>
   </extension>
 </addon>

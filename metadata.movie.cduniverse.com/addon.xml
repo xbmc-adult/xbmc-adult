@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="metadata.movie.cduniverse.com"
-       name="cduniverse"
-       version="1.0.5"
+       name="CDUniverse Adult"
+       version="1.0.6"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -11,8 +11,8 @@
              language="en"
              library="cduniverse.xml"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Adult CDUniverse scraper</summary>
-    <description lang="en">Download Movie information from www.cduniverse.com</description>
+    <summary lang="en">CDUniverse Adult Scraper</summary>
+    <description lang="en">Download XXX Movie information from adult.cduniverse.com</description>
     <platform>all</platform>
   </extension>
 </addon>
