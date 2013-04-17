@@ -217,8 +217,8 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.4"
-       provider-name="Pillager">
+       version="1.0.5"
+       provider-name="xbmcadult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
     </requires>

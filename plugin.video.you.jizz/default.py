@@ -19,8 +19,6 @@ def _get_keyboard( default="", heading="", hidden=False ):
         return default
 
 def CATEGORIES():
-        addDir('Search','http://www.youjizz.com/srch.php?q=',3,'')
-        addDir('Home','',None,'')
         addDir('Newest','http://www.youjizz.com/newest-clips/1.html',1,'')
         addDir('Top Rated','http://www.youjizz.com/top-rated/1.html',1,'')
         addDir('Random Videos','http://www.youjizz.com/random.php',1,'')
@@ -36,10 +34,10 @@ def INDEX(url):
         response = urllib2.urlopen(req)
         link=response.read()
         response.close()
-        matchname=re.compile('title1">[\n]{0,1}(.+?)<').findall(link)
+        matchname=re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
         matchurl=re.compile('\/videos\/.+?(\d+).html').findall(link)
         matchthumb=re.compile('data-original="([^"]+jpg)').findall(link)
-        matchduration=re.compile('title1">[\s\S]+?Time[\s\S]+?>(\d{1,}:\d{2})').findall(link)
+        matchduration=re.compile('thumbtime\'><span.*>(\d{1,}:\d{2})').findall(link)
         for name,url,thumb,duration in zip(matchname, matchurl, matchthumb, matchduration): 
                 url = '/videos/embed/' + url
                 addDownLink(name + ' ' + duration, url,2, thumb)
