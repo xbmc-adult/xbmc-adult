@@ -224,3 +224,10 @@ genre=empflix
 director=VideoDevil
 icon=http://www.userlogos.org/files/logos/spaljeni/empflix.png
 url=empflix.com.cfg
+########################################################
+title=Slutload
+type=rss
+genre=slutload
+director=VideoDevil
+icon=http://www.slutload.com/td/i/sl_logo_1.png
+url=slutload.com.cfg
