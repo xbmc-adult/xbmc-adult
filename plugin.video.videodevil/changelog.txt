@@ -8,6 +8,7 @@
 - Fixed catcher
 - Added: empflix
 - Added: slutload
+- Added: tnaflix
 
 [B]Version 1.7.53[/B]
 

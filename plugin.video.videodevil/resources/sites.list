@@ -225,6 +225,13 @@ director=VideoDevil
 icon=http://www.userlogos.org/files/logos/spaljeni/empflix.png
 url=empflix.com.cfg
 ########################################################
+title=TnAflix
+type=rss
+genre=tnaflix
+director=VideoDevil
+icon=http://www.tnaflix.com/images/logo_left.jpg
+url=tnaflix.com.cfg
+########################################################
 title=Slutload
 type=rss
 genre=slutload
