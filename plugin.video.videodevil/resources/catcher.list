@@ -285,3 +285,10 @@ url=%s
 #ext_action=decode
 quality=standard
 ########################################################
+title=empflix.com
+target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+url=%s
+ext_target=<videoLink>([^<]*)
+ext_url=%s
+quality=standard
+########################################################

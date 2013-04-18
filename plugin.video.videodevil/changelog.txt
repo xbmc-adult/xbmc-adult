@@ -6,6 +6,7 @@
 - Fixed catcher
 - Updated: pornhub
 - Fixed catcher
+- Added: empflix
 
 [B]Version 1.7.53[/B]
 
