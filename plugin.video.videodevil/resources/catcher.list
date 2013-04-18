@@ -298,3 +298,10 @@ url=%s
 action=unquote
 quality=standard
 ########################################################
+title=sunporno.com
+target=class="embed">&lt;iframe src="([^"]*)"
+url=%s
+ext_target=video src="([^"]*)"
+ext_url=%s
+quality=standard
+########################################################
