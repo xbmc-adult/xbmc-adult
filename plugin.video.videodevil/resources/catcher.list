@@ -265,6 +265,11 @@ target="video_url":"([^"]+)"
 url=%s
 quality=standard
 ########################################################
+title=m.pornhub.com
+target=<a href="([^"]+\.mp4[^"]*)"
+url=%s
+quality=low
+########################################################
 #title=viloader.net
 #target=unescape%28%22(http.+?\.flv)%22%29%3
 #url=http://www.viloader.net/mybic_server.php
