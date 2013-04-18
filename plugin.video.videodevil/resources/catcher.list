@@ -1,4 +1,4 @@
-﻿########################################################
+########################################################
 # VideoDevil Catcher list
 ########################################################
 # title: str <- Start flag
@@ -54,6 +54,11 @@ target=flv: "([^"]+)"
 url=%s
 build=http://cdn.hardsextube.com%s
 quality=standard
+########################################################
+title=m.hardsextube.com
+target=<a href="([^"]+)" id="playVideoLink"
+url=%s
+quality=low
 ########################################################
 title=eporner.com
 target='http:\\/\\/www.eporner.com\\/player4\\/(\d+/.+?)\\'
