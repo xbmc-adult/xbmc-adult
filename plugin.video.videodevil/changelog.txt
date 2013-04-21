@@ -3,6 +3,8 @@
 - Updated: xhamster
 - Fixed: categories
 - Fixed: next button
+- Updated: redtube
+- Fixed: next button
 
 [B]Version 1.7.54[/B]
 
