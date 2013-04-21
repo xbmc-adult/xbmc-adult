@@ -1,11 +1,17 @@
+[B]Version 1.7.55[/B]
+
+- Updated: xhamster
+- Fixed: categories
+- Fixed: next button
+
 [B]Version 1.7.54[/B]
 
 - Updated: hardsextube
-- Fixed catcher
+- Fixed: catcher
 - Updated: youjizz
-- Fixed catcher
+- Fixed: catcher
 - Updated: pornhub
-- Fixed catcher
+- Fixed: catcher
 - Added: empflix
 - Added: slutload
 - Added: tnaflix
