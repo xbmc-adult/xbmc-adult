@@ -2,6 +2,8 @@
 
 - Updated: eporner
 - Fixed: video listing
+- Updated: girlfriendvideos
+- Fixed: catcher
 
 [B]Version 1.7.55[/B]
 

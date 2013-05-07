@@ -44,7 +44,7 @@ url=%s
 quality=standard
 ########################################################
 title=gfvideos.com
-target=href="(/videos.+?flv)">Download this video
+target=href="(/videos/[^"]+)"
 url=%s
 build=http://www.girlfriendvideos.com%s
 quality=standard
