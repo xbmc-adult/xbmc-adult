@@ -1,22 +1,25 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import xbmcplugin, xbmcgui, sys, urllib, urllib2, re, xbmcaddon, socket, HTMLParser
+
 socket.setdefaulttimeout(30)
 thisPlugin = int(sys.argv[1])
 settings = xbmcaddon.Addon(id='plugin.video.youporngay')
 userAgentString = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16'
 htmlp = HTMLParser.HTMLParser()
+
+
 def index():
     addDir('Latest Videos (RSS)', 'http://www.youporngay.com/rss/')
     addDir('Latest Videos', 'http://www.youporngay.com/',3)
-    ##addDir('Recommended', 'http://www.youporngay.com/recommended/',3)
     addDir('Top Rated', 'http://www.youporngay.com/top_rated/',3)
     addDir('Most Viewed', 'http://www.youporngay.com/most_viewed/',3)
     addDir('Most Favorited', 'http://www.youporngay.com/most_favorited/',3)
     addDir('Most Discussed', 'http://www.youporngay.com/most_discussed/',3)
     addDir('Search', 'lol',4)
     xbmcplugin.endOfDirectory(thisPlugin)
-    ##xbmc.executebuiltin('Notification(Hello World,This is a simple example of notifications,5000,/script.hellow.world.png)')
+
+
 def listVideosRss(url):
     req = urllib2.Request(url)
     req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporngay.com')
@@ -28,6 +31,8 @@ def listVideosRss(url):
 	addLink(htmlp.unescape(name), url, 2, htmlp.unescape(thumbnail),'',True,length)
     xbmcplugin.endOfDirectory(thisPlugin)
     xbmc.executebuiltin("Container.SetViewMode(500)")
+
+
 def listVideos(url):
     req = urllib2.Request(url)
     req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporngay.com')
@@ -40,12 +45,11 @@ def listVideos(url):
     match=re.compile('<li><a href="([^"]+)">\d+</a></li>\s*<li class="prev-next"><a href="([^"]+)">NEXT <span>&raquo;</span></a></li>',re.MULTILINE|re.DOTALL).findall(link)
     for url_last,url_next in match:
         addDir('Load More Videos ...', 'http://www.youporngay.com' + htmlp.unescape(url_next),3)
-        ##addDir('LAST', 'http://www.youporngay.com' + url_last,3)
     match=re.compile('<li class="prev-next"><a href="([^"]+)"><span>&laquo;</span> PREV</a></li>',re.MULTILINE|re.DOTALL).findall(link)
-    ##for url_prev in match:
-        ##addDir('PREV', 'http://www.youporngay.com' + url_prev,3)
     xbmcplugin.endOfDirectory(thisPlugin)
     xbmc.executebuiltin("Container.SetViewMode(500)")
+
+
 def playVideo(url):
     req = urllib2.Request(url)
     req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporngay.com')
@@ -56,6 +60,8 @@ def playVideo(url):
     for url in match:
 		listitem = xbmcgui.ListItem(path=htmlp.unescape(url))
     return xbmcplugin.setResolvedUrl(thisPlugin, True, listitem)
+
+
 def search(url):
     keyboard = xbmc.Keyboard('', 'Search')
     keyboard.doModal()
@@ -63,6 +69,8 @@ def search(url):
         search_string = keyboard.getText()
         url="http://www.youporngay.com/search/?query="+urllib.quote_plus(search_string)
         listVideos(url)
+
+
 def addLink(name, url, mode=1, iconimage='', description='', isVideo=True, duration=''):
     u    = sys.argv[0] + '?url=' + urllib.quote_plus(url) + '&mode=' + str(mode)
     ok   = True
@@ -74,6 +82,8 @@ def addLink(name, url, mode=1, iconimage='', description='', isVideo=True, durat
     liz.setProperty('IsPlayable', 'true')
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz)
     return ok
+
+
 def addDir(name, url, mode=1, iconimage=''):
     u   = sys.argv[0] + '?url=' + urllib.quote_plus(url) + '&mode=' + str(mode)
     ok  = True
@@ -81,6 +91,8 @@ def addDir(name, url, mode=1, iconimage=''):
     liz.setInfo(type="Video", infoLabels={ 'Title': name })
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=True)
     return ok
+
+
 def parameters_string_to_dict(parameters):
     """Convert parameters encoded in a URL to a dict."""
     paramDict = {}
@@ -91,6 +103,8 @@ def parameters_string_to_dict(parameters):
             if (len(paramSplits)) == 2:
                 paramDict[paramSplits[0]] = paramSplits[1]
     return paramDict
+
+
 params=parameters_string_to_dict(sys.argv[2])
 mode=params.get('mode')
 url=params.get('url')
