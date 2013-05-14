@@ -215,6 +215,20 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.xhamstergay" name="xHamster Gay" version="0.1" provider-name="xbmc-adult">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Free Gays Porn Videos</summary>
+        <description lang="en">Free Gays Porn Videos from xhamster.com</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
        version="1.0.5"
@@ -231,6 +245,20 @@
         <license>GPL 2.0</license>
         <summary lang="en">YouJizz.com</summary>
         <description lang="en">****ADULT CONTENT***** Watch erotic and sexy videos from YouJizz.com</description>
+    </extension>
+</addon>
+
+<addon id="plugin.video.youporngay" name="Youporn Gay" version="0.1" provider-name="xbmc-adult">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Free Gay Porn Movies from youporn.com</summary>
+        <description lang="en">VISIT Youporn for the BEST GAY PORN MOVIES! GET the sexiest TEEN BOYS Tube and ENJOY Huge Cock Sucking VIDEOS. CLICK NOW to WATCH Hot YOUNG XXX Gay Vidz!</description>
+        <platform>all</platform>
     </extension>
 </addon>
 

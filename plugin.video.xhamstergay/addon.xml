@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.xhamstergay" name="xHamster Gay" version="0.1" provider-name="JoJoAction">
+<addon id="plugin.video.xhamstergay" name="xHamster Gay" version="0.1" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -7,10 +7,8 @@
         <provides>video</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
         <summary lang="en">Free Gays Porn Videos</summary>
-       
-        <description lang="en">Free Gays Porn Videos. Tons of hot Gays Porn Videos are waiting for you. Enjoy!</description>
-    <platform>all</platform>
+        <description lang="en">Free Gays Porn Videos from xhamster.com</description>
+        <platform>all</platform>
     </extension>
 </addon>
