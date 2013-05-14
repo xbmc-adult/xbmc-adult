@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.youporngay" name="Youporn Gay" version="0.1" provider-name="JoJoAction">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Free Gay Porn Movies - Teen Boys with Huge Cock Videos</summary>
+       
+        <description lang="en">VISIT Youporn for the BEST GAY PORN MOVIES! GET the sexiest TEEN BOYS Tube and ENJOY Huge Cock Sucking VIDEOS. CLICK NOW to WATCH Hot YOUNG XXX Gay Vidz!</description>
+    <platform>all</platform>
+    </extension>
+</addon>
