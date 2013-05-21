@@ -17,10 +17,10 @@ opener = urllib2.build_opener(cookie_handler)
 
 def CATEGORIES():
     link = openURL('http://www.empflix.com/browse.php')
-    match = re.compile('(?:<li><a href=")(?:http://www.empflix.com/channels/watched-)(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
+    match = re.compile('(?:<li><a href=")(?:http://www.empflix.com/categories/watched-)(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
     addDir('All', 'http://www.empflix.com/browse.php', 1, '', 1)
     for channame, name in match:
-        addDir(name, 'http://www.empflix.com/channels/' + channame + '.html', 1, '', 1)
+        addDir(name, 'http://www.empflix.com/categories/watched-' + channame + '.html', 2, '', 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
@@ -132,12 +132,16 @@ def main():
         CATEGORIES()
 
     elif mode == 1:
+        xbmc.log("SORTMETHOD " + url)
         SORTMETHOD(url)
 
     elif mode == 2:
+        xbmc.log("VIDEOLIST " + url)
+        xbmc.log("VIDEOLIST " + str(page))
         VIDEOLIST(url, page)
 
     elif mode == 3:
+        xbmc.log("PLAYVIDEO " + url)
         PLAYVIDEO(url)
 
 

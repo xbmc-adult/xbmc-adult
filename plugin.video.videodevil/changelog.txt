@@ -1,3 +1,7 @@
+[B]Version 1.7.57[/B]
+
+- Refactored code
+
 [B]Version 1.7.56[/B]
 
 - Updated: eporner

@@ -126,7 +126,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.empflix" name="Empflix" version="2.0.1" provider-name="xbmcadult">
+<addon id="plugin.video.empflix" name="Empflix" version="2.0.2" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
     </requires>
@@ -196,7 +196,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.56"
+  version="1.7.57"
   name="VideoDevil"
   provider-name="sfaxman / bootsy">
   <requires>
