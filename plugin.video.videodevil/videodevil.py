@@ -449,6 +449,14 @@ def third_clean_filename(s):
     stripped = ''.join(c for c in s if c in validchars)
     return stripped;
 
+def smart_read_file(directory, filename):
+    f = open(str(os.path.join(directory, filename)), 'r')
+    data = smart_unicode(f.read())
+    data = data.replace('\r\n', '\n')
+    data = data.split('\n')
+    f.close()
+    return data
+
 class CListItem:
     def __init__(self):
         self.infos_names = []
@@ -647,11 +655,7 @@ class CCurrentList:
         return item
 
     def loadCatcher(self, title):
-        f = open(str(os.path.join(resDir, 'catcher.list')), 'r')
-        data = smart_unicode(f.read())
-        data = data.replace('\r\n', '\n')
-        data = data.split('\n')
-        f.close()
+        data = smart_read_file(resDir, 'catcher.list')
 
         del self.catcher[:]
         catcher_found = False
@@ -716,33 +720,21 @@ class CCurrentList:
         if enable_debug:
             xbmc.log(str(filename))
         try:
-            f = open(str(os.path.join(resDir, filename)), 'r')
-            data = smart_unicode(f.read())
-            data = data.replace('\r\n', '\n')
-            data = data.split('\n')
-            f.close()
+            data = smart_read_file(resDir, filename)
             if enable_debug:
                 xbmc.log('Local file ' + str(os.path.join(resDir, filename)) + ' opened')
         except:
             if enable_debug:
                 xbmc.log('File: ' + str(os.path.join(resDir, filename)) + ' not found')
             try:
-                f = open(str(os.path.join(cacheDir, filename)), 'r')
-                data = smart_unicode(f.read())
-                data = data.replace('\r\n', '\n')
-                data = data.split('\n')
-                f.close()
+                data = smart_read_file(cacheDir, filename)
                 if enable_debug:
                     xbmc.log('Local file ' + str(os.path.join(cacheDir, filename)) + ' opened')
             except:
                 if enable_debug:
                     xbmc.log('File: ' + str(os.path.join(cacheDir, filename)) + ' not found')
                 try:
-                    f = open(str(filename), 'r')
-                    data = smart_unicode(f.read())
-                    data = data.replace('\r\n', '\n')
-                    data = data.split('\n')
-                    f.close()
+                    data = smart_read_file('', str(filename))
                     if enable_debug:
                         xbmc.log('Local file ' + str(filename) + ' opened')
                 except:
