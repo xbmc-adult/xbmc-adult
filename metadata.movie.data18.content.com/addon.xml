@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="metadata.movie.data18.content.com"
+       name="Data 18 Web Content"
+       version="1.4.0"
+       provider-name="xbmc-adult">
+  <requires>
+    <import addon="xbmc.metadata" version="1.0"/>
+    <import addon="metadata.common.themoviedb.org" version="1.0"/>
+  </requires>
+  <extension point="xbmc.metadata.scraper.movies"
+             language="en"
+             library="data18.content.xml"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Data 18 Web Content Scraper</summary>
+    <description lang="en">Download XXX Web Content information from data18.com</description>
+    <disclaimer>This scraper is only intended to be used with Web Content (data18.com/content/), it will not work correctly with XXX Movies (data18.com/movies/).</disclaimer>
+    <platform>all</platform>
+  </extension>
+</addon>

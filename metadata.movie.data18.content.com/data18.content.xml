@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2013-05-25" name="Data18Content" content="movies" language="en">
+	<CreateSearchUrl clearbuffers="no" dest="3">
+		<RegExp input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
+			<!-- Add film year, stored in $$2 for default by xbmc -->
+			<RegExp input="$$2" output=" (\1)" dest="4">
+				<expression clear="yes">(.+)</expression>
+			</RegExp>
+			<RegExp input="$$1" output="https://www.google.com/search?q=\1+site%3Adata18.com%2Fcontent&amp;btnG=Search&amp;output=search" dest="5">
+				<expression />
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</CreateSearchUrl>
+	<GetSearchResults clearbuffers="no" dest="6">
+		<RegExp input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="6">
+			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
+				<expression repeat="yes" noclean="1">&lt;h3 class="r"&gt;&lt;a href="/url\?q=([^&amp;]+)&amp;(?:[^"]*)"&gt;(.+?)&lt;/a&gt;&lt;/h3&gt;</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetSearchResults>
+	<GetDetails clearbuffers="no" dest="7">
+		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot;?&gt;&lt;details&gt;\1&lt;/details&gt;" dest="7">
+			<RegExp input="$$9" output="&lt;title&gt;\1&lt;/title&gt;" dest="5+">
+				<!--Regular title for web releases-->
+				<RegExp input="$$1" output="\1" dest="9">
+					<expression trim="1" noclean="1">&lt;h1[^&gt;]*&gt;([^&lt;]*)&lt;/h1&gt;</expression>
+				</RegExp>
+				<!--If this is a scene from a split movie, make the title "Movie - Scene # - Actress1, Actress2..."-->
+				<RegExp input="$$1" output="\2 - \1" dest="9">
+					<expression trim="1,2" noclean="1,2">&lt;title&gt;(Scene [0-9]+?) from (.+) -  (.+) - data18.com&lt;/title&gt;</expression>
+				</RegExp>
+				<!--If this is a scene from a split movie, make the title "Movie - Scene #"-->
+				<RegExp input="$$1" output="\2 - \3 - \1" dest="9">
+					<expression trim="1,2,3" noclean="1,2,3">&lt;title&gt;(.+?) in (.+?)(?: - Scene [0-9]*)? - (?:.+?)&lt;/title&gt;(?:.+?)(Scene [0-9]+)</expression>
+				</RegExp>
+				<!--Title from web episodes where there is no episode name but instead just the site and a month and year-->
+				<RegExp input="$$1" output="\1 - \2 - \3" dest="9">
+					<expression trim="1,2,3" noclean="1,2,3">&lt;title&gt;(.+?) in (.+?) \( (.+?) \).+?&lt;/title&gt;</expression>
+				</RegExp>
+				<expression trim="1" />
+			</RegExp>
+			<RegExp input="$$10" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
+				<!--Get the movie plot for scenes. This will be replaced by scene plot if it exists in the next expression.-->
+				<RegExp input="$$1" output="\1" dest="10">
+					<expression>title="Go to movie profile".+&lt;p class="line1"&gt;(.+)&lt;/p&gt;</expression>
+				</RegExp>
+				<!--Plot for web clips and some scenes with individual plots filled in-->
+				<RegExp input="$$1" output="\1" dest="10">
+					<expression>&lt;b&gt;Story:&lt;/b&gt; ([^&lt;]*)</expression>
+				</RegExp>
+				<expression trim="1" noclean="1" />
+			</RegExp>
+			<!--Actors with thumbs-->
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;thumb&gt;\1/120/\2&lt;/thumb&gt;&lt;/actor&gt;" dest="5+">
+				<expression repeat="yes" trim="3" noclean="1,2">&lt;img src="(http://www.data18.com/img/stars)/60/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
+			</RegExp>
+			<!--Actors with no thumbs-->
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="5+">
+				<expression repeat="yes" trim="1">&lt;img src="http://www.data18.com/img/no_prev_60.gif"[^&lt;]*alt="([^"]*)</expression>
+			</RegExp>
+			<!--Actors with unambiquous name and no info-->
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="5+">
+				<expression repeat="yes" trim="1">(?:&lt;b&gt;More performers&lt;/b&gt;:|,) &lt;a href="http://www.data18.com/dev/[^"]*"&gt;([^&lt;&amp;-]*)&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
+				<expression>Length:&lt;/b&gt;\s*(\d+)</expression>
+			</RegExp>
+			<!--This isn't usually listed on web clips-->
+			<RegExp input="$$1" output="&lt;director&gt;\1&lt;/director&gt;" dest="5+">
+				<expression trim="1">Director:&lt;/b&gt;[^&gt;]*&gt;([^&lt;]*)</expression>
+			</RegExp>
+			<!--Studio is the network the clip is from-->
+			<RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
+				<expression trim="1">&lt;a href="http://www.data18.com/sites/[^/]+/"&gt;([^&lt;]+)&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$10" output="&lt;set&gt;\1&lt;/set&gt;" dest="5+">
+				<!--If this is a split scene from a full movie, use the full movie as the set name-->
+				<RegExp input="$$1" output="\1" dest="10">
+					<expression>&lt;title&gt;Scene [0-9]+? from (.+) -  (.+) - data18.com&lt;/title&gt;</expression>
+				</RegExp>
+				<!--Use related movie as set name since this is should be the movie the scene came from-->
+				<RegExp input="$$1" output="\1" dest="10">
+					<expression>&lt;title&gt;(?:.+?) in (.+?)(?: at .+?)?(?: - Scene [0-9]*)? - (?:.+?)&lt;/title&gt;</expression>
+				</RegExp>
+				<!--Set name is the website name-->
+				<RegExp input="$$1" output="\1" dest="10">
+					<expression trim="1">&lt;b&gt;Where to Watch:&lt;/b&gt; &lt;span class="gen11"&gt;([^&lt;]+)&lt;/span&gt;</expression>
+				</RegExp>
+				<!--Set name is the website name - if it comes after the word network-->
+				<RegExp input="$$1" output="\1" dest="10">
+					<expression noclean="1">&lt;i&gt;Network&lt;/i&gt;  &gt; &lt;a href="[^"]+"&gt;([^&lt;]+)&lt;/a&gt;</expression>
+				</RegExp>
+				<expression trim="1" />
+			</RegExp>
+			<RegExp input="$$11" output="&lt;year&gt;\1&lt;/year&gt;" dest="5+">
+				<!--Year for web dls-->
+				<RegExp input="$$1" output="\1" dest="11">
+					<expression noclean="1">href="http://www.data18.com/content/date_(\d{4})[\d]+.html"</expression>
+				</RegExp>
+				<!--year for scenes-->
+				<RegExp input="$$1" output="\1" dest="11">
+					<expression>Release date: &lt;b&gt;.+(\d{4})&lt;/b&gt;</expression>
+				</RegExp>
+				<expression />
+			</RegExp>
+			<RegExp input="$$8" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="5+">
+				<RegExp input="$$1" output="\1" dest="8">
+					<expression noclean="1">&lt;b&gt;Categories:&lt;/b&gt;(.*?)&lt;/p&gt;</expression>
+				</RegExp>
+				<expression repeat="yes" trim="1">&lt;a href=[^&gt;]*&gt;([^&lt;]*)</expression>
+			</RegExp>
+			<!--Poster thumbs-->
+			<RegExp input="$$12" output="\1" dest="5+">
+				<!--Gets photo linked by trailer. This is fallback in case there is no image gallery. This will get replaced by the following expressions if possible, because the image galleries are higher resolution.-->
+				<RegExp input="$$1" output="&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;\1&lt;/thumb&gt;" dest="12">
+					<expression noclean="1">img src="([^"]+)" width="[0-9]+" height="[0-9]+" class="noborder" alt="Play this Video" title="Play this Video"</expression>
+				</RegExp>
+				<!--Photo Gallery Images, if they exist, will replace the trailer image. Only get the first link and assume there are 16 total images-->
+				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetPhotoFromViewer&quot;&gt;\1&lt;/url&gt;" dest="12">
+					<expression noclean="1">&lt;a href="(http://www.data18.com/viewer/[^/]+/01)?" rel="nofollow"&gt;</expression>
+				</RegExp>
+				<!--On some pages the first photo gallery link goes to image 2 instead of image 1-->
+				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetPhotoFromViewer&quot;&gt;\1&lt;/url&gt;" dest="12">
+					<expression noclean="1">&lt;a href="(http://www.data18.com/viewer/[^/]+/02)?" rel="nofollow"&gt;</expression>
+				</RegExp>
+				<expression noclean="1" />
+			</RegExp>
+			<!--Store the title of the page on data18 into original title-->
+			<RegExp input="$$1" output="&lt;originaltitle&gt;\1&lt;/originaltitle&gt;" dest="5+">
+				<expression>&lt;title&gt;(.+) - data18.com&lt;/title&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;releasedate&gt;\1-\2-\3&lt;/releasedate&gt;" dest="5+">
+				<expression noclean="1">href="http://www.data18.com/content/date_(\d{4})(\d{2})(\d{2})\.html"</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;mpaa&gt;NC-17&lt;/mpaa&gt;" dest="5+">
+				<expression />
+			</RegExp>
+			<!--fanart-->
+			<RegExp input="$$13" output="\1" dest="5+">
+				<!--Gets photo linked by trailer. This is fallback in case there is no image gallery. This will get replaced by the following expressions if possible, because the image galleries are higher resolution.-->
+				<RegExp input="$$1" output="&lt;fanart&gt;&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;\1&lt;/thumb&gt;&lt;/fanart&gt;" dest="13">
+					<expression>img src="([^"]+)" width="[0-9]+" height="[0-9]+" class="noborder" alt="Play this Video" title="Play this Video"</expression>
+				</RegExp>
+				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetFanartFromViewer&quot;&gt;\1&lt;/url&gt;" dest="13">
+					<expression>&lt;a href="(http://www.data18.com/viewer/[^/]+/01)?" rel="nofollow"&gt;</expression>
+				</RegExp>
+				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetFanartFromViewer&quot;&gt;\1&lt;/url&gt;" dest="13">
+					<expression>&lt;a href="(http://www.data18.com/viewer/[^/]+/02)?" rel="nofollow"&gt;</expression>
+				</RegExp>
+				<expression noclean="1" />
+			</RegExp>
+			<!--Actors with new format-->
+			<RegExp input="$$15" output="\1" dest="5+">
+				<RegExp input="$$1" output="&lt;url function=&quot;GetActorInfo&quot;&gt;\1&lt;/url&gt;" dest="15+">
+					<expression repeat="yes" noclean="1">&lt;a href="(http://www.data18.com/[^/]+/)" title="[^"]+"&gt;&lt;img src="http://www.data18.com/img/no_prev_star.jpg" class="yborder"</expression>
+				</RegExp>
+				<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;thumb&gt;\2/pic2/\3&lt;/thumb&gt;&lt;/actor&gt;" dest="15+">
+					<expression repeat="yes" trim="1" noclean="1,2,3">&lt;a href="http://www.data18.com/[^"]+" title="([^"]+)"&gt;&lt;img src="(http://www.data18.com/img/stars)/pic4/([^"]+)" class="yborder"</expression>
+				</RegExp>
+				<expression noclean="1" />
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetDetails>
+	<GetPhotoFromViewer dest="3">
+		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
+			<RegExp input="$$1" output="&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\501.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\502.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\503.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\504.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\505.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\506.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\507.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\508.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\509.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\510.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\511.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\512.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\513.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\514.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\515.jpg&lt;/thumb&gt;" dest="5">
+				<expression trim="5" noclean="1,2,3,4,5">&lt;img src="http://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg" class="noborder" alt="image" /&gt;</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetPhotoFromViewer>
+	<GetFanartFromViewer dest="3">
+		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
+			<RegExp input="$$1" output="&lt;fanart url=&quot;http://\1/\2/\3/\4/\5&quot; spoof=&quot;http://www.data18.com/viewer/&quot;&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;01.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;02.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;03.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;04.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;05.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;06.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;07.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;08.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;09.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;10.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;11.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;12.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;13.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;14.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;15.jpg&lt;/thumb&gt;&lt;/fanart&gt;" dest="5">
+				<expression trim="5" noclean="1,2,3,4,5">&lt;img src="http://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg" class="noborder" alt="image" /&gt;</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetFanartFromViewer>
+	<GetActorInfo dest="3">
+		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
+			<!--Actor with no thumbnail-->
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="5">
+				<expression noclean="1">&lt;a href="http://www.data18.com/[^"]+"&gt;\n&lt;img src="http://www.data18.com/img/no_prev_120b.gif" class="noborder" alt="([^"]+)"</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;thumb&gt;\1/120/\2&lt;/thumb&gt;&lt;/actor&gt;" dest="5">
+				<expression noclean="1,2,3">&lt;img src="(http://www.data18.com/img/stars)/120/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetActorInfo>
+</scraper>
