@@ -2,7 +2,7 @@
 from string import capitalize, lower
 import xbmcplugin, xbmcaddon
 import sys, os.path
-import urllib, urllib2 
+import urllib, urllib2
 import re, random
 import xbmc, xbmcgui
 import os, traceback
@@ -718,7 +718,7 @@ class CCurrentList:
 
     def loadLocal(self, filename, recursive = True, lItem = None, lCatcher = False):
         if enable_debug:
-            xbmc.log(str(filename))
+            xbmc.log('loadLocal: ' + str(filename))
         try:
             data = smart_read_file(resDir, filename)
             if enable_debug:
@@ -891,7 +891,7 @@ class CCurrentList:
     def loadRemote(self, remote_url, recursive = True, lItem = None):
         remote_url = urllib.unquote_plus(remote_url)
         if enable_debug:
-            xbmc.log(repr(remote_url))
+            xbmc.log('loadRemote: ' + repr(remote_url))
         if lItem == None:
             lItem = self.decodeUrl(remote_url)
         try:
@@ -1625,7 +1625,9 @@ class Main:
                 params = sys.argv[2]
                 currentView = params[5:]
                 if enable_debug:
-                    xbmc.log(repr(currentView))
+                    xbmc.log(
+                      'currentView: ' +
+                      urllib2.unquote(repr(currentView)).replace('&', '\n'))
                 if self.parseView(currentView) == 0:
                     xbmcplugin.endOfDirectory(int(sys.argv[1]))
                     if enable_debug:
