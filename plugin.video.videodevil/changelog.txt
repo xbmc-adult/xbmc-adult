@@ -3,6 +3,8 @@
 - Removed: book-mark.net
 - Updated: motherless
 - Fixed: video listing
+- Updated: pornomovies
+- Fixed: video listing
 
 [B]Version 1.7.57[/B]
 
