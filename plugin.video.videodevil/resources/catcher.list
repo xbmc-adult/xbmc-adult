@@ -288,7 +288,7 @@ ext_url=%s
 quality=standard
 ########################################################
 title=slutload.com
-target=,flv: '([^']+)'
+target=file: "([^"]+)"
 url=%s
 action=unquote
 quality=standard
