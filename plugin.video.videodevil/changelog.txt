@@ -2,6 +2,8 @@
 
 - Updated: motherless
 - Fixed: next button
+- Updated: xhamster
+- Fixed: next button
 
 [B]Version 1.7.58[/B]
 
