@@ -1,3 +1,8 @@
+[B]Version 1.7.60[/B]
+
+- Updated: motherless
+- Fixed: video listing
+
 [B]Version 1.7.59[/B]
 
 - Updated: motherless
