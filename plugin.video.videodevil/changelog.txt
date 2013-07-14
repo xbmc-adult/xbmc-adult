@@ -2,6 +2,7 @@
 
 - Updated: 4tube
 - Fixed: catcher
+- Removed: youjizz -> install the addon if you want it
 
 [B]Version 1.7.60[/B]
 
