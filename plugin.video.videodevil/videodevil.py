@@ -1456,6 +1456,8 @@ class Main:
     def TargetFormatter(self, url, cfg_file): # Site specific target url handling
         if 'hardsextube' in url:
             url = url.replace('_@?_', '&')
+        if '4tube.com' in url:
+            url = url.replace('\\', '')
         return url
 
     def parseView(self, url):
