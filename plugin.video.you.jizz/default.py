@@ -31,7 +31,6 @@ def INDEX(url):
         addDir('Search','http://www.youjizz.com/srch.php?q=',3,'')
         addDir('Home','',None,'')
         link = getHtml(url)
-        response.close()
         matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
         matchurl = re.compile('\/videos\/.+?(\d+).html').findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
@@ -48,6 +47,17 @@ def INDEX(url):
 def VIDEOLINKS(url,name):
         link = getHtml('http://www.youjizz.com' + url)
         match = re.compile('so.addVariable[(]"file",[^"]+"(http[^"]+flv[^"]+)').findall(link)
+        if not match:
+                # Try to find a playlist instead on the page
+                match = re.compile('so.addVariable\("playlist", "([^"]+)"').findall(link)
+                for url in match:
+                        # Download the playlist and find the last URL for the
+                        # highest def video
+                        link = getHtml(url)
+                        match = re.compile('file="([^"]+)"').findall(link)
+                        if match:
+                                match = match[-1:]
+                                match[0] = urllib.unquote(match[0])
         if not match:
                 print "Failed to find video URL"
         for url in match:
