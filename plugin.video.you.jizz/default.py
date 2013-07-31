@@ -8,6 +8,8 @@ __version__ = "1.0.6"
 import urllib,urllib2,re
 import xbmc,xbmcplugin,xbmcgui,sys
 
+USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
+
 
 def _get_keyboard(default="", heading="", hidden=False):
         """ shows a keyboard and returns a value """
@@ -28,10 +30,7 @@ def CATEGORIES():
 def INDEX(url):
         addDir('Search','http://www.youjizz.com/srch.php?q=',3,'')
         addDir('Home','',None,'')
-        req = urllib2.Request(url)
-        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-        response = urllib2.urlopen(req)
-        link = response.read()
+        link = getHtml(url)
         response.close()
         matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
         matchurl = re.compile('\/videos\/.+?(\d+).html').findall(link)
@@ -47,11 +46,7 @@ def INDEX(url):
 
 
 def VIDEOLINKS(url,name):
-        req = urllib2.Request('http://www.youjizz.com' + url)
-        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-        response = urllib2.urlopen(req)
-        link = response.read()
-        response.close()
+        link = getHtml('http://www.youjizz.com' + url)
         match = re.compile('so.addVariable[(]"file",[^"]+"(http[^"]+flv[^"]+)').findall(link)
         if not match:
                 print "Failed to find video URL"
@@ -73,7 +68,17 @@ def SEARCHVIDEOS(url):
         INDEX(searchUrl)
 
 
-def get_params():
+def getHtml(url):
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', USER_AGENT)
+        response = urllib2.urlopen(req)
+        data = response.read()
+        response.close()
+        return data
+
+
+
+def getParams():
         param = []
         paramstring = sys.argv[2]
         if len(paramstring) >= 2:
@@ -120,7 +125,7 @@ def addDir(name,url,mode,iconimage):
         return ok
 
 
-params = get_params()
+params = getParams()
 url = None
 name = None
 mode = None
