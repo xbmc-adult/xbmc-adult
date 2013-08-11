@@ -396,17 +396,15 @@ def GET_LINK(url, collections):
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'tnaflix' in url:
-        match = re.compile('<param name="FlashVars" value="(.+?)"/>'
-                          ).findall(html)
+        match = re.compile('iframe src="(http://player[^"]+)').findall(html)
         for gurl in match:
-            print 'gurl %s' % gurl
-            purl = string.split(gurl, '?')[1]
-            print 'purl %s' % purl
-            urlget2 = 'http://www.tnaflix.com/embedding_player/' \
-                      'embedding_feed.php?' + purl
-            print 'urlget2 %s' % urlget2
+            urlget2 = gurl
         html = get_html(urlget2)
-        match = re.compile('<file>(.+?)</file>').findall(html)
+        match = re.compile('flashvars\.config\s*=\s*escape\("([^"]*)"\);'
+                          ).findall(html)
+        for each in match:
+            html = get_html(each)
+            match = re.compile('<videoLink>([^<]*)').findall(html)
         for each in match:
             fetchurl = each
             print 'fetchurl: %s' % fetchurl
