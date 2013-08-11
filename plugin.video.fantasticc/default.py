@@ -373,8 +373,8 @@ def GET_LINK(url, collections):
     elif 'pornhub' in url:
         match = re.compile('href="([^"]+viewkey[^"]+)"').findall(html)
         html = get_html(match[0])
-        match = re.compile('"video_url":"([^"]+)"').findall(html)
-        fetchurl = urllib2.unquote(match[0])
+        match = re.compile('"quality_[^"]+":"([^"]+)"').findall(html)
+        fetchurl = urllib2.unquote(match[-1])
         match = re.compile('"video_title":"([^"]+)"').findall(html)
         title = urllib.unquote_plus(match[0])
         fetchurl = sesame.decrypt(fetchurl, title, 256)
