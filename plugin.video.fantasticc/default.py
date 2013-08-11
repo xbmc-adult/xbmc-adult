@@ -414,6 +414,7 @@ def GET_LINK(url, collections):
         html = get_html('http://xhamster.com/xembed.php?video=%s' % match[0])
         match = re.compile('srv=(.+?)&image').findall(html)
         fetchurl = match[0].replace('&file', '/key')
+        fetchurl = urllib.unquote(fetchurl)
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'deviantclip' in url:
