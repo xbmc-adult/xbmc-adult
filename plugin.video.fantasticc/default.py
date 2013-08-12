@@ -324,6 +324,8 @@ def INDEXCOLLECT(url):   # Index Collections Pages
 
         # do some cool stuff to get the images and join them.
         icons = re.compile('<img src="(.+?)"').findall(chtml)
+        if not icons:
+          continue # some collections are empty so they don't have icons
 
         addDir(name + ' (' + num_of_vids + ' vids)', realurl, mode, icons[0])
 
