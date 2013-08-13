@@ -15,7 +15,7 @@ import xbmcplugin, xbmcaddon, xbmcgui, xbmc
 __addonname__ = 'plugin.video.fantasticc'
 
 #get path the default.py is in.
-__addonpath__ = os.getcwd()
+__addonpath__ = xbmcaddon.Addon(id=__addonname__).getAddonInfo('path')
 
 #datapath
 __datapath__ = xbmc.translatePath('special://profile/addon_data/'+__addonname__)
@@ -82,7 +82,7 @@ def LOGIN(username, password, hidesuccess):
             Notify('Welcome back ' + uc, 'Fantasti.cc loves you', '4000',
                    avatar)
 
-        addDir(uc + '\'s Videos', 
+        addDir(uc + '\'s Videos',
                main_url + 'user/' + lc + '/videos/save_date', 1, avatar)
         addDir(uc + '\'s Collections',
                main_url + 'user/' + lc + '/collections', 2, avatar)

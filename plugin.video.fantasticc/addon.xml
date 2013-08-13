@@ -2,7 +2,7 @@
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
        version="2.3.7"
-       provider-name="Ksosez">
+       provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
         <import addon="script.module.pil"/>
