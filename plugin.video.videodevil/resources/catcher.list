@@ -110,7 +110,7 @@ url=%s
 quality=standard
 ########################################################
 title=youporn.com
-target=<a href="([^"]+)">MP4
+target=<a href="([^"]+)">\s*MP4
 url=%s
 action=decode
 header=Cookie|age_check=1
