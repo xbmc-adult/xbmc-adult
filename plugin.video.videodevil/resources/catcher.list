@@ -212,7 +212,7 @@ header=Cookie|gndr=F
 quality=standard
 ########################################################
 title=fapdu.com
-target='file' : '([^ ]+)'
+target="file" : "([^ ]+)"
 url=%s
 quality=standard
 ########################################################

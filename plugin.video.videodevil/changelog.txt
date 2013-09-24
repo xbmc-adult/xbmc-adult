@@ -1,5 +1,11 @@
 [B]Version 1.7.62[/B]
 
+- Updated: fapdu
+- Fixed: video listing
+- Fixed: catcher
+
+[B]Version 1.7.62[/B]
+
 - Updated: motherless
 - Fixed: url
 
