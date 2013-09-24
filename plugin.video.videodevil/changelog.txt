@@ -1,4 +1,4 @@
-[B]Version 1.7.62[/B]
+[B]Version 1.7.63[/B]
 
 - Updated: fapdu
 - Fixed: video listing
@@ -10,6 +10,8 @@
 - Fixed: catcher
 - Updated: youporn
 - Fixed: catcher
+- Updated: yuvutu
+- Fixed: video url
 
 [B]Version 1.7.62[/B]
 
