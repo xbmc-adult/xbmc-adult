@@ -3,6 +3,9 @@
 - Updated: fapdu
 - Fixed: video listing
 - Fixed: catcher
+- Updated: fucktube
+- Fixed: video listing
+- Fixed: catcher
 
 [B]Version 1.7.62[/B]
 

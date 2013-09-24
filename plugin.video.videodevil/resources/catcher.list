@@ -217,7 +217,7 @@ url=%s
 quality=standard
 ########################################################
 title=fucktube.com
-target='video_player', '([^']+)'
+target=(http://.+?mp4[^"]+)
 url=%s
 quality=standard
 ########################################################
