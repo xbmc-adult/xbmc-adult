@@ -200,8 +200,9 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
-target=video_url = "([^"]+)";
+target="(http%3[^"]+mp4[^"]+)";\s+flashvars.(r|quality_\d+)p = ""
 url=%s
+action=unquote
 extension=mp4
 quality=standard
 ########################################################
