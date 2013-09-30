@@ -1,6 +1,8 @@
 [B]Version 1.7.65[/B]
 
 - Added: freeHDporn
+- Updated: eporner
+- Added: HD video quality playback
 
 [B]Version 1.7.64[/B]
 

@@ -65,11 +65,16 @@ url=%s
 quality=low
 ########################################################
 title=eporner.com
-target='http:\\/\\/www.eporner.com\\/player4\\/(\d+/.+?)\\'
+target=http:\\/\\/www.eporner.com\\/player5\\/(\d+/.+?)/"
 url=%s
 ext_target=<file>(.+?)</file>
 ext_url=http://www.eporner.com/config5/%s
-quality=standard
+quality=low
+target=http:\\/\\/www.eporner.com\\/player5\\/(\d+/.+?)/"
+url=%s
+ext_target=<hd.file>(.+?)</hd.file>
+ext_url=http://www.eporner.com/config5/%s
+quality=high
 ########################################################
 title=2video.de
 target=<div id="box">[^<]*<h2>Download</h2>[^<]*<p><a href="([^"]+)" target="_blank">
