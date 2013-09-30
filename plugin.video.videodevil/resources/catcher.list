@@ -38,6 +38,15 @@ target='file': "([^"]+)"
 url=%s
 quality=standard
 ########################################################
+title=freehdporn.ws
+target=flashvars=.+?url480=(http[^&]+)
+url=%s
+quality=standard
+target=flashvars=.+?url720=(http[^\&]+)
+quality=high
+target=flashvars=.+?url360=(http[^\&]+)
+quality=low
+########################################################
 title=gfvideos.com
 target=href="(/videos/[^"]+)"
 url=%s
