@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.10"
-       provider-name="notme">
+       version="1.11"
+       provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
   </requires>
