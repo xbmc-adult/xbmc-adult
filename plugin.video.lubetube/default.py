@@ -14,6 +14,8 @@ def CATEGORIES():
         addDir(title, url, 1, "")
 
 def INDEX(url):
+    # url: http://lubetube.com/search/adddate/cat/bondage/page=1
+    add_next(url)
     link = read_url(url)
     match = re.compile('<a class="frame[^"]*"'
                        ' href="(http://lubetube.com/video/[^"]+)" '
@@ -34,6 +36,15 @@ def VIDEOLINKS(url, name):
             listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
             url = url.replace('&amp;', '&')
             xbmc.Player().play(url, listitem)
+
+def add_next(url):
+    match = re.compile('(\d+)$').findall(url)
+    if match:
+        page_number = int(match[0])
+        page_number+=1 # This will 404 eventually
+        category_url=url.split('=')[0]
+        next_url = category_url + '=' + str(page_number)
+        addDir("Next", next_url, 1, "")
 
 def read_url(url):
     req = urllib2.Request(url)
