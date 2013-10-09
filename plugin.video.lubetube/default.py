@@ -62,13 +62,7 @@ def CATEGORIES():
     addDir("Voyeur", "http://lubetube.com/search/cat/voyeur", 1, "")
 
 def INDEX(url):
-    req = urllib2.Request(url)
-    req.add_header('User-Agent', 
-                   'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB;'
-                   ' rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-    response = urllib2.urlopen(req)
-    link = response.read()
-    response.close()
+    link = read_url(url)
     match = re.compile('<a class="frame[^"]*"'
                        ' href="(http://lubetube.com/video/[^"]+)" '
                        'title="([^"]+)">.*?<img src="([^"]+)".+?Length:([^<]+)',
@@ -77,6 +71,19 @@ def INDEX(url):
         addDownLink(name + length, url, 2, thumbnail)
 
 def VIDEOLINKS(url, name):
+    link = read_url(url)
+    match = re.compile('playlist_flow_player_flv.php\?vid\=[0-9]*'
+                      ).findall(link)
+    for url in match:
+        link = read_url('http://lubetube.com/' + url)
+        match = re.compile('url="(.*)" type').findall(link)
+        for url in match:
+            listitem = xbmcgui.ListItem(name)
+            listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
+            url = url.replace('&amp;', '&')
+            xbmc.Player().play(url, listitem)
+
+def read_url(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent',
                    'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB;'
@@ -84,20 +91,7 @@ def VIDEOLINKS(url, name):
     response = urllib2.urlopen(req)
     link = response.read()
     response.close()
-    match = re.compile('playlist_flow_player_flv.php\?vid\=[0-9]*'
-                      ).findall(link)
-    for url in match:
-        req = urllib2.Request('http://lubetube.com/' + url)
-        response = urllib2.urlopen(req)
-        link = response.read()
-        response.close()
-        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-        match = re.compile('url="(.*)" type').findall(link)
-        for url in match:
-            listitem = xbmcgui.ListItem(name)
-            listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
-            url = url.replace('&amp;', '&')
-            xbmc.Player().play(url, listitem)
+    return link
 
 def get_params():
     param = []
