@@ -17,10 +17,15 @@ opener = urllib2.build_opener(cookie_handler)
 
 def CATEGORIES():
     link = openURL('http://www.empflix.com/browse.php')
-    match = re.compile('(?:<li><a href=")(?:http://www.empflix.com/categories/watched-)(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
+    match = re.compile('(?:<li><a href=")'
+                       '(?:http://www.empflix.com/categories/watched-)'
+                       '(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
     addDir('All', 'http://www.empflix.com/browse.php', 1, '', 1)
     for channame, name in match:
-        addDir(name, 'http://www.empflix.com/categories/watched-' + channame + '.html', 2, '', 1)
+        addDir(name,
+               ('http://www.empflix.com/categories/watched-' + channame +
+                '.html'),
+               2, '', 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
@@ -31,7 +36,8 @@ def SORTMETHOD(url):
         addDir('Most Viewed', url + '?category=mv', 2, '', 1)
         addDir('Top Rated', url + '?category=tr', 2, '', 1)
     else:
-        match = re.compile('(http://www.empflix.com/channels/)(.*)').findall(url)
+        match = re.compile('(http://www.empflix.com/channels/)'
+                           '(.*)').findall(url)
         for start, end in match:
             addDir('Being Watched', start + 'watched-' + end, 2, '', 1)
             addDir('Most Recent', start + 'new-' + end, 2, '', 1)
@@ -42,7 +48,11 @@ def SORTMETHOD(url):
 
 def VIDEOLIST(url, page):
     link = openURL(url + '&page=' + str(page))
-    match = re.compile('(?:<a href=")(http://www.empflix.com/videos/.*(?=.html).html)"  title="(.*)(?=">)"><img src="/images/blank.gif" data-src="(.*)(?=" alt=)').findall(link)
+    match = re.compile('(?:<a href=")'
+                       '(http://www.empflix.com/videos/.*(?=.html).html)"'
+                       '  title="(.*)(?=">)">'
+                       '<img src="/images/blank.gif" data-src="(.*)'
+                       '(?=" alt=)').findall(link)
     for videourl, name, thumb in match:
         addLink(name, videourl + '?', 3, thumb.strip())
     if (len(match) == 24):
@@ -79,15 +89,19 @@ def get_params():
 
 
 def addLink(name, url, mode, iconimage):
-    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name)
+    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode)\
+        + "&name=" + urllib.quote_plus(name)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=False)
+    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
+                           thumbnailImage=iconimage)
+    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
+                                     listitem=liz, isFolder=False)
     return ok
 
 
 def addDir(name, url, mode, iconimage, page):
-    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(name) + "&page=" + str(page)
+    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) +\
+        "&name=" + urllib.quote_plus(name) + "&page=" + str(page)
     ok = True
     liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
                            thumbnailImage=iconimage)
