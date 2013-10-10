@@ -1,0 +1,24 @@
+[B]1.11[/B]
+
+- Read categories from landing page so that they are always up to date
+- Add Next button
+
+[B]1.10[/B]
+
+- Code cleanup
+
+[B]1.9[/B]
+
+- Add length of each clip in the video listing
+
+[B]1.8[/B]
+
+- Fixed URL
+
+[B]1.7[/B]
+
+- Added an icon
+
+[B]1.6[/B]
+
+- First Add-on version
