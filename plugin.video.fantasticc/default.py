@@ -27,7 +27,6 @@ sys.path.append( os.path.join( __addonpath__, 'resources', 'lib' ) )
 import weblogin
 import gethtml
 
-#import img_merge
 
 pluginhandle = int(sys.argv[1])
 
@@ -43,7 +42,7 @@ fip = 'http://77.247.181.97/'
 # 3rd Party video Sites that are currently supported are listed below
 
 SUPPORTEDSITES = ['deviantclip', 'empflix', 'pornhub', 'redtube', 'tnaflix',
-                  'tube8', 'xhamster', 'xvideos', 'you_porn']
+                  'tube8', 'xhamster', 'xtube', 'xvideos', 'you_porn']
 
 
 def get_html(url):
@@ -474,6 +473,14 @@ def GET_LINK(url, collections):
         match = re.compile('srv=(.+?)&image').findall(html)
         fetchurl = match[0].replace('&file', '/key')
         fetchurl = urllib.unquote(fetchurl)
+        print 'fetchurl: %s' % fetchurl
+        return fetchurl
+    elif 'xtube' in url:
+        match = re.compile('(http://www.xtube.com/.+?)"').findall(html)
+        html = get_html(match[0])
+        match = re.compile('videoMp4 = "(.+?)"').findall(html)
+        for each in match:
+            fetchurl = each.replace('\\', '')
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'deviantclip' in url:
