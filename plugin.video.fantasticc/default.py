@@ -278,7 +278,8 @@ def INDEX(url):
     else:
         match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
                            ' alt="([^"]+)" border="0" >.+?'
-                           'style="font-size:11px;">\s+([\d:h ]+)', re.DOTALL).findall(html)
+                           'style="font-size:11px;">\s+([\d:h ]+)',
+                           re.DOTALL).findall(html)
         for gurl, thumbnail, name, duration in match:
             name = '%s  (%s min)' % (name, duration.rstrip())
             addSupportedLinks(gurl, name, thumbnail)
@@ -452,7 +453,8 @@ def GET_LINK(url, collections):
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
-        match = re.compile('</span><a href="([^"]+mp4[^"]+)">.+?iPad').findall(html)
+        match = re.compile('</span><a href="([^"]+mp4[^"]+)">.+?iPad'
+                          ).findall(html)
         for each in match:
             fetchurl = each.replace('&amp;', '&')
         print 'fetchurl: %s' % fetchurl
@@ -468,9 +470,10 @@ def GET_LINK(url, collections):
             gurl = re.compile('<a[^>]+href="(.*?)"[^>]*>%s</a>' % r
                              ).findall(html)[0]
             kid = re.compile('id="Math">(\d+)'
-                            ).findall(get_html('http://clipnabber.com/mini.php'))[0]
-            html = get_html('http://clipnabber.com/gethint.php?mode=1&sid=%s&url=%s'
-                            % (kid, urllib.quote(gurl)))
+                            ).findall(get_html('http://clipnabber.com/mini.php'
+                                              ))[0]
+            html = get_html('http://clipnabber.com/gethint.php'
+                            '?mode=1&sid=%s&url=%s' % (kid, urllib.quote(gurl)))
             fetchurl = re.compile("<a href='(.*?)'").findall(html)[0]
             print 'Fetchurl: %s' % fetchurl
         except:
