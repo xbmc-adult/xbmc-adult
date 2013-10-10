@@ -127,16 +127,72 @@ def CATEGORIES():
     addDir('Popular All Time',
            main_url+'videos/popular/all_time/', mode, default_image)
     addDir('Upcoming', main_url+'videos/upcoming/', mode, default_image)
+    addDir('Made Popular', main_url+'videos/made_popular/', mode, default_image)
 
     mode = 2
-    addDir('Collections Popular Today',
-           main_url+'videos/collections/popular/today/', mode, default_image)
-    addDir('Collections Popular Last 7 Days',
-           main_url+'videos/collections/popular/7days/', mode, default_image)
-    addDir('Collections Popular Last Month',
-           main_url+'videos/collections/popular/31days/', mode, default_image)
-    addDir('Collections Popular All Time',
-           main_url+'videos/collections/popular/all_time/', mode, default_image)
+    addDir('Collections Upcoming',
+           main_url+'videos/collections/upcoming/',
+           mode, default_image)
+    addDir('Collections Today - Popular',
+           main_url+'videos/collections/popular/today/',
+           mode, default_image)
+    addDir('Collections Today - Most Viewed',
+           main_url+'videos/collections/most_viewed/today/',
+           mode, default_image)
+    addDir('Collections Today - Top Rated',
+           main_url+'videos/collections/top_rated/today/',
+           mode, default_image)
+    addDir('Collections Today - Most Discussed',
+           main_url+'videos/collections/most_discussed/today/',
+           mode, default_image)
+    addDir('Collections Today - Top Favorited',
+           main_url+'videos/collections/top_favorites/today/',
+           mode, default_image)
+    addDir('Collections Last week - Popular',
+           main_url+'videos/collections/popular/7days/',
+           mode, default_image)
+    addDir('Collections Last week - Most Viewed',
+           main_url+'videos/collections/most_viewed/7days/',
+           mode, default_image)
+    addDir('Collections Last week - Most Discussed',
+           main_url+'videos/collections/most_discussed/7days/',
+           mode, default_image)
+    addDir('Collections Last week - Top Rated',
+           main_url+'videos/collections/top_rated/7days/',
+           mode, default_image)
+    addDir('Collections Last week - Top Favorited',
+           main_url+'videos/collections/top_favorites/7days/',
+           mode, default_image)
+    addDir('Collections Last month - Popular',
+           main_url+'videos/collections/popular/31days/',
+           mode, default_image)
+    addDir('Collections Last month - Most Viewed',
+           main_url+'videos/collections/most_viewed/31days/',
+           mode, default_image)
+    addDir('Collections Last month - Most Discussed',
+           main_url+'videos/collections/most_discussed/31days/',
+           mode, default_image)
+    addDir('Collections Last month - Top Rated',
+           main_url+'videos/collections/top_rated/31days/',
+           mode, default_image)
+    addDir('Collections Last month - Top Favorited',
+           main_url+'videos/collections/top_favorites/31days/',
+           mode, default_image)
+    addDir('Collections All-Time - Popular',
+           main_url+'videos/collections/popular/all_time/',
+           mode, default_image)
+    addDir('Collections All-Time - Most Viewed',
+           main_url+'videos/collections/most_viewed/all_time/',
+           mode, default_image)
+    addDir('Collections All-Time - Most Discussed',
+           main_url+'videos/collections/most_discussed/all_time/',
+           mode, default_image)
+    addDir('Collections All-Time - Top Rated',
+           main_url+'videos/collections/top_rated/all_time/',
+           mode, default_image)
+    addDir('Collections All-Time - Top Favorited',
+           main_url+'videos/collections/top_favorites/all_time/',
+           mode, default_image)
 
     # didn't need to pass search a url. so i was lazy and passed it the
     # main_url as a dummy
