@@ -1,3 +1,10 @@
+[B]Version 1.7.66[/B]
+
+- Updated: freeHDporn
+- Fixed: video listing
+- Fixed: category listing
+- Fixed: next button
+
 [B]Version 1.7.65[/B]
 
 - Added: freeHDporn
