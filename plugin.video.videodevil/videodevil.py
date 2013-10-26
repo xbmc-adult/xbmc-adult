@@ -656,7 +656,6 @@ class CCurrentList:
 
     def loadCatcher(self, title):
         data = smart_read_file(resDir, 'catcher.list')
-
         del self.catcher[:]
         catcher_found = False
         for m in data:
@@ -670,47 +669,48 @@ class CCurrentList:
                             return 0
                         if title == value:
                             catcher_found = True
-                    elif catcher_found and key == 'target':
-                        catcher_tmp = CCatcherItem()
-                        catcher_tmp.rule.target = value
-                    elif catcher_found and key == 'ext_target':
-                        catcher_tmp.ext_rule = CCatcherRuleItem()
-                        catcher_tmp.ext_rule.target = value
-                    elif catcher_found and key == 'url':
-                        catcher_tmp.rule.url = value
-                    elif catcher_found and key == 'ext_url':
-                        catcher_tmp.ext_rule.url = value
-                    elif catcher_found and key == 'data':
-                        catcher_tmp.rule.data = value
-                    elif catcher_found and key == 'ext_data':
-                        catcher_tmp.ext_rule.data = value
-                    elif catcher_found and key == 'header':
-                        index = value.find('|')
-                        catcher_tmp.rule.reference = value[:index]
-                        catcher_tmp.rule.content = value[index+1:]
-                    elif catcher_found and key == 'ext_header':
-                        index = value.find('|')
-                        catcher_tmp.ext_rule.reference = value[:index]
-                        catcher_tmp.ext_rule.content = value[index+1:]
-                    elif catcher_found and key == 'build':
-                        catcher_tmp.rule.build = value
-                    elif catcher_found and key == 'ext_build':
-                        catcher_tmp.ext_rule.build = value
-                    elif catcher_found and key == 'action':
-                        catcher_tmp.rule.action = value
-                    elif catcher_found and key == 'ext_action':
-                        catcher_tmp.ext_rule.action = value
-                    elif catcher_found and key == 'limit':
-                        catcher_tmp.rule.limit = int(value)
-                    elif catcher_found and key == 'ext_limit':
-                        catcher_tmp.ext_rule.limit = int(value)
-                    elif catcher_found and key == 'extension':
-                        catcher_tmp.extension = value
-                    elif catcher_found and key == 'info':
-                        catcher_tmp.info = value
-                    elif catcher_found and key == 'quality':
-                        catcher_tmp.quality = value
-                        self.catcher.append(catcher_tmp)
+                    elif catcher_found:
+                        if key == 'target':
+                            catcher_tmp = CCatcherItem()
+                            catcher_tmp.rule.target = value
+                        if key == 'ext_target':
+                          catcher_tmp.ext_rule = CCatcherRuleItem()
+                          catcher_tmp.ext_rule.target = value
+                        if key == 'url':
+                          catcher_tmp.rule.url = value
+                        if key == 'ext_url':
+                          catcher_tmp.ext_rule.url = value
+                        if key == 'data':
+                          catcher_tmp.rule.data = value
+                        if key == 'ext_data':
+                          catcher_tmp.ext_rule.data = value
+                        if key == 'header':
+                          index = value.find('|')
+                          catcher_tmp.rule.reference = value[:index]
+                          catcher_tmp.rule.content = value[index+1:]
+                        if key == 'ext_header':
+                          index = value.find('|')
+                          catcher_tmp.ext_rule.reference = value[:index]
+                          catcher_tmp.ext_rule.content = value[index+1:]
+                        if key == 'build':
+                          catcher_tmp.rule.build = value
+                        if key == 'ext_build':
+                          catcher_tmp.ext_rule.build = value
+                        if key == 'action':
+                          catcher_tmp.rule.action = value
+                        if key == 'ext_action':
+                          catcher_tmp.ext_rule.action = value
+                        if key == 'limit':
+                          catcher_tmp.rule.limit = int(value)
+                        if key == 'ext_limit':
+                          catcher_tmp.ext_rule.limit = int(value)
+                        if key == 'extension':
+                          catcher_tmp.extension = value
+                        if key == 'info':
+                          catcher_tmp.info = value
+                        if key == 'quality':
+                          catcher_tmp.quality = value
+                          self.catcher.append(catcher_tmp)
 
         if catcher_found:
             return 0
