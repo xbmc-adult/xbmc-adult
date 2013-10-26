@@ -23,6 +23,7 @@ imgDir = os.path.join(resDir, 'images')
 urlopen = urllib2.urlopen
 cj = cookielib.LWPCookieJar()
 Request = urllib2.Request
+USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18'
 
 if cj != None:
     if os.path.isfile(xbmc.translatePath(os.path.join(settingsDir, 'cookies.lwp'))):
@@ -913,9 +914,12 @@ class CCurrentList:
                 except:
                     traceback.print_exc(file = sys.stdout)
             if self.reference == '':
-                txheaders = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18', 'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
+                txheaders = {'User-Agent':USERAGENT,
+                             'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
             else:
-                txheaders = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18', 'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7', self.reference:self.content}
+                txheaders = {'User-Agent':USERAGENT,
+                             'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+                             self.reference:self.content}
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
                 f.write('<Title>'+ curr_url + '</Title>\n\n')
@@ -1141,7 +1145,7 @@ class Main:
                 if source.rule.data == '':
                     url = source.rule.url % orig_url
                     req = Request(url)
-                    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')
+                    req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
                         req.add_header(source.rule.reference, source.rule.content)
                     urlfile = opener.open(req)
@@ -1152,7 +1156,7 @@ class Main:
                 else:
                     data = source.rule.data % orig_url
                     req = Request(source.rule.url, data)
-                    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')
+                    req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
                         req.add_header(source.rule.reference, source.rule.content)
                     response = urlopen(req)
@@ -1182,7 +1186,7 @@ class Main:
                         else:
                             ext_url = match
                         ext_req = Request(ext_url)
-                        ext_req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')
+                        ext_req.add_header('User-Agent', USERAGENT)
                         if source.ext_rule.reference != '':
                             ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
                         ext_urlfile = opener.open(ext_req)
@@ -1193,7 +1197,7 @@ class Main:
                     else:
                         ext_data = source.ext_rule.data % match
                         ext_req = Request(source.ext_rule.url, ext_data)
-                        ext_req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.14) Gecko/20080404 Firefox/2.0.0.14')
+                        ext_req.add_header('User-Agent', USERAGENT)
                         if source.ext_rule.reference != '':
                             ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
                         ext_response = urlopen(ext_req)
