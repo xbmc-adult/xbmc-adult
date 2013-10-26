@@ -1,3 +1,8 @@
+[B]Version 1.7.67[/B]
+
+- Updated: extremetube
+- Fixed: video listing
+
 [B]Version 1.7.66[/B]
 
 - Updated: freeHDporn
