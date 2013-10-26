@@ -719,28 +719,22 @@ class CCurrentList:
     def loadLocal(self, filename, recursive = True, lItem = None, lCatcher = False):
         if enable_debug:
             xbmc.log('loadLocal: ' + str(filename))
-        try:
-            data = smart_read_file(resDir, filename)
-            if enable_debug:
-                xbmc.log('Local file ' + str(os.path.join(resDir, filename)) + ' opened')
-        except:
-            if enable_debug:
-                xbmc.log('File: ' + str(os.path.join(resDir, filename)) + ' not found')
+        for local_path in [resDir, cacheDir, '']:
             try:
-                data = smart_read_file(cacheDir, filename)
+                data = smart_read_file(local_path, filename)
                 if enable_debug:
-                    xbmc.log('Local file ' + str(os.path.join(cacheDir, filename)) + ' opened')
+                    xbmc.log('Local file ' + \
+                              str(os.path.join(local_path, filename)) + \
+                              ' opened')
+                break
             except:
                 if enable_debug:
-                    xbmc.log('File: ' + str(os.path.join(cacheDir, filename)) + ' not found')
-                try:
-                    data = smart_read_file('', str(filename))
-                    if enable_debug:
-                        xbmc.log('Local file ' + str(filename) + ' opened')
-                except:
-                    if enable_debug:
-                        xbmc.log('File: ' + str(filename) + ' not found')
+                    xbmc.log('File: ' + \
+                             str(os.path.join(local_path, filename)) + \
+                             ' not found')
+                    if local_path == '':
                         traceback.print_exc(file = sys.stdout)
+                if local_path == '':
                     return -1
 
         self.cfg = filename
