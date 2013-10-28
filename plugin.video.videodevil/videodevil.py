@@ -428,28 +428,13 @@ def clean_safe(s):
             traceback.print_exc(file = sys.stdout)
     return s
 
-def first_clean_filename(s):
+def clean_filename(s):
     if not s:
         return ''
     badchars = '\\/:*?\"<>|'
     for c in badchars:
         s = s.replace(c, '')
     return s;
-
-def second_clean_filename(s):
-    if not s:
-        return ''
-    for key, value in entitydefs3.iteritems():
-        for c in key:
-            s = s.replace(c, value)
-    return s;
-
-def third_clean_filename(s):
-    if not s:
-        return ''
-    validchars = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!#$%&'()-@[]^_`{}~."
-    stripped = ''.join(c for c in s if c in validchars)
-    return stripped;
 
 def smart_read_file(directory, filename):
     f = open(str(os.path.join(directory, filename)), 'r')
@@ -1374,72 +1359,15 @@ class Main:
                     os.mkdir(download_path)
             except:
                 pass
-        file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
-        if os.path.isfile(file_path):
-            file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
+        tmp_file = tempfile.mktemp(dir=download_path, suffix=self.videoExtension)
+        tmp_file = xbmc.makeLegalFilename(tmp_file)
+        urllib.urlretrieve(urllib.unquote(url), tmp_file, self.video_report_hook)
+        vidfile = xbmc.makeLegalFilename(download_path + clean_filename(title) + self.videoExtension)
         try:
-            urllib.urlretrieve(url, file_path, self.video_report_hook)
-            if enable_debug:
-                xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
-            return file_path
-        except IOError:
-            title = first_clean_filename(title)
-            file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
-            if os.path.isfile(file_path):
-                file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
-            try:
-                urllib.urlretrieve(url, file_path, self.video_report_hook)
-                if enable_debug:
-                    xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
-                return file_path
-            except IOError:
-                title = second_clean_filename(title)
-                file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
-                if os.path.isfile(file_path):
-                    file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
-                try:
-                    urllib.urlretrieve(url, file_path, self.video_report_hook)
-                    if enable_debug:
-                        xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
-                    return file_path
-                except IOError:
-                    title = third_clean_filename(title)
-                    file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
-                    if os.path.isfile(file_path):
-                        file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(cachedir = download_path, suffix = self.videoExtension))
-                    try:
-                        urllib.urlretrieve(url, file_path, self.video_report_hook)
-                        if enable_debug:
-                            xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
-                        return file_path
-                    except IOError:
-                        title = self.currentlist.randomFilename()
-                        file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
-                        if os.path.isfile(file_path):
-                            file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
-                        try:
-                            urllib.urlretrieve(url, file_path, self.video_report_hook)
-                            if enable_debug:
-                                xbmc.log('Video ' + str(url) + ' downloaded to ' + repr(file_path))
-                            return file_path
-                        except:
-                            pass
-                    except:
-                        pass
-                except:
-                    pass
-            except:
-                pass
+          os.rename(tmp_file, vidfile)
+          return vidfile
         except:
-            pass
-        xbmc.sleep(500)
-        if os.path.isfile(file_path):
-            try:
-                os.remove(file_path)
-            except:
-                if enable_debug:
-                    traceback.print_exc(file = sys.stdout)
-        return None
+          return tmp_file
 
     def video_report_hook(self, count, blocksize, totalsize):
         percent = int(float(count * blocksize * 100) / totalsize)
