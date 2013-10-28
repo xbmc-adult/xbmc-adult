@@ -1370,15 +1370,16 @@ class Main:
     def downloadMovie(self, url, title):
         if enable_debug:
             xbmc.log('Trying to download video ' + str(url))
-        if addon.getSetting('download_path') == '':
+        download_path = addon.getSetting('download_path')
+        if download_path == '':
             try:
-                dl_path = xbmcgui.Dialog().browse(0, __language__(30017), 'files', '', False, False)
-                addon.setSetting(id='download_path', value=dl_path)
-                if not os.path.exists(dl_path):
-                    os.mkdir(dl_path)
+                download_path = xbmcgui.Dialog().browse(0, __language__(30017), 'files', '', False, False)
+                addon.setSetting(id='download_path', value=download_path)
+                if not os.path.exists(download_path):
+                    os.mkdir(download_path)
             except:
                 pass
-        file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
+        file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
         if os.path.isfile(file_path):
             file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
         try:
@@ -1388,7 +1389,7 @@ class Main:
             return file_path
         except IOError:
             title = first_clean_filename(title)
-            file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
+            file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
             if os.path.isfile(file_path):
                 file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
             try:
@@ -1398,7 +1399,7 @@ class Main:
                 return file_path
             except IOError:
                 title = second_clean_filename(title)
-                file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
+                file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
                 if os.path.isfile(file_path):
                     file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
                 try:
@@ -1408,9 +1409,9 @@ class Main:
                     return file_path
                 except IOError:
                     title = third_clean_filename(title)
-                    file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
+                    file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
                     if os.path.isfile(file_path):
-                        file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(cachedir = addon.getSetting('download_path'), suffix = self.videoExtension))
+                        file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(cachedir = download_path, suffix = self.videoExtension))
                     try:
                         urllib.urlretrieve(url, file_path, self.video_report_hook)
                         if enable_debug:
@@ -1418,7 +1419,7 @@ class Main:
                         return file_path
                     except IOError:
                         title = self.currentlist.randomFilename()
-                        file_path = xbmc.makeLegalFilename(os.path.join(addon.getSetting('download_path'), title + self.videoExtension))
+                        file_path = xbmc.makeLegalFilename(os.path.join(download_path, title + self.videoExtension))
                         if os.path.isfile(file_path):
                             file_path = xbmc.makeLegalFilename(self.currentlist.randomFilename(prefix = file_path[:file_path.rfind('.')] + '&', suffix = self.videoExtension))
                         try:
