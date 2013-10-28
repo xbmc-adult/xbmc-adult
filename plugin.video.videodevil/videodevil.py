@@ -2,8 +2,9 @@
 from string import capitalize, lower
 import xbmcplugin, xbmcaddon
 import sys, os.path
+import tempfile
 import urllib, urllib2
-import re, random
+import re
 import xbmc, xbmcgui
 import os, traceback
 import cookielib, htmlentitydefs
@@ -527,13 +528,6 @@ class CCurrentList:
         else:
             return ''
 
-    def randomFilename(self, cachedir = cacheDir, chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', length = 8, prefix = '', suffix = '', attempts = 10000):
-        for attempt in range(attempts):
-            filename = ''.join([random.choice(chars) for i in range(length)])
-            filename = prefix + filename + suffix
-            if not os.path.exists(os.path.join(cachedir, filename)):
-                return filename
-
     def videoCount(self):
         count = 0
         for item in self.items:
@@ -951,7 +945,8 @@ class CCurrentList:
             if item_rule.skill.find('lock') != -1 and lock:
                 continue
             one_found = False
-            catfilename = self.randomFilename(prefix=(self.cfg + '.dir.'), suffix = '.list')
+            catfilename = tempfile.mktemp(suffix='.list', prefix=(self.cfg + '.dir.'),
+                                          dir='')
             f = None
             if item_rule.order.find('|') != -1:
                 reinfos = []
