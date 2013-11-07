@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
-       version="1.0.8"
+       version="1.0.9"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>

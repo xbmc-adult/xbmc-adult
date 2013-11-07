@@ -2,7 +2,7 @@
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
-       version="1.0.8"
+       version="1.0.9"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -20,7 +20,7 @@
 
 <addon id="metadata.movie.aebn.gay.net"
        name="AEBN Gay"
-       version="1.2.1"
+       version="1.2.2"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -38,7 +38,7 @@
 
 <addon id="metadata.movie.aebn.net"
        name="AEBN"
-       version="1.2.1"
+       version="1.2.2"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -56,7 +56,7 @@
 
 <addon id="metadata.movie.cduniverse.com"
        name="CDUniverse Adult"
-       version="1.0.6"
+       version="1.0.7"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -74,7 +74,7 @@
 
 <addon id="metadata.movie.data18.com"
        name="Data 18"
-       version="1.3.1"
+       version="1.3.2"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -92,7 +92,7 @@
 
 <addon id="metadata.movie.data18.content.com"
        name="Data 18 Web Content"
-       version="1.4.0"
+       version="1.4.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -111,7 +111,7 @@
 
 <addon id="metadata.movie.excaliburfilms.com"
        name="Excalibur Films"
-       version="1.0.5"
+       version="1.0.6"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -129,7 +129,7 @@
 
 <addon id="metadata.movie.hotmovies.com"
        name="HotMovies"
-       version="1.0.2"
+       version="1.0.3"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -145,7 +145,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.empflix" name="Empflix" version="2.0.2" provider-name="xbmc-adult">
+<addon id="plugin.video.empflix" name="Empflix" version="2.0.3" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
     </requires>
@@ -162,7 +162,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.9"
+       version="2.3.10"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
@@ -182,7 +182,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.11"
+       version="1.12"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
@@ -198,7 +198,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.2" provider-name="xbmcadult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.3" provider-name="xbmcadult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
     </requires>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.68"
+  version="1.7.69"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
@@ -234,7 +234,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.xhamstergay" name="xHamster Gay" version="0.1" provider-name="xbmc-adult">
+<addon id="plugin.video.xhamstergay" name="xHamster Gay" version="0.2" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -250,7 +250,7 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.6"
+       version="1.0.7"
        provider-name="xbmcadult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>
@@ -267,7 +267,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.youporngay" name="Youporn Gay" version="0.1" provider-name="xbmc-adult">
+<addon id="plugin.video.youporngay" name="Youporn Gay" version="0.2" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -281,7 +281,7 @@
     </extension>
 </addon>
 
-<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.0" provider-name="xbmcadult">
+<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.1" provider-name="xbmcadult">
 	<extension point="xbmc.addon.repository" name="XBMC Adult Addons">
 		<info compressed="false">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml</info>
 		<checksum>http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml.md5</checksum>
