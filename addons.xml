@@ -162,7 +162,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.10"
+       version="2.3.11"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="1.0"/>

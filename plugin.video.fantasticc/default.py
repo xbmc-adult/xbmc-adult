@@ -62,6 +62,7 @@ def get_avatar(lc):
             pass
         else:
             return surl
+    return 'http://fantasticc2.so.clients.cdn13.com/no_image_avatar.jpg'
 
 
 def Notify(title, message, times, icon):
