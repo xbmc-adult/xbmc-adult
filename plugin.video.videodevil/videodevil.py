@@ -1200,6 +1200,8 @@ class Main:
                             match = decode(match)
                         if source.ext_rule.build.find('%s') != -1:
                             match = source.ext_rule.build % match
+                        if enable_debug:
+                            xbmc.log('ext_target is %s' % match)
                     else:
                         match = ''
                 source.match = match
