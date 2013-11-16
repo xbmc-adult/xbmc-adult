@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.empflix" name="Empflix" version="2.0.3" provider-name="xbmc-adult">
+<addon id="plugin.video.empflix" name="Empflix" version="2.0.4" provider-name="xbmc-adult">
     <requires>
-        <import addon="xbmc.python" version="1.0"/>
+        <import addon="xbmc.python" version="2.1.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>video</provides>

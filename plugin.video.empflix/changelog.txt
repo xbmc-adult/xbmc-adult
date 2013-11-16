@@ -1,3 +1,7 @@
+[B]2.0.4[/B]
+
+Bump python version for Gotham
+
 [B]2.0.0[/B]
 
 First Add-on version
