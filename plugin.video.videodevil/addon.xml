@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.video.videodevil"
-  version="1.7.71"
+  version="1.7.72"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
-   <import addon="xbmc.python" version="1.0"/>
+   <import addon="xbmc.python" version="2.1.0"/>
   </requires>
   <extension 
     point="xbmc.python.pluginsource"
