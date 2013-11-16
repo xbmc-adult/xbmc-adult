@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.1" provider-name="xbmcadult">
+<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.1" provider-name="xbmc-adult">
 	<extension point="xbmc.addon.repository" name="XBMC Adult Addons">
 		<info compressed="false">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml</info>
 		<checksum>http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml.md5</checksum>
