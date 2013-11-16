@@ -2,7 +2,7 @@
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
        version="1.0.8"
-       provider-name="xbmcadult">
+       provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
