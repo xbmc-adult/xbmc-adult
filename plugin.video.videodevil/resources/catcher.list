@@ -65,12 +65,12 @@ url=%s
 quality=low
 ########################################################
 title=eporner.com
-target=http:\\/\\/www.eporner.com\\/player5\\/(\d+/.+?)/"
+target=/config5/(\d+)/
 url=%s
 ext_target=file: "([^"]+\d-lq.mp4)"
 ext_url=http://www.eporner.com/config5/%s
 quality=low
-target=http:\\/\\/www.eporner.com\\/player5\\/(\d+/.+?)/"
+target=/config5/(\d+)/
 url=%s
 ext_target=file: "([^"]+\d.mp4)"
 ext_url=http://www.eporner.com/config5/%s
