@@ -92,7 +92,7 @@
 
 <addon id="metadata.movie.data18.content.com"
        name="Data 18 Web Content"
-       version="1.4.1"
+       version="1.5.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
