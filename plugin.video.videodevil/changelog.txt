@@ -1,3 +1,10 @@
+[B]Version 1.7.74[/B]
+
+- Updated: fucktube
+- Fixed: video listing
+- Fixed: catcher
+- Fixed: categories
+
 [B]Version 1.7.73[/B]
 
 - Updated: eporner
