@@ -4,6 +4,8 @@
 - Fixed: video listing
 - Fixed: catcher
 - Fixed: categories
+- Updated: pornhub
+- Fixed: video listing
 
 [B]Version 1.7.73[/B]
 
