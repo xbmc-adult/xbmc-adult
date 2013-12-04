@@ -1,3 +1,9 @@
+[B]Version 1.7.76[/B]
+
+- Updated: tnaflix
+- Fixed: video listing
+- Fixed: categories
+
 [B]Version 1.7.75[/B]
 
 - Updated: fucktube
