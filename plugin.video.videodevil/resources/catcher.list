@@ -163,11 +163,6 @@ target=<a href="(http://[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
 url=%s
 quality=standard
 ########################################################
-title=stileproject.com
-target=file":'(.+?)'
-url=%s
-quality=standard
-########################################################
 title=xhamster.com
 target='file': '(.+?.flv)'
 url=%s
