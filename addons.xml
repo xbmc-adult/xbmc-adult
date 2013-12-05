@@ -198,7 +198,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.4" provider-name="xbmc-adult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.5" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
