@@ -9,8 +9,6 @@ import urllib
 import urllib2
 import re
 
-Addon = xbmcaddon.Addon( id=os.path.basename( os.getcwd() ) )
-
 NB_ITEM_PAGE = 28
 
 def _get_keyboard( default="", heading="", hidden=False ):
