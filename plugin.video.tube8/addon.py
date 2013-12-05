@@ -114,8 +114,8 @@ def playVideo(localpath, handle, url):
 	match=p.findall(a)
 	eurl=match[0].replace('\/', '/')
 
-	p2=re.compile('/([^/]+)/\d+')
-	iv=p2.findall(url)[0]
+	p2=re.compile('"video_title":"([^"]+)')
+	iv=p2.findall(a)[0]
 
 	video=sesame.decrypt(eurl, iv, 256)
 	print "Playing: " + video
