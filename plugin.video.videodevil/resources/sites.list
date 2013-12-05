@@ -92,13 +92,6 @@ director=VideoDevil
 icon=video.devil.image|timtube.png
 url=timtube.com.cfg
 ########################################################
-title=zzTube8
-type=rss
-genre=Tube8
-director=VideoDevil
-icon=video.devil.image|tube8.png
-url=tube8.com.cfg
-########################################################
 title=PornoMovies
 type=rss
 genre=Pornomovies

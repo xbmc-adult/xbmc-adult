@@ -130,12 +130,6 @@ action=decode
 header=Cookie|age_check=1
 quality=standard
 ########################################################
-title=tube8.com
-target=var videourl="(http[^"]+)";
-url=%s
-header=Cookie|t8disclaimer=1
-quality=standard
-########################################################
 title=extremetube.com
 target="flashvars" value=".*video_url=(http[^']+[.](mp4|flv)[^&]+)
 url=%s
