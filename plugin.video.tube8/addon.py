@@ -31,16 +31,17 @@ def showRoot(localpath, handle):
 		]
 
 	li=xbmcgui.ListItem("Search")
-	u=localpath+"?mode=4"
+	u=localpath + "?mode=4"
 	xbmcplugin.addDirectoryItem(handle, u, li, True)
 
 	li=xbmcgui.ListItem("Categories")
-	u=localpath+"?mode=1"
+	u=localpath + "?mode=1"
 	xbmcplugin.addDirectoryItem(handle, u, li, True)
 
 	for name, url in ri:
 		li=xbmcgui.ListItem(name)
-		u=localpath+"?mode=2&name="+urllib.quote_plus(name)+"&url="+urllib.quote_plus(url)
+		u=localpath + "?mode=2&name=" + urllib.quote_plus(name) + \
+      "&url=" + urllib.quote_plus(url)
 		xbmcplugin.addDirectoryItem(handle, u, li, True, NB_ITEM_PAGE)
 
 	xbmcplugin.endOfDirectory(handle)
@@ -59,25 +60,28 @@ def showCategories(localpath, handle):
 		match=p.findall(catMenu)
 		for url, name in match:
 			li=xbmcgui.ListItem(name)
-			u=localpath+"?mode=2&name="+urllib.quote_plus(name)+"&url="+urllib.quote_plus(url)
+			u=localpath + "?mode=2&name=" + urllib.quote_plus(name) + \
+        "&url=" + urllib.quote_plus(url)
 			xbmcplugin.addDirectoryItem(handle, u, li, True, NB_ITEM_PAGE)
 	xbmcplugin.endOfDirectory(handle)
 
 def showSearchList(localpath, handle, url, page):
-	pageUrl = url+"&page="+str(int(page))
+	pageUrl = url + "&page=" + str(int(page))
 	showListCommon(localpath, handle, pageUrl)
 	name = "Next Page"
 	li=xbmcgui.ListItem(name)
-	u=localpath+"?mode=5&name="+urllib.quote_plus(name)+"&url="+urllib.quote_plus(url)+"&page="+str(int(page)+1)
+	u=localpath + "?mode=5&name=" + urllib.quote_plus(name) + \
+    "&url=" + urllib.quote_plus(url) + "&page=" + str(int(page) + 1)
 	xbmcplugin.addDirectoryItem(handle, u, li, True, NB_ITEM_PAGE)
 	xbmcplugin.endOfDirectory(handle)
 
 def showCatList(localpath, handle, url, page):
-	pageUrl = url+"page/"+str(int(page))+"/"
+	pageUrl = url + "page/" + str(int(page)) + "/"
 	showListCommon(localpath, handle, pageUrl)
 	name = "Next Page"
 	li=xbmcgui.ListItem(name)
-	u=localpath+"?mode=2&name="+urllib.quote_plus(name)+"&url="+urllib.quote_plus(url)+"&page="+str(int(page)+1)
+	u=localpath + "?mode=2&name=" + urllib.quote_plus(name) + \
+    "&url=" + urllib.quote_plus(url) + "&page="+str(int(page)+1)
 	xbmcplugin.addDirectoryItem(handle, u, li, True, NB_ITEM_PAGE)
 	xbmcplugin.endOfDirectory(handle)
 
@@ -101,7 +105,8 @@ def showListCommon(localpath, handle, pageUrl):
 		thumb, duration = matchThumb[n], matchlengh[n][0]
 		li=xbmcgui.ListItem(name, name, thumb, thumb)
 		li.setInfo( type="Video", infoLabels={ "Title": name, "Duration": duration } )
-		u=localpath+"?mode=3&name="+urllib.quote_plus(name)+"&url="+urllib.quote_plus(url)
+		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
+      "&url=" + urllib.quote_plus(url)
 		xbmcplugin.addDirectoryItem(handle, u, li, False, NB_ITEM_PAGE)
 		n=n+1
 
