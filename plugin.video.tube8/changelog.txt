@@ -1,3 +1,7 @@
+[B]2.1.6[/B]
+
+- Fix category listening
+
 [B]2.1.5[/B]
 
 - Fix url for some videos which were failing

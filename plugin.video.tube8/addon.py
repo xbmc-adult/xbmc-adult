@@ -52,16 +52,15 @@ def showCategories(localpath, handle):
 	a=f.read()
 	f.close()
 
-	catMenuRE = re.compile('<ul class="categories-menu">(.+?)</ul>', re.DOTALL)
-	match = catMenuRE.search(a)
-	if match:
-		catMenu = match.group(0)
-		p=re.compile('<a href="(http://www\.tube8\.com/cat/.+?)">(.+?)</a>')
-		match=p.findall(catMenu)
-		for url, name in match:
+	catRE = re.compile("<li><a href='(http://www\.tube8\.com/cat/.+?)'>(.+?)</a>")
+	match = catRE.findall(a)
+	categories = []
+	for url, name in match:
+		if name not in categories:
+			categories.append(name)
 			li=xbmcgui.ListItem(name)
 			u=localpath + "?mode=2&name=" + urllib.quote_plus(name) + \
-        "&url=" + urllib.quote_plus(url)
+      "&url=" + urllib.quote_plus(url)
 			xbmcplugin.addDirectoryItem(handle, u, li, True, NB_ITEM_PAGE)
 	xbmcplugin.endOfDirectory(handle)
 
@@ -81,7 +80,7 @@ def showCatList(localpath, handle, url, page):
 	name = "Next Page"
 	li=xbmcgui.ListItem(name)
 	u=localpath + "?mode=2&name=" + urllib.quote_plus(name) + \
-    "&url=" + urllib.quote_plus(url) + "&page="+str(int(page)+1)
+    "&url=" + urllib.quote_plus(url) + "&page=" + str(int(page) + 1)
 	xbmcplugin.addDirectoryItem(handle, u, li, True, NB_ITEM_PAGE)
 	xbmcplugin.endOfDirectory(handle)
 
@@ -108,7 +107,7 @@ def showListCommon(localpath, handle, pageUrl):
 		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
       "&url=" + urllib.quote_plus(url)
 		xbmcplugin.addDirectoryItem(handle, u, li, False, NB_ITEM_PAGE)
-		n=n+1
+		n = n + 1
 
 def playVideo(localpath, handle, url):
 	f=urllib2.urlopen(url)
