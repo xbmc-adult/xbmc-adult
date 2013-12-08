@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2013-11-27" name="Data18Content" content="movies" language="en">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2013-12-07" name="Data18Content" content="movies" language="en">
 	<CreateSearchUrl clearbuffers="no" dest="3">
-		<RegExp input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
+		<RegExp conditional="Google" input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
 			<!--Add film year, stored in $$2 for default by xbmc-->
 			<RegExp input="$$2" output=" (\1)" dest="4">
 				<expression clear="yes">(.+)</expression>
@@ -10,6 +10,9 @@
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
+		<RegExp conditional="!Google" input="$$1" output="&lt;url&gt;http://www.data18.com/search/?k=\1&amp;b=1&amp;t=0&lt;/url&gt;" dest="3">
+			<expression noclean="1" />
+		</RegExp>
 	</CreateSearchUrl>
 	<NfoUrl dest="3">
 		<RegExp input="$$1" output="&lt;details&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/details&gt;" dest="3">
@@ -17,9 +20,15 @@
 		</RegExp>
 	</NfoUrl>
 	<GetSearchResults clearbuffers="no" dest="6">
-		<RegExp input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="6">
+		<RegExp conditional="Google" input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="6">
 			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
 				<expression repeat="yes" noclean="1">&lt;h3 class="r"&gt;&lt;a href="/url\?q=([^&amp;]+)&amp;(?:[^"]*)"&gt;(.+?)&lt;/a&gt;&lt;/h3&gt;</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+		<RegExp conditional="!Google" input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="6">
+			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.data18.com/content/\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
+				<expression repeat="yes" noclean="1">&lt;a href="http://www.data18.com/content/([^"]+)"&gt;([^&lt;]+)&lt;/a&gt;&lt;/p&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>

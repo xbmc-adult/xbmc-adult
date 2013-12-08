@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <category label="Search Setting">
+    <setting label="30000" type="bool" id="Google" default="true"/>
+  </category>
+</settings>
