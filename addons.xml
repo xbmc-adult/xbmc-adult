@@ -92,7 +92,7 @@
 
 <addon id="metadata.movie.data18.content.com"
        name="Data 18 Web Content"
-       version="1.5.1"
+       version="1.5.2"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -182,7 +182,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.13"
+       version="1.14"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -198,7 +198,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.5" provider-name="xbmc-adult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.6" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
