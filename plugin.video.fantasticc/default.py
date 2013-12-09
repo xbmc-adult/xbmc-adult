@@ -333,7 +333,7 @@ def INDEX(url):
 
     else:
         match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
-                           ' alt="([^"]+)" border="0" >.+?'
+                           ' alt="([^"]+)"[^>]+>.+?'
                            'style="font-size:11px;">\s+([\d:h ]+)',
                            re.DOTALL).findall(html)
         for gurl, thumbnail, name, duration in match:
