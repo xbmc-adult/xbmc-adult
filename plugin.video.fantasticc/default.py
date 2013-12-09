@@ -306,10 +306,10 @@ def SEARCH_RESULTS(url, html=False):
 def INDEX(url):
     html = get_html(url)
     if 'collection' in url: # Collections
-        match = re.compile('<a href=(.+?)" title="(.+?)">\s*<img src="(.+?)"'
-                           ' border="0" alt="(.+?)"  width="100" height="100"'
-                           ' class="collection_image" />').findall(html)
-        for gurl, name, thumbnail, junk in match:
+        match = re.compile('<a\s+title="(.+?)" href="(.+?)">\s*<img src="(.+?)"'
+                           ' border="0" alt="(.+?)"  '
+                           'class="collection_image" />').findall(html)
+        for name, gurl, thumbnail, junk in match:
             vid_id = string.split(gurl, '=')[2][:-5]
             realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
             mode = 4
