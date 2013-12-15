@@ -41,7 +41,7 @@ fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
-SUPPORTEDSITES = ['deviantclip', 'empflix', 'pornhub', 'redtube', 'tnaflix',
+SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'redtube', 'tnaflix',
                   'tube8', 'xhamster', 'xtube', 'xvideos', 'you_porn']
 
 
@@ -519,6 +519,17 @@ def GET_LINK(url, collections):
         html = get_html(urlget2)
         match = re.compile('</span><a href="([^"]+mp4[^"]+)">.+?iPad'
                           ).findall(html)
+        for each in match:
+            fetchurl = each.replace('&amp;', '&')
+        print 'fetchurl: %s' % fetchurl
+        return fetchurl
+    elif 'madthumbs' in url:
+        match = re.compile('href="(http://www.madthumbs.com/[^"]+)"'
+                          ).findall(html)
+        for gurl in match:
+            urlget2 = gurl
+        html = get_html(urlget2)
+        match = re.compile('<source src="([^"]+mp4[^"]+)"').findall(html)
         for each in match:
             fetchurl = each.replace('&amp;', '&')
         print 'fetchurl: %s' % fetchurl
