@@ -446,8 +446,7 @@ def smart_read_file(directory, filename):
 
 class CListItem:
     def __init__(self):
-        self.infos_names = []
-        self.infos_values = []
+        self.infos_dict = {}
 
 class CItemInfo:
     def __init__(self):
@@ -516,25 +515,25 @@ class CCurrentList:
     def videoCount(self):
         count = 0
         for item in self.items:
-            if item.infos_values[item.infos_names.index('type')] == 'video':
+            if item.infos_dict['type'] == 'video':
                 count = count +1
         return count
 
     def getVideo(self):
         for item in self.items:
-            if item.infos_values[item.infos_names.index('type')] == 'video':
+            if item.infos_dict['type'] == 'video':
                 return item
 
     def getItemFromList(self, listname, name):
         self.loadLocal(listname, False)
         for item in self.items:
-            if item.infos_values[item.infos_names.index('url')] == name:
+            if item.infos_dict['url'] == name:
                 return item
         return None
 
     def itemInLocalList(self, name):
         for item in self.items:
-            if item.infos_values[item.infos_names.index('url')] == name:
+            if item.infos_dict['url'] == name:
                 return True
         return False
 
@@ -575,39 +574,35 @@ class CCurrentList:
         f.write(smart_unicode('skill=remove\n').encode('utf-8'))
         f.write(smart_unicode('########################################################\n').encode('utf-8'))
         for item in self.items:
-            f.write(smart_unicode('title=' + item.infos_values[item.infos_names.index('title')] + '\n').encode('utf-8'))
-            for info_name in item.infos_names:
+            f.write(smart_unicode('title=' + item.infos_dict['title'] + '\n').encode('utf-8'))
+            for info_name, info_value in item.infos_dict.iteritems():
                 if info_name != 'url' and info_name != 'title':
-                    f.write(smart_unicode(info_name + '=' + item.infos_values[item.infos_names.index(info_name)] + '\n').encode('utf-8'))
-            f.write(smart_unicode('url=' + item.infos_values[item.infos_names.index('url')] + '\n').encode('utf-8'))
+                    f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
+            f.write(smart_unicode('url=' + item.infos_dict['url'] + '\n').encode('utf-8'))
             f.write(smart_unicode('########################################################\n').encode('utf-8'))
         f.close()
         return
 
     def codeUrl(self, item, suffix = ''):
-        url_idx = item.infos_names.index('url')
         url = ''
-        info_idx = 0
         firstInfo = True
         #this is added for handling the stupid &nbsp;
-        item.infos_values[url_idx] = item.infos_values[url_idx].replace(u'\xa0', ' ')
-        for info_name in item.infos_names:
-            if info_idx != url_idx and item.infos_names[info_idx].find('.once') == -1:
-                #info_value = urllib.quote(item.infos_values[info_idx])
-                info_value = item.infos_values[info_idx]
+        item.infos_dict['url'] = item.infos_dict['url'].replace(u'\xa0', ' ')
+        for info_name, info_value in item.infos_dict.iteritems():
+            if info_name != 'url' and info_name.find('.once') == -1:
+                #info_value = urllib.quote(info_value)
                 if firstInfo:
                     firstInfo = False
-                    url = smart_unicode(item.infos_names[info_idx]) + ':' + smart_unicode(info_value)
+                    url = smart_unicode(info_name) + ':' + smart_unicode(info_value)
                 else:
-                    url = smart_unicode(url) + '&' + smart_unicode(item.infos_names[info_idx]) + ':' + smart_unicode(info_value)
-            info_idx = info_idx + 1
+                    url = smart_unicode(url) + '&' + smart_unicode(info_name) + ':' + smart_unicode(info_value)
         if firstInfo:
-            url = smart_unicode(item.infos_names[url_idx]) + ':' + smart_unicode(item.infos_values[url_idx])
+            url = 'url:' + smart_unicode(item.infos_dict['url'])
         else:
             try:
-                url = smart_unicode(url) + '&' + smart_unicode(item.infos_names[url_idx]) + ':' + smart_unicode(urllib.quote_plus(item.infos_values[url_idx]))
+                url = smart_unicode(url) + '&' + smart_unicode('url:' + smart_unicode(urllib.quote_plus(item.infos_dict['url'])))
             except KeyError:
-                xbmc.log('Skipping %s probably has unicode' % item.infos_values[url_idx].encode('utf-8'))
+                xbmc.log('Skipping %s probably has unicode' % item.infos_dict['url'].encode('utf-8'))
         if len(suffix) > 0:
             url = url + '.' + suffix
         return url
@@ -615,23 +610,16 @@ class CCurrentList:
     def decodeUrl(self, url, url_type = 'rss'):
         item = CListItem()
         if url.find('&') == -1:
-            item.infos_names.append('url')
-            item.infos_values.append(clean_safe(url))
-            item.infos_names.append('type')
-            item.infos_values.append(url_type)
+            item.infos_dict['url'] = clean_safe(url)
+            item.infos_dict['type'] = url_type
             return item
         infos_names_values = url.split('&')
         for info_name_value in infos_names_values:
             sep_index = info_name_value.find(':')
             if sep_index != -1:
-                item.infos_names.append(info_name_value[:sep_index])
-                #item.infos_values.append(clean_safe(urllib.unquote(info_name_value[sep_index+1:])))
-                item.infos_values.append(clean_safe(info_name_value[sep_index+1:]))
-        try:
-            type_idx = item.infos_names.index('type')
-        except:
-            item.infos_names.append('type')
-            item.infos_values.append(url_type)
+                item.infos_dict[info_name_value[:sep_index]] = clean_safe(info_name_value[sep_index+1:])
+        if 'type' not in item.infos_dict:
+            item.infos_dict['type'] = url_type
         return item
 
     def loadCatcher(self, title):
@@ -720,10 +708,9 @@ class CCurrentList:
         self.cfg = filename
         if self.getFileExtension(self.cfg) == 'cfg' and lItem != None:
             try:
-                lItem.infos_values[lItem.infos_names.index(strin)] = self.cfg
+                lItem.infos_dict[strin] = self.cfg
             except:
-                lItem.infos_names.append('cfg')
-                lItem.infos_values.append(self.cfg)
+                lItem.infos_dict['cfg'] = self.cfg
         del self.items[:]
         tmp = None
         for m in data:
@@ -805,38 +792,31 @@ class CCurrentList:
                         self.rules.append(rule_tmp)
                     elif key == 'title':
                         tmp = CListItem()
-                        tmp.infos_names.append('title')
-                        tmp.infos_values.append(value)
+                        tmp.infos_dict['title'] = value
                     elif key == 'type':
-                        tmp.infos_names.append('type')
                         if recursive and value == 'once':
                             value = u'rss'
-                        tmp.infos_values.append(value)
+                        tmp.infos_dict['type'] = value
                     elif key == 'url':
-                        tmp.infos_names.append('url')
-                        tmp.infos_values.append(value)
+                        tmp.infos_dict['url'] = value
                         if lItem != None:
-                            for info_name in lItem.infos_names:
-                                try:
-                                    info_idx = tmp.infos_names.index(info_name)
-                                except:
-                                    tmp.infos_names.append(info_name)
-                                    tmp.infos_values.append(lItem.infos_values[lItem.infos_names.index(info_name)])
+                            for info_name, info_value in lItem.infos_dict.iteritems():
+                                if info_name not in tmp.infos_dict:
+                                    tmp.infos_dict[info_name] = info_value
                         self.items.append(tmp)
                         tmp = None
                     elif tmp != None:
-                        tmp.infos_names.append(key)
-                        tmp.infos_values.append(value)
+                        tmp.infos_dict[key] = value
 
         if recursive and self.start != '':
             if lItem == None:
                 self.loadRemote(self.start, False)
             else:
-                if self.getFileExtension(lItem.infos_values[lItem.infos_names.index('url')]) == 'cfg':
-                    lItem.infos_values[lItem.infos_names.index('url')] = self.start
+                if self.getFileExtension(lItem.infos_dict['url']) == 'cfg':
+                    lItem.infos_dict['url'] = self.start
                     self.loadRemote(self.start, False, lItem)
                 else:
-                    self.loadRemote(lItem.infos_values[lItem.infos_names.index('url')], False, lItem)
+                    self.loadRemote(lItem.infos_dict['url'], False, lItem)
         return 0
 
     def infoFormatter(self, info_name, info_value, cfg_file): # Site specific info handling
@@ -872,12 +852,12 @@ class CCurrentList:
             curr_url = remote_url
             if recursive:
                 try:
-                    if self.loadLocal(lItem.infos_values[lItem.infos_names.index('cfg')], False, lItem) != 0:
+                    if self.loadLocal(lItem.infos_dict['cfg'], False, lItem) != 0:
                         return -1
                 except:
                     pass
                 try:
-                    if lItem.infos_values[lItem.infos_names.index('type')] == u'search':
+                    if lItem.infos_dict['type'] == u'search':
                         try:
                             curr_phrase = urllib.unquote_plus(addon.getSetting('curr_search'))
                         except:
@@ -888,8 +868,8 @@ class CCurrentList:
                         addon.setSetting('curr_search', search_phrase)
                         xbmc.sleep(10)
                         curr_url = curr_url.replace('%s', urllib.quote_plus(search_phrase))
-                        lItem.infos_values[lItem.infos_names.index('url')] = curr_url
-                        lItem.infos_values[lItem.infos_names.index('type')] = u'rss'
+                        lItem.infos_dict['url'] = curr_url
+                        lItem.infos_dict['type'] = u'rss'
                 except:
                     traceback.print_exc(file = sys.stdout)
             if self.reference == '':
@@ -946,24 +926,21 @@ class CCurrentList:
                     continue
                 tmp = CListItem()
                 if item_rule.order.find('|') != -1:
-                    tmp.infos_names = item_rule.order.split('|')
-                    tmp.infos_values = list(reinfos)
+                    infos_names = item_rule.order.split('|')
+                    infos_values = list(reinfos)
+                    tmp.infos_dict = dict(zip(infos_names, infos_values))
                 else:
-                    tmp.infos_names.append(item_rule.order)
-                    tmp.infos_values.append(reinfos)
+                    tmp.infos_dict[item_rule.order] = reinfos
                 for info in item_rule.info_list:
                     info_value = ''
-                    try:
-                        info_idx = tmp.infos_names.index(info.name)
+                    if info.name in tmp.infos_dict:
                         if info.build.find('%s') != -1:
-                            tmp.infos_values[info_idx] = smart_unicode(info.build % smart_unicode(tmp.infos_values[info_idx]))
+                            tmp.infos_dict[info.name] = smart_unicode(info.build % smart_unicode(tmp.infos_dict[info.name]))
                         continue
-                    except:
-                        pass
                     if info.rule != '':
                         info_rule = info.rule
                         if info.rule.find('%s') != -1:
-                            src = tmp.infos_values[tmp.infos_names.index(info.src)]
+                            src = tmp.infos_dict[info.src]
                             info_rule = info.rule % (smart_unicode(src))
                         infosearch = re.search(info_rule, data)
                         if infosearch:
@@ -974,42 +951,35 @@ class CCurrentList:
                             info_value = info.default
                     else:
                         if info.build.find('%s') != -1:
-                            src = tmp.infos_values[tmp.infos_names.index(info.src)]
+                            src = tmp.infos_dict[info.src]
                             info_value = info.build % (smart_unicode(src))
                         else:
                             info_value = info.build
-                    tmp.infos_names.append(info.name)
-                    tmp.infos_values.append(info_value)
-                info_idx = 0
-                for info_name in tmp.infos_names:
-                    tmp.infos_values[info_idx] = self.infoFormatter(info_name, tmp.infos_values[info_idx], self.cfg)
+                    tmp.infos_dict[info.name] = info_value
+                for info_name, info_value in tmp.infos_dict.iteritems():
+                    tmp.infos_dict[info_name] = self.infoFormatter(info_name, info_value, self.cfg)
                     if info_name.rfind('.append') != -1:
-                        tmp.infos_values[tmp.infos_names.index(info_name[:info_name.rfind('.append')])] = smart_unicode(tmp.infos_values[tmp.infos_names.index(info_name[:info_name.rfind('.append')])]) + smart_unicode(tmp.infos_values[info_idx])
-                    info_idx = info_idx + 1
-                info_idx = tmp.infos_names.index('url')
-                tmp.infos_values[info_idx] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_values[info_idx])))
+                        tmp.infos_dict[info_name[:info_name.rfind('.append')]] = smart_unicode(tmp.infos_dict[info_name[:info_name.rfind('.append')]]) + smart_unicode(info_value)
+                tmp.infos_dict['url'] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_dict['url'])))
                 if item_rule.skill.find('append') != -1:
-                    tmp.infos_values[info_idx] = curr_url + tmp.infos_values[info_idx]
+                    tmp.infos_dict['url'] = curr_url + tmp.infos_dict['url']
                 if item_rule.skill.find('striptoslash') != -1:
                     curr_match = re.search(r'(.+?/)[^/]+$', current_url_page)
                     if curr_match:
                         if curr_match.group(1) == 'http://':
-                            tmp.infos_values[info_idx] = curr_url + '/' + tmp.infos_values[info_idx]
+                            tmp.infos_dict['url'] = curr_url + '/' + tmp.infos_dict['url']
                         else:
-                            tmp.infos_values[info_idx] = curr_match.group(1) + tmp.infos_values[info_idx]
+                            tmp.infos_dict['url'] = curr_match.group(1) + tmp.infos_dict['url']
                 if item_rule.skill.find('space') != -1:
                     try:
-                        tmp.infos_values[tmp.infos_names.index('title')] = ' ' + tmp.infos_values[tmp.infos_names.index('title')].lstrip().rstrip() + ' '
+                        tmp.infos_dict['title'] = ' ' + tmp.infos_dict['title'].lstrip().rstrip() + ' '
                     except:
                         pass
-                for info_name in lItem.infos_names:
-                    try:
-                        info_idx = tmp.infos_names.index(info_name)
-                    except:
-                        tmp.infos_names.append(info_name)
-                        tmp.infos_values.append(lItem.infos_values[lItem.infos_names.index(info_name)])
+                for info_name, info_value in lItem.infos_dict.iteritems():
+                    if info_name not in tmp.infos_dict:
+                        tmp.infos_dict[info_name] = info_value
                 if item_rule.skill.find('recursive') != -1:
-                    self.loadRemote(tmp.infos_values[tmp.infos_names.index('url')], False, tmp)
+                    self.loadRemote(tmp.infos_dict['url'], False, tmp)
                     tmp = None
                 else:
                     if item_rule.skill.find('directory') != -1:
@@ -1020,13 +990,13 @@ class CCurrentList:
                             f.write(smart_unicode('#                    Temporary file                    #\n').encode('utf-8'))
                             f.write(smart_unicode('########################################################\n').encode('utf-8'))
                         try:
-                            f.write(smart_unicode('title=' + tmp.infos_values[tmp.infos_names.index('title')] + '\n').encode('utf-8'))
+                            f.write(smart_unicode('title=' + tmp.infos_dict['title'] + '\n').encode('utf-8'))
                         except:
                             f.write(smart_unicode('title=...\n').encode('utf-8'))
-                        for info_name in tmp.infos_names:
+                        for info_name, info_value in tmp.infos_dict.iteritems():
                             if info_name != 'url' and info_name != 'title':
-                                f.write(smart_unicode(info_name + '=' + tmp.infos_values[tmp.infos_names.index(info_name)] + '\n').encode('utf-8'))
-                        f.write(smart_unicode('url=' + tmp.infos_values[tmp.infos_names.index('url')] + '\n').encode('utf-8'))
+                                f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
+                        f.write(smart_unicode('url=' + tmp.infos_dict['url'] + '\n').encode('utf-8'))
                     else:
                         self.items.append(tmp)
                     if item_rule.skill.find('lock') != -1:
@@ -1035,26 +1005,20 @@ class CCurrentList:
                 revid = re.compile(item_rule.curr, re.IGNORECASE + re.DOTALL + re.MULTILINE)
                 for title in revid.findall(data):
                     tmp = CListItem()
-                    tmp.infos_names.append('title')
                     if item_rule.skill.find('space') != -1:
-                        tmp.infos_values.append('  ' + clean_safe(title.lstrip().rstrip()) + ' (' + __language__(30106) +')  ')
+                        tmp.infos_dict['title'] = '  ' + clean_safe(title.lstrip().rstrip()) + ' (' + __language__(30106) +')  '
                     else:
-                        tmp.infos_values.append(' ' + clean_safe(title.lstrip().rstrip()) + ' (' + __language__(30106) +') ')
-                    tmp.infos_names.append('url')
-                    tmp.infos_values.append(curr_url)
+                        tmp.infos_dict['title'] = ' ' + clean_safe(title.lstrip().rstrip()) + ' (' + __language__(30106) +') '
+                    tmp.infos_dict['url'] = curr_url
                     for info in item_rule.info_list:
                         if info.name == 'icon':
-                            tmp.infos_names.append('icon')
                             if info.default != '':
-                                tmp.infos_values.append(info.default)
+                                tmp.infos_dict['icon'] = info.default
                             else:
-                                tmp.infos_values.append(info.build)
-                    for info_name in lItem.infos_names:
-                        try:
-                            info_idx = tmp.infos_names.index(info_name)
-                        except:
-                            tmp.infos_names.append(info_name)
-                            tmp.infos_values.append(lItem.infos_values[lItem.infos_names.index(info_name)])
+                                tmp.infos_dict['icon'] = info.build
+                    for info_name, info_value in lItem.infos_dict.iteritems():
+                        if info_name not in tmp.infos_dict:
+                            tmp.infos_dict[info_name] = info_value
                     if item_rule.skill.find('directory') != -1:
                         one_found = True
                         if f == None:
@@ -1062,35 +1026,29 @@ class CCurrentList:
                             f.write(smart_unicode('########################################################\n').encode('utf-8'))
                             f.write(smart_unicode('#                    Temporary file                    #\n').encode('utf-8'))
                             f.write(smart_unicode('########################################################\n').encode('utf-8'))
-                        f.write(smart_unicode('title=' + tmp.infos_values[tmp.infos_names.index('title')] + '\n').encode('utf-8'))
-                        for info_name in tmp.infos_names:
+                        f.write(smart_unicode('title=' + tmp.infos_dict['title'] + '\n').encode('utf-8'))
+                        for info_name, info_value in tmp.infos_dict.iteritems():
                             if info_name != 'url' and info_name != 'title':
-                                f.write(smart_unicode(info_name + '=' + tmp.infos_values[tmp.infos_names.index(info_name)] + '\n').encode('utf-8'))
-                        f.write(smart_unicode('url=' + tmp.infos_values[tmp.infos_names.index('url')] + '\n').encode('utf-8'))
+                                f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
+                        f.write(smart_unicode('url=' + tmp.infos_dict['url'] + '\n').encode('utf-8'))
                     else:
                         self.items.append(tmp)
                     if item_rule.skill.find('lock') != -1:
                         lock = True
             if one_found:
                 tmp = CListItem()
-                tmp.infos_names.append('url')
-                tmp.infos_values.append(catfilename)
+                tmp.infos_dict['url'] = catfilename
                 for info in item_rule.info_list:
                     if info.name == 'title':
-                        tmp.infos_names.append('title')
-                        tmp.infos_values.append(' ' + info.build + ' ')
+                        tmp.infos_dict['title'] = ' ' + info.build + ' '
                     elif info.name == 'icon':
-                        tmp.infos_names.append('icon')
                         if info.default != '':
-                            tmp.infos_values.append(info.default)
+                            tmp.infos_dict['icon'] = info.default
                         else:
-                            tmp.infos_values.append(info.build)
-                for info_name in lItem.infos_names:
-                    try:
-                        info_idx = tmp.infos_names.index(info_name)
-                    except:
-                        tmp.infos_names.append(info_name)
-                        tmp.infos_values.append(lItem.infos_values[lItem.infos_names.index(info_name)])
+                           tmp.infos_dict['icon'] = info.build
+                for info_name, info_value in lItem.infos_dict.iteritems():
+                    if info_name not in tmp.infos_dict:
+                        tmp.infos_dict[info_name] = info_value
                 self.items.append(tmp)
                 if item_rule.skill.find('lock') != -1:
                     lock = True
@@ -1280,15 +1238,15 @@ class Main:
     def playVideo(self, videoItem):
         if videoItem == None:
             return
-        if videoItem.infos_values[videoItem.infos_names.index('url')] == '':
+        if videoItem.infos_dict['url'] == '':
             return
-        url = videoItem.infos_values[videoItem.infos_names.index('url')]
+        url = videoItem.infos_dict['url']
         try:
-            icon = videoItem.infos_values[videoItem.infos_names.index('icon')]
+            icon = videoItem.infos_dict['icon']
         except:
             icon = os.path.join(imgDir, 'video.png')
         try:
-            title = videoItem.infos_values[videoItem.infos_names.index('title')]
+            title = videoItem.infos_dict['title']
         except:
             title = '...'
         try:
@@ -1302,9 +1260,9 @@ class Main:
         flv_file = url
         listitem = xbmcgui.ListItem(title, title, icon, icon)
         listitem.setInfo('video', {'Title':title})
-        for video_info_name in videoItem.infos_names:
+        for info_name, info_value in videoItem.infos_dict.iteritems():
             try:
-                listitem.setInfo(type = 'Video', infoLabels = {video_info_name: videoItem.infos_values[videoItem.infos_names.index(video_info_name)]})
+                listitem.setInfo(type = 'Video', infoLabels = {info_name: info_value})
             except:
                 pass
         if self.currentlist.skill.find('nodownload') == -1:
@@ -1387,7 +1345,7 @@ class Main:
     def parseView(self, url):
         url = urllib2.unquote(url)
         lItem = self.currentlist.decodeUrl(url)
-        url = lItem.infos_values[lItem.infos_names.index('url')]
+        url = lItem.infos_dict['url']
         ext = self.currentlist.getFileExtension(url)
         if ext == 'cfg' or ext == 'list':
             result = self.currentlist.loadLocal(url, lItem = lItem)
@@ -1405,26 +1363,24 @@ class Main:
         elif ext == 'videodevil' or ext == 'dwnlddevil':
             url = urllib.unquote_plus(url)
             url = url[:len(url) - 11]
-            lItem.infos_values[lItem.infos_names.index('url')] = url
-            cfg_file = lItem.infos_values[lItem.infos_names.index('cfg')]
-            if lItem.infos_values[lItem.infos_names.index('type')] == 'video':
+            lItem.infos_dict['url'] = url
+            cfg_file = lItem.infos_dict['cfg']
+            if lItem.infos_dict['type'] == 'video':
                 self.currentlist.loadLocal(cfg_file, False, lItem, True)
-                lItem.infos_values[lItem.infos_names.index('url')] = self.getDirectLink(lItem.infos_values[lItem.infos_names.index('url')])
-            lItem.infos_values[lItem.infos_names.index('url')] = self.TargetFormatter(lItem.infos_values[lItem.infos_names.index('url')], cfg_file)
-            try:
-                self.videoExtension = '.' + lItem.infos_values[lItem.infos_names.index('extension')]
-            except:
-                pass
+                lItem.infos_dict['url'] = self.getDirectLink(lItem.infos_dict['url'])
+            lItem.infos_dict['url'] = self.TargetFormatter(lItem.infos_dict['url'], cfg_file)
+            if 'extension' in lItem.infos_dict:
+                self.videoExtension = '.' + lItem.infos_dict['extension']
             if ext == 'videodevil':
                 result = self.playVideo(lItem)
             else:
                 self.pDialog = xbmcgui.DialogProgress()
                 self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
-                self.downloadMovie(lItem.infos_values[lItem.infos_names.index('url')], lItem.infos_values[lItem.infos_names.index('title')])
+                self.downloadMovie(lItem.infos_dict['url'], lItem.infos_dict['title'])
                 self.pDialog.close()
             return -2
         else:
-            result = self.currentlist.loadRemote(lItem.infos_values[lItem.infos_names.index('url')], lItem = lItem)
+            result = self.currentlist.loadRemote(lItem.infos_dict['url'], lItem = lItem)
 
         xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_LABEL)
         if self.currentlist.sort.find('label') != -1:
@@ -1445,13 +1401,13 @@ class Main:
             result = self.parseView(url)
         else:
             for m in self.currentlist.items:
-                m_url = m.infos_values[m.infos_names.index('url')]
+                m_url = m.infos_dict['url']
                 try:
-                    m_type = m.infos_values[m.infos_names.index('type')]
+                    m_type = m.infos_dict['type']
                 except:
                     m_type = 'rss'
-                m_icon = m.infos_values[m.infos_names.index('icon')]
-                m_title = clean_safe(m.infos_values[m.infos_names.index('title')])
+                m_icon = m.infos_dict['icon']
+                m_title = clean_safe(m.infos_dict['title'])
                 if m_type == 'rss' or m_type == 'search':
                     self.addListItem(m_title, self.currentlist.codeUrl(m), m_icon, len(self.currentlist.items), m)
                 elif m_type.find('video') != -1:
@@ -1482,24 +1438,24 @@ class Main:
                 liz.addContextMenuItems([(__language__(30011), action)])
             except:
                 pass
-        for video_info_name in lItem.infos_names:
-            if video_info_name.find('context.') != -1:
+        for info_name, info_value in lItem.infos_dict.iteritems():
+            if info_name.find('context.') != -1:
                 try:
                     cItem = lItem
-                    cItem.infos_values[lItem.infos_names.index('url')] = lItem.infos_values[lItem.infos_names.index(video_info_name)]
-                    cItem.infos_values[lItem.infos_names.index('type')] = 'rss'
+                    cItem.infos_dict['url'] = info_value
+                    cItem.infos_dict['type'] = 'rss'
                     action = 'XBMC.RunPlugin(%s)' % (sys.argv[0] + '?url=' + self.currentlist.codeUrl(cItem))
-                    liz.addContextMenuItems([(video_info_name[video_info_name.find('.') + 1:], action)])
+                    liz.addContextMenuItems([(info_name[info_name.find('.') + 1:], action)])
                 except:
                     pass
-            if video_info_name.find('.append') == -1 and video_info_name != 'url' and video_info_name != 'title' and video_info_name != 'icon' and video_info_name != 'type' and video_info_name != 'extension' and video_info_name.find('.tmp') == -1 and video_info_name.find('.append') == -1 and video_info_name.find('context.') == -1:
+            if info_name.find('.append') == -1 and info_name != 'url' and info_name != 'title' and info_name != 'icon' and info_name != 'type' and info_name != 'extension' and info_name.find('.tmp') == -1 and info_name.find('.append') == -1 and info_name.find('context.') == -1:
                 try:
-                    if video_info_name.find('.int') != -1:
-                        liz.setInfo('Video', infoLabels = {capitalize(video_info_name[:video_info_name.find('.int')]): int(lItem.infos_values[lItem.infos_names.index(video_info_name)])})
-                    elif video_info_name.find('.once') != -1:
-                        liz.setInfo('Video', infoLabels = {capitalize(video_info_name[:video_info_name.find('.once')]): lItem.infos_values[lItem.infos_names.index(video_info_name)]})
+                    if info_name.find('.int') != -1:
+                        liz.setInfo('Video', infoLabels = {capitalize(info_name[:info_name.find('.int')]): int(info_value)})
+                    elif info_name.find('.once') != -1:
+                        liz.setInfo('Video', infoLabels = {capitalize(info_name[:info_name.find('.once')]): info_value})
                     else:
-                        liz.setInfo('Video', infoLabels = {capitalize(video_info_name): lItem.infos_values[lItem.infos_names.index(video_info_name)]})
+                        liz.setInfo('Video', infoLabels = {capitalize(info_name): info_value})
                 except:
                     pass
         xbmcplugin.addDirectoryItem(handle = int(sys.argv[1]), url = u, listitem = liz, isFolder = True, totalItems = totalItems)
