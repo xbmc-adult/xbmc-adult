@@ -9,13 +9,7 @@
 # limit: int
 # action: str
 # build: *%s*
-# ext_target: RegEx
-# ext_url: *%s*
-# ext_data: *%s*
-# ext_header str|str
-# ext_limit: int
-# ext_action: str
-# ext_build: *%s*
+# forward: default is False, use True if you want to forward matched target as url
 # extension: str (default = flv)
 # info: str
 # quality: low, standard, high or fallback <- End flag
@@ -67,13 +61,11 @@ quality=low
 title=eporner.com
 target=/config5/(\d+)/
 url=%s
-ext_target=file: "([^"]+\d-lq.mp4)"
-ext_url=http://www.eporner.com/config5/%s
+forward=True
+target=file: "([^"]+\d-lq.mp4)"
+url=http://www.eporner.com/config5/%s
 quality=low
-target=/config5/(\d+)/
-url=%s
-ext_target=file: "([^"]+\d.mp4)"
-ext_url=http://www.eporner.com/config5/%s
+target=file: "([^"]+\d.mp4)"
 quality=high
 ########################################################
 title=2video.de
@@ -228,8 +220,9 @@ quality=standard
 title=moviefap.com
 target=flashvars.config = escape."([^ ]+)VID=
 url=%s
-ext_target=<videoLink>(.+?)</videoLink>
-ext_url=%s
+forward=True
+target=<videoLink>(.+?)</videoLink>
+url=%s
 quality=standard
 ########################################################
 #title=grabit.to
@@ -278,8 +271,9 @@ quality=standard
 title=empflix.com
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>([^<]*)
-ext_url=%s
+forward=True
+target=<videoLink>([^<]*)
+url=%s
 quality=standard
 ########################################################
 title=slutload.com
@@ -291,7 +285,8 @@ quality=standard
 title=sunporno.com
 target=class="embed">&lt;iframe src="([^"]*)"
 url=%s
-ext_target=video src="([^"]*)"
-ext_url=%s
+forward=True
+target=video src="([^"]*)"
+url=%s
 quality=standard
 ########################################################
