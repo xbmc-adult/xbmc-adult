@@ -479,7 +479,7 @@ class CCatcherRuleItem:
 class CCatcherItem:
     def __init__(self):
         self.rule = CCatcherRuleItem()
-        self.ext_rule = None
+        self.forward = False
         self.match = ''
         self.info = ''
         self.extension = 'flv'
@@ -635,51 +635,36 @@ class CCurrentList:
                     if key == 'title':
                         if catcher_found:
                             return 0
-                        if title == value:
+                        elif title == value:
                             catcher_found = True
                     elif catcher_found:
                         if key == 'target':
                             catcher_tmp = CCatcherItem()
                             catcher_tmp.rule.target = value
-                        if key == 'ext_target':
-                          catcher_tmp.ext_rule = CCatcherRuleItem()
-                          catcher_tmp.ext_rule.target = value
-                        if key == 'url':
-                          catcher_tmp.rule.url = value
-                        if key == 'ext_url':
-                          catcher_tmp.ext_rule.url = value
-                        if key == 'data':
-                          catcher_tmp.rule.data = value
-                        if key == 'ext_data':
-                          catcher_tmp.ext_rule.data = value
-                        if key == 'header':
-                          index = value.find('|')
-                          catcher_tmp.rule.reference = value[:index]
-                          catcher_tmp.rule.content = value[index+1:]
-                        if key == 'ext_header':
-                          index = value.find('|')
-                          catcher_tmp.ext_rule.reference = value[:index]
-                          catcher_tmp.ext_rule.content = value[index+1:]
-                        if key == 'build':
-                          catcher_tmp.rule.build = value
-                        if key == 'ext_build':
-                          catcher_tmp.ext_rule.build = value
-                        if key == 'action':
-                          catcher_tmp.rule.action = value
-                        if key == 'ext_action':
-                          catcher_tmp.ext_rule.action = value
-                        if key == 'limit':
-                          catcher_tmp.rule.limit = int(value)
-                        if key == 'ext_limit':
-                          catcher_tmp.ext_rule.limit = int(value)
-                        if key == 'extension':
-                          catcher_tmp.extension = value
-                        if key == 'info':
-                          catcher_tmp.info = value
-                        if key == 'quality':
-                          catcher_tmp.quality = value
-                          self.catcher.append(catcher_tmp)
-
+                        elif key == 'url':
+                            catcher_tmp.rule.url = value
+                        elif key == 'quality':
+                            catcher_tmp.quality = value
+                            self.catcher.append(catcher_tmp)
+                        elif key == 'data':
+                            catcher_tmp.rule.data = value
+                        elif key == 'header':
+                            index = value.find('|')
+                            catcher_tmp.rule.reference = value[:index]
+                            catcher_tmp.rule.content = value[index+1:]
+                        elif key == 'build':
+                            catcher_tmp.rule.build = value
+                        elif key == 'action':
+                            catcher_tmp.rule.action = value
+                        elif key == 'limit':
+                            catcher_tmp.rule.limit = int(value)
+                        elif key == 'extension':
+                            catcher_tmp.extension = value
+                        elif key == 'info':
+                            catcher_tmp.info = value
+                        elif key == 'forward':
+                            catcher_tmp.forward = value
+                            self.catcher.append(catcher_tmp)
         if catcher_found:
             return 0
         return -1
@@ -1075,15 +1060,20 @@ class Main:
             xbmc.log('VideoDevil initialized')
         self.run()
 
-    def getDirectLink(self, orig_url):
-        orig_url = orig_url.replace('\r\n', '').replace('\n', '')
+    def getDirectLink(self, url):
+        print('url: ' + url)
+        url = url.replace('\r\n', '').replace('\n', '')
+        print('url: ' + url)
         self.videoExtension = '.flv'
         for source in self.currentlist.catcher:
             if len(self.urlList) > 0 and source.quality == 'fallback':
                 continue
             if source.rule.url != '':
+                print('if source.rule.url != \'\':')
                 if source.rule.data == '':
-                    url = source.rule.url % orig_url
+                    xbmc.log('if source.rule.data == \'\':')
+                    url = source.rule.url % url
+                    xbmc.log('url: ' + url)
                     req = Request(url)
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
@@ -1094,7 +1084,9 @@ class Main:
                     else:
                         fc = urlfile.read(source.rule.limit)
                 else:
-                    data = source.rule.data % orig_url
+                    xbmc.log('if source.rule.data != \'\':')
+                    data = source.rule.data % url
+                    xbmc.log('url: ' + url)
                     req = Request(source.rule.url, data)
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
@@ -1106,65 +1098,29 @@ class Main:
                         fc = response.read(source.rule.limit)
                 if enable_debug:
                     f = open(os.path.join(cacheDir, 'catcher.html'), 'w')
-                    f.write('<Titel>'+ orig_url + '</Title>\n\n')
+                    f.write('<Titel>'+ url + '</Title>\n\n')
                     f.write(fc)
                     f.close()
             urlsearch = re.search(source.rule.target, fc)
             match = ''
             if urlsearch:
+                xbmc.log('if urlsearch:')
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
+                xbmc.log('direct link: stripped match: ' + match)
                 if source.rule.action.find('unquote') != -1:
                     match = unquote_safe(match)
+                    xbmc.log('direct link: unquoted match: ' + match)
                 elif source.rule.action.find('decode') != -1:
                     match = decode(match)
+                    xbmc.log('direct link: match to decode: ' + str(match))
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
-                if source.ext_rule != None:
-                    if source.ext_rule.data == '':
-                        if source.ext_rule.url.find('%s') != -1:
-                            ext_url = source.ext_rule.url % match
-                        else:
-                            ext_url = match
-                        ext_req = Request(ext_url)
-                        ext_req.add_header('User-Agent', USERAGENT)
-                        if source.ext_rule.reference != '':
-                            ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
-                        ext_urlfile = opener.open(ext_req)
-                        if source.ext_rule.limit == 0:
-                            ext_fc = ext_urlfile.read()
-                        else:
-                            ext_fc = ext_urlfile.read(source.ext_rule.limit)
-                    else:
-                        ext_data = source.ext_rule.data % match
-                        ext_req = Request(source.ext_rule.url, ext_data)
-                        ext_req.add_header('User-Agent', USERAGENT)
-                        if source.ext_rule.reference != '':
-                            ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
-                        ext_response = urlopen(ext_req)
-                        ext_fc = ext_response.read()
-                        if source.ext_rule.limit == 0:
-                            ext_fc = ext_response.read()
-                        else:
-                            ext_fc = ext_response.read(source.ext_rule.limit)
-                    if enable_debug:
-                        f = open(os.path.join(cacheDir, 'ext_catcher.html'), 'w')
-                        f.write('<Titel>'+ match + '</Title>\n\n')
-                        f.write(ext_fc)
-                        f.close()
-                    ext_urlsearch = re.search(source.ext_rule.target, ext_fc)
-                    if ext_urlsearch:
-                        match = ext_urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
-                        if source.ext_rule.action.find('unquote') != -1:
-                            match = unquote_safe(match)
-                        elif source.ext_rule.action.find('decode') != -1:
-                            match = decode(match)
-                        if source.ext_rule.build.find('%s') != -1:
-                            match = source.ext_rule.build % match
-                        if enable_debug:
-                            xbmc.log('ext_target is %s' % match)
-                    else:
-                        match = ''
+                    xbmc.log('direct link: match to built: ' + str(match))
+                if source.forward:
+                    url = match
+                    continue
                 source.match = match
+                xbmc.log('source.match = ' + match)
                 if source.match != '':
                     self.urlList.append(source.match)
                     self.extensionList.append(source.extension)
