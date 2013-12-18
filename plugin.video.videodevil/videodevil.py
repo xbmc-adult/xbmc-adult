@@ -694,11 +694,22 @@ class CCurrentList:
                 if local_path == '':
                     return -1
 
+        if lCatcher:
+            if 'catcher' in lItem.infos_dict:
+                try:
+                    ret = self.loadCatcher(lItem.infos_dict['catcher'])
+                    if ret != 0:
+                        if enable_debug:
+                            xbmc.log('Error while loading catcher')
+                        return ret
+                except:
+                    if enable_debug:
+                        traceback.print_exc(file = sys.stdout)
+                    return -1
+
         self.cfg = filename
         if self.getFileExtension(self.cfg) == 'cfg' and lItem != None:
-            try:
-                lItem.infos_dict[strin] = self.cfg
-            except:
+            if 'cfg' not in lItem.infos_dict:
                 lItem.infos_dict['cfg'] = self.cfg
         del self.items[:]
         tmp = None
@@ -957,6 +968,8 @@ class CCurrentList:
                     if info_name.rfind('.append') != -1:
                         tmp.infos_dict[info_name[:info_name.rfind('.append')]] = smart_unicode(tmp.infos_dict[info_name[:info_name.rfind('.append')]]) + smart_unicode(info_value)
                 tmp.infos_dict['type'] = item_rule.type
+                if item_rule.catcher != '':
+                    tmp.infos_dict['catcher'] = item_rule.catcher
                 tmp.infos_dict['url'] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_dict['url'])))
                 if item_rule.skill.find('append') != -1:
                     tmp.infos_dict['url'] = curr_url + tmp.infos_dict['url']
