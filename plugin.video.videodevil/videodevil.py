@@ -1061,19 +1061,15 @@ class Main:
         self.run()
 
     def getDirectLink(self, url):
-        print('url: ' + url)
         url = url.replace('\r\n', '').replace('\n', '')
-        print('url: ' + url)
         self.videoExtension = '.flv'
         for source in self.currentlist.catcher:
             if len(self.urlList) > 0 and source.quality == 'fallback':
                 continue
             if source.rule.url != '':
-                print('if source.rule.url != \'\':')
                 if source.rule.data == '':
-                    xbmc.log('if source.rule.data == \'\':')
-                    url = source.rule.url % url
-                    xbmc.log('url: ' + url)
+                    if source.rule.url.find('%') != -1:
+                        url = source.rule.url % url
                     req = Request(url)
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
@@ -1084,9 +1080,7 @@ class Main:
                     else:
                         fc = urlfile.read(source.rule.limit)
                 else:
-                    xbmc.log('if source.rule.data != \'\':')
                     data = source.rule.data % url
-                    xbmc.log('url: ' + url)
                     req = Request(source.rule.url, data)
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
@@ -1104,23 +1098,17 @@ class Main:
             urlsearch = re.search(source.rule.target, fc)
             match = ''
             if urlsearch:
-                xbmc.log('if urlsearch:')
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
-                xbmc.log('direct link: stripped match: ' + match)
                 if source.rule.action.find('unquote') != -1:
                     match = unquote_safe(match)
-                    xbmc.log('direct link: unquoted match: ' + match)
                 elif source.rule.action.find('decode') != -1:
                     match = decode(match)
-                    xbmc.log('direct link: match to decode: ' + str(match))
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
-                    xbmc.log('direct link: match to built: ' + str(match))
                 if source.forward:
                     url = match
                     continue
                 source.match = match
-                xbmc.log('source.match = ' + match)
                 if source.match != '':
                     self.urlList.append(source.match)
                     self.extensionList.append(source.extension)
