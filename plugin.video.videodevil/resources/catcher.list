@@ -2,6 +2,7 @@
 # VideoDevil Catcher list
 ########################################################
 # title: str <- Start flag
+# player: overwrites plugin settings use --> auto, mplayer, dvdplayer
 # target: RegEx <- Start flag
 # url: *%s*
 # data: *%s*
@@ -9,9 +10,9 @@
 # limit: int
 # action: str
 # build: *%s*
-# forward: default is False, use True if you want to forward matched target as url
 # extension: str (default = flv)
 # info: str
+# forward: default is False, use True if you want to forward matched target as url <- End flag
 # quality: low, standard, high or fallback <- End flag
 ########################################################
 # Catcher sites

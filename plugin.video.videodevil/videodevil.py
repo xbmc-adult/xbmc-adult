@@ -460,7 +460,9 @@ class CRuleItem:
     def __init__(self):
         self.infos = ''
         self.order = ''
+        self.catcher = ''
         self.skill = ''
+        self.type = 'rss'
         self.curr = ''
         self.info_list = []
         self.url_build = ''
@@ -665,6 +667,8 @@ class CCurrentList:
                         elif key == 'forward':
                             catcher_tmp.forward = value
                             self.catcher.append(catcher_tmp)
+                        elif key == 'player':
+                            self.player = value
         if catcher_found:
             return 0
         return -1
@@ -715,6 +719,10 @@ class CCurrentList:
                             rule_tmp.infos = value
                         elif key == 'item_order':
                             rule_tmp.order = value
+                        elif key == 'item_catcher':
+                            rule_tmp.catcher = value
+                        elif key == 'item_type':
+                            rule_tmp.type = value
                         elif key == 'item_skill':
                             rule_tmp.skill = value
                         elif key == 'item_curr':
@@ -757,8 +765,20 @@ class CCurrentList:
                         tmp.infos_dict[key] = value
                     elif key == 'start':
                         self.start = value
-                    elif key == 'player':
-                        self.player = value
+                    elif key == 'catcher':
+                        if lCatcher:
+                            if 'catcher' in lItem.infos_dict:
+                                value = lItem.infos_dict['catcher']
+                            try:
+                                ret = self.loadCatcher(value)
+                                if ret != 0:
+                                    if enable_debug:
+                                        xbmc.log('Error while loading catcher')
+                                    return ret
+                            except:
+                                if enable_debug:
+                                    traceback.print_exc(file = sys.stdout)
+                                return -1
                     elif key == 'sort':
                         self.sort = value
                     elif key == 'skill':
@@ -778,18 +798,7 @@ class CCurrentList:
                             f = open(str(os.path.join(resDir, skill_file)), 'w')
                             f.write(self.cfg)
                             f.close()
-                    elif key == 'catcher':
-                        if lCatcher:
-                            try:
-                                ret = self.loadCatcher(value)
-                                if ret != 0:
-                                    if enable_debug:
-                                        xbmc.log('Error while loading catcher')
-                                    return ret
-                            except:
-                                if enable_debug:
-                                    traceback.print_exc(file = sys.stdout)
-                                return -1
+
                     elif key == 'header':
                         index = value.find('|')
                         self.reference = value[:index]
@@ -947,6 +956,7 @@ class CCurrentList:
                     tmp.infos_dict[info_name] = self.infoFormatter(info_name, info_value, self.cfg)
                     if info_name.rfind('.append') != -1:
                         tmp.infos_dict[info_name[:info_name.rfind('.append')]] = smart_unicode(tmp.infos_dict[info_name[:info_name.rfind('.append')]]) + smart_unicode(info_value)
+                tmp.infos_dict['type'] = item_rule.type
                 tmp.infos_dict['url'] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_dict['url'])))
                 if item_rule.skill.find('append') != -1:
                     tmp.infos_dict['url'] = curr_url + tmp.infos_dict['url']
