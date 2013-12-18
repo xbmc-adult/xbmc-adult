@@ -1061,82 +1061,54 @@ class Main:
         self.run()
 
     def getDirectLink(self, url):
-        print('url: ' + url)
         url = url.replace('\r\n', '').replace('\n', '')
-        print('url: ' + url)
         self.videoExtension = '.flv'
         for source in self.currentlist.catcher:
             if len(self.urlList) > 0 and source.quality == 'fallback':
                 continue
             if source.rule.url != '':
-                print('if source.rule.url != \'\':')
                 if source.rule.data == '':
-                    print('if source.rule.data == \'\':')
                     if source.rule.url.find('%') != -1:
-                        print('if source.rule.url contains %')
                         url = source.rule.url % url
-                    print('url1: ' + url)
                     req = Request(url)
-                    print('url2: ' + url)
                     req.add_header('User-Agent', USERAGENT)
-                    print('url3: ' + url)
                     if source.rule.reference != '':
                         req.add_header(source.rule.reference, source.rule.content)
-                        print('url4: ' + url)
                     urlfile = opener.open(req)
-                    print('url5: ' + url)
                     if source.rule.limit == 0:
                         fc = urlfile.read()
-                        print('url6: ' + url)
                     else:
                         fc = urlfile.read(source.rule.limit)
-                        print('url7: ' + url)
                 else:
-                    print('if source.rule.data != \'\':')
                     data = source.rule.data % url
-                    print('url1: ' + url)
                     req = Request(source.rule.url, data)
-                    print('url2: ' + url)
                     req.add_header('User-Agent', USERAGENT)
-                    print('url3: ' + url)
                     if source.rule.reference != '':
                         req.add_header(source.rule.reference, source.rule.content)
-                    print('url4: ' + url)
                     response = urlopen(req)
                     if source.rule.limit == 0:
                         fc = response.read()
-                        print('getdirectLink: fc = ' + fc)
                     else:
                         fc = response.read(source.rule.limit)
-                        print('getdirectLink: fc = ' + fc)
                 if enable_debug:
                     f = open(os.path.join(cacheDir, 'catcher.html'), 'w')
                     f.write('<Titel>'+ url + '</Title>\n\n')
                     f.write(fc)
                     f.close()
-            print('getdirectLink: source.rule.target = ' + source.rule.target)
             urlsearch = re.search(source.rule.target, fc)
             match = ''
             if urlsearch:
-                print('if urlsearch:')
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
-                print('direct link: stripped match: ' + match)
                 if source.rule.action.find('unquote') != -1:
                     match = unquote_safe(match)
-                    print('direct link: unquoted match: ' + match)
                 elif source.rule.action.find('decode') != -1:
                     match = decode(match)
-                    print('direct link: match to decode: ' + str(match))
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
-                    print('direct link: match to built: ' + str(match))
                 if source.forward:
                     url = match
-                    print('direct link: forwarding url = ' + url)
                     continue
-                print('target is %s' % match)
                 source.match = match
-                print('source.match = ' + match)
                 if source.match != '':
                     self.urlList.append(source.match)
                     self.extensionList.append(source.extension)
@@ -1215,7 +1187,6 @@ class Main:
         if videoItem.infos_dict['url'] == '':
             return
         url = videoItem.infos_dict['url']
-        print('playVideo: url = ' + url)
         try:
             icon = videoItem.infos_dict['icon']
         except:
