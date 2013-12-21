@@ -444,6 +444,35 @@ def smart_read_file(directory, filename):
     f.close()
     return data
 
+def parseActions(item, convActions):
+
+    for convAction in convActions:
+        action = convAction[0:convAction.find("(")]
+        params = convAction[len(action["action"]) + 1:-1]
+        if params.find(', ') != -1:
+            params = params.split(', ')
+
+        if action == 'unquote':
+            item[params] = unquote_safe(params)
+
+        elif action == 'quote':
+            item[params] = quote_safe(params)
+
+        elif action == 'replace':
+            item[params[0]] = params[0].replace(params[1], params[2])
+
+        elif action == 'decode':
+            item[params] = decode(params)
+
+        elif action == 'join':
+            item[params[0]] = ''.join(params)
+
+        elif action == 'decrypt':
+            item['match'] = sesame.decrypt(item['match'], item['dkey'], 256)
+#            item['match'] = urllib.quote_plus(item['match'])
+
+    return item
+
 class CListItem:
     def __init__(self):
         self.infos_dict = {}
@@ -462,9 +491,9 @@ class CRuleItem:
         self.order = ''
         self.catcher = ''
         self.skill = ''
-        self.type = 'rss'
         self.curr = ''
         self.info_list = []
+        self.actions = []
         self.url_build = ''
 
 class CCatcherRuleItem:
@@ -475,7 +504,7 @@ class CCatcherRuleItem:
         self.reference = ''
         self.content = ''
         self.limit = 0
-        self.action = ''
+        self.actions = []
         self.build = ''
 
 class CCatcherItem:
@@ -657,7 +686,7 @@ class CCurrentList:
                         elif key == 'build':
                             catcher_tmp.rule.build = value
                         elif key == 'action':
-                            catcher_tmp.rule.action = value
+                            catcher_tmp.rule.actions.append(value)
                         elif key == 'limit':
                             catcher_tmp.rule.limit = int(value)
                         elif key == 'extension':
@@ -719,8 +748,8 @@ class CCurrentList:
                 if index != -1:
                     key = lower(m[:index])
                     value = m[index+1:]
-                    index = value.find('|')
-                    if value[:index].startswith('video.devil.'):
+                    if value.startswith('video.devil.'):
+                        index = value.find('|')
                         if value[:index] == 'video.devil.locale':
                             value = ' ' + __language__(int(value[index+1:])) + ' '
                         elif value[:index] == 'video.devil.image':
@@ -735,8 +764,6 @@ class CCurrentList:
                             rule_tmp.order = value
                         elif key == 'item_catcher':
                             rule_tmp.catcher = value
-                        elif key == 'item_type':
-                            rule_tmp.type = value
                         elif key == 'item_skill':
                             rule_tmp.skill = value
                         elif key == 'item_curr':
@@ -754,6 +781,8 @@ class CCurrentList:
                             elif key == 'item_info_build':
                                 info_tmp.build = value
                                 rule_tmp.info_list.append(info_tmp)
+                        elif key == 'item_infos_action':
+                            rule_tmp.actions.append(value)
                         elif key == 'item_url_build':
                             rule_tmp.url_build = value
                             self.rules.append(rule_tmp)
@@ -967,7 +996,6 @@ class CCurrentList:
                     tmp.infos_dict[info_name] = self.infoFormatter(info_name, info_value, self.cfg)
                     if info_name.rfind('.append') != -1:
                         tmp.infos_dict[info_name[:info_name.rfind('.append')]] = smart_unicode(tmp.infos_dict[info_name[:info_name.rfind('.append')]]) + smart_unicode(info_value)
-                tmp.infos_dict['type'] = item_rule.type
                 if item_rule.catcher != '':
                     tmp.infos_dict['catcher'] = item_rule.catcher
                 tmp.infos_dict['url'] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_dict['url'])))
@@ -1122,10 +1150,10 @@ class Main:
             match = ''
             if urlsearch:
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
-                if source.rule.action.find('unquote') != -1:
-                    match = unquote_safe(match)
-                elif source.rule.action.find('decode') != -1:
-                    match = decode(match)
+                if len(source.rule.actions) > 0:
+                    match = {'match' : match, 'dkey' : url}
+                    match = parseActions(match, source.rule.actions)
+                    match = match['match']
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
                 if source.forward:
