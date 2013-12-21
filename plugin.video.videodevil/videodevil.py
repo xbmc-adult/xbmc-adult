@@ -1,13 +1,16 @@
 # -*- coding: latin-1 -*-
 from string import capitalize, lower
-import xbmcplugin, xbmcaddon
 import sys, os.path
 import tempfile
 import urllib, urllib2
 import re
-import xbmc, xbmcgui
 import os, traceback
 import cookielib, htmlentitydefs
+
+import xbmcplugin, xbmcaddon
+import xbmc, xbmcgui
+
+import sesame
 
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 __language__ = addon.getLocalizedString
