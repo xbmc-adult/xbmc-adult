@@ -523,7 +523,7 @@ class CCurrentList:
     def __init__(self):
         self.start = ''
         self.player = ''
-        self.sort = 'label'
+        self.sort = ['label']
         self.cfg = ''
         self.skill = ''
         self.reference = ''
@@ -823,7 +823,7 @@ class CCurrentList:
                                     traceback.print_exc(file = sys.stdout)
                                 return -1
                     elif key == 'sort':
-                        self.sort = value
+                        self.sort.append(value)
                     elif key == 'skill':
                         self.skill = value
                         skill_file = filename[:filename.find('.')] + '.lnk'
@@ -911,13 +911,11 @@ class CCurrentList:
                         lItem.infos_dict['type'] = u'rss'
                 except:
                     traceback.print_exc(file = sys.stdout)
-            if self.reference == '':
-                txheaders = {'User-Agent':USERAGENT,
-                             'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
-            else:
-                txheaders = {'User-Agent':USERAGENT,
-                             'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-                             self.reference:self.content}
+
+            txheaders = {'User-Agent':USERAGENT,
+                         'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
+            if self.reference != '':
+                txheaders[self.reference] = self.content
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
                 f.write('<Title>'+ curr_url + '</Title>\n\n')
@@ -1171,21 +1169,12 @@ class Main:
                     if source.quality == 'fallback':
                         self.videoExtension = '.' + source.extension
                         return source.match
-                    elif source.quality == 'low':
+                    else:
+                        selList_type = {'low' : __language__(30056), 'standard' : __language__(30057), 'high' : __language__(30058)}
                         if source.info == '':
-                            self.selectionList.append(__language__(30056) + ' (' + source.extension + ')')
+                            self.selectionList.append(selList_type[source.quality] + ' (' + source.extension + ')')
                         else:
-                            self.selectionList.append(__language__(30056) + ' (' + source.info + ')')
-                    elif source.quality == 'standard':
-                        if source.info == '':
-                            self.selectionList.append(__language__(30057) + ' (' + source.extension + ')')
-                        else:
-                            self.selectionList.append(__language__(30057) + ' (' + source.info + ')')
-                    elif source.quality == 'high':
-                        if source.info == '':
-                            self.selectionList.append(__language__(30058) + ' (' + source.extension + ')')
-                        else:
-                            self.selectionList.append(__language__(30058) + ' (' + source.info + ')')
+                            self.selectionList.append(selList_type[source.quality] + ' (' + source.info + ')')
 
         if len(self.urlList) > 0:
             if len(self.urlList) == 1:
@@ -1196,45 +1185,13 @@ class Main:
                 selection = dia.select(__language__(30055), self.selectionList)
                 self.videoExtension = '.' + self.extensionList[selection]
                 return self.urlList[selection]
-            elif int(addon.getSetting('video_type')) == 1: # low
-                for source in self.currentlist.catcher:
-                    if source.quality == 'low' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'standard' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'high' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-            elif int(addon.getSetting('video_type')) == 3: # high
-                for source in self.currentlist.catcher:
-                    if source.quality == 'high' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'standard' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'low' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-            elif int(addon.getSetting('video_type')) == 2: # standard
-                for source in self.currentlist.catcher:
-                    if source.quality == 'standard' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'low' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'high' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
+            else:
+                video_type = {1:[low, standard, high], 2:[standard, low, high], 3:[high, standard, low]}[int(addon.getSetting('video_type'))]
+                for video_qual in video_type:
+                    for source in self.currentlist.catcher:
+                        if source.quality == video_qual and source.match != '':
+                            self.videoExtension = '.' + source.extension
+                            return source.match
         return ''
 
     def playVideo(self, videoItem):
@@ -1289,13 +1246,9 @@ class Main:
         else:
             flv_file = None
 
-        player_type = {0:xbmc.PLAYER_CORE_AUTO, 1:xbmc.PLAYER_CORE_MPLAYER, 2:xbmc.PLAYER_CORE_DVDPLAYER}[int(addon.getSetting('player_type'))]
-        if self.currentlist.player == 'auto':
-            player_type = xbmc.PLAYER_CORE_AUTO
-        elif self.currentlist.player == 'mplayer':
-            player_type = xbmc.PLAYER_CORE_MPLAYER
-        elif self.currentlist.player == 'dvdplayer':
-            player_type = xbmc.PLAYER_CORE_DVDPLAYER
+        player_type = {'auto':xbmc.PLAYER_CORE_AUTO, 'mplayer':xbmc.PLAYER_CORE_MPLAYER, 'dvdplayer':xbmc.PLAYER_CORE_DVDPLAYER}[int(addon.getSetting('player_type'))]
+        if self.currentlist.player != '':
+            player_type = player_type[self.currentlist.player]
 
         if flv_file != None and os.path.isfile(flv_file):
             if enable_debug:
@@ -1384,19 +1337,9 @@ class Main:
         else:
             result = self.currentlist.loadRemote(lItem.infos_dict['url'], lItem = lItem)
 
-        xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_LABEL)
-        if self.currentlist.sort.find('label') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_LABEL)
-        if self.currentlist.sort.find('size') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_SIZE)
-        if self.currentlist.sort.find('duration') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_DURATION)
-        if self.currentlist.sort.find('genre') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_GENRE)
-        if self.currentlist.sort.find('rating') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_VIDEO_RATING)
-        if self.currentlist.sort.find('date') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_DATE)
+        sort_dict = {'label' : 'SORT_METHOD_LABEL', 'size' : 'SORT_METHOD_SIZE', 'duration' : 'SORT_METHOD_DURATION', 'genre' : 'SORT_METHOD_GENRE', 'rating' : 'SORT_METHOD_VIDEO_RATING', 'date' : 'SORT_METHOD_DATE'}
+        for sort_method in self.currentlist.sort:
+        xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.sort_dict[sort_method])
 
         if self.currentlist.skill.find('play') != -1 and self.currentlist.videoCount() == 1:
             url = self.currentlist.codeUrl(self.currentlist.getVideo(), 'videodevil')
