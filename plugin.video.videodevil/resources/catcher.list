@@ -8,11 +8,11 @@
 # data: *%s*
 # header str|str
 # limit: int
-# action: str
+# action: quote(match), unquote(match), decode(match), replace(match, string to replace, string to replace with), decrypt(match, url), decrypt(url, match), join(match, url), join(url, match)
 # build: *%s*
 # extension: str (default = flv)
 # info: str
-# forward: default is False, use True if you want to forward matched target as url <- End flag
+# forward: default is False, use True if you want to forward match as url (required for url forwarding/redirecting and above actions decrypt and join<- End flag
 # quality: low, standard, high or fallback <- End flag
 ########################################################
 # Catcher sites

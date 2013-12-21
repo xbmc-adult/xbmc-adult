@@ -468,7 +468,7 @@ def parseActions(infos_dict, convActions):
             infos_dict[params[0]] = ''.join(params)
 
         elif action == 'decrypt':
-            infos_dict['match'] = sesame.decrypt(infos_dict['match'], infos_dict['dkey'], 256)
+            infos_dict['match'] = sesame.decrypt(infos_dict[params[1]], infos_dict[params[2]], 256)
 #            infos_dict['match'] = urllib.quote_plus(infos_dict['match'])
 
     return infos_dict
@@ -1153,7 +1153,7 @@ class Main:
             if urlsearch:
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
                 if len(source.rule.actions) > 0:
-                    match = {'match' : match, 'dkey' : url}
+                    match = {'match' : match, 'url' : url}
                     match = parseActions(match, source.rule.actions)
                     match = match['match']
                 if source.rule.build.find('%s') != -1:
