@@ -444,7 +444,7 @@ def smart_read_file(directory, filename):
     f.close()
     return data
 
-def parseActions(item, convActions):
+def parseActions(infos_dict, convActions):
 
     for convAction in convActions:
         action = convAction[0:convAction.find("(")]
@@ -453,25 +453,25 @@ def parseActions(item, convActions):
             params = params.split(', ')
 
         if action == 'unquote':
-            item[params] = unquote_safe(params)
+            infos_dict[params] = unquote_safe(params)
 
         elif action == 'quote':
-            item[params] = quote_safe(params)
+            infos_dict[params] = quote_safe(params)
 
         elif action == 'replace':
-            item[params[0]] = params[0].replace(params[1], params[2])
+            infos_dict[params[0]] = params[0].replace(params[1], params[2])
 
         elif action == 'decode':
-            item[params] = decode(params)
+            infos_dict[params] = decode(params)
 
         elif action == 'join':
-            item[params[0]] = ''.join(params)
+            infos_dict[params[0]] = ''.join(params)
 
         elif action == 'decrypt':
-            item['match'] = sesame.decrypt(item['match'], item['dkey'], 256)
-#            item['match'] = urllib.quote_plus(item['match'])
+            infos_dict['match'] = sesame.decrypt(infos_dict['match'], infos_dict['dkey'], 256)
+#            infos_dict['match'] = urllib.quote_plus(infos_dict['match'])
 
-    return item
+    return infos_dict
 
 class CListItem:
     def __init__(self):
@@ -992,6 +992,8 @@ class CCurrentList:
                         else:
                             info_value = info.build
                     tmp.infos_dict[info.name] = info_value
+                if len(item_rule.actions) > 0:
+                    tmp.infos_dict = parseActions(tmp.infos_dict, item_rule.actions)
                 for info_name, info_value in tmp.infos_dict.iteritems():
                     tmp.infos_dict[info_name] = self.infoFormatter(info_name, info_value, self.cfg)
                     if info_name.rfind('.append') != -1:
