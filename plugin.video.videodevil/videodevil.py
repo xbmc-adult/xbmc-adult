@@ -720,10 +720,13 @@ class CCurrentList:
                     key = lower(m[:index])
                     value = m[index+1:]
                     index = value.find('|')
-                    if value[:index] == 'video.devil.locale':
-                        value = ' ' + __language__(int(value[index+1:])) + ' '
-                    elif value[:index] == 'video.devil.image':
-                        value = os.path.join(imgDir, value[index+1:])
+                    if value[:index].startswith('video.devil.'):
+                        if value[:index] == 'video.devil.locale':
+                            value = ' ' + __language__(int(value[index+1:])) + ' '
+                        elif value[:index] == 'video.devil.image':
+                            value = os.path.join(imgDir, value[index+1:])
+                        elif value[:index] == 'video.devil.context':
+                            value = 'context.' + __language__(int(value[index+1:]))
                     if key.startswith('item'):
                         if key == 'item_infos':
                             rule_tmp = CRuleItem()
@@ -741,9 +744,6 @@ class CCurrentList:
                         elif key.startswith('item_info'):
                             if key == 'item_info_name':
                                 info_tmp = CItemInfo()
-                                index = value.find('|')
-                                if value[:index] == 'video.devil.context':
-                                    value = 'context.' + __language__(int(value[index+1:]))
                                 info_tmp.name = value
                             elif key == 'item_info_from':
                                 info_tmp.src = value
