@@ -1186,7 +1186,7 @@ class Main:
                 self.videoExtension = '.' + self.extensionList[selection]
                 return self.urlList[selection]
             else:
-                video_type = {1:[low, standard, high], 2:[standard, low, high], 3:[high, standard, low]}[int(addon.getSetting('video_type'))]
+                video_type = {1:['low', 'standard', 'high'], 2:['standard', 'low', 'high'], 3:['high', 'standard', 'low']}[int(addon.getSetting('video_type'))]
                 for video_qual in video_type:
                     for source in self.currentlist.catcher:
                         if source.quality == video_qual and source.match != '':
@@ -1246,9 +1246,13 @@ class Main:
         else:
             flv_file = None
 
-        player_type = {'auto':xbmc.PLAYER_CORE_AUTO, 'mplayer':xbmc.PLAYER_CORE_MPLAYER, 'dvdplayer':xbmc.PLAYER_CORE_DVDPLAYER}[int(addon.getSetting('player_type'))]
-        if self.currentlist.player != '':
-            player_type = player_type[self.currentlist.player]
+        player_type = {0:xbmc.PLAYER_CORE_AUTO, 1:xbmc.PLAYER_CORE_MPLAYER, 2:xbmc.PLAYER_CORE_DVDPLAYER}[int(addon.getSetting('player_type'))]
+        if self.currentlist.player == 'auto':
+            player_type = xbmc.PLAYER_CORE_AUTO
+        elif self.currentlist.player == 'mplayer':
+            player_type = xbmc.PLAYER_CORE_MPLAYER
+        elif self.currentlist.player == 'dvdplayer':
+            player_type = xbmc.PLAYER_CORE_DVDPLAYER
 
         if flv_file != None and os.path.isfile(flv_file):
             if enable_debug:
@@ -1337,9 +1341,9 @@ class Main:
         else:
             result = self.currentlist.loadRemote(lItem.infos_dict['url'], lItem = lItem)
 
-        sort_dict = {'label' : 'SORT_METHOD_LABEL', 'size' : 'SORT_METHOD_SIZE', 'duration' : 'SORT_METHOD_DURATION', 'genre' : 'SORT_METHOD_GENRE', 'rating' : 'SORT_METHOD_VIDEO_RATING', 'date' : 'SORT_METHOD_DATE'}
+        sort_dict = {'label' : xbmcplugin.SORT_METHOD_LABEL, 'size' : xbmcplugin.SORT_METHOD_SIZE, 'duration' : xbmcplugin.SORT_METHOD_DURATION, 'genre' : xbmcplugin.SORT_METHOD_GENRE, 'rating' : xbmcplugin.SORT_METHOD_VIDEO_RATING, 'date' : xbmcplugin.SORT_METHOD_DATE}
         for sort_method in self.currentlist.sort:
-        xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.sort_dict[sort_method])
+            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = sort_dict[sort_method])
 
         if self.currentlist.skill.find('play') != -1 and self.currentlist.videoCount() == 1:
             url = self.currentlist.codeUrl(self.currentlist.getVideo(), 'videodevil')
