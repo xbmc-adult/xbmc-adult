@@ -97,7 +97,7 @@ quality=standard
 title=degrab.de
 target=Download Link.+?<a href="([^"]+)"
 url=http://www.degrab.de/?url=%s
-action=unquote
+action=unquote(match)
 quality=standard
 ########################################################
 title=pornotube.com
@@ -119,7 +119,7 @@ quality=standard
 title=youporn.com
 target=<a href="([^"]+)">\s*MP4
 url=%s
-action=decode
+action=decode(match)
 header=Cookie|age_check=1
 quality=standard
 ########################################################
@@ -198,7 +198,7 @@ quality=standard
 title=spankwire.com
 target="(http%3[^"]+mp4[^"]+)";\s+flashvars.(r|quality_\d+)p = ""
 url=%s
-action=unquote
+action=unquote(match)
 extension=mp4
 quality=standard
 ########################################################
@@ -263,10 +263,7 @@ quality=low
 title=4tube.com
 target="file":"([^"]+)"
 url=%s
-action=decode
-#ext_target=<file>(.+?)</file>
-#ext_url=http://www.4tube.com%s
-#ext_action=decode
+action=decode(match)
 quality=standard
 ########################################################
 title=empflix.com
@@ -280,7 +277,7 @@ quality=standard
 title=slutload.com
 target=file: "([^"]+)"
 url=%s
-action=unquote
+action=unquote(match)
 quality=standard
 ########################################################
 title=sunporno.com
