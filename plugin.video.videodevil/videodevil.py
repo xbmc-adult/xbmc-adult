@@ -479,6 +479,42 @@ def parseActions(infos_dict, convActions):
 
     return infos_dict
 
+'''
+def getHTML(url, txheaders=None, limit='', data=None, cj=None, file='page.html'):
+    if enable_debug:
+        if file != 'page.html':
+            f = open(os.path.join(cacheDir, file), 'w')
+        else:
+            f = open(os.path.join(cacheDir, 'page.html'), 'w')
+        f.write('<Title>'+ url + '</Title>\n\n')
+
+    try:
+        req = Request(url, data, txheaders)
+        if data != None:
+            response = urlopen(req)
+            fc = response.read(limit)
+            if cj != None:
+                cj.save(os.path.join(settingsDir, 'cookies.lwp'))
+        else:
+            urlfile = opener.open(req)
+            fc = urlfile.read(limit)
+
+        fc = response.read(limit)
+        cj.save(os.path.join(settingsDir, 'cookies.lwp'))
+
+        if enable_debug:
+            f.write(data)
+            f.close()
+            xbmc.log('Remote URL ' + str(url) + ' opened')
+
+    except IOError:
+        if enable_debug:
+            traceback.print_exc(file = sys.stdout)
+        return -1
+
+    return data
+'''
+
 class CListItem:
     def __init__(self):
         self.infos_dict = {}
@@ -507,8 +543,7 @@ class CCatcherRuleItem:
         self.target = ''
         self.url = ''
         self.data = ''
-        self.reference = ''
-        self.content = ''
+        self.txheaders = {'User-Agent':USERAGENT}
         self.limit = 0
         self.actions = []
         self.build = ''
@@ -529,8 +564,10 @@ class CCurrentList:
         self.sort = ['label']
         self.cfg = ''
         self.skill = ''
-        self.reference = ''
-        self.content = ''
+        self.txheaders = {
+            'User-Agent':USERAGENT,
+            'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'
+        }
         self.catcher = []
         self.items = []
         self.rules = []
@@ -687,8 +724,8 @@ class CCurrentList:
                             catcher_tmp.rule.data = value
                         elif key == 'header':
                             index = value.find('|')
-                            catcher_tmp.rule.reference = value[:index]
-                            catcher_tmp.rule.content = value[index+1:]
+                            catcher_tmp.rule.txheaders[value[:index]] = value[index+1:]
+
                         elif key == 'build':
                             catcher_tmp.rule.build = value
                         elif key == 'action':
@@ -847,8 +884,7 @@ class CCurrentList:
 
                     elif key == 'header':
                         index = value.find('|')
-                        self.reference = value[:index]
-                        self.content = value[index+1:]
+                        self.txheaders[value[:index]] = value[index+1:]
 
         if recursive and self.start != '':
             if lItem == None:
@@ -915,15 +951,11 @@ class CCurrentList:
                 except:
                     traceback.print_exc(file = sys.stdout)
 
-            txheaders = {'User-Agent':USERAGENT,
-                         'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
-            if self.reference != '':
-                txheaders[self.reference] = self.content
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
                 f.write('<Title>'+ curr_url + '</Title>\n\n')
             curr_url = urllib.unquote_plus(curr_url)
-            req = Request(curr_url, None, txheaders)
+            req = Request(curr_url, None, self.txheaders)
             try:
                 handle = urlopen(req)
             except:
@@ -950,8 +982,10 @@ class CCurrentList:
             if item_rule.skill.find('lock') != -1 and lock:
                 continue
             one_found = False
-            catfilename = tempfile.mktemp(suffix='.list', prefix=(self.cfg + '.dir.'),
-                                          dir='')
+            catfilename = tempfile.mktemp(
+                suffix='.list', prefix=(self.cfg + '.dir.'),
+                dir=''
+            )
             f = None
             if item_rule.order.find('|') != -1:
                 reinfos = []
@@ -1126,10 +1160,7 @@ class Main:
                 if source.rule.data == '':
                     if source.rule.url.find('%') != -1:
                         url = source.rule.url % url
-                    req = Request(url)
-                    req.add_header('User-Agent', USERAGENT)
-                    if source.rule.reference != '':
-                        req.add_header(source.rule.reference, source.rule.content)
+                    req = Request(url, None, self.txheaders)
                     urlfile = opener.open(req)
                     if source.rule.limit == 0:
                         fc = urlfile.read()
@@ -1137,10 +1168,7 @@ class Main:
                         fc = urlfile.read(source.rule.limit)
                 else:
                     data = source.rule.data % url
-                    req = Request(source.rule.url, data)
-                    req.add_header('User-Agent', USERAGENT)
-                    if source.rule.reference != '':
-                        req.add_header(source.rule.reference, source.rule.content)
+                    req = Request(source.rule.url, data, self.txheaders)
                     response = urlopen(req)
                     if source.rule.limit == 0:
                         fc = response.read()
