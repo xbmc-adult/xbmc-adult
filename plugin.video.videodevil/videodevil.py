@@ -1115,10 +1115,9 @@ class Main:
 
     def getDirectLink(self, url):
         url = url.replace('\r\n', '').replace('\n', '')
-        self.videoExtension = '.flv'
         for source in self.currentlist.catcher:
             if len(self.urlList) > 0 and source.quality == 'fallback':
-                continue
+                break
             if source.rule.url != '':
                 if source.rule.data == '':
                     if source.rule.url.find('%') != -1:
@@ -1169,7 +1168,11 @@ class Main:
                         self.videoExtension = '.' + source.extension
                         return source.match
                     else:
-                        selList_type = {'low' : __language__(30056), 'standard' : __language__(30057), 'high' : __language__(30058)}
+                        selList_type = {
+                            'low' : __language__(30056), 
+                            'standard' : __language__(30057), 
+                            'high' : __language__(30058)
+                        }
                         if source.info == '':
                             self.selectionList.append(selList_type[source.quality] + ' (' + source.extension + ')')
                         else:
@@ -1185,7 +1188,12 @@ class Main:
                 self.videoExtension = '.' + self.extensionList[selection]
                 return self.urlList[selection]
             else:
-                video_type = {1:['low', 'standard', 'high'], 2:['standard', 'low', 'high'], 3:['high', 'standard', 'low']}[int(addon.getSetting('video_type'))]
+                video_type = {
+                    1:['low', 'standard', 'high'], 
+                    2:['standard', 'low', 'high'], 
+                    3:['high', 'standard', 'low']
+                }
+                video_type = video_type[int(addon.getSetting('video_type'))]
                 for video_qual in video_type:
                     for source in self.currentlist.catcher:
                         if source.quality == video_qual and source.match != '':
@@ -1230,10 +1238,13 @@ class Main:
                 dia = xbmcgui.Dialog()
                 if dia.yesno('', __language__(30052)):
                     flv_file = self.downloadMovie(url, title)
-        else:
-            flv_file = None
 
-        player_type = {0:xbmc.PLAYER_CORE_AUTO, 1:xbmc.PLAYER_CORE_MPLAYER, 2:xbmc.PLAYER_CORE_DVDPLAYER}[int(addon.getSetting('player_type'))]
+        player_type = {
+            0:xbmc.PLAYER_CORE_AUTO, 
+            1:xbmc.PLAYER_CORE_MPLAYER, 
+            2:xbmc.PLAYER_CORE_DVDPLAYER
+        }
+        player_type = player_type[int(addon.getSetting('player_type'))]
         if self.currentlist.player == 'auto':
             player_type = xbmc.PLAYER_CORE_AUTO
         elif self.currentlist.player == 'mplayer':
@@ -1241,14 +1252,9 @@ class Main:
         elif self.currentlist.player == 'dvdplayer':
             player_type = xbmc.PLAYER_CORE_DVDPLAYER
 
-        if flv_file != None and os.path.isfile(flv_file):
-            if enable_debug:
-                xbmc.log('Play: ' + str(flv_file))
-            xbmc.Player(player_type).play(str(flv_file), listitem)
-        else:
-            if enable_debug:
-                xbmc.log('Play: ' + str(url))
-            xbmc.Player(player_type).play(str(url), listitem)
+        if enable_debug:
+            xbmc.log('Play: ' + str(flv_file))
+        xbmc.Player(player_type).play(str(flv_file), listitem)
         xbmc.sleep(200)
 
     def downloadMovie(self, url, title):
@@ -1332,7 +1338,14 @@ class Main:
         else:
             result = self.currentlist.loadRemote(lItem.infos_dict['url'], lItem = lItem)
 
-        sort_dict = {'label' : xbmcplugin.SORT_METHOD_LABEL, 'size' : xbmcplugin.SORT_METHOD_SIZE, 'duration' : xbmcplugin.SORT_METHOD_DURATION, 'genre' : xbmcplugin.SORT_METHOD_GENRE, 'rating' : xbmcplugin.SORT_METHOD_VIDEO_RATING, 'date' : xbmcplugin.SORT_METHOD_DATE}
+        sort_dict = {
+            'label' : xbmcplugin.SORT_METHOD_LABEL, 
+            'size' : xbmcplugin.SORT_METHOD_SIZE, 
+            'duration' : xbmcplugin.SORT_METHOD_DURATION, 
+            'genre' : xbmcplugin.SORT_METHOD_GENRE, 
+            'rating' : xbmcplugin.SORT_METHOD_VIDEO_RATING, 
+            'date' : xbmcplugin.SORT_METHOD_DATE
+        }
         for sort_method in self.currentlist.sort:
             xbmcplugin.addSortMethod(handle = self.handle, sortMethod = sort_dict[sort_method])
 
