@@ -451,21 +451,21 @@ def parseActions(infos_dict, convActions):
 
     for convAction in convActions:
         action = convAction[0:convAction.find("(")]
-        params = convAction[len(action["action"]) + 1:-1]
+        params = convAction[len(action) + 1:-1]
         if params.find(', ') != -1:
             params = params.split(', ')
 
         if action == 'unquote':
-            infos_dict[params] = unquote_safe(params)
+            infos_dict[params] = unquote_safe(infos_dict[params])
 
         elif action == 'quote':
-            infos_dict[params] = quote_safe(params)
+            infos_dict[params] = quote_safe(infos_dict[params])
 
         elif action == 'replace':
             infos_dict[params[0]] = params[0].replace(params[1], params[2])
 
         elif action == 'decode':
-            infos_dict[params] = decode(params)
+            infos_dict[params] = decode(infos_dict[params])
 
         elif action == 'join':
             infos_dict[params[0]] = ''.join(params)
@@ -473,7 +473,6 @@ def parseActions(infos_dict, convActions):
         elif action == 'decrypt':
             infos_dict['match'] = sesame.decrypt(infos_dict[params[1]], infos_dict[params[2]], 256)
 #            infos_dict['match'] = urllib.quote_plus(infos_dict['match'])
-
     return infos_dict
 
 class CListItem:
@@ -1226,23 +1225,11 @@ class Main:
                 pass
         if self.currentlist.skill.find('nodownload') == -1:
             if addon.getSetting('download') == 'true':
-                self.pDialog = xbmcgui.DialogProgress()
-                self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
                 flv_file = self.downloadMovie(url, title)
-                self.pDialog.close()
-                if flv_file == None:
-                    dialog = xbmcgui.Dialog()
-                    dialog.ok('VideoDevil Info', __language__(30053))
             elif addon.getSetting('download') == 'false' and addon.getSetting('download_ask') == 'true':
                 dia = xbmcgui.Dialog()
                 if dia.yesno('', __language__(30052)):
-                    self.pDialog = xbmcgui.DialogProgress()
-                    self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
                     flv_file = self.downloadMovie(url, title)
-                    self.pDialog.close()
-                    if flv_file == None:
-                        dialog = xbmcgui.Dialog()
-                        dialog.ok('VideoDevil Info', __language__(30053))
         else:
             flv_file = None
 
@@ -1258,12 +1245,10 @@ class Main:
             if enable_debug:
                 xbmc.log('Play: ' + str(flv_file))
             xbmc.Player(player_type).play(str(flv_file), listitem)
-            #xbmc.Player().play(str(flv_file), listitem)
         else:
             if enable_debug:
                 xbmc.log('Play: ' + str(url))
             xbmc.Player(player_type).play(str(url), listitem)
-            #xbmc.Player().play(str(url), listitem)
         xbmc.sleep(200)
 
     def downloadMovie(self, url, title):
@@ -1278,15 +1263,21 @@ class Main:
                     os.mkdir(download_path)
             except:
                 pass
-        tmp_file = tempfile.mktemp(dir=download_path, suffix=self.videoExtension)
-        tmp_file = xbmc.makeLegalFilename(tmp_file)
-        urllib.urlretrieve(urllib.unquote(url), tmp_file, self.video_report_hook)
+        tmp_file = tempfile.NamedTemporaryFile(suffix = self.videoExtension, dir=download_path)
+        tmp_file = xbmc.makeLegalFilename(tmp_file.name)
         vidfile = xbmc.makeLegalFilename(download_path + clean_filename(title) + self.videoExtension)
+        self.pDialog = xbmcgui.DialogProgress()
+        self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
+        urllib.urlretrieve(urllib.unquote(url), tmp_file, self.video_report_hook)
+        self.pDialog.close()
+        if not os.path.exists(tmp_file):
+            dialog = xbmcgui.Dialog()
+            dialog.ok('VideoDevil Info', __language__(30053))
         try:
-          os.rename(tmp_file, vidfile)
-          return vidfile
+            os.rename(tmp_file, vidfile)
+            return vidfile
         except:
-          return tmp_file
+            return tmp_file
 
     def video_report_hook(self, count, blocksize, totalsize):
         percent = int(float(count * blocksize * 100) / totalsize)
