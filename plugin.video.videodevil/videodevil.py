@@ -455,24 +455,28 @@ def parseActions(infos_dict, convActions):
         if params.find(', ') != -1:
             params = params.split(', ')
 
-        if action == 'unquote':
-            infos_dict[params] = unquote_safe(infos_dict[params])
+            if action == 'replace':
+                infos_dict[params[0]] = infos_dict[params[0]].replace(params[1], params[2])
 
-        elif action == 'quote':
-            infos_dict[params] = quote_safe(infos_dict[params])
+            elif action == 'join':
+                infos_dict[params[0]] = ''.join(params)
 
-        elif action == 'replace':
-            infos_dict[params[0]] = params[0].replace(params[1], params[2])
+            elif action == 'decrypt':
+                infos_dict['match'] = sesame.decrypt(infos_dict[params[0]], infos_dict[params[1]], 256)
+#                infos_dict['match'] = urllib.quote_plus(infos_dict['match'])
 
-        elif action == 'decode':
-            infos_dict[params] = decode(infos_dict[params])
+        else:
 
-        elif action == 'join':
-            infos_dict[params[0]] = ''.join(params)
+            if action == 'unquote':
+                infos_dict[params] = unquote_safe(infos_dict[params])
 
-        elif action == 'decrypt':
-            infos_dict['match'] = sesame.decrypt(infos_dict[params[1]], infos_dict[params[2]], 256)
-#            infos_dict['match'] = urllib.quote_plus(infos_dict['match'])
+            elif action == 'quote':
+                infos_dict[params] = quote_safe(infos_dict[params])
+
+            elif action == 'decode':
+                infos_dict[params] = decode(infos_dict[params])
+
+
     return infos_dict
 
 class CListItem:
@@ -1150,6 +1154,8 @@ class Main:
             urlsearch = re.search(source.rule.target, fc)
             match = ''
             if urlsearch:
+                if str(source.rule.actions).find('decrypt') != -1 and url == '':
+                    continue
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
                 if len(source.rule.actions) > 0:
                     match = {'match' : match, 'url' : url}
@@ -1177,6 +1183,8 @@ class Main:
                             self.selectionList.append(selList_type[source.quality] + ' (' + source.extension + ')')
                         else:
                             self.selectionList.append(selList_type[source.quality] + ' (' + source.info + ')')
+
+            url = ''
 
         if len(self.urlList) > 0:
             if len(self.urlList) == 1:

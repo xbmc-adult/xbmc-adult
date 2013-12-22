@@ -243,10 +243,71 @@ quality=standard
 #target=<a href="([^"]+)" class="link" target="\_blank">
 #quality=fallback
 ########################################################
+#title=pornhub.com
+#target="video_url":"([^"]+)"
+#url=%s
+#quality=standard
 title=pornhub.com
-target="video_url":"([^"]+)"
+target="quality_180p":"([^"]+)"
 url=%s
+action=unquote(match)
+forward=True
+target="video_title":"([^"]+)"
+action=replace(match, +,  )
+action=unquote(match)
+action=decrypt(url, match)
+info=180p
+quality=low
+########################################################
+target="quality_240p":"([^"]+)"
+action=unquote(match)
+forward=True
+target="video_title":"([^"]+)"
+action=replace(match, +,  )
+action=unquote(match)
+action=decrypt(url, match)
+info=240p
+quality=low
+########################################################
+target="quality_360p":"([^"]+)"
+action=unquote(match)
+forward=True
+target="video_title":"([^"]+)"
+action=replace(match, +,  )
+action=unquote(match)
+action=decrypt(url, match)
+info=360p
 quality=standard
+########################################################
+target="quality_480p":"([^"]+)"
+action=unquote(match)
+forward=True
+target="video_title":"([^"]+)"
+action=replace(match, +,  )
+action=unquote(match)
+action=decrypt(url, match)
+info=480p
+quality=standard
+########################################################
+target="quality_720p":"([^"]+)"
+action=unquote(match)
+forward=True
+target="video_title":"([^"]+)"
+action=replace(match, +,  )
+action=unquote(match)
+action=decrypt(url, match)
+info=720p
+quality=high
+########################################################
+target="quality_1080p":"([^"]+)"
+action=unquote(match)
+forward=True
+target="video_title":"([^"]+)"
+action=replace(match, +,  )
+action=unquote(match)
+action=decrypt(url, match)
+info=1080p
+quality=high
 ########################################################
 title=m.pornhub.com
 target=<a href="([^"]+\.mp4[^"]*)"
