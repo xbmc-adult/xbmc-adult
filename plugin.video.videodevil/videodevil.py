@@ -824,8 +824,8 @@ class CCurrentList:
                             elif key == 'item_info_build':
                                 info_tmp.build = value
                                 rule_tmp.info_list.append(info_tmp)
-                        elif key == 'item_infos_action':
-                            rule_tmp.actions.append(value)
+                            elif key == 'item_infos_action':
+                                rule_tmp.actions.append(value)
                         elif key == 'item_url_build':
                             rule_tmp.url_build = value
                             self.rules.append(rule_tmp)
