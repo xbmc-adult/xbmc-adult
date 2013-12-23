@@ -785,6 +785,17 @@ class CCurrentList:
                 lItem.infos_dict['cfg'] = self.cfg
         del self.items[:]
         tmp = None
+        loadLocal_dict = {
+            'item_order': rule_tmp.order
+            'item_catcher': rule_tmp.catcher
+            'item_skill': rule_tmp.skill
+            'item_curr': rule_tmp.curr
+            'item_info_from': info_tmp.src
+            'item_info': info_tmp.rule
+            'item_info_default': info_tmp.default
+            'start': self.start
+        }
+
         for m in data:
             if m and m[0] != '#':
                 index = m.find('=')
@@ -799,33 +810,20 @@ class CCurrentList:
                             value = os.path.join(imgDir, value[index+1:])
                         elif value[:index] == 'video.devil.context':
                             value = 'context.' + __language__(int(value[index+1:]))
-                    if key.startswith('item'):
+                    if key in loadLocal_dict:
+                        loadLocal_dict[key] = value
+                    elif key.startswith('item'):
                         if key == 'item_infos':
                             rule_tmp = CRuleItem()
                             rule_tmp.infos = value
-                        elif key == 'item_order':
-                            rule_tmp.order = value
-                        elif key == 'item_catcher':
-                            rule_tmp.catcher = value
-                        elif key == 'item_skill':
-                            rule_tmp.skill = value
-                        elif key == 'item_curr':
-                            rule_tmp.curr = value
-                        elif key.startswith('item_info'):
-                            if key == 'item_info_name':
-                                info_tmp = CItemInfo()
-                                info_tmp.name = value
-                            elif key == 'item_info_from':
-                                info_tmp.src = value
-                            elif key == 'item_info':
-                                info_tmp.rule = value
-                            elif key == 'item_info_default':
-                                info_tmp.default = value
-                            elif key == 'item_info_build':
-                                info_tmp.build = value
-                                rule_tmp.info_list.append(info_tmp)
-                            elif key == 'item_infos_action':
-                                rule_tmp.actions.append(value)
+                        elif key == 'item_info_name':
+                            info_tmp = CItemInfo()
+                            info_tmp.name = value
+                        elif key == 'item_info_build':
+                            info_tmp.build = value
+                            rule_tmp.info_list.append(info_tmp)
+                        elif key == 'item_infos_action':
+                            rule_tmp.actions.append(value)
                         elif key == 'item_url_build':
                             rule_tmp.url_build = value
                             self.rules.append(rule_tmp)
@@ -846,8 +844,6 @@ class CCurrentList:
                         tmp = None
                     elif tmp != None:
                         tmp.infos_dict[key] = value
-                    elif key == 'start':
-                        self.start = value
                     elif key == 'catcher':
                         if lCatcher:
                             if 'catcher' in lItem.infos_dict:
@@ -881,7 +877,6 @@ class CCurrentList:
                             f = open(str(os.path.join(resDir, skill_file)), 'w')
                             f.write(self.cfg)
                             f.close()
-
                     elif key == 'header':
                         index = value.find('|')
                         self.txheaders[value[:index]] = value[index+1:]
