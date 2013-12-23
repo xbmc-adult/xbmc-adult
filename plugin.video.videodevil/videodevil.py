@@ -700,6 +700,14 @@ class CCurrentList:
         data = smart_read_file(resDir, 'catcher.list')
         del self.catcher[:]
         catcher_found = False
+        loadCatcher_dict = {
+            'url': catcher_tmp.rule.url,
+            'data': catcher_tmp.rule.data,
+            'build': catcher_tmp.rule.build,
+            'extension': catcher_tmp.extension
+            'info': catcher_tmp.info
+            'player': self.player
+        }
         for m in data:
             if m and m[0] != '#':
                 index = m.find('=')
@@ -715,27 +723,18 @@ class CCurrentList:
                         if key == 'target':
                             catcher_tmp = CCatcherItem()
                             catcher_tmp.rule.target = value
-                        elif key == 'url':
-                            catcher_tmp.rule.url = value
+                        elif key in loadCatcher_dict:
+                            loadCatcher_dict[key] = value
                         elif key == 'quality':
                             catcher_tmp.quality = value
                             self.catcher.append(catcher_tmp)
-                        elif key == 'data':
-                            catcher_tmp.rule.data = value
                         elif key == 'header':
                             index = value.find('|')
                             catcher_tmp.rule.txheaders[value[:index]] = value[index+1:]
-
-                        elif key == 'build':
-                            catcher_tmp.rule.build = value
                         elif key == 'action':
                             catcher_tmp.rule.actions.append(value)
                         elif key == 'limit':
                             catcher_tmp.rule.limit = int(value)
-                        elif key == 'extension':
-                            catcher_tmp.extension = value
-                        elif key == 'info':
-                            catcher_tmp.info = value
                         elif key == 'forward':
                             catcher_tmp.forward = value
                             self.catcher.append(catcher_tmp)
@@ -795,7 +794,6 @@ class CCurrentList:
             'item_info_default': info_tmp.default
             'start': self.start
         }
-
         for m in data:
             if m and m[0] != '#':
                 index = m.find('=')
