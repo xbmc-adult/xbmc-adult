@@ -723,11 +723,11 @@ class CCurrentList:
                         if key == 'target':
                             catcher_tmp = CCatcherItem()
                             catcher_tmp.rule.target = value
-                        elif key in loadCatcher_dict:
-                            loadCatcher_dict[key] = value
                         elif key == 'quality':
                             catcher_tmp.quality = value
                             self.catcher.append(catcher_tmp)
+                        elif key in loadCatcher_dict:
+                            loadCatcher_dict[key] = value
                         elif key == 'header':
                             index = value.find('|')
                             catcher_tmp.rule.txheaders[value[:index]] = value[index+1:]
