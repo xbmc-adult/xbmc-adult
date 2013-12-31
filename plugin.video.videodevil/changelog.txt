@@ -7,7 +7,6 @@
 - Updated: youporn (decryption)
 - Fixed: video listing (Now scrapes videos >480p as well)
 - Updated: pornhub (decryption)
-- Fixed: categories
 
 [B]Version 1.7.76[/B]
 
