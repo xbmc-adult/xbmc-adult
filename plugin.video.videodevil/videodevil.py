@@ -479,42 +479,6 @@ def parseActions(infos_dict, convActions):
 
     return infos_dict
 
-'''
-def getHTML(url, txheaders=None, limit='', data=None, cj=None, file='page.html'):
-    if enable_debug:
-        if file != 'page.html':
-            f = open(os.path.join(cacheDir, file), 'w')
-        else:
-            f = open(os.path.join(cacheDir, 'page.html'), 'w')
-        f.write('<Title>'+ url + '</Title>\n\n')
-
-    try:
-        req = Request(url, data, txheaders)
-        if data != None:
-            response = urlopen(req)
-            fc = response.read(limit)
-            if cj != None:
-                cj.save(os.path.join(settingsDir, 'cookies.lwp'))
-        else:
-            urlfile = opener.open(req)
-            fc = urlfile.read(limit)
-
-        fc = response.read(limit)
-        cj.save(os.path.join(settingsDir, 'cookies.lwp'))
-
-        if enable_debug:
-            f.write(data)
-            f.close()
-            xbmc.log('Remote URL ' + str(url) + ' opened')
-
-    except IOError:
-        if enable_debug:
-            traceback.print_exc(file = sys.stdout)
-        return -1
-
-    return data
-'''
-
 class CListItem:
     def __init__(self):
         self.infos_dict = {}
