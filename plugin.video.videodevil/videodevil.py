@@ -530,7 +530,7 @@ class CItemInfo:
 class CRuleItem:
     def __init__(self):
         self.infos = ''
-        self.order = ''
+        self.order = []
         self.catcher = ''
         self.skill = ''
         self.curr = ''
@@ -700,14 +700,6 @@ class CCurrentList:
         data = smart_read_file(resDir, 'catcher.list')
         del self.catcher[:]
         catcher_found = False
-        loadCatcher_dict = {
-            'url': catcher_tmp.rule.url,
-            'data': catcher_tmp.rule.data,
-            'build': catcher_tmp.rule.build,
-            'extension': catcher_tmp.extension
-            'info': catcher_tmp.info
-            'player': self.player
-        }
         for m in data:
             if m and m[0] != '#':
                 index = m.find('=')
@@ -723,18 +715,26 @@ class CCurrentList:
                         if key == 'target':
                             catcher_tmp = CCatcherItem()
                             catcher_tmp.rule.target = value
+                        elif key == 'url':
+                            catcher_tmp.rule.url = value
                         elif key == 'quality':
                             catcher_tmp.quality = value
                             self.catcher.append(catcher_tmp)
-                        elif key in loadCatcher_dict:
-                            loadCatcher_dict[key] = value
+                        elif key == 'data':
+                            catcher_tmp.rule.data = value
                         elif key == 'header':
                             index = value.find('|')
                             catcher_tmp.rule.txheaders[value[:index]] = value[index+1:]
+                        elif key == 'build':
+                            catcher_tmp.rule.build = value
                         elif key == 'action':
                             catcher_tmp.rule.actions.append(value)
                         elif key == 'limit':
                             catcher_tmp.rule.limit = int(value)
+                        elif key == 'extension':
+                            catcher_tmp.extension = value
+                        elif key == 'info':
+                            catcher_tmp.info = value
                         elif key == 'forward':
                             catcher_tmp.forward = value
                             self.catcher.append(catcher_tmp)
@@ -745,6 +745,51 @@ class CCurrentList:
         return -1
 
     def loadLocal(self, filename, recursive = True, lItem = None, lCatcher = False):
+
+        def self_start(value):
+            self.start = value
+
+        def executeCatcherFunction(value):
+            if lCatcher:
+                try:
+                    if 'catcher' in lItem.infos_dict:
+                        ret = self.loadCatcher(lItem.infos_dict['catcher'])
+                    else:
+                        ret = self.loadCatcher(value)
+                    if ret != 0:
+                        if enable_debug:
+                            xbmc.log('Error while loading catcher')
+                        return ret
+                except:
+                    if enable_debug:
+                        traceback.print_exc(file = sys.stdout)
+                    return -1
+
+        def executeSkillFunction(value):
+            self.skill = value
+            skill_file = filename[:filename.find('.')] + '.lnk'
+            if self.skill.find('redirect') != -1:
+                try:
+                    f = open(str(os.path.join(resDir, skill_file)), 'r')
+                    forward_cfg = f.read()
+                    f.close()
+                    if forward_cfg != self.cfg:
+                        return self.loadLocal(forward_cfg, recursive, lItem, lCatcher)
+                    return 0
+                except:
+                    pass
+            elif self.skill.find('store') != -1:
+                f = open(str(os.path.join(resDir, skill_file)), 'w')
+                f.write(self.cfg)
+                f.close()
+
+        def executeHeaderFunction(value):
+            index = value.find('|')
+            self.txheaders[value[:index]] = value[index+1:]
+
+        def appendSortList(value):
+            self.sort.append(value)
+
         if enable_debug:
             xbmc.log('loadLocal: ' + str(filename))
         for local_path in [resDir, cacheDir, '']:
@@ -765,19 +810,6 @@ class CCurrentList:
                 if local_path == '':
                     return -1
 
-        if lCatcher:
-            if 'catcher' in lItem.infos_dict:
-                try:
-                    ret = self.loadCatcher(lItem.infos_dict['catcher'])
-                    if ret != 0:
-                        if enable_debug:
-                            xbmc.log('Error while loading catcher')
-                        return ret
-                except:
-                    if enable_debug:
-                        traceback.print_exc(file = sys.stdout)
-                    return -1
-
         self.cfg = filename
         if self.getFileExtension(self.cfg) == 'cfg' and lItem != None:
             if 'cfg' not in lItem.infos_dict:
@@ -785,14 +817,11 @@ class CCurrentList:
         del self.items[:]
         tmp = None
         loadLocal_dict = {
-            'item_order': rule_tmp.order
-            'item_catcher': rule_tmp.catcher
-            'item_skill': rule_tmp.skill
-            'item_curr': rule_tmp.curr
-            'item_info_from': info_tmp.src
-            'item_info': info_tmp.rule
-            'item_info_default': info_tmp.default
-            'start': self.start
+            'start': self_start,
+            'catcher': executeCatcherFunction,
+            'sort': appendSortList,
+            'skill': executeSkillFunction,
+            'header': executeHeaderFunction
         }
         for m in data:
             if m and m[0] != '#':
@@ -809,19 +838,37 @@ class CCurrentList:
                         elif value[:index] == 'video.devil.context':
                             value = 'context.' + __language__(int(value[index+1:]))
                     if key in loadLocal_dict:
-                        loadLocal_dict[key] = value
+                        loadLocal_dict[key](value)
                     elif key.startswith('item'):
-                        if key == 'item_infos':
-                            rule_tmp = CRuleItem()
-                            rule_tmp.infos = value
-                        elif key == 'item_info_name':
-                            info_tmp = CItemInfo()
-                            info_tmp.name = value
-                        elif key == 'item_info_build':
-                            info_tmp.build = value
-                            rule_tmp.info_list.append(info_tmp)
-                        elif key == 'item_infos_action':
-                            rule_tmp.actions.append(value)
+                        if key.startswith('item_info'):
+                            if key == 'item_infos':
+                                rule_tmp = CRuleItem()
+                                rule_tmp.infos = value
+                            elif key == 'item_info_name':
+                                info_tmp = CItemInfo()
+                                info_tmp.name = value
+                            elif key == 'item_info_from':
+                                info_tmp.src = value
+                            elif key == 'item_info':
+                                info_tmp.rule = value
+                            elif key == 'item_info_default':
+                                info_tmp.default = value
+                            elif key == 'item_info_build':
+                                info_tmp.build = value
+                                rule_tmp.info_list.append(info_tmp)
+                            elif key == 'item_infos_action':
+                                rule_tmp.actions.append(value)
+                        elif key == 'item_order':
+                            if value.find('|'):
+                                rule_tmp.order = value.split('|')
+                            else:
+                                rule_tmp.order.append(value)
+                        elif key == 'item_catcher':
+                            rule_tmp.catcher = value
+                        elif key == 'item_skill':
+                            rule_tmp.skill = value
+                        elif key == 'item_curr':
+                            rule_tmp.curr = value
                         elif key == 'item_url_build':
                             rule_tmp.url_build = value
                             self.rules.append(rule_tmp)
@@ -842,42 +889,6 @@ class CCurrentList:
                         tmp = None
                     elif tmp != None:
                         tmp.infos_dict[key] = value
-                    elif key == 'catcher':
-                        if lCatcher:
-                            if 'catcher' in lItem.infos_dict:
-                                value = lItem.infos_dict['catcher']
-                            try:
-                                ret = self.loadCatcher(value)
-                                if ret != 0:
-                                    if enable_debug:
-                                        xbmc.log('Error while loading catcher')
-                                    return ret
-                            except:
-                                if enable_debug:
-                                    traceback.print_exc(file = sys.stdout)
-                                return -1
-                    elif key == 'sort':
-                        self.sort.append(value)
-                    elif key == 'skill':
-                        self.skill = value
-                        skill_file = filename[:filename.find('.')] + '.lnk'
-                        if self.skill.find('redirect') != -1:
-                            try:
-                                f = open(str(os.path.join(resDir, skill_file)), 'r')
-                                forward_cfg = f.read()
-                                f.close()
-                                if forward_cfg != self.cfg:
-                                    return self.loadLocal(forward_cfg, recursive, lItem, lCatcher)
-                                return 0
-                            except:
-                                pass
-                        elif self.skill.find('store') != -1:
-                            f = open(str(os.path.join(resDir, skill_file)), 'w')
-                            f.write(self.cfg)
-                            f.close()
-                    elif key == 'header':
-                        index = value.find('|')
-                        self.txheaders[value[:index]] = value[index+1:]
 
         if recursive and self.start != '':
             if lItem == None:
@@ -969,7 +980,6 @@ class CCurrentList:
             return -1
 
         # Find list items
-        reinfos = []
         lock = False
         for item_rule in self.rules:
             if item_rule.skill.find('lock') != -1 and lock:
@@ -980,24 +990,18 @@ class CCurrentList:
                 dir=''
             )
             f = None
-            if item_rule.order.find('|') != -1:
-                reinfos = []
-                infos_nbr = len(item_rule.order.split('|'))
-                for idx in range(infos_nbr):
-                    reinfos.append('')
-            else:
-                reinfos = ''
+            reinfos = []
+            infos_nbr = len(item_rule.order)
+            for idx in range(infos_nbr):
+                reinfos.append('')
             revid = re.compile(item_rule.infos, re.IGNORECASE + re.DOTALL + re.MULTILINE)
             for reinfos in revid.findall(data):
                 if item_rule.skill.find('lock') != -1 and lock:
                     continue
                 tmp = CListItem()
-                if item_rule.order.find('|') != -1:
-                    infos_names = item_rule.order.split('|')
-                    infos_values = list(reinfos)
-                    tmp.infos_dict = dict(zip(infos_names, infos_values))
-                else:
-                    tmp.infos_dict[item_rule.order] = reinfos
+                infos_names = item_rule.order
+                infos_values = list(reinfos)
+                tmp.infos_dict = dict(zip(infos_names, infos_values))
                 for info in item_rule.info_list:
                     info_value = ''
                     if info.name in tmp.infos_dict:
@@ -1153,7 +1157,7 @@ class Main:
                 if source.rule.data == '':
                     if source.rule.url.find('%') != -1:
                         url = source.rule.url % url
-                    req = Request(url, None, self.txheaders)
+                    req = Request(url, None, source.rule.txheaders)
                     urlfile = opener.open(req)
                     if source.rule.limit == 0:
                         fc = urlfile.read()
@@ -1161,7 +1165,7 @@ class Main:
                         fc = urlfile.read(source.rule.limit)
                 else:
                     data = source.rule.data % url
-                    req = Request(source.rule.url, data, self.txheaders)
+                    req = Request(source.rule.url, data, source.rule.txheaders)
                     response = urlopen(req)
                     if source.rule.limit == 0:
                         fc = response.read()
