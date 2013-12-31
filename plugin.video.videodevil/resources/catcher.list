@@ -116,12 +116,36 @@ target=_videoFilePathHD = "([^"]+)"
 url=%s
 quality=standard
 ########################################################
+#title=youporn.com
+#target=<a href="([^"]+)">\s*MP4
+#url=%s
+#action=decode(match)
+#header=Cookie|age_check=1
+#quality=standard
 title=youporn.com
-target=<a href="([^"]+)">\s*MP4
+target=var\s+encryptedQuality240URL\s+=\s+'([^']+)';
 url=%s
-action=decode(match)
-header=Cookie|age_check=1
+forward=True
+target='video_title'\s+:\s+"([^"]+)",
+decrypt_action=&amp;to&
+action=replace(match, &amp;, &)
+action=decrypt(url, match)
+info=240p
+quality=low
+target=var\s+encryptedQuality480URL\s+=\s+'([^']+)';
+forward=True
+target='video_title'\s+:\s+"([^"]+)",
+action=replace(match, &amp;, &)
+action=decrypt(url, match)
+info=480p
 quality=standard
+target=var\s+encryptedQuality720URL\s+=\s+'([^']+)';
+forward=True
+target='video_title'\s+:\s+"([^"]+)",
+action=replace(match, &amp;, &)
+action=decrypt(url, match)
+info=720p
+quality=high
 ########################################################
 title=extremetube.com
 target="flashvars" value=".*video_url=(http[^']+[.](mp4|flv)[^&]+)
@@ -258,7 +282,6 @@ action=unquote(match)
 action=decrypt(url, match)
 info=180p
 quality=low
-########################################################
 target="quality_240p":"([^"]+)"
 action=unquote(match)
 forward=True
@@ -268,7 +291,6 @@ action=unquote(match)
 action=decrypt(url, match)
 info=240p
 quality=low
-########################################################
 target="quality_360p":"([^"]+)"
 action=unquote(match)
 forward=True
@@ -278,7 +300,6 @@ action=unquote(match)
 action=decrypt(url, match)
 info=360p
 quality=standard
-########################################################
 target="quality_480p":"([^"]+)"
 action=unquote(match)
 forward=True
@@ -288,7 +309,6 @@ action=unquote(match)
 action=decrypt(url, match)
 info=480p
 quality=standard
-########################################################
 target="quality_720p":"([^"]+)"
 action=unquote(match)
 forward=True
@@ -298,7 +318,6 @@ action=unquote(match)
 action=decrypt(url, match)
 info=720p
 quality=high
-########################################################
 target="quality_1080p":"([^"]+)"
 action=unquote(match)
 forward=True
