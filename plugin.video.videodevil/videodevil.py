@@ -692,7 +692,10 @@ class CCurrentList:
                         elif key == 'build':
                             catcher_tmp.rule.build = value
                         elif key == 'action':
-                            catcher_tmp.rule.actions.append(value)
+                            if value.find('|'):
+                                catcher_tmp.rule.actions = value.split('|')
+                            else:
+                                catcher_tmp.rule.actions.append(value)
                         elif key == 'limit':
                             catcher_tmp.rule.limit = int(value)
                         elif key == 'extension':
@@ -821,7 +824,10 @@ class CCurrentList:
                                 info_tmp.build = value
                                 rule_tmp.info_list.append(info_tmp)
                             elif key == 'item_infos_action':
-                                rule_tmp.actions.append(value)
+                                if value.find('|'):
+                                    rule_tmp.actions = value.split('|')
+                                else:
+                                    rule_tmp.actions.append(value)
                         elif key == 'item_order':
                             if value.find('|'):
                                 rule_tmp.order = value.split('|')
