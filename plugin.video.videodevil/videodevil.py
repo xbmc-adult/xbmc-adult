@@ -447,32 +447,66 @@ def smart_read_file(directory, filename):
     f.close()
     return data
 
-def parseActions(item, convActions):
+def parseActions(item, convActions, url = None):
+    def actionReplace(params):
+        item[params[0]] = item[params[0]].replace(params[1], params[2])
+
+    def actionJoin(params):
+        item[params[0]] = ''.join(params)
+
+    def actionDecrypt(params):
+        item['match'] = sesame.decrypt(item[params[0]], item[params[1]], 256)
+
+    def actionUnquote(params):
+        item[params] = unquote_safe(item[params])
+
+    def actionQuote(params):
+        item[params] = quote_safe(item[params])
+
+    def actionDecode(params):
+        item[params] = decode(item[params])
+
+    def actionUrlappend(params):
+        item['url'] = url + item['url']
+
+    def actionStriptoslash(params):
+        curr_match = re.search(r'(.+?/)[^/]+$', url)
+        if curr_match:
+            if curr_match.group(1) == 'http://':
+                item['url'] = url + '/' + item['url']
+            else:
+                item['url'] = curr_match.group(1) + item['url']
+    def actionSpace(params):
+        try:
+            item['title'] = ' ' + item['title'].lstrip().rstrip() + ' '
+        except:
+            pass
+
+    action_dict = {
+        'replace' : actionReplace,
+        'join' : actionJoin,
+        'decrypt' : actionDecrypt,
+        'unquote' : actionUnquote,
+        'quote' : actionQuote,
+        'decode' : actionDecode,
+        'urlappend' : actionUrlappend,
+        'striptoslash' : actionStriptoslash,
+        'space' : actionSpace
+    }
+
     for convAction in convActions:
-        action = convAction[0:convAction.find("(")]
-        params = convAction[len(action) + 1:-1]
-        if params.find(', ') != -1:
-            params = params.split(', ')
-
-            if action == 'replace':
-                item[params[0]] = item[params[0]].replace(params[1], params[2])
-
-            elif action == 'join':
-                item[params[0]] = ''.join(params)
-
-            elif action == 'decrypt':
-                item['match'] = sesame.decrypt(item[params[0]], item[params[1]], 256)
-
+        if convAction.find("(") != -1:
+            action = convAction[0:convAction.find("(")]
+            params = convAction[len(action) + 1:-1]
+            if params.find(', ') != -1:
+                params = params.split(', ')
         else:
+            action = convAction
+            params = None
 
-            if action == 'unquote':
-                item[params] = unquote_safe(item[params])
+        if action in action_dict:
+            action_dict[action](params)
 
-            elif action == 'quote':
-                item[params] = quote_safe(item[params])
-
-            elif action == 'decode':
-                item[params] = decode(item[params])
     return item
 
 def log(s):
@@ -1000,7 +1034,7 @@ class CCurrentList:
                             info_value = info.build
                     tmp.infos_dict[info.name] = info_value
                 if len(item_rule.actions) > 0:
-                    tmp.infos_dict = parseActions(tmp.infos_dict, item_rule.actions)
+                    tmp.infos_dict = parseActions(tmp.infos_dict, item_rule.actions, curr_url)
                 for info_name, info_value in tmp.infos_dict.iteritems():
                     tmp.infos_dict[info_name] = self.infoFormatter(info_name, info_value, self.cfg)
                     if info_name.rfind('.append') != -1:
@@ -1013,10 +1047,15 @@ class CCurrentList:
                 if item_rule.skill.find('striptoslash') != -1:
                     curr_match = re.search(r'(.+?/)[^/]+$', current_url_page)
                     if curr_match:
+                        print('curr_match.group(1) = ' + str(curr_match.group(1)))
                         if curr_match.group(1) == 'http://':
+                            print('tmp.infos_dict[\'url\'] = ' + tmp.infos_dict['url'])
                             tmp.infos_dict['url'] = curr_url + '/' + tmp.infos_dict['url']
+                            print('tmp.infos_dict[\'url\'] = ' + tmp.infos_dict['url'])
                         else:
+                            print('tmp.infos_dict[\'url\'] = ' + tmp.infos_dict['url'])
                             tmp.infos_dict['url'] = curr_match.group(1) + tmp.infos_dict['url']
+                            print('tmp.infos_dict[\'url\'] = ' + tmp.infos_dict['url'])
                 if item_rule.skill.find('space') != -1:
                     try:
                         tmp.infos_dict['title'] = ' ' + tmp.infos_dict['title'].lstrip().rstrip() + ' '
