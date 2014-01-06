@@ -447,7 +447,7 @@ def smart_read_file(directory, filename):
     f.close()
     return data
 
-def parseActions(infos_dict, convActions):
+def parseActions(item, convActions):
     for convAction in convActions:
         action = convAction[0:convAction.find("(")]
         params = convAction[len(action) + 1:-1]
@@ -455,25 +455,25 @@ def parseActions(infos_dict, convActions):
             params = params.split(', ')
 
             if action == 'replace':
-                infos_dict[params[0]] = infos_dict[params[0]].replace(params[1], params[2])
+                item[params[0]] = item[params[0]].replace(params[1], params[2])
 
             elif action == 'join':
-                infos_dict[params[0]] = ''.join(params)
+                item[params[0]] = ''.join(params)
 
             elif action == 'decrypt':
-                infos_dict['match'] = sesame.decrypt(infos_dict[params[0]], infos_dict[params[1]], 256)
+                item['match'] = sesame.decrypt(item[params[0]], item[params[1]], 256)
 
         else:
 
             if action == 'unquote':
-                infos_dict[params] = unquote_safe(infos_dict[params])
+                item[params] = unquote_safe(item[params])
 
             elif action == 'quote':
-                infos_dict[params] = quote_safe(infos_dict[params])
+                item[params] = quote_safe(item[params])
 
             elif action == 'decode':
-                infos_dict[params] = decode(infos_dict[params])
-    return infos_dict
+                item[params] = decode(item[params])
+    return item
 
 def log(s):
     if enable_debug:
@@ -483,6 +483,11 @@ def log(s):
 class CListItem:
     def __init__(self):
         self.infos_dict = {}
+
+    def merge(self, item):
+        for key in item.infos_dict.keys():
+            if key not in self.infos_dict:
+                self.infos_dict[key] = item.infos_dict[key]
 
 class CItemInfo:
     def __init__(self):
@@ -536,6 +541,7 @@ class CCurrentList:
         self.catcher = []
         self.items = []
         self.rules = []
+        self.dirs = []
 
     def getKeyboard(self, default = '', heading = '', hidden = False):
         kboard = xbmc.Keyboard(default, heading, hidden)
@@ -595,25 +601,30 @@ class CCurrentList:
             del self.items[:]
         if item and not self.itemInLocalList(name):
             self.items.append(item)
-            self.saveList()
+            self.saveList(resDir, 'entry.list', self.items, '#             Added sites and live streams             #\n', {skill : remove})
         return
 
     def removeItem(self, name):
         item = self.getItemFromList('entry.list', name)
         if item != None:
             self.items.remove(item)
-            self.saveList()
+            self.saveList(resDir, 'entry.list', self.items, '#             Added sites and live streams             #\n', {skill : remove})
         return
 
-    def saveList(self):
-        f = open(str(os.path.join(resDir, 'entry.list')), 'w')
+    def saveList(self, directory, filename, items, Listname, List_dict = None):
+        f = open(str(os.path.join(directory, filename)), 'w')
         f.write(smart_unicode('########################################################\n').encode('utf-8'))
-        f.write(smart_unicode('#             Added sites and live streams             #\n').encode('utf-8'))
+        f.write(smart_unicode(Listname).encode('utf-8'))
         f.write(smart_unicode('########################################################\n').encode('utf-8'))
-        f.write(smart_unicode('skill=remove\n').encode('utf-8'))
-        f.write(smart_unicode('########################################################\n').encode('utf-8'))
-        for item in self.items:
-            f.write(smart_unicode('title=' + item.infos_dict['title'] + '\n').encode('utf-8'))
+        if List_dict != None:
+            for info_name, info_value in List_dict.iteritems():
+                f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
+            f.write(smart_unicode('########################################################\n').encode('utf-8'))
+        for item in items:
+            try:
+                f.write(smart_unicode('title=' + item.infos_dict['title'] + '\n').encode('utf-8'))
+            except:
+                f.write(smart_unicode('title=...\n').encode('utf-8'))
             for info_name, info_value in item.infos_dict.iteritems():
                 if info_name != 'url' and info_name != 'title':
                     f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
@@ -852,9 +863,7 @@ class CCurrentList:
                     elif key == 'url':
                         tmp.infos_dict['url'] = value
                         if lItem != None:
-                            for info_name, info_value in lItem.infos_dict.iteritems():
-                                if info_name not in tmp.infos_dict:
-                                    tmp.infos_dict[info_name] = info_value
+                            tmp.merge(lItem)
                         self.items.append(tmp)
                         tmp = None
                     elif tmp != None:
@@ -951,11 +960,8 @@ class CCurrentList:
         for item_rule in self.rules:
             if item_rule.skill.find('lock') != -1 and lock:
                 continue
+                #need to add if statement to skip directory if file exists#
             one_found = False
-            catfilename = tempfile.mktemp(
-                suffix='.list', prefix=(self.cfg + '.dir.'),
-                dir=''
-            )
             f = None
             revid = re.compile(item_rule.infos, re.IGNORECASE + re.DOTALL + re.MULTILINE)
             for reinfos in revid.findall(data):
@@ -1016,28 +1022,14 @@ class CCurrentList:
                         tmp.infos_dict['title'] = ' ' + tmp.infos_dict['title'].lstrip().rstrip() + ' '
                     except:
                         pass
-                for info_name, info_value in lItem.infos_dict.iteritems():
-                    if info_name not in tmp.infos_dict:
-                        tmp.infos_dict[info_name] = info_value
+                tmp.merge(lItem)
                 if item_rule.skill.find('recursive') != -1:
                     self.loadRemote(tmp.infos_dict['url'], False, tmp)
                     tmp = None
                 else:
                     if item_rule.skill.find('directory') != -1:
+                        self.dirs.append(tmp)
                         one_found = True
-                        if f == None:
-                            f = open(str(os.path.join(cacheDir, catfilename)), 'w')
-                            f.write(smart_unicode('########################################################\n').encode('utf-8'))
-                            f.write(smart_unicode('#                    Temporary file                    #\n').encode('utf-8'))
-                            f.write(smart_unicode('########################################################\n').encode('utf-8'))
-                        try:
-                            f.write(smart_unicode('title=' + tmp.infos_dict['title'] + '\n').encode('utf-8'))
-                        except:
-                            f.write(smart_unicode('title=...\n').encode('utf-8'))
-                        for info_name, info_value in tmp.infos_dict.iteritems():
-                            if info_name != 'url' and info_name != 'title':
-                                f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
-                        f.write(smart_unicode('url=' + tmp.infos_dict['url'] + '\n').encode('utf-8'))
                     else:
                         self.items.append(tmp)
                     if item_rule.skill.find('lock') != -1:
@@ -1057,28 +1049,16 @@ class CCurrentList:
                                 tmp.infos_dict['icon'] = info.default
                             else:
                                 tmp.infos_dict['icon'] = info.build
-                    for info_name, info_value in lItem.infos_dict.iteritems():
-                        if info_name not in tmp.infos_dict:
-                            tmp.infos_dict[info_name] = info_value
+                    tmp.merge(lItem)
                     if item_rule.skill.find('directory') != -1:
+                        self.dirs.append(tmp)
                         one_found = True
-                        if f == None:
-                            f = open(str(os.path.join(cacheDir, catfilename)), 'w')
-                            f.write(smart_unicode('########################################################\n').encode('utf-8'))
-                            f.write(smart_unicode('#                    Temporary file                    #\n').encode('utf-8'))
-                            f.write(smart_unicode('########################################################\n').encode('utf-8'))
-                        f.write(smart_unicode('title=' + tmp.infos_dict['title'] + '\n').encode('utf-8'))
-                        for info_name, info_value in tmp.infos_dict.iteritems():
-                            if info_name != 'url' and info_name != 'title':
-                                f.write(smart_unicode(info_name + '=' + info_value + '\n').encode('utf-8'))
-                        f.write(smart_unicode('url=' + tmp.infos_dict['url'] + '\n').encode('utf-8'))
                     else:
                         self.items.append(tmp)
                     if item_rule.skill.find('lock') != -1:
                         lock = True
             if one_found:
                 tmp = CListItem()
-                tmp.infos_dict['url'] = catfilename
                 for info in item_rule.info_list:
                     if info.name == 'title':
                         tmp.infos_dict['title'] = ' ' + info.build + ' '
@@ -1087,15 +1067,18 @@ class CCurrentList:
                             tmp.infos_dict['icon'] = info.default
                         else:
                            tmp.infos_dict['icon'] = info.build
-                for info_name, info_value in lItem.infos_dict.iteritems():
-                    if info_name not in tmp.infos_dict:
-                        tmp.infos_dict[info_name] = info_value
+                catfilename = tempfile.mktemp(
+                    suffix='.list', 
+                    prefix=(self.cfg + '.' + tmp.infos_dict['title'].strip() + '.dir.'),
+                    dir=''
+                )
+                tmp.infos_dict['url'] = catfilename
+                tmp.merge(lItem)
                 self.items.append(tmp)
                 if item_rule.skill.find('lock') != -1:
                     lock = True
-            if f != None:
-                f.write(smart_unicode('########################################################\n').encode('utf-8'))
-                f.close()
+                self.saveList(cacheDir, catfilename, self.dirs, Listname = '#                    Temporary file                    #\n')
+                del self.dirs[:]
         return 0
 
 class Main:
@@ -1329,7 +1312,7 @@ class Main:
                 self.pDialog.close()
             return -2
         else:
-            result = self.currentlist.loadRemote(lItem.infos_dict['url'], lItem = lItem)
+            result = self.currentlist.loadRemote(url, lItem = lItem)
 
         sort_dict = {
             'label' : xbmcplugin.SORT_METHOD_LABEL, 
