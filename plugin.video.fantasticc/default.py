@@ -524,7 +524,7 @@ def GET_LINK(url, collections):
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
-        match = re.compile('</span><a href="([^"]+mp4[^"]+)">.+?iPad'
+        match = re.compile('video[^>]+src = \'([^\']+mp4[^\']+)\';'
                           ).findall(html)
         for each in match:
             fetchurl = each.replace('&amp;', '&')
