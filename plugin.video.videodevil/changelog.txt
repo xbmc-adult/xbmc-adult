@@ -3,6 +3,8 @@
 - Removed: 4tube
 - Updated: ero-erodouga
 - Fixed: video listing
+- Updated: fapdu
+- Fixed: next button
 
 [B]Version 1.7.76[/B]
 
