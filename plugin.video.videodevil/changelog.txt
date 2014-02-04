@@ -6,6 +6,9 @@
 - Fixed: video listing
 - Updated: fapdu
 - Fixed: next button
+- Updated: hardsextube
+- Fixed: video listing
+- Fixed: logo
 
 [B]Version 1.7.76[/B]
 
