@@ -12,6 +12,9 @@
 - Updated: slutload
 - Fixed: video listing
 - Fixed: catcher
+- Updated: sunporno
+- Fixed: video listing
+- Fixed: catcher
 
 [B]Version 1.7.76[/B]
 
