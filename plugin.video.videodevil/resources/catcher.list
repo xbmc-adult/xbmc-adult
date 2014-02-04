@@ -269,7 +269,7 @@ ext_url=%s
 quality=standard
 ########################################################
 title=slutload.com
-target=file: "([^"]+)"
+target=data-url="([^"]+)"
 url=%s
 action=unquote
 quality=standard
