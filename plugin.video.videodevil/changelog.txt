@@ -1,6 +1,7 @@
 [B]Version 1.7.77[/B]
 
 - Removed: 4tube
+- Removed: fucktube
 - Updated: ero-erodouga
 - Fixed: video listing
 - Updated: fapdu

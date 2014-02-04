@@ -220,11 +220,6 @@ target="file" : "([^ ]+)"
 url=%s
 quality=standard
 ########################################################
-title=fucktube.com
-target=url:\s+"(http://.+?mp4[^"]+)
-url=%s
-quality=standard
-########################################################
 title=moviefap.com
 target=flashvars.config = escape."([^ ]+)VID=
 url=%s

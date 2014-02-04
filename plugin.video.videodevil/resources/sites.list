@@ -106,13 +106,6 @@ director=VideoDevil
 icon=http://cdn-w.fapdu.com/FapDu/fo1-01.png
 url=fapdu.com.cfg
 ########################################################
-title=FuckTube
-type=rss
-genre=FuckTube
-director=VideoDevil
-icon=video.devil.image|fucktube.png
-url=fucktube.com.cfg
-########################################################
 title=zzKeezMovies
 type=rss
 genre=KeezMovies
