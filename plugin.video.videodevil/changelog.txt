@@ -1,3 +1,7 @@
+[B]Version 1.7.77[/B]
+
+- Removed: 4tube
+
 [B]Version 1.7.76[/B]
 
 - Updated: tnaflix
