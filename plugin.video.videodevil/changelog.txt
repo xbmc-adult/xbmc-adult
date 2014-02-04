@@ -1,3 +1,13 @@
+[B]Version 1.7.77[/B]
+
+- Cleaned up the code
+- Changed class CListItem for a pair of lists to a dictionary
+- Added def parseActions (Including URL decryption)
+- Updated: catcher.list
+- Updated: youporn (decryption)
+- Fixed: video listing (Now scrapes videos >480p as well)
+- Updated: pornhub (decryption)
+
 [B]Version 1.7.76[/B]
 
 - Updated: tnaflix
