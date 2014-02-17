@@ -32,7 +32,7 @@ def INDEX(url):
         addDir('Home','',None,'')
         link = getHtml(url)
         matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
-        matchurl = re.compile('\/videos\/.+?(\d+).html').findall(link)
+        matchurl = re.compile('class="frame" href=\'\/videos\/.+?(\d+).html').findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
         matchduration = re.compile('thumbtime\'><span.*>(\d{1,}:\d{2})').findall(link)
         for name,url,thumb,duration in zip(matchname, matchurl, matchthumb,
