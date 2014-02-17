@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2013-12-07" name="Data18Content" content="movies" language="en">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2014-02-09" name="Data18Content" content="movies" language="en">
 	<CreateSearchUrl clearbuffers="no" dest="3">
 		<RegExp conditional="Google" input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
 			<!--Add film year, stored in $$2 for default by xbmc-->
@@ -192,7 +192,7 @@
 				<expression noclean="1">&lt;a href="http://www.data18.com/[^"]+"&gt;\n&lt;img src="http://img.data18.com/images/no_prev_120b.gif" class="noborder" alt="([^"]+)"</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;thumb&gt;\1/120/\2&lt;/thumb&gt;&lt;/actor&gt;" dest="5">
-				<expression noclean="1,2,3">&lt;img src="(http://img.data18.com/images/stars)/120/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
+				<expression noclean="1,2,3">&lt;img src="(http://img.data18.com/images/stars)/pic4/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
