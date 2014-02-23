@@ -1,0 +1,12 @@
+[B]2.1.6[/B]
+
+- Fix category listening
+
+[B]2.1.5[/B]
+
+- Fix url for some videos which were failing
+
+[B]2.1.3[/B]
+
+- Update python api version for Gotham
+

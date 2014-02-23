@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="metadata.movie.excaliburfilms.com"
+       name="Excalibur Films"
+       version="1.0.6"
+       provider-name="xbmc-adult">
+  <requires>
+    <import addon="xbmc.metadata" version="1.0"/>
+    <import addon="metadata.common.themoviedb.org" version="1.0"/>
+  </requires>
+  <extension point="xbmc.metadata.scraper.movies"
+             language="en"
+             library="Excalibur.xml"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Excalibur Films Scraper</summary>
+    <description lang="en">Download XXX Movie information from excaliburfilms.com</description>
+    <platform>all</platform>
+  </extension>
+</addon>

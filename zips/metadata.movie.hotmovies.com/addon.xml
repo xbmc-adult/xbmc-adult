@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="metadata.movie.hotmovies.com"
+       name="HotMovies"
+       version="1.0.3"
+       provider-name="xbmc-adult">
+  <requires>
+    <import addon="xbmc.metadata" version="1.0"/>
+    <import addon="metadata.common.themoviedb.org" version="1.0"/>
+  </requires>
+  <extension point="xbmc.metadata.scraper.movies"
+             language="en"
+             library="hotmovies.xml"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">HotMovies Scraper</summary>
+    <description lang="en">Download XXX movie information from hotmovies.com</description>
+    <platform>all</platform>
+  </extension>
+</addon>

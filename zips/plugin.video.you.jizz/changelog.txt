@@ -1,0 +1,27 @@
+1.0.10
+ - Fixed video url
+
+1.0.6
+ - Fix handling of videos that have different bitrates in a playlist
+ - Cleaned code
+
+1.0.5
+ - Removed duplicate search and home entries
+ - Fixed video listing
+
+1.0.4
+ - Fixed thumbnail url
+ - Fixed video url
+ - Cleaned code
+
+1.0.3
+ - (anarchintosh) changed play code to flatten extra step, updated icon
+
+1.0.2
+ - (anarchintosh) added icon
+
+1.0.1
+  - Converted plugin to work with XBMC's new addon framework (by philw132)
+
+1.0.0
+  - Initial release

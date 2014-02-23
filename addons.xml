@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
@@ -281,11 +281,11 @@
     </extension>
 </addon>
 
-<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.1" provider-name="xbmc-adult">
+<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.2" provider-name="xbmc-adult">
 	<extension point="xbmc.addon.repository" name="XBMC Adult Addons">
 		<info compressed="false">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml</info>
 		<checksum>http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml.md5</checksum>
-		<datadir zip="true">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster</datadir>
+		<datadir zip="true">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/zips/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>XBMC Addons for Adults Only</summary>
