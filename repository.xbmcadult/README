@@ -1,0 +1,8 @@
+This directory is for backwards compatibility.
+
+Background:
+Users who were on the googlecode hosted repository were automatically migrated
+to github but these users systems expect the repo to be in repository.xbmcadult
+and the file to be named repository.xbmcadult-$version.zip
+
+TODO: Figure a way to get rid of this situation
