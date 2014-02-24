@@ -41,8 +41,9 @@ fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
-SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'redtube', 'tnaflix',
-                  'tube8', 'xhamster', 'xtube', 'xvideos', 'you_porn']
+SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'redtube',
+                  'tnaflix', 'tube8', 'xhamster', 'xtube', 'xvideos',
+                  'you_porn']
 
 
 def get_html(url):
@@ -469,11 +470,10 @@ def GET_LINK(url, collections):
             print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'xhamster' in url:
-        match = re.compile('xhamster.com/movies/(.+?)/').findall(html)
-        html = get_html('http://xhamster.com/xembed.php?video=%s' % match[0])
-        match = re.compile('srv=(.+?)&image').findall(html)
-        fetchurl = match[0].replace('&file', '/key')
-        fetchurl = urllib.unquote(fetchurl)
+        match = re.compile('http://xhamster.com/movies/[^"]*').findall(html)
+        html = get_html(match[0])
+        match = re.compile('file="([^"]*.mp4)').findall(html)
+        fetchurl = match[0]
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'hardsextube' in url:
