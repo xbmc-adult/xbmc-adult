@@ -158,9 +158,8 @@ url=%s
 quality=standard
 ########################################################
 title=xhamster.com
-target='file': '(.+?.flv)'
+target=file="([^"]+mp4)"
 url=%s
-build=http://xhcdn.com/key=%s
 quality=standard
 ########################################################
 title=hotgoo.com
