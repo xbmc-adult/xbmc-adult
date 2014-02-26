@@ -5,6 +5,7 @@
 - Removed: yuvutu
 - Removed: boysfood
 - Removed: shufuni
+- Removed: keezmovies
 
 [B]Version 1.7.78[/B]
 
