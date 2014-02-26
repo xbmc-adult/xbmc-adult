@@ -1,3 +1,8 @@
+[B]Version 1.7.79[/B]
+
+- Updated: tnaflix
+- Fixed: video regex
+
 [B]Version 1.7.78[/B]
 
 - Updated: xhamster
