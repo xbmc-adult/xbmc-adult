@@ -167,12 +167,6 @@ target=so.addVariable\('file','(.+?)'
 url=%s
 quality=standard
 ########################################################
-title=boysfood.com
-target=href="([^"]+)"> mp4</a>
-url=%s
-extension=wmv
-quality=standard
-########################################################
 title=keezmovies.com
 target=video_url=(http.+)[&]amp;postroll_url
 url=%s

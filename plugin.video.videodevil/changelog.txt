@@ -3,6 +3,7 @@
 - Updated: tnaflix
 - Fixed: video regex
 - Removed: yuvutu
+- Removed: boysfood
 
 [B]Version 1.7.78[/B]
 

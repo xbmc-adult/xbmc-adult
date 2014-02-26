@@ -71,13 +71,6 @@ director=VideoDevil
 icon=video.devil.image|xhamster.png
 url=xhamster.com.cfg
 ########################################################
-title=zzBoysfood
-type=rss
-genre=Boysfood
-director=VideoDevil
-icon=video.devil.image|boysfood.png
-url=boysfood.com.cfg
-########################################################
 title=zzShufuni
 type=rss
 genre=Shufuni
