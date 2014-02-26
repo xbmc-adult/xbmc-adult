@@ -2,6 +2,7 @@
 
 - Updated: tnaflix
 - Fixed: video regex
+- Removed: yuvutu
 
 [B]Version 1.7.78[/B]
 

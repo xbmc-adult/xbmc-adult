@@ -208,12 +208,6 @@ action=unquote
 extension=mp4
 quality=standard
 ########################################################
-title=yuvutu.com
-target=file: "([^"]+)"
-url=%s
-header=Cookie|gndr=F
-quality=standard
-########################################################
 title=fapdu.com
 target="file" : "([^ ]+)"
 url=%s
