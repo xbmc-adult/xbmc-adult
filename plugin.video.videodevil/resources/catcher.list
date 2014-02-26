@@ -118,11 +118,6 @@ url=http://kcoolonline.com/token.php
 data=url=%s
 quality=standard
 ########################################################
-title=shufuni.com
-target=_videoFilePathHD = "([^"]+)"
-url=%s
-quality=standard
-########################################################
 title=youporn.com
 target=<a href="([^"]+)">\s*MP4
 url=%s

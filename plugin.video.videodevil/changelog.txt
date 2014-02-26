@@ -4,6 +4,7 @@
 - Fixed: video regex
 - Removed: yuvutu
 - Removed: boysfood
+- Removed: shufuni
 
 [B]Version 1.7.78[/B]
 
