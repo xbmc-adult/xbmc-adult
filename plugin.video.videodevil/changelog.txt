@@ -1,5 +1,10 @@
 [B]Version 1.7.80[/B]
 
+- Updated: empflix
+- Fixed: video regex
+
+[B]Version 1.7.80[/B]
+
 - Updated: pornhub
 - Fixed: video regex
 
