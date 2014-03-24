@@ -1,3 +1,7 @@
+[B]2.0.6[/B]
+
+Fix video url regex
+
 [B]2.0.4[/B]
 
 Bump python version for Gotham

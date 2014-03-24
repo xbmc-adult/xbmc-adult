@@ -48,13 +48,11 @@ def SORTMETHOD(url):
 
 def VIDEOLIST(url, page):
     link = openURL(url + '&page=' + str(page))
-    match = re.compile('(?:<a href=")'
-                       '(http://www.empflix.com/videos/.*(?=.html).html)"'
-                       '  title="(.*)(?=">)">'
-                       '<img src="/images/blank.gif" data-src="(.*)'
-                       '(?=" alt=)').findall(link)
-    for videourl, name, thumb in match:
-        addLink(name, videourl + '?', 3, thumb.strip())
+    match = re.compile('<a href="([^"]*.html)"[^>]+title="[^"]*">.+?'
+                       '<h2>([^<]+)</h2>.+?<span class="duringTime">([\d:]+)'
+                       '.+?<img src="([^"]+)"', re.DOTALL).findall(link)
+    for videourl, name, duration, thumb in match:
+        addLink(name + " " + duration, videourl + '?', 3, thumb.strip())
     if (len(match) == 24):
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
