@@ -1,7 +1,10 @@
-[B]Version 1.7.80[/B]
+[B]Version 1.7.81[/B]
 
 - Updated: empflix
 - Fixed: video regex
+- Updated: freehdporn
+- Fixed: video regex
+- Fixed: catcher
 
 [B]Version 1.7.80[/B]
 

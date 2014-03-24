@@ -39,12 +39,20 @@ url=%s
 quality=standard
 ########################################################
 title=freehdporn.ws
-target=flashvars=.+?url480=(http[^&]+)
+target=<iframe src="([^"]+)"
 url=%s
+ext_target=flashvars=.+?url480=(http[^&]+)
+ext_url=%s
 quality=standard
-target=flashvars=.+?url720=(http[^\&]+)
+target=<iframe src="([^"]+)"
+url=%s
+ext_target=flashvars=.+?url720=(http[^&]+)
+ext_url=%s
 quality=high
-target=flashvars=.+?url360=(http[^\&]+)
+target=<iframe src="([^"]+)"
+url=%s
+ext_target=flashvars=.+?url360=(http[^&]+)
+ext_url=%s
 quality=low
 ########################################################
 title=gfvideos.com
