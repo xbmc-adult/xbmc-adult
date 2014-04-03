@@ -482,6 +482,7 @@ def GET_LINK(url, collections):
         html = get_html('http://m.hardsextube.com/%s' % match[0])
         match = re.compile('href="(.+?)" .*playVideoLink').findall(html)
         fetchurl = match[0]
+        fetchurl = fetchurl.replace(' ', '+')
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'xtube' in url:
