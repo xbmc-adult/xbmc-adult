@@ -1,3 +1,9 @@
+[B]Version 1.7.83[/B]
+
+- Updated: freehdporn
+- Fixed: video regex
+- Fixed: catcher
+
 [B]Version 1.7.82[/B]
 
 - Updated: hardsextube
