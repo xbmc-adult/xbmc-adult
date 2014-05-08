@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.82"
+  version="1.7.83"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
@@ -281,11 +281,11 @@
     </extension>
 </addon>
 
-<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.5" provider-name="xbmc-adult">
+<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.6" provider-name="xbmc-adult">
 	<extension point="xbmc.addon.repository" name="XBMC Adult Addons">
-		<info compressed="false">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml</info>
-		<checksum>http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml.md5</checksum>
-		<datadir zip="true">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster</datadir>
+		<info compressed="false">http://raw.github.com/xbmc-adult/xbmc-adult/ghmaster/addons.xml</info>
+		<checksum>http://raw.github.com/xbmc-adult/xbmc-adult/ghmaster/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/xbmc-adult/xbmc-adult/ghmaster</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>XBMC Addons for Adults Only</summary>
