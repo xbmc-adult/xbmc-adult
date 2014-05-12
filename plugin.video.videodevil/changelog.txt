@@ -2,6 +2,8 @@
 
 - Updated: pornomovies
 - Fixed: catcher
+- Updated: pornoxo
+- Fixed: video regex
 
 [B]Version 1.7.85[/B]
 
