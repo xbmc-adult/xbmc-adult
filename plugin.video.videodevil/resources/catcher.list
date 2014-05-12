@@ -139,7 +139,7 @@ url=%s
 quality=standard
 ########################################################
 title=moviesand.com
-target=so.addVariable[(]"file", "(http[^']+.flv.*?)"[)];
+target=so.addVariable[(]"file", "(http[^"]+)"[)];
 url=%s
 quality=standard
 ########################################################
@@ -228,8 +228,9 @@ url=%s
 quality=standard
 ########################################################
 title=m.pornhub.com
-target=<a href="([^"]+\.mp4[^"]*)"
+target=href="([^"]+\.mp4[^"]*)"
 url=%s
+header=Cookie|platform=mobile
 quality=low
 ########################################################
 #title=viloader.net
