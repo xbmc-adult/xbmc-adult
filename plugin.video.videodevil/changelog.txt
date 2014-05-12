@@ -4,6 +4,8 @@
 - Fixed: catcher
 - Updated: pornoxo
 - Fixed: video regex
+- Updated: timtube
+- Fixed: catcher
 
 [B]Version 1.7.85[/B]
 

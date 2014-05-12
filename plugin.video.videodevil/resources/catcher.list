@@ -182,7 +182,7 @@ build=http://en.clipa.tv%s
 quality=standard
 ########################################################
 title=simple-match
-target=(http://[^"<]+?.mp4)
+target=(http://[^"<]+?.(mp4|flv))
 url=%s
 quality=standard
 ########################################################
