@@ -1,6 +1,11 @@
+[B]Version 1.7.86[/B]
+
+- Updated: pornomovies
+- Fixed: catcher
+
 [B]Version 1.7.85[/B]
 
-- Updated: moviesand
+- Updated: pornhub
 - Fixed: catcher
 
 [B]Version 1.7.84[/B]
