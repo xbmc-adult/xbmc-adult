@@ -1,3 +1,9 @@
+[B]Version 1.7.87[/B]
+
+- Updated: videodevil.py
+- Updated: sunporno
+- Fixed: video regex
+
 [B]Version 1.7.86[/B]
 
 - Updated: pornomovies
