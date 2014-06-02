@@ -18,6 +18,7 @@ rootDir = xbmc.translatePath(rootDir)
 settingsDir = addon.getAddonInfo('profile')
 settingsDir = xbmc.translatePath(settingsDir)
 cacheDir = os.path.join(settingsDir, 'cache')
+cookiePath = os.path.join(settingsDir, 'cookies.lwp')
 resDir = os.path.join(rootDir, 'resources')
 imgDir = os.path.join(resDir, 'images')
 
@@ -27,8 +28,8 @@ Request = urllib2.Request
 USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18'
 
 if cj != None:
-    if os.path.isfile(xbmc.translatePath(os.path.join(settingsDir, 'cookies.lwp'))):
-        cj.load(xbmc.translatePath(os.path.join(settingsDir, 'cookies.lwp')))
+    if os.path.isfile(xbmc.translatePath(cookiePath)):
+        cj.load(xbmc.translatePath(cookiePath))
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
     urllib2.install_opener(opener)
 else:
@@ -892,7 +893,7 @@ class CCurrentList:
                 return
             data = handle.read()
             #cj.save(os.path.join(resDir, 'cookies.lwp'), ignore_discard=True)
-            cj.save(os.path.join(settingsDir, 'cookies.lwp'))
+            cj.save(cookiePath)
             current_url_page = curr_url
             if enable_debug:
                 f.write(data)
