@@ -4,6 +4,8 @@
 - Cleanup and refactoring
 - Updated: motherless
 - Fixed: catcher
+- Updated: sunporno
+- Fixed: video regex
 
 [B]Version 1.7.87[/B]
 
