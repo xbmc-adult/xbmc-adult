@@ -31,10 +31,10 @@ if cj != None:
     if os.path.isfile(xbmc.translatePath(cookiePath)):
         cj.load(xbmc.translatePath(cookiePath))
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-    urllib2.install_opener(opener)
 else:
     opener = urllib2.build_opener()
-    urllib2.install_opener(opener)
+
+urllib2.install_opener(opener)
 
 if addon.getSetting('enable_debug') == 'true':
     enable_debug = True
