@@ -6,6 +6,8 @@
 - Fixed: catcher
 - Updated: sunporno
 - Fixed: video regex
+- Updated: youporn
+- Fixed: video regex
 
 [B]Version 1.7.87[/B]
 
