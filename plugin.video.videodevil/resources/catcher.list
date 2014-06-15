@@ -165,7 +165,7 @@ url=%s
 quality=standard
 ########################################################
 title=motherless.com
-target=fileurl = '([^']+flv)'
+target=fileurl = '([^']+mp4)'
 url=%s
 build=%s?start=0
 quality=standard
