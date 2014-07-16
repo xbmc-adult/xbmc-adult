@@ -1,3 +1,28 @@
+[B]Version 1.7.89[/B]
+
+- Added portuguese translation
+- Updated: moviesand
+- Fixed: search
+- Updated: ero-erodouga
+- Fixed: search
+- Updated: fapdu
+- Added: search
+- Updated: gfvideos
+- Added: search
+- Updated: hardsextube
+- Fixed: categories
+- Added: search
+- Updated: slutload
+- Fixed: search
+- Updated: sunporno
+- Fixed: video regex
+- Fixed: categories
+- Fixed: search
+- Updated: extremetube
+- Fixed: categories
+- Fixed: video regex
+- Fixed: search
+
 [B]Version 1.7.88[/B]
 
 - Updated: videodevil.py
