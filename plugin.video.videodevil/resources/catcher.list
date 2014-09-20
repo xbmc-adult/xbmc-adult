@@ -144,7 +144,7 @@ url=%s
 quality=standard
 ########################################################
 title=redtube.com
-target=source src='([^']+)'
+target=source src="([^"]+\.mp4[^"]*)"
 url=%s
 build=%s&ec_seek=0
 quality=standard
