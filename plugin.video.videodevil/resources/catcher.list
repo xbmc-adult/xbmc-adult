@@ -62,7 +62,7 @@ build=http://cdn.hardsextube.com%s
 quality=standard
 ########################################################
 title=m.hardsextube.com
-target=<a href="([^"]+)" id="playVideoLink"
+target=<a href="([^"]+\.mp4[^"]*)"
 url=%s
 quality=low
 ########################################################
