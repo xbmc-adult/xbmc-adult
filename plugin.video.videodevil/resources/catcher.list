@@ -186,11 +186,17 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
-target="(http%3[^"]+mp4[^"]+)";\s+flashvars.(r|quality_\d+)p = ""
+target=playerData.cdnPath240 = "(http%3[^"]+mp4[^"]+)"
 url=%s
+quality=low
+target=playerData.cdnPath480 = "(http%3[^"]+mp4[^"]+)"
+url=%s
+quality=standard
+target=playerData.cdnPath720 = "(http%3[^"]+mp4[^"]+)"
+url=%s
+quality=high
 action=unquote
 extension=mp4
-quality=standard
 ########################################################
 title=fapdu.com
 target="file" : "([^ ]+)"
