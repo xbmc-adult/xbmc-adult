@@ -62,7 +62,7 @@ build=http://cdn.hardsextube.com%s
 quality=standard
 ########################################################
 title=m.hardsextube.com
-target=<a href="([^"]+)" id="playVideoLink"
+target=<a href="([^"]+\.mp4[^"]*)"
 url=%s
 quality=low
 ########################################################
@@ -144,7 +144,7 @@ url=%s
 quality=standard
 ########################################################
 title=redtube.com
-target=source src='([^']+)'
+target=source src="([^"]+\.mp4[^"]*)"
 url=%s
 build=%s&ec_seek=0
 quality=standard
@@ -167,7 +167,6 @@ quality=standard
 title=motherless.com
 target=fileurl = '([^']+mp4)'
 url=%s
-build=%s?start=0
 quality=standard
 ########################################################
 title=pornomovies
@@ -187,11 +186,17 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
-target="(http%3[^"]+mp4[^"]+)";\s+flashvars.(r|quality_\d+)p = ""
+target=playerData.cdnPath240 = "(http%3[^"]+mp4[^"]+)"
 url=%s
+quality=low
+target=playerData.cdnPath480 = "(http%3[^"]+mp4[^"]+)"
+url=%s
+quality=standard
+target=playerData.cdnPath720 = "(http%3[^"]+mp4[^"]+)"
+url=%s
+quality=high
 action=unquote
 extension=mp4
-quality=standard
 ########################################################
 title=fapdu.com
 target="file" : "([^ ]+)"
