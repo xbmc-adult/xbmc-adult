@@ -1,3 +1,11 @@
+[B]Version 1.7.90[/B]
+
+- Pull in some contributed fixes
+- Updated: xvideos
+- Updated: extremetube
+- Updated: freehdporn
+- Updated: eporner
+
 [B]Version 1.7.89[/B]
 
 - Added portuguese translation
