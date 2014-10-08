@@ -1,3 +1,8 @@
+[B]Version 1.7.91[/B]
+
+- Updated: extremetube
+- Updated: redtube
+
 [B]Version 1.7.90[/B]
 
 - Pull in some contributed fixes
