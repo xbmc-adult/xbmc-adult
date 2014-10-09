@@ -176,7 +176,7 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
-target="(http%3[^"]+mp4[^"]+)";\s+flashvars.(r|quality_\d+)p = ""
+target=(http[^']+600k[^']+mp4[^']*)
 url=%s
 action=unquote
 extension=mp4
