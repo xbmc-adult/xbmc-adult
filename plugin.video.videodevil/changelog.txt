@@ -1,3 +1,15 @@
+[B]Version 1.7.92[/B]
+
+- Updated: hardsextube
+- Fixed: video regex
+- Fixed: catcher
+- Updated: spankwire
+- Fixed: video regex
+- Added: HD
+- Updated: xhamster
+- Fixed: catcher
+- Removed: pornotube
+
 [B]Version 1.7.91[/B]
 
 - Updated: extremetube
