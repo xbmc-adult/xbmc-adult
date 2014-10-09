@@ -176,11 +176,21 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
+target=(http[^']+200k[^']+mp4[^']*)
+url=%s
+action=unquote
+extension=mp4
+quality=low
 target=(http[^']+600k[^']+mp4[^']*)
 url=%s
 action=unquote
 extension=mp4
 quality=standard
+target=(http[^']+1000k[^']+mp4[^']*)
+url=%s
+action=unquote
+extension=mp4
+quality=high
 ########################################################
 title=fapdu.com
 target="file" : "([^ ]+)"
