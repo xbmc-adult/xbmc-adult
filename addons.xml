@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.91"
+  version="1.7.92"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
