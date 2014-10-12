@@ -113,7 +113,7 @@ title=youporn.com
 target=<a href="([^"]+)">\s*MP4
 url=%s
 action=decode
-header=Cookie|age_check=1
+header=Cookie|age_verified=1
 quality=standard
 ########################################################
 title=extremetube.com
