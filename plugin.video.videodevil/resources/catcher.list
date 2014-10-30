@@ -256,3 +256,10 @@ target=source[^>]+?"([^"]+flv)"
 url=%s
 quality=standard
 ########################################################
+title=porndig.com
+target=
+url=%s
+ext_target=
+ext_url=%s
+quality=standard
+########################################################
