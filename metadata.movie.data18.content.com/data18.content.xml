@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2014-09-11" name="Data18Content" content="movies" language="en">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2014-11-03" name="Data18Content" content="movies" language="en">
 	<CreateSearchUrl clearbuffers="no" dest="3">
 		<RegExp conditional="Google" input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
 			<!--Add film year, stored in $$2 for default by xbmc-->
