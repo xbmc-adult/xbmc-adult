@@ -259,8 +259,8 @@ quality=standard
 title=porndig.com
 target=<iframe id="[^"]+" class="[^"]+" width="\d+" height="\d+" frameborder="\d+" scrolling="[^"]+" src="([^"]+)"
 url=%s
-header=Referer|www.porndig.com
 ext_target={file:"([^"]+)",type:"[^"]+"}]
 ext_url=%s
+ext_header=Referer|http://www.porndig.com
 quality=standard
 ########################################################
