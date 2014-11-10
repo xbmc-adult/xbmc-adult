@@ -1128,7 +1128,13 @@ class Main:
                         ext_req.add_header('User-Agent', USERAGENT)
                         if source.ext_rule.reference != '':
                             ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
-                        ext_urlfile = opener.open(ext_req)
+                        try:
+                            ext_urlfile = opener.open(ext_req)
+                        except urllib2.HTTPError as e:
+                            if enable_debug:
+                                xbmc.log('Failed %s %s' %
+                                         (e, ext_req.get_full_url()))
+                            raise
                         if source.ext_rule.limit == 0:
                             ext_fc = ext_urlfile.read()
                         else:
