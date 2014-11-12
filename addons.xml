@@ -92,7 +92,7 @@
 
 <addon id="metadata.movie.data18.content.com"
        name="Data 18 Web Content"
-       version="1.5.3"
+       version="1.5.6"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -182,7 +182,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.14"
+       version="1.15"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.92"
+  version="1.7.95"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
