@@ -27,16 +27,11 @@ def INDEX(url):
 
 def VIDEOLINKS(url, name):
     link = read_url(url)
-    match = re.compile('playlist_flow_player_flv.php\?vid\=[0-9]*'
-                      ).findall(link)
+    match = re.compile('video-hd" href="([^"]+)" data').findall(link)
     for url in match:
-        link = read_url('http://lubetube.com/' + url)
-        match = re.compile('url="(.*)" type').findall(link)
-        for url in match:
-            listitem = xbmcgui.ListItem(name)
-            listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
-            url = url.replace('&amp;', '&')
-            xbmc.Player().play(url, listitem)
+        listitem = xbmcgui.ListItem(name)
+        listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
+        xbmc.Player().play(url, listitem)
 
 def add_next(url):
     match = re.compile('(\d+)$').findall(url)
