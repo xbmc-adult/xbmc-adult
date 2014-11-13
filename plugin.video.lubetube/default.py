@@ -9,7 +9,7 @@ import urllib, urllib2, re, sys, xbmcplugin, xbmcgui
 def CATEGORIES():
     addDir("Most Recent", "http://lubetube.com", 1, "")
     link = read_url('http://lubetube.com/categories')
-    match = re.compile('<h3><a href="(http://lubetube.com/search/adddate/cat/[^/]+/)" title="[^"]+">([^<]+)</a></h3>').findall(link)
+    match = re.compile('<a href="(http://lubetube.com/search/adddate/cat/[^/]+/)[^>]+>([^<]+)').findall(link)
     for url, title in match:
         url = url + "?page=1"
         addDir(title, url, 1, "")
