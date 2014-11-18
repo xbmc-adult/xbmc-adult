@@ -1,3 +1,7 @@
+[B]Version 1.7.96[/B]
+
+- Added: jacquietmicheltv
+
 [B]Version 1.7.95[/B]
 
 - Added: tukif

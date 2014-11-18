@@ -272,3 +272,15 @@ ext_url=%s
 ext_header=Referer|http://www.tukif.com
 quality=standard
 ########################################################
+title=jacquieetmicheltv.net
+target=file: "(http[^"]+-1000-[^"]+mp4)
+url=%s
+action=unquote
+extension=mp4
+quality=standard
+target=file: "(http[^"]+-2000-[^"]+mp4)
+url=%s
+action=unquote
+extension=mp4
+quality=high
+########################################################
