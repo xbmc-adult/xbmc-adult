@@ -1,3 +1,8 @@
+[B]Version 1.7.97[/B]
+
+- Updated: ero-erodouga
+- Fixed: Next button
+
 [B]Version 1.7.96[/B]
 
 - Added: jacquietmicheltv
