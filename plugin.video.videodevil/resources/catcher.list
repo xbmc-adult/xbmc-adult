@@ -128,7 +128,7 @@ url=%s
 quality=standard
 ########################################################
 title=moviesand.com
-target=target=<source src="([^"]+)" type='video/mp4' />
+target=<source src="([^"]+)" type='video/mp4' />
 url=%s
 quality=standard
 ########################################################
