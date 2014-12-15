@@ -245,6 +245,13 @@ ext_target=<videoLink>([^<]*)
 ext_url=%s
 quality=standard
 ########################################################
+title=tnaflix.com
+target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+url=%s
+ext_target=<videoLink>([^<]*)
+ext_url=http:%s
+quality=standard
+########################################################
 title=slutload.com
 target=data-url="([^"]+)"
 url=%s
