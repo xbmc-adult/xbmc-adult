@@ -4,6 +4,7 @@
 - Added: sorting
 - Added: groups
 - Added: galleries
+- Added: Yuvutu
 
 [B]Version 1.7.98[/B]
 
