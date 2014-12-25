@@ -298,3 +298,8 @@ ext_target=file=(.*?)&amp;
 ext_url=http://yuvutu.com/%s
 quality=standard
 ########################################################
+title=hentaigasm.com
+target=(http[^"]+.mp4)
+url=%s
+quality=standard
+########################################################

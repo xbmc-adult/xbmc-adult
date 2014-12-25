@@ -211,3 +211,10 @@ director=VideoDevil
 icon=http://static.yuvutu.com/web/themes/yuvutu/images/logo.png
 url=yuvutu.com.cfg
 ########################################################
+title=Hentaigasm
+type=rss
+genre=hentaigasm
+director=VideoDevil
+icon=http://hentaigasm.com/wp-content/themes/detube/images/logo.png
+url=hentaigasm.com.cfg
+########################################################
