@@ -218,3 +218,10 @@ director=VideoDevil
 icon=http://hentaigasm.com/wp-content/themes/detube/images/logo.png
 url=hentaigasm.com.cfg
 ########################################################
+title=Mastishare
+type=rss
+genre=mastishare
+director=VideoDevil
+icon=http://www.mastishare.com/templates/frontend/default/images/logo.png
+url=mastishare.com.cfg
+########################################################

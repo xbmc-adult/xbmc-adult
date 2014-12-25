@@ -303,3 +303,8 @@ target=(http[^"]+.mp4)
 url=%s
 quality=standard
 ########################################################
+title=mastishare.com
+target=(http[^"]+.flv)
+url=%s
+quality=standard
+########################################################
