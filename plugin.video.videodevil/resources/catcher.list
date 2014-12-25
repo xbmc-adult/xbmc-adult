@@ -291,3 +291,20 @@ action=unquote
 extension=mp4
 quality=high
 ########################################################
+title=yuvutu.com
+target=<td width="600" class="videoPlayer">[\s]+<!-- all -->[\s]+<iframe src="([^"]+)"
+url=%s
+ext_target=file=(.*?)&amp;
+ext_url=http://yuvutu.com/%s
+quality=standard
+########################################################
+title=hentaigasm.com
+target=(http[^"]+.mp4)
+url=%s
+quality=standard
+########################################################
+title=mastishare.com
+target=(http[^"]+.flv)
+url=%s
+quality=standard
+########################################################
