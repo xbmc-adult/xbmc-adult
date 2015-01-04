@@ -7,9 +7,43 @@ import xbmcplugin
 import xbmcaddon
 import urllib
 import urllib2
+import socket
 import re
 
 NB_ITEM_PAGE = 28
+USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
+
+def log(msg):
+    xbmc.log((u"### [%s] - %s" % (__name__, msg,)).encode('utf-8'),
+             level=xbmc.LOGDEBUG)
+
+def openUrl(url, postData=None):
+    try:
+        useragent = {'User-Agent': USER_AGENT}
+        req = urllib2.Request(url, headers=useragent)
+        if postData:
+            data = urllib.urlencode(postData)
+            website = urllib2.urlopen(req, data)
+        else:
+            website = urllib2.urlopen(req)
+    except urllib2.URLError, e:
+        if hasattr(e, 'reason'):
+            log('We failed to reach a server.')
+            log('Reason: %s' % e.reason)
+            return False
+        elif hasattr(e, 'code'):
+            log('The server couldn\'t fulfill the request.')
+            log('Error code: %s' % e.code)
+            return False
+    except socket.timeout as e:
+        # catched
+        log(type(e))
+        return False
+    else:
+        # read html code
+        html = website.read()
+        website.close()
+        return html
 
 def _get_keyboard( default="", heading="", hidden=False ):
 	""" shows a keyboard and returns a value """
@@ -48,12 +82,11 @@ def showRoot(localpath, handle):
 
 def showCategories(localpath, handle):
 	url="http://www.tube8.com/categories.html"
-	f=urllib2.urlopen(url)
-	a=f.read()
-	f.close()
+	htmlContent = openUrl(url)
 
-	catRE = re.compile("<li><a href='(http://www\.tube8\.com/cat/.+?)'>(.+?)</a>")
-	match = catRE.findall(a)
+	catPattern = '<li><a href="(http:\/\/www\.tube8\.com\/cat\/.+?)">(.+?)<\/a>'
+	catRE = re.compile(catPattern)
+	match = catRE.findall(htmlContent)
 	categories = []
 	for url, name in match:
 		if name not in categories:
@@ -67,7 +100,7 @@ def showCategories(localpath, handle):
 def showSearchList(localpath, handle, url, page):
 	pageUrl = url + "&page=" + str(int(page))
 	showListCommon(localpath, handle, pageUrl)
-	name = "Next Page"
+	name = "Next Page " + str(int(page) + 1)
 	li=xbmcgui.ListItem(name)
 	u=localpath + "?mode=5&name=" + urllib.quote_plus(name) + \
     "&url=" + urllib.quote_plus(url) + "&page=" + str(int(page) + 1)
@@ -77,7 +110,7 @@ def showSearchList(localpath, handle, url, page):
 def showCatList(localpath, handle, url, page):
 	pageUrl = url + "page/" + str(int(page)) + "/"
 	showListCommon(localpath, handle, pageUrl)
-	name = "Next Page"
+	name = "Next Page " + str(int(page) + 1)
 	li=xbmcgui.ListItem(name)
 	u=localpath + "?mode=2&name=" + urllib.quote_plus(name) + \
     "&url=" + urllib.quote_plus(url) + "&page=" + str(int(page) + 1)
@@ -85,20 +118,31 @@ def showCatList(localpath, handle, url, page):
 	xbmcplugin.endOfDirectory(handle)
 
 def showListCommon(localpath, handle, pageUrl):
-	print "Opening page: " + pageUrl
-	f=urllib2.urlopen(pageUrl)
-	a=f.read()
-	f.close()
+	log('Opening page: %s' % pageUrl)
+	htmlContent = openUrl(pageUrl)
 
-	thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
-	videosRE = 'sh2"><a href="(.+?)" title="(.+?)">.+?</a>'
+	#thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
+	#videosRE = 'sh2"><a href="(.+?)" title="(.+?)">.+?</a>'
+	lenghtRE = '<div class="video-right-text float-right"><strong>(([0-9]{2}:)?[0-9]{2}:[0-9]{2})</strong></div>'
+
+	if 'tube8.com/top/' in pageUrl:
+		thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
+	else:
+		thumbRE = 'class="videoThumbs"[\s\w]+?id=".+"[\s\w]+?category=".+"[\s\w]+?src="([^"]+)"'
+	videosRE = 'sh2">\s*?<a href="(.+)" title="(.+?)">'
 	lenghtRE = '<div class="video-right-text float-right"><strong>(([0-9]{2}:)?[0-9]{2}:[0-9]{2})</strong></div>'
 
 	thumbPattern, videoPattern, lenghtPattern = re.compile(thumbRE), re.compile(videosRE), re.compile(lenghtRE)
 
-	matchThumb=thumbPattern.findall(a)
-	matchVid=videoPattern.findall(a)
-	matchlengh=lenghtPattern.findall(a)
+	matchThumb=thumbPattern.findall(htmlContent)
+	matchVid=videoPattern.findall(htmlContent)
+	matchlengh=lenghtPattern.findall(htmlContent)
+
+	log('Duration: %s' % matchlengh)
+	log('Video: %s' % matchVid)
+	log('Thumb: %s' % matchThumb)
+
+	totalLen = len(matchVid)
 	n = 0
 	for url, name in matchVid:
 		thumb, duration = matchThumb[n], matchlengh[n][0]
@@ -106,7 +150,7 @@ def showListCommon(localpath, handle, pageUrl):
 		li.setInfo( type="Video", infoLabels={ "Title": name, "Duration": duration } )
 		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
       "&url=" + urllib.quote_plus(url)
-		xbmcplugin.addDirectoryItem(handle, u, li, False, NB_ITEM_PAGE)
+		xbmcplugin.addDirectoryItem(handle, u, li, False, totalLen)
 		n = n + 1
 
 def playVideo(localpath, handle, url):
