@@ -1,4 +1,4 @@
 xbmc-adult
 ==========
 
-main repo for Frodo and Gotham
+main repo for Frodo, Gotham and Helix
