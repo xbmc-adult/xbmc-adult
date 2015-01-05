@@ -52,7 +52,7 @@ def showCategories(localpath, handle):
 	a=f.read()
 	f.close()
 
-	catRE = re.compile("<li><a href='(http://www\.tube8\.com/cat/.+?)'>(.+?)</a>")
+	catRE = re.compile('<li><a href="(http://www\.tube8\.com/cat/.+?)">(.+?)</a>')
 	match = catRE.findall(a)
 	categories = []
 	for url, name in match:
@@ -90,8 +90,11 @@ def showListCommon(localpath, handle, pageUrl):
 	a=f.read()
 	f.close()
 
-	thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
-	videosRE = 'sh2"><a href="(.+?)" title="(.+?)">.+?</a>'
+	if 'tube8.com/top/' in pageUrl:
+		thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
+	else:
+		thumbRE = 'class="videoThumbs"[\s\w]+?id=".+"[\s\w]+?category=".+"[\s\w]+?src="([^"]+)"'
+	videosRE = 'sh2">\s*<a href="(.+?)" title="(.+?)">'
 	lenghtRE = '<div class="video-right-text float-right"><strong>(([0-9]{2}:)?[0-9]{2}:[0-9]{2})</strong></div>'
 
 	thumbPattern, videoPattern, lenghtPattern = re.compile(thumbRE), re.compile(videosRE), re.compile(lenghtRE)
