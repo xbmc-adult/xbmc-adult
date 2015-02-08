@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2014-11-03" name="Data18Content" content="movies" language="en">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2015-02-08" name="Data18Content" content="movies" language="en">
 	<CreateSearchUrl clearbuffers="no" dest="3">
 		<RegExp conditional="Google" input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
 			<!--Add film year, stored in $$2 for default by xbmc-->
@@ -16,7 +16,7 @@
 	</CreateSearchUrl>
 	<NfoUrl dest="3">
 		<RegExp input="$$1" output="&lt;details&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/details&gt;" dest="3">
-			<expression noclean="1">(data18.com/content/[^\.]+\.html)</expression>
+			<expression noclean="1">(http://www\.data18.com/content/[0-9]+)</expression>
 		</RegExp>
 	</NfoUrl>
 	<GetSearchResults clearbuffers="no" dest="6">
