@@ -2,6 +2,9 @@
 
 - Updated: Ah-Me
 - Fixed: catcher
+- Updated: extremetube
+- Fixed: video listing
+- Fixed: catcher
 
 [B]Version 1.7.100[/B]
 
