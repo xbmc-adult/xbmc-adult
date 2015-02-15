@@ -1,3 +1,11 @@
+[B]Version 1.7.100[/B]
+
+- Updated: sunporno
+- Fixed: video listing
+- Fixed: catcher
+- Updated: xvideo
+- Fixed: video listing
+
 [B]Version 1.7.99[/B]
 
 - Updated: motherless

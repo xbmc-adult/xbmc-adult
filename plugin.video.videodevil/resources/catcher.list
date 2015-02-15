@@ -258,11 +258,6 @@ url=%s
 action=unquote
 quality=standard
 ########################################################
-title=sunporno.com
-target=source[^>]+?"([^"]+flv)"
-url=%s
-quality=standard
-########################################################
 title=porndig.com
 target=<iframe id="[^"]+" class="[^"]+" width="\d+" height="\d+" frameborder="\d+" scrolling="[^"]+" src="([^"]+)"
 url=%s
