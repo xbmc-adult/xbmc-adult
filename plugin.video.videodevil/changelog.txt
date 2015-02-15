@@ -5,6 +5,8 @@
 - Updated: extremetube
 - Fixed: video listing
 - Fixed: catcher
+- Updated: freeHDporn
+- Fixed: video listing
 
 [B]Version 1.7.100[/B]
 
