@@ -218,3 +218,10 @@ director=VideoDevil
 icon=http://www.mastishare.com/templates/frontend/default/images/logo.png
 url=mastishare.com.cfg
 ########################################################
+title=Porn.com
+type=rss
+genre=porn.com
+director=VideoDevil
+icon=video.devil.image|porn.com-logo.png
+url=porn.com.cfg
+########################################################

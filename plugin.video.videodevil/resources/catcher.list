@@ -303,3 +303,11 @@ target=(http[^"]+.flv)
 url=%s
 quality=standard
 ########################################################
+title=porn.com
+target=Low",file:"([^"]+mp4[^"]*)"
+url=%s
+quality=standard
+target=HD",file:"([^"]+mp4[^"]*)"
+url=%s
+quality=high
+########################################################
