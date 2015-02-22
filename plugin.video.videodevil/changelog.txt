@@ -1,3 +1,16 @@
+[B]Version 1.7.102[/B]
+
+- Updated: pornomovies
+- Fixed: video regex
+- Removed results video listing (doesnt exist anymore)
+- Added sorting
+- Fixed categories
+- Fixed subcategories
+- Fixed next button
+- Updated mofosex
+- Fixed: video regex
+- Added: porn.com
+
 [B]Version 1.7.101[/B]
 
 - Updated: Ah-Me
