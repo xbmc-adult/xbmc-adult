@@ -259,7 +259,7 @@ action=unquote
 quality=standard
 ########################################################
 title=porndig.com
-target=<iframe id="[^"]+" class="[^"]+" width="\d+" height="\d+" frameborder="\d+" scrolling="[^"]+" src="([^"]+)"
+target=<iframe src="([^"]+)" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
 url=%s
 ext_target={file:"([^"]+)",type:"[^"]+"}]
 ext_url=%s
