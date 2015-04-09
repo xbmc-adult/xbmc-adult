@@ -1,6 +1,11 @@
+[B]2.1.7[/B]
+
+- Fix category listing
+- Fix video listing
+
 [B]2.1.6[/B]
 
-- Fix category listening
+- Fix category listing
 
 [B]2.1.5[/B]
 

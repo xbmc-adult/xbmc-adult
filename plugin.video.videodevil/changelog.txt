@@ -1,3 +1,101 @@
+[B]Version 1.7.102[/B]
+
+- Updated: pornomovies
+- Fixed: video regex
+- Removed results video listing (doesnt exist anymore)
+- Added sorting
+- Fixed categories
+- Fixed subcategories
+- Fixed next button
+- Updated mofosex
+- Fixed: video regex
+- Added: porn.com
+
+[B]Version 1.7.101[/B]
+
+- Updated: Ah-Me
+- Fixed: catcher
+- Updated: extremetube
+- Fixed: video listing
+- Fixed: catcher
+- Updated: freeHDporn
+- Fixed: video listing
+
+[B]Version 1.7.100[/B]
+
+- Updated: sunporno
+- Fixed: video listing
+- Fixed: catcher
+- Updated: xvideo
+- Fixed: video listing
+
+[B]Version 1.7.99[/B]
+
+- Updated: motherless
+- Added: sorting
+- Added: groups
+- Added: galleries
+- Added: Yuvutu
+- Added: Hentaigasm
+- Added: Mastishare
+
+[B]Version 1.7.98[/B]
+
+- Updated: moviesand
+- Fixed: catcher
+- Updated: tnaflix
+- Fixed: catcher
+
+[B]Version 1.7.97[/B]
+
+- Updated: ero-erodouga
+- Fixed: Next button
+
+[B]Version 1.7.96[/B]
+
+- Added: jacquietmicheltv
+
+[B]Version 1.7.95[/B]
+
+- Added: tukif
+- Updated: porndig
+- Fixed: video listing
+
+[B]Version 1.7.94[/B]
+
+- Added: porndig
+
+[B]Version 1.7.93[/B]
+
+- Updated: youporn
+- Updated: spankwire
+- Updated: motherless
+
+[B]Version 1.7.92[/B]
+
+- Updated: hardsextube
+- Fixed: video regex
+- Fixed: catcher
+- Updated: spankwire
+- Fixed: video regex
+- Added: HD
+- Updated: xhamster
+- Fixed: catcher
+- Removed: pornotube
+
+[B]Version 1.7.91[/B]
+
+- Updated: extremetube
+- Updated: redtube
+
+[B]Version 1.7.90[/B]
+
+- Pull in some contributed fixes
+- Updated: xvideos
+- Updated: extremetube
+- Updated: freehdporn
+- Updated: eporner
+
 [B]Version 1.7.89[/B]
 
 - Added portuguese translation

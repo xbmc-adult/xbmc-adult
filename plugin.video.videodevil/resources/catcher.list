@@ -62,7 +62,7 @@ build=http://cdn.hardsextube.com%s
 quality=standard
 ########################################################
 title=m.hardsextube.com
-target=<a href="([^"]+)" id="playVideoLink"
+target=href="([^"]+mp4[^"]*)" 
 url=%s
 quality=low
 ########################################################
@@ -109,26 +109,15 @@ url=http://www.degrab.de/?url=%s
 action=unquote
 quality=standard
 ########################################################
-title=pornotube.com
-target=url: "(http[^"]+)"
-url=%s
-quality=standard
-########################################################
-title=kcoolonline.com
-target=<a href='(.+?)' title='Download Flv Here'>
-url=http://kcoolonline.com/token.php
-data=url=%s
-quality=standard
-########################################################
 title=youporn.com
 target=<a href="([^"]+)">\s*MP4
 url=%s
 action=decode
-header=Cookie|age_check=1
+header=Cookie|age_verified=1
 quality=standard
 ########################################################
 title=extremetube.com
-target="flashvars" value=".*video_url=(http[^']+[.](mp4|flv)[^&]+)
+target=quality_480p=(http[^']+[.](mp4|flv)[^"]+)
 url=%s
 header=Cookie|age_verified=1
 quality=standard
@@ -139,12 +128,12 @@ url=%s
 quality=standard
 ########################################################
 title=moviesand.com
-target=so.addVariable[(]"file", "(http[^"]+)"[)];
+target=<source src="([^"]+)" type='video/mp4' />
 url=%s
 quality=standard
 ########################################################
 title=redtube.com
-target=source src='([^']+)'
+target=source src="([^"]+)"
 url=%s
 build=%s&ec_seek=0
 quality=standard
@@ -155,7 +144,7 @@ url=%s
 quality=standard
 ########################################################
 title=xhamster.com
-target=file="([^"]+mp4)"
+target=file="([^"]+mp4[^"]*)"
 url=%s
 quality=standard
 ########################################################
@@ -167,7 +156,6 @@ quality=standard
 title=motherless.com
 target=fileurl = '([^']+mp4)'
 url=%s
-build=%s?start=0
 quality=standard
 ########################################################
 title=pornomovies
@@ -187,11 +175,21 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
-target="(http%3[^"]+mp4[^"]+)";\s+flashvars.(r|quality_\d+)p = ""
+target=(http[^']+200k[^']+mp4[^']*)
+url=%s
+action=unquote
+extension=mp4
+quality=low
+target=(http[^']+600k[^']+mp4[^']*)
 url=%s
 action=unquote
 extension=mp4
 quality=standard
+target=(http[^']+1000k[^']+mp4[^']*)
+url=%s
+action=unquote
+extension=mp4
+quality=high
 ########################################################
 title=fapdu.com
 target="file" : "([^ ]+)"
@@ -247,14 +245,69 @@ ext_target=<videoLink>([^<]*)
 ext_url=%s
 quality=standard
 ########################################################
+title=tnaflix.com
+target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+url=%s
+ext_target=<videoLink>([^<]*)
+ext_url=http:%s
+quality=standard
+########################################################
 title=slutload.com
 target=data-url="([^"]+)"
 url=%s
 action=unquote
 quality=standard
 ########################################################
-title=sunporno.com
-target=source[^>]+?"([^"]+flv)"
+title=porndig.com
+target=<iframe id="[^"]+" class="[^"]+" width="\d+" height="\d+" frameborder="\d+" scrolling="[^"]+" src="([^"]+)"
+url=%s
+ext_target={file:"([^"]+)",type:"[^"]+"}]
+ext_url=%s
+ext_header=Referer|http://www.porndig.com
+quality=standard
+########################################################
+title=tukif.com
+target=<iframe id="[^"]+" class="[^"]+" width="\d+" height="\d+" frameborder="\d+" scrolling="[^"]+" src="([^"]+)"
+url=%s
+ext_target={file:"([^"]+)",type:"[^"]+"}]
+ext_url=%s
+ext_header=Referer|http://www.tukif.com
+quality=standard
+########################################################
+title=jacquieetmicheltv.net
+target=file: "(http[^"]+-1000-[^"]+mp4)
+url=%s
+action=unquote
+extension=mp4
+quality=standard
+target=file: "(http[^"]+-2000-[^"]+mp4)
+url=%s
+action=unquote
+extension=mp4
+quality=high
+########################################################
+title=yuvutu.com
+target=<td width="600" class="videoPlayer">[\s]+<!-- all -->[\s]+<iframe src="([^"]+)"
+url=%s
+ext_target=file=(.*?)&amp;
+ext_url=http://yuvutu.com/%s
+quality=standard
+########################################################
+title=hentaigasm.com
+target=(http[^"]+.mp4)
 url=%s
 quality=standard
+########################################################
+title=mastishare.com
+target=(http[^"]+.flv)
+url=%s
+quality=standard
+########################################################
+title=porn.com
+target=Low",file:"([^"]+mp4[^"]*)"
+url=%s
+quality=standard
+target=HD",file:"([^"]+mp4[^"]*)"
+url=%s
+quality=high
 ########################################################
