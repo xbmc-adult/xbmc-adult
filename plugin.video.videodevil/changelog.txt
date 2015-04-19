@@ -2,6 +2,8 @@
 
 - Updated: porndig
 - Fixed: video regex
+- Updated: pornomovies
+- Fixed: video regex
 
 [B]Version 1.7.102[/B]
 
