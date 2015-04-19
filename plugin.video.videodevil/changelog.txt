@@ -1,3 +1,8 @@
+[B]Version 1.7.103[/B]
+
+- Updated: porndig
+- Fixed: video regex
+
 [B]Version 1.7.102[/B]
 
 - Updated: pornomovies
