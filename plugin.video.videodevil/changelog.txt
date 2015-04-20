@@ -4,6 +4,7 @@
 - Fixed: catcher
 - Updated: sunporno
 - Fixed: video regex
+- Removed: timtube
 
 [B]Version 1.7.103[/B]
 
