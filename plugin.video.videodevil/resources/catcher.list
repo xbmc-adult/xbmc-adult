@@ -248,9 +248,13 @@ quality=standard
 title=tnaflix.com
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>([^<]*)
+ext_target=<videoLink>([^<]+480p.mp4)
 ext_url=http:%s
-quality=standard
+quality=low
+target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+ext_target=<videoLink>([^<]+720p.mp4)
+ext_url=http:%s
+quality=high
 ########################################################
 title=slutload.com
 target=data-url="([^"]+)"

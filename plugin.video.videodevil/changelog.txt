@@ -5,6 +5,8 @@
 - Updated: sunporno
 - Fixed: video regex
 - Removed: timtube
+- Updated: tnaflix
+- Fixed: catcher
 
 [B]Version 1.7.103[/B]
 
