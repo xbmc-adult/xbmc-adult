@@ -255,7 +255,7 @@ quality=standard
 title=slutload.com
 target=data-url="([^"]+)"
 url=%s
-action=unquote
+action=decode
 quality=standard
 ########################################################
 title=porndig.com
