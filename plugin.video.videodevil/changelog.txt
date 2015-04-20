@@ -7,6 +7,9 @@
 - Removed: timtube
 - Updated: tnaflix
 - Fixed: catcher
+- Updated: tukif
+- Fixed: video regex
+- Fixed: catcher
 
 [B]Version 1.7.103[/B]
 

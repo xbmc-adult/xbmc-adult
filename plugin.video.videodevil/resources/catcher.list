@@ -271,7 +271,7 @@ ext_header=Referer|http://www.porndig.com
 quality=standard
 ########################################################
 title=tukif.com
-target=<iframe id="[^"]+" class="[^"]+" width="\d+" height="\d+" frameborder="\d+" scrolling="[^"]+" src="([^"]+)"
+target=iframe src="([^"]+)"
 url=%s
 ext_target={file:"([^"]+)",type:"[^"]+"}]
 ext_url=%s
