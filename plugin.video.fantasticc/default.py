@@ -230,7 +230,7 @@ def SEARCH(url):
 
             # create the search url
             search_url = main_url + 'search/' + search + '/videos/'
-            print 'SEARCH:', search_url
+            print 'SEARCH: ', search_url
 
             # get the source code of first page
             first_page = get_html(search_url)
@@ -401,12 +401,12 @@ def INDEXCOLLECT(url):   # Index Collections Pages
 
 
 def PLAY(url, topthumbnail):
-    print 'Play URL:%s' % url
+    print 'Play URL: %s' % url
     if 'id=' in url:
         realurl = GET_LINK(url, 1 ,topthumbnail)
     else:
         realurl = GET_LINK(url, 0 ,topthumbnail)
-    print 'Real url:%s' % realurl
+    print 'Real url: %s' % realurl
     if not realurl:
         Notify('Failure', 'Try another video', '4000', default_image)
 
@@ -478,7 +478,8 @@ def GET_LINK(url, collections, url2):
         print 'fetchurl: %s' % fetchurl
         return fetchurl
     elif 'hardsextube' in url2:
-        match = re.compile('http://www.hardsextube.com/(video/.+?)"').findall(html)
+        match = re.compile(
+            'http://www.hardsextube.com/(video/.+?)"').findall(html)
         html = get_html('http://m.hardsextube.com/%s' % match[0])
         match = re.compile('href="(.+?)" .*playVideoLink').findall(html)
         fetchurl = match[0]
@@ -586,7 +587,8 @@ def get_params():
 
 def addLink(name, url, mode, iconimage):
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
-        + "&name=" + urllib.quote_plus(name) + "&name=" + "&iconimage=" + urllib.quote_plus(iconimage)
+        + "&name=" + urllib.quote_plus(name) + "&name=" + "&iconimage=" \
+        + urllib.quote_plus(iconimage)
     ok = True
     liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png',
                            thumbnailImage=iconimage)
