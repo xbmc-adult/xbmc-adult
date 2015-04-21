@@ -473,7 +473,7 @@ def GET_LINK(url, collections, url2):
     elif 'xhamster' in url2:
         match = re.compile('http://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
-        match = re.compile('file="([^"]*.mp4)').findall(html)
+        match = re.compile('file="([^"]*.mp4[^"]*)').findall(html)
         fetchurl = match[0]
         print 'fetchurl: %s' % fetchurl
         return fetchurl
