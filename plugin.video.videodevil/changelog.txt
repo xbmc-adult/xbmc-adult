@@ -1,3 +1,41 @@
+[B]Version 1.7.105[/B]
+
+- Updated: videodevil
+- Fixed: ValueError: timestamp out of range for platform time_t
+
+[B]Version 1.7.104[/B]
+
+- Updated: slutload
+- Fixed: catcher
+- Updated: sunporno
+- Fixed: video regex
+- Removed: timtube
+- Updated: tnaflix
+- Fixed: catcher
+- Updated: tukif
+- Fixed: video regex
+- Fixed: catcher
+
+[B]Version 1.7.103[/B]
+
+- Updated: porndig
+- Fixed: video regex
+- Updated: pornomovies
+- Fixed: video regex
+
+[B]Version 1.7.102[/B]
+
+- Updated: pornomovies
+- Fixed: video regex
+- Removed results video listing (doesnt exist anymore)
+- Added sorting
+- Fixed categories
+- Fixed subcategories
+- Fixed next button
+- Updated mofosex
+- Fixed: video regex
+- Added: porn.com
+
 [B]Version 1.7.101[/B]
 
 - Updated: Ah-Me
