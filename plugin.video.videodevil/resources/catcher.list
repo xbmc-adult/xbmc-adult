@@ -320,3 +320,8 @@ target=file:"([^"]+)"
 url=%s
 quality=standard
 ########################################################
+title=pornburst.xxx
+target=url: '(http[^']+.flv)',
+url=%s
+quality=standard
+########################################################
