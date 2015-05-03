@@ -893,7 +893,11 @@ class CCurrentList:
                 return
             data = handle.read()
             #cj.save(os.path.join(resDir, 'cookies.lwp'), ignore_discard=True)
-            cj.save(cookiePath)
+            try:
+                cj.save(cookiePath)
+            except ValueError:
+                if enable_debug:
+                    xbmc.log('Failed to save the cookie jar, expire time out of bounds')
             current_url_page = curr_url
             if enable_debug:
                 f.write(data)
