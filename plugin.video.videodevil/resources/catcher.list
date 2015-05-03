@@ -325,3 +325,8 @@ target=url: '(http[^']+.flv)',
 url=%s
 quality=standard
 ########################################################
+title=sexu.com
+target=<a href="([^"]+)" class="btn right"><i class="ico-download">
+url=%s
+quality=standard
+########################################################
