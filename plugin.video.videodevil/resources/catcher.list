@@ -330,3 +330,8 @@ target=<a href="([^"]+)" class="btn right"><i class="ico-download">
 url=%s
 quality=standard
 ########################################################
+title=vporn.com
+target=flashvars.videoUrlMedium2 = "([^"]+)";
+url=%s
+quality=standard
+########################################################

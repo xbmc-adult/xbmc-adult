@@ -239,3 +239,10 @@ director=VideoDevil
 icon=http://i.sexu.com/static/images/ico-logo.png
 url=sexu.com.cfg
 ########################################################
+title=Vporn
+type=rss
+genre=vporn.com
+director=VideoDevil
+icon=http://www.vporn.com/images/new/logo.png
+url=vporn.com.cfg
+########################################################
