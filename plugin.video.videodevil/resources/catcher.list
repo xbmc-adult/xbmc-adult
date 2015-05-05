@@ -315,3 +315,33 @@ target=HD",file:"([^"]+mp4[^"]*)"
 url=%s
 quality=high
 ########################################################
+title=pornmaki.com
+target=file:"([^"]+)"
+url=%s
+quality=standard
+########################################################
+title=pornburst.xxx
+target=url: '(http[^']+.flv)',
+url=%s
+quality=standard
+########################################################
+title=sexu.com
+target=<a href="([^"]+)" class="btn right"><i class="ico-download">
+url=%s
+quality=standard
+########################################################
+title=vporn.com
+target=flashvars.videoUrlMedium2 = "([^"]+)";
+url=%s
+quality=standard
+########################################################
+title=pornhd.com
+target='480p'  : '([^']+)',
+url=%s
+quality=standard
+########################################################
+title=faapy.com
+target=video_url: '([^']+)',
+url=%s
+quality=standard
+########################################################
