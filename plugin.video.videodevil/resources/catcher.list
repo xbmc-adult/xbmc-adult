@@ -335,3 +335,8 @@ target=flashvars.videoUrlMedium2 = "([^"]+)";
 url=%s
 quality=standard
 ########################################################
+title=pornhd.com
+target='480p'  : '([^']+)',
+url=%s
+quality=standard
+########################################################

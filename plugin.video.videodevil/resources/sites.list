@@ -246,3 +246,10 @@ director=VideoDevil
 icon=http://www.vporn.com/images/new/logo.png
 url=vporn.com.cfg
 ########################################################
+title=Pornhd
+type=rss
+genre=pornhd.com
+director=VideoDevil
+icon=video.devil.image|pornhdlogo.png
+url=pornhd.com.cfg
+########################################################
