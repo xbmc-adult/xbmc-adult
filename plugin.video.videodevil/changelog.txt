@@ -1,3 +1,14 @@
+[B]Version 1.7.106[/B]
+
+- Updated: motherless
+- Fixed: video, galleries and groups regexes
+- Added: pornmaki
+- Added: pornburst
+- Added: sexu
+- Added: vporn
+- Added: pornhd
+- Added: faapy
+
 [B]Version 1.7.105[/B]
 
 - Updated: videodevil
