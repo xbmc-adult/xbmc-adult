@@ -1,2 +1,5 @@
+0.3
+- Solved critical problems
+
 0.1
 - First Try
