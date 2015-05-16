@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.youporn" name="Youporn" version="0.1.2" provider-name="xbmc-adult">
+<addon id="plugin.video.youporn.1.0" name="Youporn" version="1.0.0" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
