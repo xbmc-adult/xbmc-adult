@@ -67,7 +67,7 @@ def search(url):
     keyboard.doModal()
     if keyboard.isConfirmed() and keyboard.getText():
         search_string = keyboard.getText()
-        url="http://www.youporngay.com/search/?query="+urllib.quote_plus(search_string)
+        url="http://www.youporn.com/search/?query="+urllib.quote_plus(search_string)
         listVideos(url)
 
 
