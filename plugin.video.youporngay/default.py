@@ -5,7 +5,7 @@ import xbmcplugin, xbmcgui, sys, urllib, urllib2, re, xbmcaddon, socket, HTMLPar
 socket.setdefaulttimeout(30)
 thisPlugin = int(sys.argv[1])
 settings = xbmcaddon.Addon(id='plugin.video.youporngay')
-userAgentString = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16'
+userAgentString = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.25 (KHTML, like Gecko) Chrome/42.0.1841.127 Safari/537.25'
 htmlp = HTMLParser.HTMLParser()
 
 
@@ -22,12 +22,11 @@ def index():
 
 def listVideosRss(url):
     req = urllib2.Request(url)
-    req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporngay.com')
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
-    match=re.compile('<item>\s*<title>(.*?)</title>\s*<link>(.*?)</link>\s*<description>.*?IMG border="1" src="(.*?)".*?Length: (\d+:\d+).*?</item>',re.MULTILINE|re.DOTALL).findall(link)
-    for name,url,thumbnail,length in match:
+    match=re.compile('<a href="([^"]+)">\s*<img src="([^"]+)" alt="([^"]+)" class="flipbook" data-max="[^"]+" data-video-id="[^"]+" data-thumbnail="[^"]+" data-path="[^"]+">\s*<p class="videoTitle" title="[^"]+">[^<]+</p>\s*<span class="duration">[^<]+</span>\s*<span class="rating up"><i>[^<]+</i>\s*</span>\s*</a>',re.MULTILINE|re.DOTALL).findall(link)
+    for url2,thumbnail,name in match:
 	addLink(htmlp.unescape(name), url, 2, htmlp.unescape(thumbnail),'',True,length)
     xbmcplugin.endOfDirectory(thisPlugin)
     xbmc.executebuiltin("Container.SetViewMode(500)")
@@ -35,7 +34,6 @@ def listVideosRss(url):
 
 def listVideos(url):
     req = urllib2.Request(url)
-    req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporngay.com')
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
@@ -52,11 +50,10 @@ def listVideos(url):
 
 def playVideo(url):
     req = urllib2.Request(url)
-    req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporngay.com')
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
-    match=re.compile('<a href="([^"]+)">MP4 - For Windows 7, Mac and iPad').findall(link)
+    match=re.compile('<a href="([^"]+)">\s*MP4 - For Windows 7, Mac and iPad\s*</a>',re.MULTILINE|re.DOTALL).findall(link)
     for url in match:
 		listitem = xbmcgui.ListItem(path=htmlp.unescape(url))
     return xbmcplugin.setResolvedUrl(thisPlugin, True, listitem)
