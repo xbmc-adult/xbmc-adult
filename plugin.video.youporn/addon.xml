@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.youporn" name="Youporn" version="0.1.2" provider-name="xbmc-adult">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Free Porn Movies from youporn.com</summary>
+        <description lang="en">VISIT Youporn for the BEST FREE PORN MOVIES!</description>
+        <platform>all</platform>
+    </extension>
+</addon>
