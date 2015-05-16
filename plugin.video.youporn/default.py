@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 import xbmcplugin, xbmcgui, sys, urllib, urllib2, re, xbmcaddon, socket, HTMLParser
 
-socket.setdefaulttimeout(30)
+socket.setdefaulttimeout(300)
 thisPlugin = int(sys.argv[1])
-settings = xbmcaddon.Addon(id='plugin.video.youporn')
-userAgentString = 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_0 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7A341 Safari/528.16'
+settings = xbmcaddon.Addon(id='plugin.video.youporn11')
+userAgentString = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36'
 htmlp = HTMLParser.HTMLParser()
 
 
@@ -22,7 +22,6 @@ def index():
 
 def listVideosRss(url):
     req = urllib2.Request(url)
-    req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporn.com')
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
@@ -35,28 +34,22 @@ def listVideosRss(url):
 
 def listVideos(url):
     req = urllib2.Request(url)
-    req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporn.com')
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
-    match=re.compile('<a href="([^"]+)">\s*<img src="([^"]+)" alt="([^"]+)" class="flipbook" data-max="[^"]+" data-thumbnail="[^"]+" data-path="[^"]+">\s*</a>',re.MULTILINE|re.DOTALL).findall(link)
+    match=re.compile('<a href="([^"]+)">\s*<img src="([^"]+)" alt="([^"]+)" class="flipbook" data-max="[^"]+" data-video-id="[^"]+" data-thumbnail="[^"]+" data-path="[^"]+">\s*<p class="videoTitle" title="[^"]+">[^<]+</p>\s*<span class="duration">[^<]+</span>\s*<span class="rating up"><i>[^<]+</i>\s*</span>\s*</a>',re.MULTILINE|re.DOTALL).findall(link)
     for url2,thumbnail,name in match:
         addLink(htmlp.unescape(name), 'http://www.youporn.com' + url2, 2, htmlp.unescape(thumbnail))
-    match=re.compile('<li><a href="([^"]+)">\d+</a></li>\s*<li class="prev-next"><a href="([^"]+)">NEXT <span>&raquo;</span></a></li>',re.MULTILINE|re.DOTALL).findall(link)
-    for url_last,url_next in match:
-        addDir('Load More Videos ...', 'http://www.youporn.com' + htmlp.unescape(url_next),3)
-    match=re.compile('<li class="prev-next"><a href="([^"]+)"><span>&laquo;</span> PREV</a></li>',re.MULTILINE|re.DOTALL).findall(link)
     xbmcplugin.endOfDirectory(thisPlugin)
     xbmc.executebuiltin("Container.SetViewMode(500)")
 
 
 def playVideo(url):
     req = urllib2.Request(url)
-    req.add_header('Cookie', 'age_verified=1; path=/; domain=.youporn.com')
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
-    match=re.compile('<a href="([^"]+)">MP4 - For Windows 7, Mac and iPad').findall(link)
+    match=re.compile('<a href="([^"]+)">\s*MP4 - For Windows 7, Mac and iPad\s*</a>',re.MULTILINE|re.DOTALL).findall(link)
     for url in match:
 		listitem = xbmcgui.ListItem(path=htmlp.unescape(url))
     return xbmcplugin.setResolvedUrl(thisPlugin, True, listitem)
