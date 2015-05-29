@@ -1091,7 +1091,11 @@ class Main:
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
                         req.add_header(source.rule.reference, source.rule.content)
-                    urlfile = opener.open(req)
+                    try:
+                        urlfile = opener.open(req)
+                    except Exception:
+                        xbmc.log("Failed: " % url)
+                        raise
                     if source.rule.limit == 0:
                         fc = urlfile.read()
                     else:
