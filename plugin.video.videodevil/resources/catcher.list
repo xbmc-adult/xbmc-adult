@@ -241,8 +241,9 @@ quality=low
 title=empflix.com
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>([^<]*)
-ext_url=%s
+ext_target=<videoLink>(?:http:|)([^<]*)
+ext_url=http:%s
+ext_build=http:%s
 quality=standard
 ########################################################
 title=tnaflix.com

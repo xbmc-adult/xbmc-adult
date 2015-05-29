@@ -1,3 +1,9 @@
+[B]Version 1.7.107[/B]
+
+- Updated: empflix
+- Fixed: video regex
+- Fixed: catcher
+
 [B]Version 1.7.106[/B]
 
 - Updated: motherless
