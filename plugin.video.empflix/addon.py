@@ -50,7 +50,7 @@ def VIDEOLIST(url, page):
                        '<h2>([^<]+)</h2>.+?<span class="duringTime">([\d:]+)'
                        '.+?<img src="([^"]+)"', re.DOTALL).findall(link)
     for videourl, name, duration, thumb in match:
-        addLink(name + " " + duration, videourl + '?', 3, thumb.strip())
+        addLink(name + " " + duration, videourl + '?', 3, 'http:'+thumb.strip())
     if (len(match) == 24):
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
