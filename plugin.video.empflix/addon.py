@@ -50,7 +50,10 @@ def VIDEOLIST(url, page):
                        '<h2>([^<]+)</h2>.+?<span class="duringTime">([\d:]+)'
                        '.+?<img src="([^"]+)"', re.DOTALL).findall(link)
     for videourl, name, duration, thumb in match:
-        addLink(name + " " + duration, videourl + '?', 3, 'http:'+thumb.strip())
+        addLink(name + ' (' + duration + ')',
+                'http:' + videourl + '?',
+                3,
+                'http:'+thumb.strip())
     if (len(match) == 24):
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -60,10 +63,10 @@ def PLAYVIDEO(url):
     link = openURL(url)
     match = re.compile('name="config" value="([^"]+)"').findall(link)
     for configurl in match:
-        link = openURL(configurl)
+        link = openURL('http:' + configurl)
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(link)
         for videourl in match2:
-            xbmc.Player().play(videourl)
+            xbmc.Player().play('http:' + videourl)
 
 
 def get_params():
