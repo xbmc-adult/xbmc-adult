@@ -643,43 +643,43 @@ class CCurrentList:
                             catcher_tmp = CCatcherItem()
                             catcher_tmp.rule.target = value
                         if key == 'ext_target':
-                          catcher_tmp.ext_rule = CCatcherRuleItem()
-                          catcher_tmp.ext_rule.target = value
+                            catcher_tmp.ext_rule = CCatcherRuleItem()
+                            catcher_tmp.ext_rule.target = value
                         if key == 'url':
-                          catcher_tmp.rule.url = value
+                            catcher_tmp.rule.url = value
                         if key == 'ext_url':
-                          catcher_tmp.ext_rule.url = value
+                            catcher_tmp.ext_rule.url = value
                         if key == 'data':
-                          catcher_tmp.rule.data = value
+                            catcher_tmp.rule.data = value
                         if key == 'ext_data':
-                          catcher_tmp.ext_rule.data = value
+                            catcher_tmp.ext_rule.data = value
                         if key == 'header':
-                          index = value.find('|')
-                          catcher_tmp.rule.reference = value[:index]
-                          catcher_tmp.rule.content = value[index+1:]
+                            index = value.find('|')
+                            catcher_tmp.rule.reference = value[:index]
+                            catcher_tmp.rule.content = value[index+1:]
                         if key == 'ext_header':
-                          index = value.find('|')
-                          catcher_tmp.ext_rule.reference = value[:index]
-                          catcher_tmp.ext_rule.content = value[index+1:]
+                            index = value.find('|')
+                            catcher_tmp.ext_rule.reference = value[:index]
+                            catcher_tmp.ext_rule.content = value[index+1:]
                         if key == 'build':
-                          catcher_tmp.rule.build = value
+                            catcher_tmp.rule.build = value
                         if key == 'ext_build':
-                          catcher_tmp.ext_rule.build = value
+                            catcher_tmp.ext_rule.build = value
                         if key == 'action':
-                          catcher_tmp.rule.action = value
+                            catcher_tmp.rule.action = value
                         if key == 'ext_action':
-                          catcher_tmp.ext_rule.action = value
+                            catcher_tmp.ext_rule.action = value
                         if key == 'limit':
-                          catcher_tmp.rule.limit = int(value)
+                            catcher_tmp.rule.limit = int(value)
                         if key == 'ext_limit':
-                          catcher_tmp.ext_rule.limit = int(value)
+                            catcher_tmp.ext_rule.limit = int(value)
                         if key == 'extension':
-                          catcher_tmp.extension = value
+                            catcher_tmp.extension = value
                         if key == 'info':
-                          catcher_tmp.info = value
+                            catcher_tmp.info = value
                         if key == 'quality':
-                          catcher_tmp.quality = value
-                          self.catcher.append(catcher_tmp)
+                            catcher_tmp.quality = value
+                            self.catcher.append(catcher_tmp)
 
         if catcher_found:
             return 0
@@ -1050,7 +1050,7 @@ class CCurrentList:
                         if info.default != '':
                             tmp.infos_dict['icon'] = info.default
                         else:
-                           tmp.infos_dict['icon'] = info.build
+                            tmp.infos_dict['icon'] = info.build
                 for info_name, info_value in lItem.infos_dict.iteritems():
                     if info_name not in tmp.infos_dict:
                         tmp.infos_dict[info_name] = info_value
