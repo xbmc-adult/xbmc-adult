@@ -65,8 +65,8 @@ def PLAYVIDEO(url):
     for configurl in match:
         link = openURL('http:' + configurl)
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(link)
-        for videourl in match2:
-            xbmc.Player().play('http:' + videourl)
+        if match2:
+            xbmc.Player().play('http:' + match2[-1])
 
 
 def get_params():
