@@ -1,6 +1,11 @@
 [B]Version 1.7.107[/B]
 
 - Updated: empflix
+- Updated: catcher to support multiple quality settings
+
+[B]Version 1.7.107[/B]
+
+- Updated: empflix
 - Fixed: video regex
 - Fixed: catcher
 
