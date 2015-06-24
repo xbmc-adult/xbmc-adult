@@ -1359,6 +1359,8 @@ class Main:
             url = url.replace('_@?_', '&')
         if '4tube.com' in url:
             url = url.replace('\\', '')
+        if 'v.sexu.com' in url:
+            url = url.replace('\/', '/')
         return url
 
     def parseView(self, url):

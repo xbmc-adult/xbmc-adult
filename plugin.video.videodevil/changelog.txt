@@ -9,6 +9,8 @@
 - Added: quote ext_action and action
 - Updated: porndig
 - Fixed: catcher
+- Updated: sexu
+- Fixed: catcher
 
 [B]Version 1.7.109[/B]
 

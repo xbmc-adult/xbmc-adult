@@ -347,7 +347,7 @@ url=%s
 quality=standard
 ########################################################
 title=sexu.com
-target=<a href="([^"]+)" class="btn right"><i class="ico-download">
+target="url":"([^"]+)
 url=%s
 quality=standard
 ########################################################
