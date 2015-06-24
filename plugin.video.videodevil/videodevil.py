@@ -1124,6 +1124,8 @@ class Main:
                     match = unquote_safe(match)
                 elif source.rule.action.find('decode') != -1:
                     match = decode(match)
+                elif source.rule.action.find('quote') != -1:
+                    match = quote_safe(match)
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
                 if source.ext_rule != None:
@@ -1171,6 +1173,8 @@ class Main:
                             match = unquote_safe(match)
                         elif source.ext_rule.action.find('decode') != -1:
                             match = decode(match)
+                        elif source.ext_rule.action.find('quote') != -1:
+                            match = quote_safe(match)
                         if source.ext_rule.build.find('%s') != -1:
                             match = source.ext_rule.build % match
                         if enable_debug:

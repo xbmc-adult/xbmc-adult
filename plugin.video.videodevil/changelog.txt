@@ -5,6 +5,8 @@
 - Removed: freeHDporn
 - Updated: porn.com
 - Fixed: catcher
+- Updated: videodevil
+- Added: quote ext_action and action
 
 [B]Version 1.7.109[/B]
 
