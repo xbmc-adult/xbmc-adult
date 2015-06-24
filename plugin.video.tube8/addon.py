@@ -1,4 +1,3 @@
-import sesame
 import sys
 import os
 import xbmc
@@ -113,20 +112,17 @@ def showListCommon(localpath, handle, pageUrl):
 		n = n + 1
 
 def playVideo(localpath, handle, url):
+	xbmc.log('playVideo: ' + url)
 	f=urllib2.urlopen(url)
 	a=f.read()
 	f.close()
 
 	p=re.compile('"video_url":"([^"]+)')
 	match=p.findall(a)
-	eurl=match[0].replace('\/', '/')
+	video_url=match[0].replace('\/', '/')
 
-	p2=re.compile('"video_title":"([^"]+)')
-	iv=p2.findall(a)[0]
-
-	video=sesame.decrypt(eurl, iv, 256)
-	print "Playing: " + video
-	xbmc.Player().play(video)
+	print "Playing: " + video_url
+	xbmc.Player().play(video_url)
 
 def get_params(args):
 	param=[]

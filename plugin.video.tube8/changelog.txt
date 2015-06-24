@@ -1,3 +1,7 @@
+[B]2.1.8[/B]
+
+- Fix video playing - videos no longer encrypted
+
 [B]2.1.7[/B]
 
 - Fix category listing
