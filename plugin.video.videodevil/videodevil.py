@@ -1522,9 +1522,11 @@ class Main:
                 params = sys.argv[2]
                 currentView = params[5:]
                 if enable_debug:
+                    # unquote twice otherwise url is not unquoted
+                    unquoted_currentView = urllib2.unquote(currentView)
+                    unquoted_currentView = urllib2.unquote(unquoted_currentView)
                     xbmc.log(
-                      'currentView: ' +
-                      urllib2.unquote(repr(currentView)).replace('&', '\n'))
+                      'currentView: ' + unquoted_currentView.replace('&', '\n'))
                 if self.parseView(currentView) == 0:
                     xbmcplugin.endOfDirectory(int(sys.argv[1]))
                     if enable_debug:
