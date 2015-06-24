@@ -1,4 +1,9 @@
-[B]Version 1.7.107[/B]
+[B]Version 1.7.109[/B]
+
+- Updated: xhamster
+- Fixed next button
+
+[B]Version 1.7.108[/B]
 
 - Updated: empflix
 - Updated: catcher to support multiple quality settings
