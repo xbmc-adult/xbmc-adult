@@ -325,10 +325,13 @@ url=%s
 quality=standard
 ########################################################
 title=porn.com
-target=Low",file:"([^"]+mp4[^"]*)"
+target=url:"([^"]+240.mp4[^"]*)"
+url=%s
+quality=low
+target=url:"([^"]+360.mp4[^"]*)"
 url=%s
 quality=standard
-target=HD",file:"([^"]+mp4[^"]*)"
+target=url:"([^"]+720.mp4[^"]*)"
 url=%s
 quality=high
 ########################################################

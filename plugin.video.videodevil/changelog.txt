@@ -1,8 +1,10 @@
 [B]Version 1.7.110[/B]
 
 - Updated: empflix
-- Fixed logo
+- Fixed: logo
 - Removed: freeHDporn
+- Updated: porn.com
+- Fixed: catcher
 
 [B]Version 1.7.109[/B]
 
