@@ -138,7 +138,7 @@ title=Empflix
 type=rss
 genre=empflix
 director=VideoDevil
-icon=http://www.userlogos.org/files/logos/spaljeni/empflix.png
+icon=video.devil.image|empflix.jpg
 url=empflix.com.cfg
 ########################################################
 title=TnAflix
