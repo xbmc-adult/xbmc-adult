@@ -7,6 +7,8 @@
 - Fixed: catcher
 - Updated: videodevil
 - Added: quote ext_action and action
+- Updated: porndig
+- Fixed: catcher
 
 [B]Version 1.7.109[/B]
 

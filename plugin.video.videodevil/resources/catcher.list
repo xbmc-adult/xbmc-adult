@@ -280,10 +280,11 @@ action=decode
 quality=standard
 ########################################################
 title=porndig.com
-target=<iframe src="([^"]+)" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+target=<iframe src="([^"]+)"
 url=%s
-ext_target={file:"([^"]+)",type:"[^"]+"}]
+ext_target={"file":"([^"]+)","type":"[^"]+"}]
 ext_url=%s
+ext_action=quote
 ext_header=Referer|http://www.porndig.com
 quality=standard
 ########################################################
