@@ -92,7 +92,7 @@
 
 <addon id="metadata.movie.data18.content.com"
        name="Data 18 Web Content"
-       version="1.5.7"
+       version="1.6.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.110"
+  version="1.7.111"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
