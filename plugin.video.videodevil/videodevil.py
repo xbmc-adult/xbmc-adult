@@ -29,7 +29,10 @@ USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/
 
 if cj != None:
     if os.path.isfile(xbmc.translatePath(cookiePath)):
-        cj.load(xbmc.translatePath(cookiePath))
+        try:
+            cj.load(xbmc.translatePath(cookiePath))
+        except cookielib.LoadError as e:
+            xbmc.log('Failed to open cookie file %s' % e)
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 else:
     opener = urllib2.build_opener()
