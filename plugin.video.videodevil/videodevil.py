@@ -823,7 +823,8 @@ class CCurrentList:
                     self.loadRemote(lItem.infos_dict['url'], False, lItem)
         return 0
 
-    def infoFormatter(self, info_name, info_value, cfg_file): # Site specific info handling
+    def infoFormatter(self, info_name, info_value, cfg_file):
+    # Site specific info handling
         info_value = info_value.replace('|', '-')
         if cfg_file == 'zdf.de.cfg':
             return clean_safe(info_value.replace('&nbsp;', ' ')).replace("\\'", "\'").replace('\\"', '\"')
@@ -834,12 +835,8 @@ class CCurrentList:
                 info_value = '...'
             if len(info_value) == 0:
                 info_value = '...'
-            elif cfg_file.find('youtube') != -1: # youtube
-                info_value = info_value.replace('<b>', '').replace('</b>', '')
             elif cfg_file.find('xhamster') != -1:
                 info_value = info_value.replace('<span style="background-color:#E9E9E9;">', '').replace('</span>', '')
-            elif cfg_file.find('boysfood') != -1: # boysfood
-                info_value = info_value.replace('<font style="color:#c00000;font-weight:bold;">', '').replace('</font>', '')
         elif info_name == 'icon':
             info_value = decode(unquote_safe(info_value))
             if info_value == '':
