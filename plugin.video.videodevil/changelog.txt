@@ -1,10 +1,14 @@
+[B]Version 1.7.114[/B]
+
+- Updated: pornhub
+- Added: better quality video
+
 [B]Version 1.7.113[/B]
 
 - Updated: pornhub
 - Added: channels
 - Added: playlists
 - Added: pornstars
-
 
 [B]Version 1.7.112[/B]
 
