@@ -1,3 +1,8 @@
+[B]Version 1.7.115[/B]
+
+- Updated: pornhub
+- Fixed: catcher
+
 [B]Version 1.7.114[/B]
 
 - Updated: pornhub
