@@ -5,6 +5,8 @@
 - Deleted: porndig
 - Updated: pornhd
 - Fixed: video regex
+- Updated: pornhub
+- Fixed: catcher
 
 [B]Version 1.7.115[/B]
 

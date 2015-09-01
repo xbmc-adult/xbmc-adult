@@ -210,9 +210,18 @@ quality=standard
 #quality=fallback
 ########################################################
 title=pornhub.com
-target="video_url":"([^"]+)"
+target=var player_quality_240p = '([^"]+.mp4[^']*)';
+url=%s
+quality=low
+target=var player_quality_480p = '([^"]+.mp4[^']*)';
 url=%s
 quality=standard
+target=var player_quality_720p = '([^"]+.mp4[^']*)';
+url=%s
+quality=high
+target=var player_quality_1080p = '([^"]+.mp4[^']*)';
+url=%s
+quality=high
 ########################################################
 title=m.pornhub.com
 target=quality="([^"]+400[kK][^"]+\.mp4[^"]*)"
