@@ -133,7 +133,7 @@ url=%s
 quality=standard
 ########################################################
 title=xhamster.com
-target=file="([^"]+mp4[^"]*)"
+target=file: '([^']+)'
 url=%s
 quality=standard
 ########################################################

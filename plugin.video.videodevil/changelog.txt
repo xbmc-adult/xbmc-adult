@@ -7,6 +7,8 @@
 - Fixed: video regex
 - Updated: pornhub
 - Fixed: catcher
+- Updated: xhamster
+- Fixed: catcher
 
 [B]Version 1.7.115[/B]
 
