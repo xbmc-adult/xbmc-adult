@@ -2,6 +2,7 @@
 
 - Updated: eporner
 - Fixed: catcher
+- Deleted: porndig
 
 [B]Version 1.7.115[/B]
 

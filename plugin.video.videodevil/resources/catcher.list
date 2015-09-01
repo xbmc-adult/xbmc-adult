@@ -287,15 +287,6 @@ url=%s
 action=decode
 quality=standard
 ########################################################
-title=porndig.com
-target=<iframe src="([^"]+)"
-url=%s
-ext_target={"file":"([^"]+)","type":"[^"]+"}]
-ext_url=%s
-ext_action=quote
-ext_header=Referer|http://www.porndig.com
-quality=standard
-########################################################
 title=tukif.com
 target=<iframe src="([^"]+)"
 url=%s
