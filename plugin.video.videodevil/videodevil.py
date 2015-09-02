@@ -883,7 +883,7 @@ class CCurrentList:
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
                 f.write('<Title>'+ curr_url + '</Title>\n\n')
-            curr_url = urllib.unquote_plus(curr_url)
+            curr_url = urllib.unquote(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
                 handle = urlopen(req)
@@ -1275,7 +1275,7 @@ class Main:
             if enable_debug:
                 traceback.print_exc(file = sys.stdout)
             icon = os.path.join(imgDir, 'video.png')
-        url = urllib.unquote_plus(url).replace(' ', '%20')
+        url = urllib.unquote_plus(url).replace(' ', '%20').replace('\\\/', '')
         flv_file = url
         listitem = xbmcgui.ListItem(title, title, icon, icon)
         listitem.setInfo('video', {'Title':title})
