@@ -106,7 +106,7 @@ header=Cookie|age_verified=1
 quality=standard
 ########################################################
 title=extremetube.com
-target=quality_480p=(http[^']+[.](mp4|flv)[^"]+)
+target=quality_480p":"(http[^']+[.](mp4|flv)[^"]+)
 url=%s
 header=Cookie|age_verified=1
 quality=standard

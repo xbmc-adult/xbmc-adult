@@ -1,3 +1,8 @@
+[B]Version 1.7.118[/B]
+
+- Updated: extremetube
+- Fixed: catcher
+
 [B]Version 1.7.117[/B]
 
 - Updated: spankwire
