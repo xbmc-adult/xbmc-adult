@@ -5,6 +5,9 @@
 - Updated: motherless
 - Fixed: videolist
 - Fixed: catcher
+- Updated: youporn
+- Fixed: videolist
+- Fixed: catcher
 
 [B]Version 1.7.117[/B]
 
