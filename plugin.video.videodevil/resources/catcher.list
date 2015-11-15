@@ -310,16 +310,23 @@ ext_header=Referer|http://www.tukif.com
 quality=standard
 ########################################################
 title=jacquieetmicheltv.net
-target=file: "(http[^"]+-1000-[^"]+mp4)
+target=(http[^"]+)
 url=%s
-action=unquote
-extension=mp4
-quality=standard
-target=file: "(http[^"]+-2000-[^"]+mp4)
-url=%s
-action=unquote
-extension=mp4
+ext_target="(http[^"]+-3500/[^"]+)
+ext_url=%s
 quality=high
+target=(http[^"]+)
+ext_target="(http[^"]+-2000/[^"]+)
+ext_url=%s
+quality=high
+target=(http[^"]+)
+ext_target="(http[^"]+-1000/[^"]+)
+ext_url=%s
+quality=medium
+target=(http[^"]+)
+ext_target="(http[^"]+-250/[^"]+)
+ext_url=%s
+quality=low
 ########################################################
 title=yuvutu.com
 target=<td width="600" class="videoPlayer">[\s]+<!-- all -->[\s]+<iframe src="([^"]+)"

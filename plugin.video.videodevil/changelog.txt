@@ -1,3 +1,9 @@
+[B]Version 1.7.119[/B]
+
+- Updated: jacquietmicheltv
+- Fixed: videolist
+- Fixed: catcher
+
 [B]Version 1.7.118[/B]
 
 - Updated: extremetube
