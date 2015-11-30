@@ -1,3 +1,8 @@
+[B]Version 1.7.120[/B]
+
+- Updated: motherless
+- Fixed: groups
+
 [B]Version 1.7.119[/B]
 
 - Updated: jacquietmicheltv
