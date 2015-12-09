@@ -34,7 +34,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornoxo.com
-target='file': "([^"]+)"
+target=file'?: "([^"]+)"
 url=%s
 quality=standard
 ########################################################
