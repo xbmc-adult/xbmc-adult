@@ -362,7 +362,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornburst.xxx
-target=url: '(http[^']+.flv)',
+target=url: '(http://c[^']+)'
 url=%s
 quality=standard
 ########################################################

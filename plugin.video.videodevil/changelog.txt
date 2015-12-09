@@ -2,6 +2,9 @@
 
 - Updated: porn.com
 - Fixed: videolist
+- Updated: pornburst.xxx
+- Fixed: videolist
+- Fixed: catcher
 
 [B]Version 1.7.120[/B]
 
