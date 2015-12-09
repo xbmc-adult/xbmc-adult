@@ -1158,6 +1158,8 @@ class Main:
             match = ''
             if urlsearch:
                 match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
+                if enable_debug:
+                    xbmc.log('pre-action target is %s' % match)
                 if source.rule.action.find('unquote') != -1:
                     match = unquote_safe(match)
                 elif source.rule.action.find('decode') != -1:
@@ -1166,6 +1168,8 @@ class Main:
                     match = quote_safe(match)
                 if source.rule.build.find('%s') != -1:
                     match = source.rule.build % match
+                if enable_debug:
+                    xbmc.log('target is %s' % match)
                 if source.ext_rule != None:
                     if source.ext_rule.data == '':
                         if source.ext_rule.url.find('%s') != -1:
