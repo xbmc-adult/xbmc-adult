@@ -376,7 +376,7 @@ def decode(s):
             s = s.replace(entity, unichr(dic[key]))
     except:
         if enable_debug:
-            traceback.print_exc(file = sys.stdout)
+            traceback.print_exc(file=sys.stdout)
     return s
 
 def unquote_safe(s): # unquote
@@ -387,7 +387,7 @@ def unquote_safe(s): # unquote
             s = s.replace(value, key)
     except:
         if enable_debug:
-            traceback.print_exc(file = sys.stdout)
+            traceback.print_exc(file=sys.stdout)
     return s;
 
 def quote_safe(s): # quote
@@ -398,7 +398,7 @@ def quote_safe(s): # quote
             s = s.replace(key, value)
     except:
         if enable_debug:
-            traceback.print_exc(file = sys.stdout)
+            traceback.print_exc(file=sys.stdout)
     return s;
 
 def smart_unicode(s):
@@ -429,7 +429,7 @@ def clean_safe(s):
         s = clean1(clean2(clean3(smart_unicode(s))))
     except:
         if enable_debug:
-            traceback.print_exc(file = sys.stdout)
+            traceback.print_exc(file=sys.stdout)
     return s
 
 def clean_filename(s):
@@ -500,7 +500,7 @@ class CCurrentList:
         self.items = []
         self.rules = []
 
-    def getKeyboard(self, default = '', heading = '', hidden = False):
+    def getKeyboard(self, default='', heading='', hidden=False):
         kboard = xbmc.Keyboard(default, heading, hidden)
         kboard.doModal()
         if kboard.isConfirmed():
@@ -589,7 +589,7 @@ class CCurrentList:
         f.close()
         return
 
-    def codeUrl(self, item, suffix = ''):
+    def codeUrl(self, item, suffix=''):
         url = ''
         firstInfo = True
         #this is added for handling the stupid &nbsp;
@@ -621,7 +621,7 @@ class CCurrentList:
             url = url + '.' + suffix
         return url
 
-    def decodeUrl(self, url, url_type = 'rss'):
+    def decodeUrl(self, url, url_type='rss'):
         item = CListItem()
         if url.find('&') == -1:
             item.infos_dict['url'] = clean_safe(url)
@@ -699,8 +699,8 @@ class CCurrentList:
             return 0
         return -1
 
-    def loadLocal(self, filename, recursive = True, lItem = None,
-                  lCatcher = False):
+    def loadLocal(self, filename, recursive=True, lItem=None,
+                  lCatcher=False):
         if enable_debug:
             xbmc.log('loadLocal: ' + str(filename))
         for local_path in [resDir, cacheDir, '']:
@@ -717,7 +717,7 @@ class CCurrentList:
                              str(os.path.join(local_path, filename)) + \
                              ' not found')
                     if local_path == '':
-                        traceback.print_exc(file = sys.stdout)
+                        traceback.print_exc(file=sys.stdout)
                 if local_path == '':
                     return -1
 
@@ -776,7 +776,7 @@ class CCurrentList:
                                     return ret
                             except:
                                 if enable_debug:
-                                    traceback.print_exc(file = sys.stdout)
+                                    traceback.print_exc(file=sys.stdout)
                                 return -1
                     elif key == 'header':
                         index = value.find('|')
@@ -865,7 +865,7 @@ class CCurrentList:
                 info_value = os.path.join(imgDir, 'video.png')
         return clean_safe(info_value)
 
-    def loadRemote(self, remote_url, recursive = True, lItem = None):
+    def loadRemote(self, remote_url, recursive=True, lItem=None):
         remote_url = urllib.unquote_plus(remote_url)
         if enable_debug:
             xbmc.log('loadRemote: ' + repr(remote_url))
@@ -887,7 +887,7 @@ class CCurrentList:
                                     addon.getSetting('curr_search'))
                         except:
                             addon.setSetting('curr_search', '')
-                        search_phrase = self.getKeyboard(default = curr_phrase,
+                        search_phrase = self.getKeyboard(default=curr_phrase,
                                 heading = __language__(30102))
                         if search_phrase == '':
                             return -1
@@ -898,7 +898,7 @@ class CCurrentList:
                         lItem.infos_dict['url'] = curr_url
                         lItem.infos_dict['type'] = u'rss'
                 except:
-                    traceback.print_exc(file = sys.stdout)
+                    traceback.print_exc(file=sys.stdout)
             if self.reference == '':
                 txheaders = {'User-Agent':USERAGENT,
                              'Accept-Charset':'ISO-8859-1,utf-8;q=0.7,*;q=0.7'}
@@ -915,7 +915,7 @@ class CCurrentList:
                 handle = urlopen(req)
             except:
                 if enable_debug:
-                    traceback.print_exc(file = sys.stdout)
+                    traceback.print_exc(file=sys.stdout)
                 return
             data = handle.read()
             #cj.save(os.path.join(resDir, 'cookies.lwp'), ignore_discard=True)
@@ -932,7 +932,7 @@ class CCurrentList:
                 xbmc.log('Remote URL ' + str(curr_url) + ' opened')
         except IOError:
             if enable_debug:
-                traceback.print_exc(file = sys.stdout)
+                traceback.print_exc(file=sys.stdout)
             return -1
 
         # Find list items
@@ -1311,7 +1311,7 @@ class Main:
             icon = os.path.join(cacheDir, 'thumb.tbn')
         except:
             if enable_debug:
-                traceback.print_exc(file = sys.stdout)
+                traceback.print_exc(file=sys.stdout)
             icon = os.path.join(imgDir, 'video.png')
         url = urllib.unquote_plus(url).replace(' ', '%20')
         flv_file = url
@@ -1319,7 +1319,7 @@ class Main:
         listitem.setInfo('video', {'Title':title})
         for info_name, info_value in videoItem.infos_dict.iteritems():
             try:
-                listitem.setInfo(type = 'Video', infoLabels = {info_name: info_value})
+                listitem.setInfo(type='Video', infoLabels={info_name: info_value})
             except:
                 pass
         if self.currentlist.skill.find('nodownload') == -1:
@@ -1412,7 +1412,7 @@ class Main:
         url = lItem.infos_dict['url']
         ext = self.currentlist.getFileExtension(url)
         if ext == 'cfg' or ext == 'list':
-            result = self.currentlist.loadLocal(url, lItem = lItem)
+            result = self.currentlist.loadLocal(url, lItem=lItem)
         elif ext == 'add':
             url = urllib.unquote_plus(url)
             self.currentlist.addItem(url[:len(url) - 4])
@@ -1444,24 +1444,34 @@ class Main:
                 self.pDialog.close()
             return -2
         else:
-            result = self.currentlist.loadRemote(lItem.infos_dict['url'], lItem = lItem)
+            result = self.currentlist.loadRemote(lItem.infos_dict['url'],
+                                                 lItem=lItem)
 
-        xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_LABEL)
+        xbmcplugin.addSortMethod(handle=self.handle,
+                                 sortMethod=xbmcplugin.SORT_METHOD_LABEL)
         if self.currentlist.sort.find('label') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_LABEL)
+            xbmcplugin.addSortMethod(handle=self.handle,
+                                     sortMethod=xbmcplugin.SORT_METHOD_LABEL)
         if self.currentlist.sort.find('size') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_SIZE)
+            xbmcplugin.addSortMethod(handle=self.handle,
+                                     sortMethod=xbmcplugin.SORT_METHOD_SIZE)
         if self.currentlist.sort.find('duration') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_DURATION)
+            xbmcplugin.addSortMethod(handle=self.handle,
+                                     sortMethod=xbmcplugin.SORT_METHOD_DURATION)
         if self.currentlist.sort.find('genre') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_GENRE)
+            xbmcplugin.addSortMethod(handle=self.handle,
+                                     sortMethod=xbmcplugin.SORT_METHOD_GENRE)
         if self.currentlist.sort.find('rating') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_VIDEO_RATING)
+            xbmcplugin.addSortMethod(handle=self.handle,
+                                     sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RATING)
         if self.currentlist.sort.find('date') != -1:
-            xbmcplugin.addSortMethod(handle = self.handle, sortMethod = xbmcplugin.SORT_METHOD_DATE)
+            xbmcplugin.addSortMethod(handle=self.handle,
+                                     sortMethod=xbmcplugin.SORT_METHOD_DATE)
 
-        if self.currentlist.skill.find('play') != -1 and self.currentlist.videoCount() == 1:
-            url = self.currentlist.codeUrl(self.currentlist.getVideo(), 'videodevil')
+        if self.currentlist.skill.find('play') != -1 \
+           and self.currentlist.videoCount() == 1:
+            url = self.currentlist.codeUrl(self.currentlist.getVideo(),
+                                           'videodevil')
             result = self.parseView(url)
         else:
             for m in self.currentlist.items:
@@ -1473,9 +1483,17 @@ class Main:
                 m_icon = m.infos_dict['icon']
                 m_title = clean_safe(m.infos_dict['title'])
                 if m_type == 'rss' or m_type == 'search':
-                    self.addListItem(m_title, self.currentlist.codeUrl(m), m_icon, len(self.currentlist.items), m)
+                    self.addListItem(m_title,
+                                     self.currentlist.codeUrl(m),
+                                     m_icon,
+                                     len(self.currentlist.items),
+                                     m)
                 elif m_type.find('video') != -1:
-                    self.addListItem(m_title, self.currentlist.codeUrl(m, 'videodevil'), m_icon, len(self.currentlist.items), m)
+                    self.addListItem(m_title,
+                                     self.currentlist.codeUrl(m, 'videodevil'),
+                                     m_icon,
+                                     len(self.currentlist.items),
+                                     m)
         return result
 
     def addListItem(self, title, url, icon, totalItems, lItem):
@@ -1484,7 +1502,8 @@ class Main:
         quoted_url = urllib2.quote(url.encode('ascii', 'ignore'))
         u = sys.argv[0] + '?url=' + quoted_url
         liz = xbmcgui.ListItem(title, title, icon, icon)
-        if self.currentlist.getFileExtension(url) == 'videodevil' and self.currentlist.skill.find('nodownload') == -1:
+        if self.currentlist.getFileExtension(url) == 'videodevil' \
+            and self.currentlist.skill.find('nodownload') == -1:
             action = 'XBMC.RunPlugin(%s.dwnlddevil)' % u[:len(u)-11]
             try:
                 liz.addContextMenuItems([(__language__(30007), action)])
@@ -1512,20 +1531,35 @@ class Main:
                     liz.addContextMenuItems([(info_name[info_name.find('.') + 1:], action)])
                 except:
                     pass
-            if info_name.find('.append') == -1 and info_name != 'url' and info_name != 'title' and info_name != 'icon' and info_name != 'type' and info_name != 'extension' and info_name.find('.tmp') == -1 and info_name.find('.append') == -1 and info_name.find('context.') == -1:
+            if info_name.find('.append') == -1 \
+                and info_name != 'url' \
+                and info_name != 'title' \
+                and info_name != 'icon' \
+                and info_name != 'type' \
+                and info_name != 'extension' \
+                and info_name.find('.tmp') == -1 \
+                and info_name.find('.append') == -1 \
+                and info_name.find('context.') == -1:
                 try:
                     if info_name.find('.int') != -1:
-                        liz.setInfo('Video', infoLabels = {capitalize(info_name[:info_name.find('.int')]): int(info_value)})
+                        liz.setInfo('Video',
+                                    infoLabels={capitalize(info_name[:info_name.find('.int')]): int(info_value)})
                     elif info_name.find('.once') != -1:
-                        liz.setInfo('Video', infoLabels = {capitalize(info_name[:info_name.find('.once')]): info_value})
+                        liz.setInfo('Video',
+                                    infoLabels={capitalize(info_name[:info_name.find('.once')]): info_value})
                     else:
-                        liz.setInfo('Video', infoLabels = {capitalize(info_name): info_value})
+                        liz.setInfo('Video',
+                                    infoLabels={capitalize(info_name): info_value})
                 except:
                     pass
-        xbmcplugin.addDirectoryItem(handle = int(sys.argv[1]), url = u, listitem = liz, isFolder = True, totalItems = totalItems)
+        xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),
+                                    url=u,
+                                    listitem=liz,
+                                    isFolder=True,
+                                    totalItems=totalItems)
 
     def purgeCache(self):
-        for root, dirs, files in os.walk(cacheDir , topdown = False):
+        for root, dirs, files in os.walk(cacheDir , topdown=False):
             for name in files:
                 os.remove(os.path.join(root, name))
 
@@ -1538,7 +1572,12 @@ class Main:
             if len(paramstring) <= 2:
                 if addon.getSetting('hide_warning') == 'false':
                     dialog = xbmcgui.Dialog()
-                    if not dialog.yesno(__language__(30061), __language__(30062), __language__(30063), __language__(30064), __language__(30065), __language__(30066)):
+                    if not dialog.yesno(__language__(30061),
+                                        __language__(30062),
+                                        __language__(30063),
+                                        __language__(30064),
+                                        __language__(30065),
+                                        __language__(30066)):
                         return
                 if enable_debug:
                     xbmc.log('Settings directory: ' + str(settingsDir))
@@ -1566,7 +1605,7 @@ class Main:
                 del self.currentlist.items[:]
                 if enable_debug:
                     xbmc.log('End of directory')
-                xbmcplugin.endOfDirectory(handle = int(sys.argv[1]))
+                xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
             else:
                 params = sys.argv[2]
                 currentView = params[5:]
@@ -1582,6 +1621,6 @@ class Main:
                         xbmc.log('End of directory')
         except Exception, e:
             if enable_debug:
-                traceback.print_exc(file = sys.stdout)
+                traceback.print_exc(file=sys.stdout)
             dialog = xbmcgui.Dialog()
             dialog.ok('VideoDevil Error', 'Error running VideoDevil.\n\nReason:\n' + str(e))

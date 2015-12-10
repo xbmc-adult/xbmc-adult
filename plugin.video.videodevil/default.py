@@ -8,8 +8,8 @@ __version__ = '1.7.37'
 
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 rootDir = addon.getAddonInfo('path')
-if rootDir[-1] == ';':
-    rootDir = rootDir[0:-1]
+if rootDir.endswith(';'):
+    rootDir = rootDir[:-1]
 
 class Main:
     def __init__(self):
