@@ -436,9 +436,7 @@ def clean_filename(s):
     if not s:
         return ''
     badchars = '\\/:*?\"<>|'
-    for c in badchars:
-        s = s.replace(c, '')
-    return s;
+    return s.strip(badchars);
 
 def smart_read_file(directory, filename):
     f = open(str(os.path.join(directory, filename)), 'r')
@@ -851,9 +849,7 @@ class CCurrentList:
                                       ).replace('\\"', '\"')
         if info_name == 'title':
             try:
-                info_value = clean_safe(
-                        info_value.replace('\r\n', ''
-                                          ).replace('\n', '').replace('\t', ''))
+                info_value = clean_safe(info_value.strip())
             except:
                 info_value = '...'
             if len(info_value) == 0:
@@ -984,7 +980,7 @@ class CCurrentList:
                             info_rule = info.rule % (smart_unicode(src))
                         infosearch = re.search(info_rule, data)
                         if infosearch:
-                            info_value = infosearch.group(1).lstrip().rstrip()
+                            info_value = infosearch.group(1).strip()
                             if info.build.find('%s') != -1:
                                 info_value = (info.build
                                               % (smart_unicode(info_value)))
@@ -1015,7 +1011,7 @@ class CCurrentList:
                             tmp.infos_dict['url'] = curr_match.group(1) + tmp.infos_dict['url']
                 if item_rule.skill.find('space') != -1:
                     try:
-                        tmp.infos_dict['title'] = ' ' + tmp.infos_dict['title'].lstrip().rstrip() + ' '
+                        tmp.infos_dict['title'] = ' ' + tmp.infos_dict['title'].strip() + ' '
                     except:
                         pass
                 for info_name, info_value in lItem.infos_dict.iteritems():
@@ -1049,9 +1045,9 @@ class CCurrentList:
                 for title in revid.findall(data):
                     tmp = CListItem()
                     if item_rule.skill.find('space') != -1:
-                        tmp.infos_dict['title'] = '  ' + clean_safe(title.lstrip().rstrip()) + ' (' + __language__(30106) +')  '
+                        tmp.infos_dict['title'] = '  ' + clean_safe(title.strip()) + ' (' + __language__(30106) +')  '
                     else:
-                        tmp.infos_dict['title'] = ' ' + clean_safe(title.lstrip().rstrip()) + ' (' + __language__(30106) +') '
+                        tmp.infos_dict['title'] = ' ' + clean_safe(title.strip()) + ' (' + __language__(30106) +') '
                     tmp.infos_dict['url'] = curr_url
                     for info in item_rule.info_list:
                         if info.name == 'icon':
@@ -1117,7 +1113,7 @@ class Main:
         self.run()
 
     def getDirectLink(self, orig_url):
-        orig_url = orig_url.replace('\r\n', '').replace('\n', '')
+        orig_url = orig_url.strip()
         self.videoExtension = '.flv'
         for source in self.currentlist.catcher:
             if len(self.urlList) > 0 and source.quality == 'fallback':
@@ -1157,7 +1153,7 @@ class Main:
             urlsearch = re.search(source.rule.target, fc)
             match = ''
             if urlsearch:
-                match = urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
+                match = urlsearch.group(1).strip()
                 if enable_debug:
                     xbmc.log('pre-action target is %s' % match)
                 if source.rule.action.find('unquote') != -1:
@@ -1210,7 +1206,7 @@ class Main:
                         f.close()
                     ext_urlsearch = re.search(source.ext_rule.target, ext_fc)
                     if ext_urlsearch:
-                        match = ext_urlsearch.group(1).replace('\r\n', '').replace('\n', '').lstrip().rstrip()
+                        match = ext_urlsearch.group(1).strip()
                         if source.ext_rule.action.find('unquote') != -1:
                             match = unquote_safe(match)
                         elif source.ext_rule.action.find('decode') != -1:
