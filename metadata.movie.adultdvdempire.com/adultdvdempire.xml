@@ -12,8 +12,8 @@
     </CreateSearchUrl>
     <GetSearchResults dest="6">
         <RegExp dest="6" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" input="$$5">
-            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.adultdvdempire.com/\1?m=false&lt;/url&gt;&lt;/entity&gt;" input="$$1">
-                <expression repeat="yes" trim="1">&lt;a href="/([^"]*)"\s+title="([^"]*)" Category "List Page" Label="Title"&gt;</expression>
+            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2 \3&lt;/title&gt;&lt;url&gt;http://www.adultdvdempire.com/\1?m=false&lt;/url&gt;&lt;/entity&gt;" input="$$1">
+                <expression repeat="yes" trim="1">&lt;a href="/([^"]*)"[^&gt;]* Label="Title"&gt;([^&lt;]+)&lt;/a&gt;.*?&lt;small&gt;([^&lt;]+)&lt;/small&gt;</expression>
             </RegExp>
             <expression noclean="1"></expression>
         </RegExp>
