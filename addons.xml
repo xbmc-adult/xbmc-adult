@@ -2,7 +2,7 @@
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
-       version="1.0.9"
+       version="2.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.121"
+  version="1.7.122"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
