@@ -6,6 +6,9 @@
 - Fixed: catcher
 - Updated: youporn
 - Fixed: catcher
+- Updated: pornomovies
+- Fixed: videolist
+- Fixed: catcher
 - Removed: mastishare
 - Removed: moviesand
 
