@@ -355,11 +355,6 @@ target=(http[^"]+.mp4)
 url=%s
 quality=standard
 ########################################################
-title=mastishare.com
-target=(http[^"]+.flv)
-url=%s
-quality=standard
-########################################################
 title=porn.com
 target=url:"([^"]+240.mp4[^"]*)"
 url=%s

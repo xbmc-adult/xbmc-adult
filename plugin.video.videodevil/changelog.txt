@@ -6,6 +6,8 @@
 - Fixed: catcher
 - Updated: youporn
 - Fixed: catcher
+- Removed: mastishare
+
 
 [B]Version 1.7.122[/B]
 
