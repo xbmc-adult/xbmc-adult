@@ -1,3 +1,8 @@
+[B]Version 1.7.123[/B]
+
+- Updated: xhamster.com
+- Fixed: videolist
+
 [B]Version 1.7.122[/B]
 
 - Updated: youporn.com
