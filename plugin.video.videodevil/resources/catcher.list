@@ -99,9 +99,6 @@ action=unquote
 quality=standard
 ########################################################
 title=youporn.com
-target=videoUrl: '([^']+)
-url=%s
-quality=standard
 target=240: '([^']+)
 url=%s
 quality=low
@@ -111,6 +108,9 @@ quality=standard
 target=720: '([^']+)
 url=%s
 quality=high
+target=videoUrl: '([^']+)
+url=%s
+quality=standard
 ########################################################
 title=extremetube.com
 target=quality_480p":"(http[^']+[.](mp4|flv)[^"]+)

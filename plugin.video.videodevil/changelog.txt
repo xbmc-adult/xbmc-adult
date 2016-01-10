@@ -4,6 +4,8 @@
 - Fixed: videolist
 - Updated: empflix
 - Fixed: catcher
+- Updated: youporn
+- Fixed: catcher
 
 [B]Version 1.7.122[/B]
 
