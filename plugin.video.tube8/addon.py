@@ -90,24 +90,26 @@ def showListCommon(localpath, handle, pageUrl):
 	f.close()
 
 	if 'tube8.com/top/' in pageUrl:
-		thumbRE = '<img .+? class="videoThumbs" .+? src="(.+?)".+?>'
+		thumbRE = '<img class="videoThumbs" .+?\s+src="(.+?)"'
 	else:
 		thumbRE = 'class="videoThumbs"[\s\w]+?id=".+"[\s\w]+?category=".+"[\s\w]+?src="([^"]+)"'
-	videosRE = 'sh2">\s*<a href="(.+?)" title="(.+?)">'
-	lenghtRE = '<div class="video-right-text float-right"><strong>(([0-9]{2}:)?[0-9]{2}:[0-9]{2})</strong></div>'
+	videosRE = 'data-video_url="([^"]+).+?title="([^"]+)'
+	lengthRE = 'video_duration">([^<]+)<'
 
-	thumbPattern, videoPattern, lenghtPattern = re.compile(thumbRE), re.compile(videosRE), re.compile(lenghtRE)
+	thumbPattern, videoPattern, lenghtPattern = re.compile(thumbRE), re.compile(videosRE, re.DOTALL), re.compile(lengthRE)
 
 	matchThumb=thumbPattern.findall(a)
 	matchVid=videoPattern.findall(a)
-	matchlengh=lenghtPattern.findall(a)
+	matchlength=lenghtPattern.findall(a)
 	n = 0
 	for url, name in matchVid:
-		thumb, duration = matchThumb[n], matchlengh[n][0]
+		thumb, duration = matchThumb[n], matchlength[n][0]
 		li=xbmcgui.ListItem(name, name, thumb, thumb)
-		li.setInfo( type="Video", infoLabels={ "Title": name, "Duration": duration } )
+		li.setInfo(type="Video",
+               infoLabels={ "Title": name, "Duration": duration })
 		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
       "&url=" + urllib.quote_plus(url)
+		print ">>>u: %s" % u
 		xbmcplugin.addDirectoryItem(handle, u, li, False, NB_ITEM_PAGE)
 		n = n + 1
 
@@ -117,9 +119,9 @@ def playVideo(localpath, handle, url):
 	a=f.read()
 	f.close()
 
-	p=re.compile('"video_url":"([^"]+)')
+	p=re.compile('page_params.videoUrlJS = "([^"]+)')
 	match=p.findall(a)
-	video_url=match[0].replace('\/', '/')
+	video_url=match[0]
 
 	print "Playing: " + video_url
 	xbmc.Player().play(video_url)
