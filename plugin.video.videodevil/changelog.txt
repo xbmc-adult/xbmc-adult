@@ -2,6 +2,8 @@
 
 - Updated: xhamster.com
 - Fixed: videolist
+- Updated: empflix
+- Fixed: catcher
 
 [B]Version 1.7.122[/B]
 
