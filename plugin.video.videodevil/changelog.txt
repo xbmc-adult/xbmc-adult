@@ -9,6 +9,8 @@
 - Updated: pornomovies
 - Fixed: videolist
 - Fixed: catcher
+- Updated: sunporno
+- Fixed: videolist
 - Removed: mastishare
 - Removed: moviesand
 
