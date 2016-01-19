@@ -1,3 +1,9 @@
+[B]Version 1.7.124[/B]
+
+- Update for Jarvis: Remove ability to select player, this deprecated in
+Jarvis
+
+
 [B]Version 1.7.123[/B]
 
 - Updated: xhamster.com

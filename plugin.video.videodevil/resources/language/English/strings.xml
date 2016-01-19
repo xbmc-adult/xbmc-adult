@@ -5,10 +5,6 @@
 
     <string id="20191">Enable debug logging</string>
     <string id="30002">Disable disclaimer</string>
-    <string id="30003">Player type</string>
-    <string id="30004">Auto</string>
-    <string id="30005">MPlayer</string>
-    <string id="30006">DVDPlayer</string>
     <string id="30007">Save video</string>
     <string id="30008">Download path</string>
     <string id="30009">Ask for download before playing video</string>

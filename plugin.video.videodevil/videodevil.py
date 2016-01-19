@@ -1344,27 +1344,14 @@ class Main:
         else:
             flv_file = None
 
-        player_type = {0:xbmc.PLAYER_CORE_AUTO,
-                       1:xbmc.PLAYER_CORE_MPLAYER,
-                       2:xbmc.PLAYER_CORE_DVDPLAYER
-                      }[int(addon.getSetting('player_type'))]
-        if self.currentlist.player == 'auto':
-            player_type = xbmc.PLAYER_CORE_AUTO
-        elif self.currentlist.player == 'mplayer':
-            player_type = xbmc.PLAYER_CORE_MPLAYER
-        elif self.currentlist.player == 'dvdplayer':
-            player_type = xbmc.PLAYER_CORE_DVDPLAYER
-
         if flv_file != None and os.path.isfile(flv_file):
             if enable_debug:
                 xbmc.log('Play: ' + str(flv_file))
-            xbmc.Player(player_type).play(str(flv_file), listitem)
-            #xbmc.Player().play(str(flv_file), listitem)
+            xbmc.Player().play(str(flv_file), listitem)
         else:
             if enable_debug:
                 xbmc.log('Play: ' + str(url))
-            xbmc.Player(player_type).play(str(url), listitem)
-            #xbmc.Player().play(str(url), listitem)
+            xbmc.Player().play(str(url), listitem)
         xbmc.sleep(200)
 
     def downloadMovie(self, url, title):
