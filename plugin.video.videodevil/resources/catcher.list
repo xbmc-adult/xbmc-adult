@@ -34,7 +34,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornoxo.com
-target='file': "([^"]+)"
+target=file'?: "([^"]+)"
 url=%s
 quality=standard
 ########################################################
@@ -44,16 +44,10 @@ url=%s
 build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
-title=hardsextube.com
-target=flv: "([^"]+)"
-url=%s
-build=http://cdn.hardsextube.com%s
-quality=standard
-########################################################
 title=m.hardsextube.com
-target=href="([^"]+mp4[^"]*)" 
+target=<video.+?src="([^"]+)"
 url=%s
-quality=low
+quality=standard
 ########################################################
 title=eporner.com
 target=/config7/(\d+)/
@@ -99,14 +93,21 @@ action=unquote
 quality=standard
 ########################################################
 title=youporn.com
-target=<a href="([^"]+)">\s*MP4
+target=240: '([^']+)
 url=%s
-action=decode
-header=Cookie|age_verified=1
+quality=low
+target=480: '([^']+)
+url=%s
+quality=standard
+target=720: '([^']+)
+url=%s
+quality=high
+target=videoUrl: '([^']+)
+url=%s
 quality=standard
 ########################################################
 title=extremetube.com
-target=quality_480p=(http[^']+[.](mp4|flv)[^"]+)
+target=quality_480p":"(http[^']+[.](mp4|flv)[^"]+)
 url=%s
 header=Cookie|age_verified=1
 quality=standard
@@ -143,12 +144,12 @@ url=%s
 quality=standard
 ########################################################
 title=motherless.com
-target=fileurl = '([^']+mp4)'
+target='(http[^']+mp4)
 url=%s
 quality=standard
 ########################################################
 title=pornomovies
-target=(http[^"]+.mp4[^"]+)
+target=url: '([^']+)'
 url=%s
 quality=standard
 ########################################################
@@ -164,19 +165,16 @@ url=%s
 quality=standard
 ########################################################
 title=spankwire.com
-target=(http[^']+200k[^']+mp4[^']*)
+target=(http[^']+(normal_|200k)[^']+mp4[^']*)
 url=%s
-action=unquote
 extension=mp4
 quality=low
-target=(http[^']+600k[^']+mp4[^']*)
+target=(http[^']+(ultra_|600k)[^']+mp4[^']*)
 url=%s
-action=unquote
 extension=mp4
 quality=standard
-target=(http[^']+1000k[^']+mp4[^']*)
+target=(http[^']+(720p_|1000k)[^']+mp4[^']*)
 url=%s
-action=unquote
 extension=mp4
 quality=high
 ########################################################
@@ -247,25 +245,31 @@ quality=high
 title=empflix.com
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+144p.mp4)
+ext_target=<videoLink>(?:http:|)([^<]+100p.mp4[^<]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=low
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+480p.mp4)
+ext_target=<videoLink>(?:http:|)([^<]+144p.mp4[^<]+)
+ext_url=http:%s
+ext_build=http:%s
+quality=low
+target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+url=%s
+ext_target=<videoLink>(?:http:|)([^<]+480p.mp4[^<]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=standard
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+720p.mp4)
+ext_target=<videoLink>(?:http:|)([^<]+720p.mp4[^<]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=high
 target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+1080p.mp4)
+ext_target=<videoLink>(?:http:|)([^<]+1080p.mp4[^<]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=high
@@ -297,25 +301,41 @@ action=decode
 quality=standard
 ########################################################
 title=tukif.com
-target=<iframe src="([^"]+)"
+target=(http://videos.tukif.com/download[^"]+6)"
 url=%s
-ext_target={"file":"([^"]+)","type":"[^"]+"}]
-ext_url=%s
-ext_action=quote
-ext_header=Referer|http://www.tukif.com
-quality=standard
+header=Referer|http://www.tukif.com
+quality=low
+target=(http://videos.tukif.com/download[^"]+8)"
+url=%s
+header=Referer|http://www.tukif.com
+quality=medium
+target=(http://videos.tukif.com/download[^"]+12)"
+url=%s
+header=Referer|http://www.tukif.com
+quality=high
+target=(http://videos.tukif.com/download[^"]+13)"
+url=%s
+header=Referer|http://www.tukif.com
+quality=high
 ########################################################
 title=jacquieetmicheltv.net
-target=file: "(http[^"]+-1000-[^"]+mp4)
+target=(http[^"]+)
 url=%s
-action=unquote
-extension=mp4
-quality=standard
-target=file: "(http[^"]+-2000-[^"]+mp4)
-url=%s
-action=unquote
-extension=mp4
+ext_target="(http[^"]+-3500/[^"]+)
+ext_url=%s
 quality=high
+target=(http[^"]+)
+ext_target="(http[^"]+-2000/[^"]+)
+ext_url=%s
+quality=high
+target=(http[^"]+)
+ext_target="(http[^"]+-1000/[^"]+)
+ext_url=%s
+quality=medium
+target=(http[^"]+)
+ext_target="(http[^"]+-250/[^"]+)
+ext_url=%s
+quality=low
 ########################################################
 title=yuvutu.com
 target=<td width="600" class="videoPlayer">[\s]+<!-- all -->[\s]+<iframe src="([^"]+)"
@@ -326,11 +346,6 @@ quality=standard
 ########################################################
 title=hentaigasm.com
 target=(http[^"]+.mp4)
-url=%s
-quality=standard
-########################################################
-title=mastishare.com
-target=(http[^"]+.flv)
 url=%s
 quality=standard
 ########################################################
@@ -351,7 +366,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornburst.xxx
-target=url: '(http[^']+.flv)',
+target=url: '(http://c[^']+)'
 url=%s
 quality=standard
 ########################################################

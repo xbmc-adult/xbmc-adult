@@ -2,7 +2,7 @@
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
-       version="1.0.9"
+       version="2.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -198,7 +198,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.8" provider-name="xbmc-adult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.9" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.116"
+  version="1.7.125"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>

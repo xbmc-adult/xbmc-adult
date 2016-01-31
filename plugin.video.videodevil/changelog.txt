@@ -1,3 +1,75 @@
+[B]Version 1.7.125[/B]
+
+- Updated: xhamster.com
+- Fix: categories
+
+
+[B]Version 1.7.124[/B]
+
+- Update for Jarvis: Remove ability to select player, this deprecated in
+Jarvis
+
+
+[B]Version 1.7.123[/B]
+
+- Updated: xhamster.com
+- Fixed: videolist
+- Updated: empflix
+- Fixed: catcher
+- Updated: youporn
+- Fixed: catcher
+- Updated: pornomovies
+- Fixed: videolist
+- Fixed: catcher
+- Updated: sunporno
+- Fixed: videolist
+- Removed: mastishare
+- Removed: moviesand
+
+
+[B]Version 1.7.122[/B]
+
+- Updated: youporn.com
+- Fixed: videolist
+
+[B]Version 1.7.121[/B]
+
+- Updated: porn.com
+- Fixed: videolist
+- Updated: pornburst.xxx
+- Fixed: videolist
+- Fixed: catcher
+- Updated: pornoxo
+- Fixed: catcher
+
+[B]Version 1.7.120[/B]
+
+- Updated: motherless
+- Fixed: groups
+
+[B]Version 1.7.119[/B]
+
+- Updated: jacquietmicheltv
+- Fixed: videolist
+- Fixed: catcher
+
+[B]Version 1.7.118[/B]
+
+- Updated: extremetube
+- Fixed: catcher
+- Updated: motherless
+- Fixed: videolist
+- Fixed: catcher
+- Updated: youporn
+- Fixed: videolist
+- Fixed: catcher
+
+[B]Version 1.7.117[/B]
+
+- Updated: spankwire
+- Fixed: catcher
+- Fixed: video regex
+
 [B]Version 1.7.116[/B]
 
 - Updated: eporner

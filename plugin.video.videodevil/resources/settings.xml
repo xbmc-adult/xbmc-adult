@@ -2,7 +2,6 @@
    <setting id="hide_warning" type="bool" label="30002" default="false"/>
    <setting id="enable_debug" type="bool" label="20191" default="false"/>
    <setting type="sep"/>
-   <setting id="player_type" type="enum" lvalues="30004|30005|30006" label="30003" default="0"/>
    <setting id="video_type" type="enum" lvalues="30013|30014|30015|30016" label="30012" default="0"/>
    <setting type="sep" />
    <setting id="download" type="bool" label="30007" default="false"/>
