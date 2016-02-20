@@ -1,5 +1,5 @@
-1.0.8
- - Bump python api version
+1.0.10
+ - Fixed video url
 
 1.0.6
  - Fix handling of videos that have different bitrates in a playlist

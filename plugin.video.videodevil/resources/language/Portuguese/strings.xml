@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <string id="30000">VideoDevil</string>
+    <string id="30001">XBMC Media Center</string>
+
+    <string id="20191">Activar depuração</string>
+    <string id="30002">Desactivar aviso</string>
+    <string id="30007">Salvar vídeo</string>
+    <string id="30008">Pasta de Transferência</string>
+    <string id="30009">Pedir para fazer transferência antes de visualizar vídeo</string>
+    <string id="30010">Adicionar atalho</string>
+    <string id="30011">Remover atalho</string>
+    <string id="30012">Qualidade do Vídeo (se existirem várias disponíveis)</string>
+    <string id="30013">Perguntar-me</string>
+    <string id="30014">Baixa</string>
+    <string id="30015">Standard</string>
+    <string id="30016">Alta</string>
+    <string id="30017">Seleccionar a pasta de transferência:</string>
+
+    <string id="30050">A transferir vídeo...</string>
+    <string id="30051">Por favor aguardar.</string>
+    <string id="30052">Quer transferir este vídeo?</string>
+    <string id="30053">Transferência de vídeo falhou. A tentar visualizar o vídeo...</string>
+    <string id="30054">Quer mesmo remover este atalho?</string>
+    <string id="30055">Várias fontes disponíveis. Por favor escolha uma:</string>
+    <string id="30056">Qualidade Baixa</string>
+    <string id="30057">Qualidade Standard</string>
+    <string id="30058">Alta Qualidade</string>
+    <string id="30059">Actualizar</string>
+    <string id="30060">VideoDevil foi actualizado com sucesso</string>
+    <string id="30061">AVISO: Este plugin contém material adulto explícito.</string>
+    <string id="30062">Pode entrar se tiver pelo menos 18 anos</string>
+    <string id="30063">ou idade legal dependendo da lei do país onde vive</string>
+    <string id="30064">ou de onde acede a este conteúdo.</string>
+    <string id="30065">Sair</string>
+    <string id="30066">Entrar</string>
+
+    <string id="30100">Categorias</string>
+    <string id="30101">Subcategorias</string>
+    <string id="30102">Pesquisar</string>
+    <string id="30103">Próxima Página</string>
+    <string id="30104">Mais</string>
+    <string id="30105">Género</string>
+    <string id="30106">Actual</string>
+    <string id="30107">Artista</string>
+    <string id="30108">Vídeos</string>
+    <string id="30109">Ordenação</string>
+    <string id="30110">Sugestão</string>
+    <string id="30111">Refinar</string>
+    <string id="30112">Região</string>
+    <string id="30113">Linha Temporal</string>
+    <string id="30114">Desporto</string>
+    <string id="30115">Crianças</string>
+    <string id="30116">Música</string>
+    <string id="30117">Vídeos Relacionados</string>
+    <string id="30118">Porno estrelas</string>
+</strings>

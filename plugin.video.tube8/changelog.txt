@@ -1,6 +1,19 @@
+[B]2.1.9[/B]
+
+- Fix video listing
+
+[B]2.1.8[/B]
+
+- Fix video playing - videos no longer encrypted
+
+[B]2.1.7[/B]
+
+- Fix category listing
+- Fix video listing
+
 [B]2.1.6[/B]
 
-- Fix category listening
+- Fix category listing
 
 [B]2.1.5[/B]
 

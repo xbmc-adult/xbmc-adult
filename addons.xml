@@ -2,7 +2,7 @@
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
-       version="1.0.9"
+       version="2.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -92,7 +92,7 @@
 
 <addon id="metadata.movie.data18.content.com"
        name="Data 18 Web Content"
-       version="1.5.2"
+       version="1.6.0"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -145,7 +145,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.empflix" name="Empflix" version="2.0.4" provider-name="xbmc-adult">
+<addon id="plugin.video.empflix" name="Empflix" version="2.0.8" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -156,13 +156,13 @@
         <summary>Stream adult videos from empflix.com</summary>
         <description>Empflix.com features a variety of adult videos. This addon contains explicit adult material. You may only view this addon if you are at least 18 years of age, or at least the age of majority in the jurisdiction where you reside or from which you access this content. If you do not meet these requirements, then you do not have permission to use this addon.  All content is hosted by empflix.com.</description>
         <disclaimer>The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
-		<platform>all</platform>
+    <platform>all</platform>
     </extension>
 </addon>
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.15"
+       version="2.3.22"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -182,7 +182,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.14"
+       version="1.16"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -198,7 +198,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.6" provider-name="xbmc-adult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.9" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.76"
+  version="1.7.125"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
@@ -250,7 +250,7 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.8"
+       version="1.0.10"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -267,7 +267,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.youporngay" name="Youporn Gay" version="0.2" provider-name="xbmc-adult">
+<addon id="plugin.video.youporngay" name="Youporn Gay" version="0.3" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -281,11 +281,11 @@
     </extension>
 </addon>
 
-<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.1" provider-name="xbmc-adult">
+<addon id="repository.xbmcadult" name="XBMC-Adult Addons" version="1.0.6" provider-name="xbmc-adult">
 	<extension point="xbmc.addon.repository" name="XBMC Adult Addons">
-		<info compressed="false">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml</info>
-		<checksum>http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster/addons.xml.md5</checksum>
-		<datadir zip="true">http://github.com/xbmc-adult/xbmc-adult/raw/ghmaster</datadir>
+		<info compressed="false">http://raw.github.com/xbmc-adult/xbmc-adult/ghmaster/addons.xml</info>
+		<checksum>http://raw.github.com/xbmc-adult/xbmc-adult/ghmaster/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/xbmc-adult/xbmc-adult/ghmaster</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>XBMC Addons for Adults Only</summary>

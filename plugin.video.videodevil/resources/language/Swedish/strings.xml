@@ -9,10 +9,6 @@
   <string id="30001">XBMC Media Center</string>
   <string id="20191">Aktivera debugloggning</string>
   <string id="30002">Avaktivera ansvarsfriskrivning</string>
-  <string id="30003">Spelartyp</string>
-  <string id="30004">Auto</string>
-  <string id="30005">MPlayer</string>
-  <string id="30006">DVDPlayer</string>
   <string id="30007">Spara film</string>
   <string id="30008">Nedladdningssökväg</string>
   <string id="30009">Fråga om nedladdning innan uppspelning</string>
@@ -59,4 +55,5 @@
   <string id="30115">Barn</string>
   <string id="30116">Musik</string>
   <string id="30117">Relaterade videor</string>
+  <string id="30118">Porrstjärnor</string>
 </strings>

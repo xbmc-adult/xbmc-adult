@@ -9,7 +9,7 @@ import urllib, urllib2, re, sys, xbmcplugin, xbmcgui
 def CATEGORIES():
     addDir("Most Recent", "http://lubetube.com", 1, "")
     link = read_url('http://lubetube.com/categories')
-    match = re.compile('<h3><a href="(http://lubetube.com/search/adddate/cat/[^/]+/)" title="[^"]+">([^<]+)</a></h3>').findall(link)
+    match = re.compile('<a href="(http://lubetube.com/search/adddate/cat/[^/]+/)[^>]+>([^<]+)').findall(link)
     for url, title in match:
         url = url + "?page=1"
         addDir(title, url, 1, "")
@@ -27,16 +27,11 @@ def INDEX(url):
 
 def VIDEOLINKS(url, name):
     link = read_url(url)
-    match = re.compile('playlist_flow_player_flv.php\?vid\=[0-9]*'
-                      ).findall(link)
+    match = re.compile('video-hd" href="([^"]+)" data').findall(link)
     for url in match:
-        link = read_url('http://lubetube.com/' + url)
-        match = re.compile('url="(.*)" type').findall(link)
-        for url in match:
-            listitem = xbmcgui.ListItem(name)
-            listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
-            url = url.replace('&amp;', '&')
-            xbmc.Player().play(url, listitem)
+        listitem = xbmcgui.ListItem(name)
+        listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
+        xbmc.Player().play(url, listitem)
 
 def add_next(url):
     match = re.compile('(\d+)$').findall(url)

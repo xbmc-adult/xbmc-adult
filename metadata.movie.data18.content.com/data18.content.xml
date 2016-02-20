@@ -1,17 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2013-12-07" name="Data18Content" content="movies" language="en">
-	<CreateSearchUrl clearbuffers="no" dest="3">
-		<RegExp conditional="Google" input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
-			<!--Add film year, stored in $$2 for default by xbmc-->
-			<RegExp input="$$2" output=" (\1)" dest="4">
-				<expression clear="yes">(.+)</expression>
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1.1" date="2015-07-01" name="Data18Content" content="movies" language="en">
+	<CreateSearchUrl clearbuffers="no" dest="14">
+		<RegExp input="$INFO[search_engine]" output="$$3" dest="14">
+			<RegExp input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
+				<!--Add film year, stored in $$2 for default by xbmc-->
+				<RegExp input="$$2" output=" (\1)" dest="4">
+					<expression clear="yes">(.+)</expression>
+				</RegExp>
+			<RegExp input="$$1" output="http://www.google.com/search?q=\1+site%3Adata18.com%2Fcontent&amp;btnG=Search&amp;output=search" dest="5">
+					<expression />
+				</RegExp>
+				<expression noclean="1" />
 			</RegExp>
-			<RegExp input="$$1" output="https://www.google.com/search?q=\1+site%3Adata18.com%2Fcontent&amp;btnG=Search&amp;output=search" dest="5">
-				<expression />
-			</RegExp>
-			<expression noclean="1" />
+			<expression>Google</expression>
 		</RegExp>
-		<RegExp conditional="!Google" input="$$1" output="&lt;url&gt;http://www.data18.com/search/?k=\1&amp;b=1&amp;t=0&lt;/url&gt;" dest="3">
-			<expression noclean="1" />
+		<RegExp input="$INFO[search_engine]" output="$$3" dest="14">
+			<RegExp input="$$5" output="&lt;url&gt;\1&lt;/url&gt;" dest="3">
+				<!--Add film year, stored in $$2 for default by xbmc-->
+				<RegExp input="$$2" output=" (\1)" dest="4">
+					<expression clear="yes">(.+)</expression>
+				</RegExp>
+				<RegExp input="$$1" output="http://www.bing.com/search?q=\1+site%3Adata18.com%2Fcontent" dest="5">
+					<expression />
+				</RegExp>
+				<expression noclean="1" />
+			</RegExp>
+			<expression>Bing</expression>
+		</RegExp>
+		<RegExp input="$INFO[search_engine]" output="$$3" dest="14">
+			<RegExp input="$$1" output="&lt;url&gt;http://www.data18.com/search/?k=\1&amp;b=1&amp;t=0&lt;/url&gt;" dest="3">
+				<expression noclean="1" />
+			</RegExp>
+			<expression>Data18</expression>
 		</RegExp>
 	</CreateSearchUrl>
 	<NfoUrl dest="3">
@@ -19,18 +38,33 @@
 			<expression noclean="1">(data18.com/content/[^\.]+\.html)</expression>
 		</RegExp>
 	</NfoUrl>
-	<GetSearchResults clearbuffers="no" dest="6">
-		<RegExp conditional="Google" input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="6">
-			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
-				<expression repeat="yes" noclean="1">&lt;h3 class="r"&gt;&lt;a href="/url\?q=([^&amp;]+)&amp;(?:[^"]*)"&gt;(.+?)&lt;/a&gt;&lt;/h3&gt;</expression>
+	<GetSearchResults clearbuffers="no" dest="16">
+		<RegExp input="$INFO[search_engine]" output="$$6" dest="16">
+			<RegExp input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="6">
+				<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
+					<expression repeat="yes" noclean="1">&lt;h3 class="r"&gt;&lt;a href="/url\?q=([^&amp;]+)&amp;(?:[^&gt;]*)&gt;(.+?)&lt;/a&gt;&lt;/h3&gt;</expression>
+				</RegExp>
+				<expression noclean="1" />
 			</RegExp>
-			<expression noclean="1" />
+			<expression>Google</expression>
 		</RegExp>
-		<RegExp conditional="!Google" input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="6">
-			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.data18.com/content/\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
-				<expression repeat="yes" noclean="1">&lt;a href="http://www.data18.com/content/([^"]+)"&gt;([^&lt;]+)&lt;/a&gt;&lt;/p&gt;</expression>
+		<RegExp input="$INFO[search_engine]" output="$$6" dest="16">
+			<RegExp input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results sorted=&quot;yes&quot;&gt;\1&lt;/results&gt;" dest="6">
+				<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
+					<expression repeat="yes" noclean="1">&lt;div class=&quot;b_title&quot;&gt;&lt;h2&gt;&lt;a href=&quot;([^&quot;]*)&quot;(?:.+?)&gt;(.+?)&lt;/a&gt;&lt;/h2&gt;</expression>
+				</RegExp>
+				<expression noclean="1" />
 			</RegExp>
-			<expression noclean="1" />
+			<expression>Bing</expression>
+		</RegExp>
+		<RegExp input="$INFO[search_engine]" output="$$6" dest="16">
+			<RegExp input="$$4" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="6">
+				<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.data18.com/content/\1&lt;/url&gt;&lt;/entity&gt;" dest="4+">
+					<expression repeat="yes" noclean="1">&lt;a href="http://www.data18.com/content/([^"]+)"&gt;([^&lt;]+)&lt;/a&gt;&lt;/p&gt;</expression>
+				</RegExp>
+				<expression noclean="1" />
+			</RegExp>
+			<expression>Data18</expression>
 		</RegExp>
 	</GetSearchResults>
 	<GetDetails clearbuffers="no" dest="7">
@@ -102,11 +136,11 @@
 			<RegExp input="$$11" output="&lt;year&gt;\1&lt;/year&gt;" dest="5+">
 				<!--Year for web dls-->
 				<RegExp input="$$1" output="\1" dest="11">
-					<expression noclean="1">href="http://www.data18.com/content/date_(\d{4})[\d]+.html"</expression>
+					<expression noclean="1">Date: &lt;a href="http://www.data18.com/content/date-(\d{4})[\d]+.html"</expression>
 				</RegExp>
 				<!--year for scenes-->
 				<RegExp input="$$1" output="\1" dest="11">
-					<expression>Release date: &lt;b&gt;.+(\d{4})&lt;/b&gt;</expression>
+					<expression>Date: &lt;b&gt;.+(\d{4})&lt;/b&gt;</expression>
 				</RegExp>
 				<expression />
 			</RegExp>
@@ -119,8 +153,13 @@
 			<!--Poster thumbs-->
 			<RegExp input="$$12" output="\1" dest="5+">
 				<!--Gets photo linked by trailer. This is fallback in case there is no image gallery. This will get replaced by the following expressions if possible, because the image galleries are higher resolution.-->
+				<!-- e.g. http://www.data18.com/content/1103871 -->
 				<RegExp input="$$1" output="&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;\1&lt;/thumb&gt;" dest="12">
-					<expression noclean="1">img src="([^"]+)" width="[0-9]+" height="[0-9]+" class="noborder" alt="Play this Video" title="Play this Video"</expression>
+					<expression>img src="([^"]+)" style="[^"]+" alt="[^"]+" [^&lt;]+&lt;a [^&gt;]+title="Play this Video"</expression>
+				</RegExp>
+				<!--Gets 'Official poster' (e.g. http://www.data18.com/content/1103871) -->
+				<RegExp input="$$1" output="&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;\1&lt;/thumb&gt;" dest="12">
+					<expression noclean="1">img src="([^"]+)" alt="poster"</expression>
 				</RegExp>
 				<!--Photo Gallery Images, if they exist, will replace the trailer image. Only get the first link and assume there are 16 total images-->
 				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetPhotoFromViewer&quot;&gt;\1&lt;/url&gt;" dest="12">
@@ -137,23 +176,30 @@
 				<expression>&lt;title&gt;(.+) - data18.com&lt;/title&gt;</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;releasedate&gt;\1-\2-\3&lt;/releasedate&gt;" dest="5+">
-				<expression noclean="1">href="http://www.data18.com/content/date_(\d{4})(\d{2})(\d{2})\.html"</expression>
+				<expression noclean="1">Date: &lt;a href="http://www.data18.com/content/date-(\d{4})(\d{2})(\d{2})\.html"</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;mpaa&gt;NC-17&lt;/mpaa&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--fanart-->
 			<RegExp input="$$13" output="\1" dest="5+">
-				<!--Gets photo linked by trailer. This is fallback in case there is no image gallery. This will get replaced by the following expressions if possible, because the image galleries are higher resolution.-->
-				<RegExp input="$$1" output="&lt;fanart&gt;&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;\1&lt;/thumb&gt;&lt;/fanart&gt;" dest="13">
-					<expression>img src="([^"]+)" width="[0-9]+" height="[0-9]+" class="noborder" alt="Play this Video" title="Play this Video"</expression>
-				</RegExp>
-				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetFanartFromViewer&quot;&gt;\1&lt;/url&gt;" dest="13">
+				<!-- Images from gallery - not working (almost?) all the time -->
+				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetFanartFromViewer&quot;&gt;\1&lt;/url&gt;" dest="13+">
 					<expression>&lt;a href="(http://www.data18.com/viewer/[^/]+/01)?" rel="nofollow"&gt;</expression>
 				</RegExp>
-				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetFanartFromViewer&quot;&gt;\1&lt;/url&gt;" dest="13">
+				<RegExp input="$$1" output="&lt;url spoof=&quot;http://www.data18.com&quot; function=&quot;GetFanartFromViewer&quot;&gt;\1&lt;/url&gt;" dest="13+">
 					<expression>&lt;a href="(http://www.data18.com/viewer/[^/]+/02)?" rel="nofollow"&gt;</expression>
 				</RegExp>
+				<!-- horizontal image available without spoofing (e.g. http://www.data18.com/content/174268)-->
+				<RegExp input="$$1" output="&lt;fanart&gt;&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;http://\1/\2/\3/\4/hor.jpg&lt;/thumb&gt;&lt;/fanart&gt;" dest="13+">
+					<expression>img src="http://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg"  alt="image</expression>
+				</RegExp>
+				<!--Gets photo linked by trailer. This is fallback in case there is no image gallery. This will get replaced by the previous expressions if possible, because the image galleries are higher resolution.-->
+				<!-- e.g. http://www.data18.com/content/1103871 -->
+				<RegExp input="$$1" output="&lt;fanart&gt;&lt;thumb spoof=&quot;http://www.data18.com&quot;&gt;\1&lt;/thumb&gt;&lt;/fanart&gt;" dest="13+">
+					<expression>img src="([^"]+)" style="[^"]+" alt="[^"]+" [^&lt;]+&lt;a [^&gt;]+title="Play this Video"</expression>
+				</RegExp>
+
 				<expression noclean="1" />
 			</RegExp>
 			<!--Actors with new format-->
@@ -192,7 +238,7 @@
 				<expression noclean="1">&lt;a href="http://www.data18.com/[^"]+"&gt;\n&lt;img src="http://img.data18.com/images/no_prev_120b.gif" class="noborder" alt="([^"]+)"</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;thumb&gt;\1/120/\2&lt;/thumb&gt;&lt;/actor&gt;" dest="5">
-				<expression noclean="1,2,3">&lt;img src="(http://img.data18.com/images/stars)/120/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
+				<expression noclean="1,2,3">&lt;img src="(http://img.data18.com/images/stars)/pic4/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>

@@ -16,15 +16,13 @@ opener = urllib2.build_opener(cookie_handler)
 
 
 def CATEGORIES():
-    link = openURL('http://www.empflix.com/browse.php')
-    match = re.compile('(?:<li><a href=")'
-                       '(?:http://www.empflix.com/categories/watched-)'
-                       '(.*(?=.html)).html">(.*)(?=</a>)').findall(link)
+    link = openURL('http://www.empflix.com/categories.php')
+    match = re.compile('<li><a href="//www.empflix.com/categories/'
+                       '([^"]+)">([^<]+)').findall(link)
     addDir('All', 'http://www.empflix.com/browse.php', 1, '', 1)
     for channame, name in match:
         addDir(name,
-               ('http://www.empflix.com/categories/watched-' + channame +
-                '.html'),
+               ('http://www.empflix.com/categories/' + channame),
                2, '', 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -48,13 +46,14 @@ def SORTMETHOD(url):
 
 def VIDEOLIST(url, page):
     link = openURL(url + '&page=' + str(page))
-    match = re.compile('(?:<a href=")'
-                       '(http://www.empflix.com/videos/.*(?=.html).html)"'
-                       '  title="(.*)(?=">)">'
-                       '<img src="/images/blank.gif" data-src="(.*)'
-                       '(?=" alt=)').findall(link)
-    for videourl, name, thumb in match:
-        addLink(name, videourl + '?', 3, thumb.strip())
+    match = re.compile('<a href="([^"]*.html)"[^>]+title="[^"]*">.+?'
+                       '<h2>([^<]+)</h2>.+?<span class="duringTime">([\d:]+)'
+                       '.+?<img src="([^"]+)"', re.DOTALL).findall(link)
+    for videourl, name, duration, thumb in match:
+        addLink(name + ' (' + duration + ')',
+                'http:' + videourl + '?',
+                3,
+                'http:'+thumb.strip())
     if (len(match) == 24):
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -64,10 +63,10 @@ def PLAYVIDEO(url):
     link = openURL(url)
     match = re.compile('name="config" value="([^"]+)"').findall(link)
     for configurl in match:
-        link = openURL(configurl)
+        link = openURL('http:' + configurl)
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(link)
-        for videourl in match2:
-            xbmc.Player().play(videourl)
+        if match2:
+            xbmc.Player().play('http:' + match2[-1])
 
 
 def get_params():
