@@ -180,6 +180,34 @@
     </extension>
 </addon>
 
+<addon id="plugin.video.freehardcorekink"
+       name="Free-Hardcore"
+       version="1.0.3"
+       provider-name="padalton">
+    <requires>
+        <import addon="xbmc.python" version="2.20.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Free-Hardcore Videos</summary>
+        <description lang="en">
+            Videos from the Website www.free-hardcore.com.
+            Finest BDSM/Fetish Hardcore Samples in the Web!
+            If you like it, enjoy full Vids: http://bit.ly/1Tx7E2j
+        </description>
+        <disclaimer lang="en">Videos are provided by www.kink.com.</disclaimer>
+        <language></language>
+        <platform>all</platform>
+        <license></license>
+        <forum></forum>
+        <website></website>
+        <email></email>
+        <source></source>
+    </extension>
+</addon>
+
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
        version="1.16"
