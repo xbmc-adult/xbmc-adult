@@ -2,6 +2,8 @@
 
 - Updated: gfvideos
 - Fix: video list
+- Updated: motherless
+- Fix: video list
 
 
 [B]Version 1.7.127[/B]
