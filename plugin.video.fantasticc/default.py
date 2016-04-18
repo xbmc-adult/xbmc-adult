@@ -515,11 +515,8 @@ def GET_LINK(url, collections, url2):
         match = re.compile('source='
                            '"(http://www.tube8.com/[^"]+)"').findall(html)
         html = get_html(match[0])
-        match = re.compile('"video_url":"([^"]+)"').findall(html)
+        match = re.compile('page_params.videoUrlJS = "([^"]+)').findall(html)
         fetchurl = urllib2.unquote(match[0])
-        match = re.compile('"video_title":"([^"]+)"').findall(html)
-        title = urllib2.unquote(match[0])
-        fetchurl = sesame.decrypt(fetchurl, title, 256)
         xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'you_porn' in url2:
