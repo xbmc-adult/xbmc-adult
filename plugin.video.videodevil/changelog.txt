@@ -1,3 +1,10 @@
+[B]Version 1.7.129[/B]
+
+- Updated: motherless
+- Fix: video list
+- Updated: pornomovies
+- Fix: catcher
+
 [B]Version 1.7.128[/B]
 
 - Updated: gfvideos
