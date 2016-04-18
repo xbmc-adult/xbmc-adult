@@ -199,7 +199,7 @@ def CATEGORIES():
     # main_url as a dummy
     addDir('Search', main_url, 5, default_image)
 
-    print 'pluginhandle %s' % pluginhandle
+    xbmc.log('pluginhandle %s' % pluginhandle)
     xbmcplugin.endOfDirectory(pluginhandle)
 
 
@@ -230,7 +230,7 @@ def SEARCH(url):
 
             # create the search url
             search_url = main_url + 'search/' + search + '/videos/'
-            print 'SEARCH: ', search_url
+            xbmc.log('SEARCH: ', search_url)
 
             # get the source code of first page
             first_page = get_html(search_url)
@@ -245,7 +245,7 @@ def SEARCH(url):
                 # scrape to get the number of all the results pages (this is
                 # listed on the first page)
                 match = re.compile('/videos/page_(.+?)">').findall(first_page)
-                print 'Number of pages:', match
+                xbmc.log('Number of pages:', match)
 
                 # if there weren't any multiple pages of search results
                 if not match:
@@ -315,7 +315,7 @@ def INDEX(url):
             vid_id = string.split(gurl, '/')[-3]
             realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
             mode = 4
-            print 'realurl %s' % realurl
+            xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
         html = get_html(url)
         match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\)'
@@ -329,7 +329,7 @@ def INDEX(url):
                 fixedNext = 'http://fantasti.cc/ajax/pager.php?page=%s&pid=%s'\
                             '&div=collection_%s&uid=14657' % \
                             (page, vid_id, vid_id)
-                print 'fixedNext %s' % fixedNext
+                xbmc.log('fixedNext %s' % fixedNext)
             addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
 
@@ -364,13 +364,13 @@ def addSupportedLinks(gurl, name, thumbnail):
 
 
 def INDEXCOLLECT(url):   # Index Collections Pages
-    print 'URL Loading: %s' % url
+    xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
     match = re.compile('<div style="font-size:24px; line-height:30px; ">'
                        '<a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>'
                        '(.+?)</div>', re.DOTALL).findall(html)
     for gurl, name, chtml, description in match:
-        print 'Name %s' % name
+        xbmc.log('Name %s' % name)
         realurl = 'http://fantasti.cc%s' % gurl
         name = unescape(name)
         mode = 1
@@ -394,19 +394,19 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         mode = 2
         next_match = string.split(next_match, '"')[-1]
         fixedNext = 'http://fantasti.cc%s' % next_match
-        print 'FixedNext: %s' % fixedNext
+        xbmc.log('FixedNext: %s' % fixedNext)
         addDir('Next Page', fixedNext, mode, default_image)
 
     xbmcplugin.endOfDirectory(pluginhandle)
 
 
 def PLAY(url, topthumbnail):
-    print 'Play URL: %s' % url
+    xbmc.log('Play URL: %s' % url)
     if 'id=' in url:
         realurl = GET_LINK(url, 1 ,topthumbnail)
     else:
         realurl = GET_LINK(url, 0 ,topthumbnail)
-    print 'Real url: %s' % realurl
+    xbmc.log('Real url: %s' % realurl)
     if not realurl:
         Notify('Failure', 'Try another video', '4000', default_image)
 
@@ -416,7 +416,7 @@ def PLAY(url, topthumbnail):
 
 def GET_LINK(url, collections, url2):
 # Get the real video link and feed it into XBMC
-    print 'GET_LINK URL: %s' % url
+    xbmc.log('GET_LINK URL: %s' % url)
     html = get_html(url)
     if collections == 1:   # Make sure we get a url we can parse
         match = re.compile('<link rel="canonical" href="(.+?)" />'
@@ -429,7 +429,7 @@ def GET_LINK(url, collections, url2):
         html = get_html(match[0])
         match = re.compile('flv_url=(.+?)&amp').findall(html)
         fetchurl = urllib.unquote(match[0])
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'pornhub' in url2:
         match = re.compile('source="([^"]+)').findall(html)
@@ -439,7 +439,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('"video_title":"([^"]+)"').findall(html)
         title = urllib.unquote_plus(match[0])
         fetchurl = sesame.decrypt(fetchurl, title, 256)
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'empflix' in url2:
         match = re.compile('<a style="color:#BBB;" href="([^"]+)"'
@@ -454,7 +454,7 @@ def GET_LINK(url, collections, url2):
         html = get_html(linkurl)
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(html)
         fetchurl = match2[0]
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'tnaflix' in url2:
         match = re.compile('iframe src="(http://player[^"]+)').findall(html)
@@ -468,14 +468,14 @@ def GET_LINK(url, collections, url2):
             match = re.compile('<videoLink>([^<]*)').findall(html)
         for each in match:
             fetchurl = each
-            print 'fetchurl: %s' % fetchurl
+            xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'xhamster' in url2:
         match = re.compile('http://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
         match = re.compile('file: \'([^\']+)\'').findall(html)
         fetchurl = match[0]
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'hardsextube' in url2:
         match = re.compile(
@@ -484,7 +484,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('href="(.+?)" .*playVideoLink').findall(html)
         fetchurl = match[0]
         fetchurl = fetchurl.replace(' ', '+')
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'xtube' in url2:
         match = re.compile('(http://www.xtube.com/.+?)"').findall(html)
@@ -492,7 +492,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('videoMp4 = "(.+?)"').findall(html)
         for each in match:
             fetchurl = each.replace('\\', '')
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'deviantclip' in url2:
         match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank"'
@@ -509,7 +509,7 @@ def GET_LINK(url, collections, url2):
         html = get_html(match[0])
         match = re.compile('p=([^&]+)').findall(html)
         fetchurl = urllib.unquote(match[-1]) # get highest quality
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'tube8' in url2:
         match = re.compile('source='
@@ -520,7 +520,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('"video_title":"([^"]+)"').findall(html)
         title = urllib2.unquote(match[0])
         fetchurl = sesame.decrypt(fetchurl, title, 256)
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'you_porn' in url2:
         match = re.compile('href="(http://www.youporn.com/watch/[^"]+)"'
@@ -532,7 +532,7 @@ def GET_LINK(url, collections, url2):
                           ).findall(html)
         for each in match:
             fetchurl = each.replace('&amp;', '&')
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'madthumbs' in url2:
         match = re.compile('href="(http://www.madthumbs.com/[^"]+)"'
@@ -543,13 +543,13 @@ def GET_LINK(url, collections, url2):
         match = re.compile('<source src="([^"]+mp4[^"]+)"').findall(html)
         for each in match:
             fetchurl = each.replace('&amp;', '&')
-        print 'fetchurl: %s' % fetchurl
+        xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     else:
         #Clipnabber
         #get the name of the resource
         r = re.compile('permalink/(.*?)/').findall(url)[0]
-        print 'Unknown source (%s). Trying clipnabber' % r
+        xbmc.log('Unknown source (%s). Trying clipnabber' % r)
 
         #get the link
         try:
@@ -561,7 +561,7 @@ def GET_LINK(url, collections, url2):
             html = get_html('http://clipnabber.com/gethint.php'
                             '?mode=1&sid=%s&url=%s' % (kid, urllib.quote(gurl)))
             fetchurl = re.compile("<a href='(.*?)'").findall(html)[0]
-            print 'Fetchurl: %s' % fetchurl
+            xbmc.log('Fetchurl: %s' % fetchurl)
         except:
             fetchurl = None
         return fetchurl
@@ -643,28 +643,28 @@ try:
 except:
     pass
 
-print 'Mode: ' + str(topmode)
-print 'URL: ' + str(topurl)
-print 'Name: ' + str(topname)
+xbmc.log('Mode: ' + str(topmode))
+xbmc.log('URL: ' + str(topurl))
+xbmc.log('Name: ' + str(topname))
 
 if topmode == None:
-    print 'Generate Main Menu'
+    xbmc.log('Generate Main Menu')
     CATEGORIES()
 elif topmode == 1:
-    print 'Indexing Videos'
+    xbmc.log('Indexing Videos')
     INDEX(topurl)
 elif topmode == 2:
-    print 'Indexing Collections'
+    xbmc.log('Indexing Collections')
     INDEXCOLLECT(topurl)
 elif topmode == 4:
-    print 'Play Video'
+    xbmc.log('Play Video')
     PLAY(topurl,topthumbnail)
 elif topmode == 5:
-    print 'Category: Search'
+    xbmc.log('Category: Search')
     SEARCH(topurl)
 
 elif topmode == 6:
-    print 'Category: SEARCH_RESULTS'
+    xbmc.log('Category: SEARCH_RESULTS')
     SEARCH_RESULTS(topurl)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
