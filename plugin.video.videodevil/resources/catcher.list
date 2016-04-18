@@ -44,11 +44,6 @@ url=%s
 build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
-title=m.hardsextube.com
-target=<video.+?src="([^"]+)"
-url=%s
-quality=standard
-########################################################
 title=eporner.com
 target=/config7/(\d+)/
 url=%s
