@@ -223,10 +223,7 @@ def SEARCH(url):
             # (ie replace ' ' with '+' etc)
             # normally you would use: search = urllib.quoteplus(search)
             # but fantasti's search urls are a bit weird
-            search = re.sub('  ', '+', search) # this one is just in case the
-                                               # user accidently enters two
-                                               # spaces
-            search = re.sub(' ', '+', search)
+            search = re.sub(' +', '+', search)
 
             # create the search url
             search_url = main_url + 'search/' + search + '/videos/'
