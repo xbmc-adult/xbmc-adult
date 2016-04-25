@@ -1,3 +1,7 @@
+[B]2.1.10[/B]
+
+- Get rid of "CreateLoader - unsupported protocol(plugin)" warnings
+
 [B]2.1.9[/B]
 
 - Fix video listing
