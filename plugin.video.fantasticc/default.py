@@ -230,7 +230,7 @@ def SEARCH(url):
 
             # create the search url
             search_url = main_url + 'search/' + search + '/videos/'
-            xbmc.log('SEARCH: ', search_url)
+            xbmc.log('SEARCH:%s' % search_url)
 
             # get the source code of first page
             first_page = get_html(search_url)
@@ -245,7 +245,7 @@ def SEARCH(url):
                 # scrape to get the number of all the results pages (this is
                 # listed on the first page)
                 match = re.compile('/videos/page_(.+?)">').findall(first_page)
-                xbmc.log('Number of pages:', match)
+                xbmc.log('Number of pages:%s' % match)
 
                 # if there weren't any multiple pages of search results
                 if not match:
