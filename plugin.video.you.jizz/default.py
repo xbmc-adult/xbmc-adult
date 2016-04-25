@@ -115,7 +115,6 @@ def addDownLink(name,url,mode,iconimage):
         ok = True
         liz = xbmcgui.ListItem(name, iconImage="DefaultVideo.png",
                                thumbnailImage=iconimage)
-        liz.setInfo(type="Video", infoLabels={ "Title": name })
         ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),
                                          url=u, listitem=liz, isFolder=False)
         return ok
