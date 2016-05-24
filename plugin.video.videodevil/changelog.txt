@@ -1,3 +1,8 @@
+[B]Version 1.7.130[/B]
+
+- Updated: youporn
+- Fix: video list
+
 [B]Version 1.7.129[/B]
 
 - Updated: motherless
