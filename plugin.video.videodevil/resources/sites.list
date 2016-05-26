@@ -155,13 +155,6 @@ director=VideoDevil
 icon=video.devil.image|tukif.png
 url=tukif.com.cfg
 ########################################################
-title=Jacquie et Michel TV
-type=rss
-genre=JacquieEtMichelTV
-director=VideoDevil
-icon=video.devil.image|jmtv.png
-url=jacquieetmicheltv.net.cfg
-########################################################
 title=yuvutu
 type=rss
 genre=yuvutu

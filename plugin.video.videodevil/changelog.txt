@@ -2,6 +2,7 @@
 
 - Updated: faapy
 - Fix: video list
+- Deleted: jacquietmicheltv
 
 [B]Version 1.7.130[/B]
 
