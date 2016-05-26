@@ -366,9 +366,12 @@ url=%s
 quality=standard
 ########################################################
 title=sexu.com
-target="url":"([^"]+)
+target="file":"([^"]+)
 url=%s
 quality=standard
+target="file":"([^"]+720p-x.mp4)
+url=%s
+quality=high
 ########################################################
 title=vporn.com
 target=flashvars.videoUrlMedium2 = "([^"]+)";

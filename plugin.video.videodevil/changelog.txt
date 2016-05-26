@@ -3,6 +3,9 @@
 - Updated: faapy
 - Fix: video list
 - Deleted: jacquietmicheltv
+- Updated: sexu
+- Fix: video list
+- Fix: catcher
 
 [B]Version 1.7.130[/B]
 
