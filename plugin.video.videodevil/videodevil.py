@@ -1401,13 +1401,7 @@ class Main:
         if self.pDialog.iscanceled():
             raise KeyboardInterrupt
 
-    def TargetFormatter(self, url, cfg_file): # Site specific target url handling
-        if 'hardsextube' in url:
-            url = url.replace('_@?_', '&')
-        if '4tube.com' in url:
-            url = url.replace('\\', '')
-        if 'v.sexu.com' in url:
-            url = url.replace('\/', '/')
+    def TargetFormatter(self, url, cfg_file): #Site specific target url handling
         if 'extremetube' in url:
             url = url.replace('\/', '/')
         return url
