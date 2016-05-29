@@ -1,36 +1,41 @@
+[B]Version 1.7.132[/B]
+
+- Updated: tukif
+- Fixed: video play 
+
 [B]Version 1.7.131[/B]
 
 - Updated: faapy
-- Fix: video list
+- Fixed: video list
 - Deleted: jacquietmicheltv
 - Updated: sexu
-- Fix: video list
-- Fix: catcher
+- Fixed: video list
+- Fixed: catcher
 
 [B]Version 1.7.130[/B]
 
 - Updated: youporn
-- Fix: video list
+- Fixed: video list
 
 [B]Version 1.7.129[/B]
 
 - Updated: motherless
-- Fix: video list
+- Fixed: video list
 - Updated: pornomovies
-- Fix: catcher
+- Fixed: catcher
 
 [B]Version 1.7.128[/B]
 
 - Updated: gfvideos
-- Fix: video list
+- Fixed: video list
 - Updated: motherless
-- Fix: video list
+- Fixed: video list
 
 
 [B]Version 1.7.127[/B]
 
 - Updated: eporner
-- Fix: catcher
+- Fixed: catcher
 
 
 [B]Version 1.7.126[/B]
@@ -42,7 +47,7 @@
 [B]Version 1.7.125[/B]
 
 - Updated: xhamster.com
-- Fix: categories
+- Fixed: categories
 
 
 [B]Version 1.7.124[/B]

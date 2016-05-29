@@ -1402,6 +1402,8 @@ class Main:
             raise KeyboardInterrupt
 
     def TargetFormatter(self, url, cfg_file): #Site specific target url handling
+        if 'tukif' in url:
+            url = url + '|Referer=http://www.tukif.com'
         if 'extremetube' in url:
             url = url.replace('\/', '/')
         return url
