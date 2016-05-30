@@ -504,8 +504,8 @@ def GET_LINK(url, collections, url2):
     elif 'redtube' in url2:
         match = re.compile('(http://www.redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
-        match = re.compile('p=([^&]+)').findall(html)
-        fetchurl = urllib.unquote(match[-1]) # get highest quality
+        match = re.compile('(http:[^"]+\.mp4[^"]+)').findall(html)
+        fetchurl = urllib.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
         return fetchurl
     elif 'tube8' in url2:
