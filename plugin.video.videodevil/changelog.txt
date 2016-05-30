@@ -4,6 +4,8 @@
 - Fixed: video list
 - Fixed: catcher
 - Fixed: categories
+- Updated: xhamster
+- Fixed: video list
 
 [B]Version 1.7.132[/B]
 
