@@ -1,3 +1,10 @@
+[B]Version 1.7.133[/B]
+
+- Updated: tnaflix
+- Fixed: video list
+- Fixed: catcher
+- Fixed: categories
+
 [B]Version 1.7.132[/B]
 
 - Updated: tukif
