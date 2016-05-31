@@ -8,7 +8,6 @@ import urllib, urllib2, htmllib
 import re, string
 import os
 import sys
-import sesame
 import xbmcplugin, xbmcaddon, xbmcgui, xbmc
 
 #addon name
@@ -419,11 +418,8 @@ def GET_LINK(url, collections, url2):
     elif 'pornhub' in url2:
         match = re.compile('source="([^"]+)').findall(html)
         html = get_html(match[0])
-        match = re.compile('"quality_[^"]+":"([^"]+)"').findall(html)
-        fetchurl = urllib2.unquote(match[-1])
-        match = re.compile('"video_title":"([^"]+)"').findall(html)
-        title = urllib.unquote_plus(match[0])
-        fetchurl = sesame.decrypt(fetchurl, title, 256)
+        match = re.compile('quality_[^=]+= \'([^\']+)').findall(html)
+        fetchurl = urllib2.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'empflix' in url2:
         match = re.compile('<a style="color:#BBB;" href="([^"]+)"'
