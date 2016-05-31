@@ -140,9 +140,6 @@ def CATEGORIES():
     addDir('Collections Today - Most Viewed',
            main_url+'videos/collections/most_viewed/today/',
            mode, default_image)
-    addDir('Collections Today - Top Rated',
-           main_url+'videos/collections/top_rated/today/',
-           mode, default_image)
     addDir('Collections Today - Most Discussed',
            main_url+'videos/collections/most_discussed/today/',
            mode, default_image)
