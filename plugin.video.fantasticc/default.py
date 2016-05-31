@@ -443,7 +443,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('flashvars\.config\s*=\s*escape\("([^"]*)"\);'
                           ).findall(html)
         for each in match:
-            html = get_html(each)
+            html = get_html('http:' + each)
             match = re.compile('<videoLink>([^<]*)').findall(html)
         for each in match:
             fetchurl = each
