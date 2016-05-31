@@ -339,13 +339,11 @@ def INDEX(url):
             name = '%s  (%s min)' % (name, duration.rstrip())
             addSupportedLinks(gurl, name, thumbnail)
         html = get_html(url)
-        match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
+        match = re.compile('<a href="([^"]+)">next &gt;&gt;</a></span></div>'
                           ).findall(html)
-        for next_match in match:
-            mode = 1
-            next_match = string.split(next_match, '"')[-1]
-            fixedNext = 'http://fantasti.cc%s' % next_match
-            addDir('Next Page', fixedNext, mode, default_image)
+        mode = 1
+        fixedNext = 'http://fantasti.cc%s' % match[0]
+        addDir('Next Page', fixedNext, mode, default_image)
         xbmcplugin.endOfDirectory(pluginhandle)
 
 
