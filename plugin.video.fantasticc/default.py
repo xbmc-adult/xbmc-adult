@@ -314,7 +314,6 @@ def INDEX(url):
             mode = 4
             xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
-        html = get_html(url)
         match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\)'
                            ';return false;" href="#">next').findall(html)
         if len(match) >= 1:
@@ -338,7 +337,6 @@ def INDEX(url):
         for gurl, thumbnail, name, duration in match:
             name = '%s  (%s min)' % (name, duration.rstrip())
             addSupportedLinks(gurl, name, thumbnail)
-        html = get_html(url)
         match = re.compile('<a href="([^"]+)">next &gt;&gt;</a></span></div>'
                           ).findall(html)
         mode = 1
