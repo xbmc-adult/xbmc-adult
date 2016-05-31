@@ -348,9 +348,8 @@ def addSupportedLinks(gurl, name, thumbnail):
             realurl = 'http://fantasti.cc%s' % gurl
             mode = 4
             addLink(name, realurl, mode, thumbnail)
-            break
-        else:
-            pass
+            return
+    xbmc.log('Unsupported site %s' % thumbnail)
 
 
 def INDEXCOLLECT(url):   # Index Collections Pages
