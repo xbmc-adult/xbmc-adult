@@ -1,3 +1,8 @@
+[B]Version 1.7.134[/B]
+
+- Updated: vporn
+- Fixed: search
+
 [B]Version 1.7.133[/B]
 
 - Updated: tnaflix
