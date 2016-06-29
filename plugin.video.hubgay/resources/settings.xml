@@ -4,5 +4,6 @@
 		<setting id="lastsearch" label="Last Search" values="" default="" type="text"  visible="true"  />
 		<setting id="sortby" label="Sort Method" values="newest|views|mostviewed|rating|favorites|comments|votes|longest|featured" default="newest" type="labelenum" visible="true" />
         <setting id="viewmode" label="Set View $INFO[Container.Viewmode]" values="500" default="500" type="number" visible="true" />
+		<setting id="downloadpath" label="Download Path" values="" default="" type="folder"  visible="true"  />
 	</category>
 </settings>

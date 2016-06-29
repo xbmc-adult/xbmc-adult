@@ -1,2 +1,0 @@
-v 0.0.1
-- First Version attempting to use the HubTraffic affiliate API to present content from the PornHub network of sites.
