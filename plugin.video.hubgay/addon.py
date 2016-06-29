@@ -696,14 +696,6 @@ def resolver():
         url = plugin.keyboard(default='', heading='Video Page URL')
         if url != "":
             litems.append(play(title='FlashX', video='DefaultFolder.png', url=url))
-        #resolved = urlresolver.resolve(url)
-        #if resolved is None or resolved == False or resolved == '':
-        #    resolved = urlresolver.HostedMediaFile(url)
-        #uname = url.replace('http://', '').partition('/')[0]
-        #item = dict(label=uname, icon='DefaultFolder.png', thumb='DefaultFolder.png', path=resolved, is_playable=True)
-        #item.setdefault(item.keys()[0])
-        #litems.append(item)
-        #xbmc.log("RESOLVED {0}\n{1}".format(url, resolved))
     except:
         pass
     return litems
@@ -737,8 +729,8 @@ def play(title, video, url):
             return plugin.set_resolved_url(plugin.play_video(vli))
         else:
             vidhtml = urllib2.urlopen(url).read()
-            #matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)
-            matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.DOTALL).findall(vidhtml)
+            matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.I).findall(vidhtml)
+            #matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.DOTALL).findall(vidhtml)
             if matches is not None:
                 vidurl = matches[0]
                 vli = ListItem(label=title, label2=url, icon=video, thumbnail=video, path=vidurl)
@@ -746,8 +738,8 @@ def play(title, video, url):
                 vli.thumbnail = video
                 vli.icon = video
             else:
-                #matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)
-                matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.DOTALL).findall(vidhtml)
+                matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.I).findall(vidhtml)
+                #matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.DOTALL).findall(vidhtml)
                 if matches is not None:
                     vidurl = matches[0]
                     vli = ListItem(label=title, label2=url, icon=video, thumbnail=video, path=vidurl)
@@ -760,9 +752,10 @@ def play(title, video, url):
         if vli is not None:
             #vli.add_context_menu_items([('Download', 'RunPlugin({0})'.format(plugin.url_for(download, url=vli.path)),)])
             #return plugin.set_resolved_url(plugin.play_video(vli))
-            plugin.set_resolved_url(vli.path)
-            plugin.play_video(vli)
-            # return plugin.play_video(vli)
+            plugin.set_resolved_url(vli)
+            #xbmc.Player().play(vli)
+            #plugin.play_video(vli)
+            return plugin.play_video(vli)
     except:
         pass
 
@@ -777,11 +770,11 @@ def download(name, url):
             resolved = resolver
         if resolved is None:
             vidhtml = urllib2.urlopen(url).read()
-            matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.DOTALL).findall(vidhtml)
+            matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)
             if matches is not None:
                 resolved = matches[0]
             else:
-                matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.DOTALL).findall(vidhtml)
+                matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)
                 if matches is not None:
                     resolved = matches[0]
                 else:
