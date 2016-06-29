@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.hubgay" name="HubGAY" version="0.0.2" provider-name="kodi-repo-gaymods">
+<addon id="plugin.video.hubgay" name="HubGAY" version="0.1.0" provider-name="kodi-repo-gaymods">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
-        <import addon="script.module.kodiswift" version="0.0.1+"/>
+        <import addon="script.module.kodiswift"/>
+        <import addon="script.module.urlresolver"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>video</provides>
@@ -10,12 +11,15 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <language>en</language>
-        <summary>[COLOR red]GAY or STRAIGHT XXX[/COLOR] Porn from Hub Traffic sites</summary>
-        <description>Settings allows specifying STRAIGHT content but defaults to GAY content. Unlike other addon's this uses the Hub Traffic JSON API's to retrieve video's from the Porn Hub network of sites: [COLOR yellow]PornHub[/COLOR], [COLOR grey]Spankwire[/COLOR], [COLOR green]Tube8[/COLOR], [COLOR blue]GayTube[/COLOR], [COLOR orange]XTube[/COLOR], [COLOR red]RedTube[/COLOR], and [COLOR purple]YouPorn[/COLOR]. The API doesn't return a direct link to the video file so this does have to scrape the video's page to attempt to find the direct MP4/FLV to play.
-            [COLOR red][B]WARNING:[/B] Only for adults[/COLOR]
-            [B]VERSION 0.0.2[/B]: July 1 2016 - TODO: Global Search accross all API's - Categorys List for each Site
-            [B]Requires Script.Module.Kodiswift[/B] (https://github.com/Sinap/kodiswift) zip available from:
-            https://github.com/moedje/kodiswift/releases/download/0.0.2/script.module.kodiswift-0.0.2.zip
+        <summary>[COLOR red]GAY or STRAIGHT XXX[/COLOR] Porn from Hub Traffic sites and GayPower</summary>
+        <description>STRAIGHT or GAY content filter in Settings default is GAY content. Unlike other addon's this uses
+            the Hub Traffic JSON API's to retrieve video's from the Porn Hub network of sites: [COLOR
+            yellow]PornHub[/COLOR], [COLOR grey]Spankwire[/COLOR], [COLOR green]Tube8[/COLOR], [COLOR
+            blue]GayTube[/COLOR], [COLOR orange]XTube[/COLOR], [COLOR red]RedTube[/COLOR], and [COLOR
+            purple]YouPorn[/COLOR]. Also now included GayPower.org scraping of full length porn from FlashX. [COLOR
+            red][B]WARNING:[/B] Only for adults[/COLOR]
+            [B]VERSION 0.1.0[/B]: July 1 2016 - TODO: Global Search accross all API's - Categorys List for each Site
+            [B]Requires Script.Module.urlresolver and Script.Module.Kodiswift[/B] (https://github.com/Sinap/kodiswift)
         </description>
         <disclaimer>ADULTS ONLY - GAY and STRAIGHT XXX CONTENT
         </disclaimer>

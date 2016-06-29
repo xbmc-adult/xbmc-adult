@@ -308,6 +308,7 @@ def index():
     """
     litems = []
     # litems = rootItems()
+    igayp = __imgsearch__.replace('search.', 'fgaypower.')
     igay = __imgsearch__.replace('search.', 'fgaytube.')
     iph = __imgsearch__.replace('search.', 'fpornhub.')
     irt = __imgsearch__.replace('search.', 'fredtube.')
@@ -326,6 +327,10 @@ def index():
     DOSTR8 = plugin.get_setting(key='dostr8')
     if not (DOSTR8 == True or DOSTR8 == 'true'):
         # IF the STR8 Setting is turned on no point in including the GAYTUBE site as it's gay specific content only
+        item = {'label': 'GayPower (FULL LENGTH)', 'icon': igayp, 'thumb': igayp,
+                'path': plugin.url_for(gaypower, page=1)}
+        item.setdefault(item.keys()[0])
+        litems.append(item)
         item = {'label': 'Gaytube', 'icon': igay, 'thumb': igay, 'path': pgay}
         litems.append(item)
     item = {'label': 'Pornhub', 'icon': iph,'thumb': iph, 'path': pph}
@@ -345,6 +350,72 @@ def index():
         li.setdefault(li.keys()[0])
         allitems.append(li)
     litems = sorted(allitems, key=lambda allitems: allitems['label'])
+    return litems
+
+
+@plugin.route('/gaypower/<page>')
+def gaypower(page=1):
+    boardurl = 'http://gaypower.org/index.php?page=Board&boardID=59&pageNo='+page
+    threadurl = 'http://gaypower.org/index.php?page=Thread&postID={0}'
+    __imgnext__ = __imgsearch__.replace('search.png', 'next.png')
+    page = int(page) + 1
+    npath = plugin.url_for(gaypower, page=page)
+    itemnext = {'label': 'Next --> {0}'.format(page), 'path': npath, 'icon': __imgnext__, 'thumb': __imgnext__}
+    itemnext.setdefault(itemnext.keys()[0])
+    bhtml = ''
+    for p in range(1,4):
+        boardurl = "http://gaypower.org/index.php?page=Board&boardID=59&pageNo={0}".format(p)
+        bhtml += urllib2.urlopen(boardurl).read()
+    # bhtml = urllib2.urlopen(boardurl).read()
+    recol = 'class="columnTopic" title="(.+?)".+?<a href="(.+?)">(.+?)</a>'
+    reflashx = re.compile('(http://www.flashx.tv\/[^\"\s]*).')
+    rethumb = re.compile('(http.+jpg)[\s\S]')
+    vids = re.compile(recol, re.S).findall(bhtml)
+    litems = []
+    allitems = []
+    thumb = 'DefaultFolder.png'
+    if len(vids) > 0:
+        try:
+            for img, link, title in vids:
+                if img.find('flashx.tv') != -1:
+                    vurl = reflashx.findall(img)
+                    imgmatch = rethumb.findall(img)
+                    if len(imgmatch) > 0: thumb = imgmatch.pop()
+                    else: thumb = 'DefaultFolder.png'
+                    if len(vurl) > 0:
+                        try:
+                            vidurl = vurl[0]
+                            vidurl = vidurl.replace('/embed-', '/')
+                            vpath = plugin.url_for(play, title=title, video=thumb, url=vidurl)
+                            item = dict(label=title, label2=link, icon=thumb, thumb=thumb, path=vpath)
+                            item.setdefault(item.keys()[0])
+                            allitems.append(item)
+                        except:
+                            xbmc.log("Error Resolving URL for Flashx ListItem")
+            litems = sorted(allitems, key=lambda allitems: allitems['label'])
+        except:
+            xbmc.log("Problem converting page to listitems")
+    # litems.append(itemnext)
+    # No Next page as only 4 pages of results so I load them all at the same time and sort them and list them
+    return litems
+
+
+@plugin.route('/resolver')
+def resolver():
+    litems = []
+    try:
+        import urlresolver
+        url = plugin.keyboard(default='', heading='Video Page URL')
+        resolved = urlresolver.resolve(url)
+        if resolved is None or resolved == False or resolved == '':
+            resolved = urlresolver.HostedMediaFile(url)
+        uname = url.replace('http://', '').partition('/')[0]
+        item = dict(label=uname, icon='DefaultFolder.png', thumb='DefaultFolder.png', path=resolved, is_playable=True)
+        item.setdefault(item.keys()[0])
+        litems.append(item)
+        xbmc.log("RESOLVED {0}\n{1}".format(url, resolved))
+    except:
+        pass
     return litems
 
 
@@ -517,7 +588,7 @@ def site(sitename, section, url):
     return litems
 
 
-@plugin.route('/play/<title>/<video>/<url>/')
+@plugin.route('/play/<title>/<video>/<url>')
 def play(title, video, url):
     """
     Play attempts to scrape the video's page and find the actual video file to play. This is still buggy but seems to work on
@@ -528,25 +599,44 @@ def play(title, video, url):
     :param url: URL of the embed/video page to scrape for the real playable video file
     :return: ListItem of video with path = scraped url of the MP4/Video file hopefully
     """
+    import urlresolver
     resolved = None
     mediaurl = None
-    vidhtml = urllib2.urlopen(url).read()
+    vidhtml = ''
     vidurl = ''
     vli = None
     try:
-        matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)[0]
-        if matches is not None:
-            vidurl = matches
-            xbmc.log("MATCH MP4 = {0}".format(vidurl))
-            vli = ListItem(label=title, label2=url, icon=video, thumbnail=video, path=vidurl)
+        if url.find('flashx') != -1:
+            xbmc.log("PLAY: {0} URL: {1}".format(title, url))
+            import urlresolver
+            host = urlresolver.HostedMediaFile(url)
+            if host:
+                resolver = urlresolver.resolve(url)
+                resolved = resolver
+            #resolved = urlresolver.resolve(url)
+            #if resolved is None or resolved == False or resolved == '':
+            #    resolved = urlresolver.HostedMediaFile(url)
+            #vidstream = urlresolver.resolve(vidurl)
+            #vidstream = urlresolver.HostedMediaFile(vidurl)
+            vli = ListItem(label=title, label2=url, icon=video, thumbnail=video, path=resolved)
             vli.playable = True
+            #plugin.set_resolved_url(plugin.url_for(play, title=title, video=video, url=url))
+            return plugin.set_resolved_url(plugin.play_video(vli))
         else:
-            matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)[0]
+            vidhtml = urllib2.urlopen(url).read()
+            matches = re.compile('(http://[^"<]+?.mp4[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)[0]
             if matches is not None:
                 vidurl = matches
-                xbmc.log("MATCH FLV = {0}".format(vidurl))
+                xbmc.log("MATCH MP4 = {0}".format(vidurl))
                 vli = ListItem(label=title, label2=url, icon=video, thumbnail=video, path=vidurl)
                 vli.playable = True
+            else:
+                matches = re.compile('(http://[^"<]+?.flv[^"<]+?)"', re.I + re.M + re.S + re.U).findall(vidhtml)[0]
+                if matches is not None:
+                    vidurl = matches
+                    xbmc.log("MATCH FLV = {0}".format(vidurl))
+                    vli = ListItem(label=title, label2=url, icon=video, thumbnail=video, path=vidurl)
+                    vli.playable = True
     except:
         pass
     try:
