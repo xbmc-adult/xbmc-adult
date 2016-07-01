@@ -1,65 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <scraper framework="1.1" date="2013-01-21" name="cduniverse" content="movies" thumb="cduniverse.jpg" language="en">
-    <NfoUrl dest="3">
-        <RegExp dest="3" output="&lt;url&gt;http://www.\1&lt;/url&gt;" input="$$1">
-            <expression noclean="1">(cduniverse.com/\d+/\S+)</expression>
-        </RegExp>
-    </NfoUrl>
-    <CreateSearchUrl dest="3">
-        <RegExp dest="3" output="&lt;url&gt;http://www.cduniverse.com/warning.asp?wps=cb23&amp;Decision=I+Agree+-+ENTER&amp;CrossOver=&amp;Referer=%2Fsresult%2Easp%3FHT%5FSearch%3DTITLE%26HT%5FSearch%5FInfo%3D\1%26style%3Dice|User-Agent=Mozilla&lt;/url&gt;" input="$$1">
-            <expression noclean="1"></expression>
-        </RegExp>
-    </CreateSearchUrl>
-    <GetSearchResults dest="6">
-        <RegExp dest="6" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" input="$$5">
-            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.cduniverse.com/warning.asp?wps=cb23&amp;Decision=I+Agree+-+ENTER&amp;CrossOver=&amp;Referer=productinfo.asp?pid=\1&amp;style=ice|User-Agent=Mozilla&lt;/url&gt;&lt;/entity&gt;" input="$$1">
-                <expression repeat="yes" clear="yes" trim="2" noclean="2">href=&quot;/productinfo\.asp\?pid=(\d+)&amp;amp;style=ice[^&quot;]*&quot;&gt;&lt;font[^&gt;]*&gt;&lt;b&gt;([^&lt;]*)</expression>
-        </RegExp>
-            <expression noclean="1"></expression>
-        </RegExp>
-    </GetSearchResults>
-    <GetDetails dest="3">
-        <RegExp dest="3" output="&lt;details&gt;\1&lt;/details&gt;" input="$$5">
-            <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$1">
-                <expression noclean="1">&lt;img itemprop=&quot;image&quot; src=&quot;([^&quot;]*)&quot;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;title&gt;\1&lt;/title&gt;" input="$$1">
-                <expression trim="1">Also Known As&lt;/td&gt;&lt;td&gt;([^&lt;]*?)&lt;/td&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;director&gt;\1&lt;/director&gt;" input="$$1">
-                <expression trim="1">HT_Search=xdirector.*?&quot;&gt;([^&lt;]*?)&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;studio&gt;\1&lt;/studio&gt;" input="$$1">
-                <expression trim="1">HT_Search=xlabel[^&gt;]+&gt;([^&lt;]*)&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;year&gt;\1&lt;/year&gt;" input="$$1">
-                <expression trim="1">Release Date&lt;/td&gt;&lt;td&gt;[^,]*, ([1-2][0-9][0-9][0-9])</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;plot&gt;\1&lt;/plot&gt;" input="$$1">
-                <expression trim="1">&lt;span id=&quot;description&quot;&gt;(.*?)&lt;/span&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;actor&gt;&lt;name&gt;\2&lt;/name&gt;&lt;thumb&gt;\1&lt;/thumb&gt;&lt;/actor&gt;" input="$$7">
-                <RegExp dest="7" output="\1" input="$$1">
-                    <expression clear="yes" noclean="1">&lt;td class=&quot;info&quot; style=&quot;.*?&quot;&gt;Starring(.*?)&lt;/a&gt;&lt;/td&gt;</expression>
-            </RegExp>
-                <expression repeat="yes">&lt;a style=&quot;text-decoration:.*?&quot; onmouseover=&quot;getPopUpImageImg\(this, '(.*?.jpg)'.*?HT_Search_Name=.*?&quot;&gt;(.*?)&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;genre&gt;\1&lt;/genre&gt;" input="$$8">
-                <RegExp dest="8" output="\1" input="$$1">
-                    <expression repeat="yes" noclean="1">Category&lt;/td&gt;&lt;td&gt;(.*?)&lt;/td&gt;</expression>
-                </RegExp>
-                <expression repeat="yes">&lt;a[^&gt;]*href=&quot;/browsecat.asp[^&quot;]+&quot;[^&gt;]*&gt;([^&lt;]*?)&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;set&gt;\1&lt;/set&gt;" input="$$1">
-                 <expression trim="1">&lt;a[^&gt;]*href=&quot;/browsecat.asp[^&quot;]+&quot;[^&gt;]*&gt;([^&lt;]*?) Series&lt;/a&gt;</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;mpaa&gt;\1&lt;/mpaa&gt;" input="$$1">
-                <expression>(XXX)</expression>
-            </RegExp>
-            <RegExp dest="5+" output="&lt;rating max=&quot;5&quot;&gt;\1&lt;/rating&gt;" input="$$1">
-                <expression>Average Rating:&lt;/td&gt;&lt;td[^&gt;]*&gt;&lt;a title=&quot;([\d\.]*) out of 5 stars&quot;&gt;</expression>
-            </RegExp>
-            <expression noclean="1" />
-        </RegExp>
-    </GetDetails>
+	<CreateSearchUrl dest="3">
+		<RegExp input="$$1" output="&lt;url&gt;http://www.cduniverse.com/warning.asp?Decision=I+Agree+%2D+ENTER&amp;CrossOver=&amp;Referer=%2Fsresult%2Easp%3FHT%5FSearch%3DTITLE%26HT%5FSearch%5FInfo%3D\1%26style%3Dice|User-Agent=Mozilla&lt;/url&gt;" dest="3">
+			<expression noclean="1" />
+		</RegExp>
+	</CreateSearchUrl>
+	<GetSearchResults dest="6">
+		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="6">
+			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.cduniverse.com/warning.asp?Decision=I+Agree+%2D+ENTER&amp;CrossOver=&amp;Referer=productinfo%2Easp%3Fpid%3D\1%26style%3Dice|User-Agent=Mozilla&lt;/url&gt;&lt;/entity&gt;" dest="5+">
+				<expression repeat="yes" clear="yes" trim="2" noclean="2">href="/productinfo\.asp\?pid=(\d+)&amp;amp;style=ice[^"]*"&gt;&lt;font[^&gt;]*&gt;&lt;b&gt;([^&lt;]*)</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetSearchResults>
+	<GetDetails dest="3">
+		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
+			<RegExp input="$$1" output="&lt;thumb&gt;\1&lt;/thumb&gt;" dest="5+">
+				<expression noclean="1">&lt;img[^&gt;]*src="([^"]*)"[^&gt;]*alt="[^"]*Cover Art" /&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5+">
+				<expression trim="1">&lt;h1[^&gt;]*&gt;([^&lt;]*?)(\sDVD|\sBlu-ray)?&lt;/h1&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="5+">
+				<expression repeat="yes" trim="1">HT_Search=xstar[^&gt;]*&gt;([^&lt;]*)&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$7" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="5+">
+				<RegExp input="$$1" output="\1" dest="7">
+					<expression noclean="1">Category&lt;/td&gt;&lt;td&gt;(.*?)&lt;/td&gt;</expression>
+				</RegExp>
+				<expression repeat="yes" trim="1">&lt;a[^&gt;]*href="/browsecat.asp[^"]+"[^&gt;]*&gt;([^&lt;]*?)(\sMovies)?&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;year&gt;\1&lt;/year&gt;" dest="5+">
+				<expression>Release Date&lt;/td&gt;&lt;td&gt;[^,]*, ([1-2][0-9][0-9][0-9])</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
+				<expression trim="1">HT_Search=xlabel[^&gt;]+&gt;([^&lt;]*)&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;director&gt;\1&lt;/director&gt;" dest="5+">
+				<expression trim="1">HT_Search=xdirector[^&gt;]+&gt;([^&lt;]*)&lt;/a&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
+				<expression trim="1">&lt;span itemprop="description"&gt;([^&lt;]*)&lt;/span&gt;</expression>
+			</RegExp>
+			<RegExp input="$$1" output="&lt;rating max=&quot;5&quot;&gt;\1&lt;/rating&gt;" dest="5+">
+				<expression>Average Rating:&lt;/td&gt;&lt;td[^&gt;]*&gt;&lt;a title="([\d\.]*) out of 5 stars"&gt;</expression>
+			</RegExp>
+			<expression noclean="1" />
+		</RegExp>
+	</GetDetails>
 </scraper>

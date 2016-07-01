@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<scraper name="Adult DVD Empire" content="movies" thumb="adultdvdempire.jpg" framework="1.1" date="2015-09-03" language="en">
+<scraper name="Adult DVD Empire" content="movies" thumb="adultdvdempire.jpg" framework="1.1" date="2015-12-30" language="en">
     <NfoUrl dest="3">
         <RegExp dest="3" output="&lt;url&gt;http://www.\1&lt;/url&gt;" input="$$1">
             <expression noclean="1">(adultdvdempire.com/\d+/\S+)</expression>
         </RegExp>
     </NfoUrl>
     <CreateSearchUrl dest="3">
-        <RegExp dest="3" output="&lt;url&gt;http://www.adultdvdempire.com/dvd/search?q=\1&lt;/url&gt;" input="$$1">
+        <RegExp dest="3" output="&lt;url&gt;http://www.adultdvdempire.com/dvd/search?m=false&amp;amp;pageSize=100&amp;amp;view=list&amp;amp;q=\1&lt;/url&gt;" input="$$1">
             <expression noclean="1"></expression>
         </RegExp>
     </CreateSearchUrl>
     <GetSearchResults dest="6">
         <RegExp dest="6" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" input="$$5">
-            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\3&lt;/title&gt;&lt;url&gt;http://www.adultdvdempire.com\2&lt;/url&gt;&lt;/entity&gt;" input="$$1">
-                <expression repeat="yes" trim="1">&lt;h3&gt;&lt;small&gt;(.*?)&lt;/small&gt;&amp;nbsp;\s+&lt;a href="(.*?)"\s+title="(.*?)"</expression>
+            <RegExp dest="5" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://www.adultdvdempire.com/\1?m=false&lt;/url&gt;&lt;/entity&gt;" input="$$1">
+                <expression repeat="yes" trim="1">&lt;a href="/([^"]*)"[^&gt;]* Label="Title"&gt;([^&lt;]+)&lt;/a&gt;</expression>
             </RegExp>
             <expression noclean="1"></expression>
         </RegExp>
     </GetSearchResults>
     <GetDetails dest="3">
-        <RegExp dest="3" output="&lt;details&gt;\1&lt;/details&gt;&#xA;" input="$$5">
-            <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;&#xA;" input="$$1">
-                <expression>&lt;meta property='og:image' content="([^"]*)"</expression>
+        <RegExp dest="3" output="&lt;details&gt;\1&lt;/details&gt;" input="$$5">
+            <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$1">
+                <expression>&lt;a href="([^"]*[0-9]+h\.jpg)"[^&gt;]*id="front-cover"</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;thumb&gt;\1bh.jpg&lt;/thumb&gt;&#xA;" input="$$1">
-                <expression>&lt;meta property='og:image' content="([^"]*)h.jpg"</expression>
+            <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$1">
+                <expression>&lt;a href="([^"]*[0-9]+bh\.jpg)"[^&gt;]*id="back-cover"</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;title&gt;\1&lt;/title&gt;&#xA;" input="$$1">
-                <expression trim="1">&lt;h1&gt;\s+(.*?)\s+&lt;</expression>
+            <RegExp dest="5+" output="&lt;title&gt;\1&lt;/title&gt;" input="$$1">
+                <expression trim="1">&lt;h1&gt;\s*(.*?)(\s{2,}.*)?&lt;/h1&gt;</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;studio&gt;\1&lt;/studio&gt;&#xA;" input="$$1">
-                <expression>Label="Studio" \/&gt;\s+(.*?)&lt;\/a&gt;</expression>
+            <RegExp dest="5+" output="&lt;studio&gt;\1&lt;/studio&gt;" input="$$1">
+                <expression trim="1">Label="Studio - Details"&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;outline&gt;\1&lt;/outline&gt;" input="$$1">
-                <expression>&lt;\/h2&gt;&lt;h4 class="spacing-bottom text-dark synopsis"&gt;(.*?)&lt;\/p&gt;</expression>
+            <RegExp dest="5+" output="&lt;year&gt;\1&lt;/year&gt;" input="$$1">
+                <expression trim="1">Production Year:.?&lt;/small&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;tagline&gt;\1&lt;/tagline&gt;&#xA;" input="$$1">
-                <expression>&lt;h2 class="spacing-top spacing-bottom"&gt;\s+(.*?)\s+&lt;\/h2&gt;&lt;h4 class="</expression>
+            <RegExp dest="5+" output="&lt;tagline&gt;\1&lt;/tagline&gt;" input="$$1">
+                <expression>&lt;a name="tagline".*?&lt;h2[^&gt;]*&gt;([^&lt;]+)&lt;/h2&gt;</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;plot&gt;\1&lt;/plot&gt;&#xA;" input="$$1">
-                <expression>&lt;\/h2&gt;&lt;h4 class="spacing-bottom text-dark synopsis"&gt;(.*?)&lt;\/p&gt;&lt;\/h4&gt;&lt;\/div&gt;</expression>
+            <RegExp dest="5+" output="&lt;plot&gt;\1&lt;/plot&gt;" input="$$1">
+                <expression trim="1">&lt;h4 class="spacing-bottom text-dark synopsis"&gt;(.*?)&lt;/h4&gt;</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;actor&gt;&#xA;&lt;name&gt;\1&lt;/name&gt;&#xA;&lt;thumb&gt;&lt;/thumb&gt;&#xA;&lt;/actor&gt;&#xA;" input="$$7">
+            <RegExp dest="5+" output="&lt;actor&gt;&lt;name&gt;\2&lt;/name&gt;&lt;thumb&gt;\1.jpg&lt;/thumb&gt;&lt;/actor&gt;" input="$$7">
                 <RegExp dest="7" output="\1" input="$$1">
-                    <expression clear="yes" noclean="1">Cast&lt;/h2&gt;&lt;ul class="list-unstyled"&gt;(.*?)&lt;small&gt;&lt;/small&gt;&lt;/li&gt;&lt;!-- Transexual performers --&gt;</expression>
+                    <expression clear="yes" noclean="1">&lt;div class="cast-headshots"&gt;&lt;ul[^&gt;]*&gt;(.*?)&lt;/ul&gt;</expression>
                 </RegExp>
-                <expression repeat="yes">class="PerformerName"&gt;\s+(.*?)\s+&lt;\/a&gt;</expression>
+                <expression repeat="yes" trim="1">style="background-image:url.([^)]+)t\.jpg.[^&gt;]*&gt;&lt;span&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;actor&gt;&#xA;&lt;name&gt;\2&lt;/name&gt;&#xA;&lt;thumb&gt;\1.jpg&lt;/thumb&gt;&#xA;&lt;/actor&gt;" input="$$7">
+            <RegExp dest="5+" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" input="$$7">
                 <RegExp dest="7" output="\1" input="$$1">
-                    <expression clear="yes" noclean="1">&lt;div class="cast-headshots"&gt;(.*?)&lt;/li&gt;&lt;!-- directors</expression>
+                    <expression clear="yes" noclean="1">Cast&lt;/h2&gt;&lt;ul[^&gt;]*&gt;(.*?)&lt;/ul&gt;</expression>
                 </RegExp>
-                <expression repeat="yes">style="background-image:url\((.*?)t.jpg\);" \/&gt;&lt;span&gt;(.*?)&lt;\/span&gt;</expression>
+                <expression repeat="yes" trim="1">Label="Performers - detail"[^&gt;]*&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;genre&gt;&#xA;\1&#xA;&lt;/genre&gt;" input="$$7">
+            <RegExp dest="5+" output="&lt;genre&gt;\1&lt;/genre&gt;" input="$$7">
                 <RegExp dest="7" output="\1" input="$$1">
-                    <expression clear="yes" noclean="1">Categories&lt;/h2&gt;&lt;ul class="list-unstyled spacing-bottom"&gt;(.*?)&lt;/li&gt;&lt;/ul&gt;</expression>
+                    <expression clear="yes" noclean="1">Categories&lt;/h2&gt;&lt;ul[^&gt;]*&gt;(.*?)&lt;/ul&gt;</expression>
                 </RegExp>
-                <expression repeat="yes">Label="Category" \/&gt;\s+(.*?)\s+&lt;\/a&gt;</expression>
+                <expression repeat="yes" trim="1">Label="Category" /&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;runtime&gt;&#xA;\1&#xA;&lt;/runtime&gt;" input="$$1">
-                <expression trim="1">Length: &lt;/small&gt;.([^&lt;]*)</expression>
+            <RegExp dest="5+" output="&lt;runtime&gt;\1&lt;/runtime&gt;" input="$$1">
+                <expression trim="1">Length:.?&lt;/small&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;mpaa&gt;&#xA;\1&#xA;&lt;/mpaa&gt;" input="$$1">
-                <expression>Rating: &lt;/small&gt;.([^&lt;]*)</expression>
+            <RegExp dest="5+" output="&lt;mpaa&gt;\1&lt;/mpaa&gt;" input="$$1">
+                <expression trim="1">Rating:.?&lt;/small&gt;([^&lt;]+)</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;director&gt;\2&lt;/director&gt;" input="$$1">
-                <expression repeat="yes">style="background-image:url\((.*?).\);" \/&gt;\s+(.*?)&lt;br \/&gt;</expression>
+            <RegExp dest="5+" output="&lt;rating max=&quot;5&quot;&gt;\1&lt;/rating&gt;" input="$$1">
+                <expression>&lt;span class="rating-stars-avg"&gt;(\d\.\d{2})&lt;/span&gt;</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;year&gt;\1&lt;/year&gt;&#xA;" input="$$1">
-                <expression trim="1">Production Year:&lt;/small&gt;.([^&lt;]*)</expression>
+            <RegExp dest="5+" output="&lt;director&gt;\1&lt;/director&gt;" input="$$1">
+                <expression repeat="yes" trim="1">Label="Director - details"&gt;([^&lt;]*)</expression>
             </RegExp>
             <RegExp dest="5+" output="&lt;set&gt;\1&lt;/set&gt;" input="$$1">
-                <expression trim="1">Label="Series" class=""&gt;([^&lt;]*)</expression>
+                <expression trim="1">Label="Series"[^&gt;]*&gt;\s*"([^"]+)"</expression>
             </RegExp>
             <RegExp dest="5+" output="&lt;trailer&gt;\1&lt;/trailer&gt;" input="$$1">
                 <expression>&lt;source src="(.*?)"\s+type="video\/mp4"\s+data-default="true"&gt;&lt;\/video&gt;</expression>
             </RegExp>
-            <RegExp dest="5+" output="&lt;fanart&gt;&#xA;$$8&#xA;&lt;/fanart&gt;&#xA;" input="$$8">
-                <RegExp dest="8" output="&lt;thumb&gt;\1&lt;/thumb&gt;&#xA;" input="$$7">
+            <RegExp dest="5+" output="&lt;fanart&gt;$$8&lt;/fanart&gt;" input="$$8">
+                <RegExp dest="8" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$7">
                     <RegExp dest="7" output="\1" input="$$1">
                         <expression clear="yes" noclean="1">&lt;div class="row scene-row(.*?)&gt;Product Information&lt;</expression>
                     </RegExp>

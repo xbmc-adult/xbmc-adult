@@ -5,9 +5,9 @@
 		</RegExp>
 	</CreateSearchUrl>
 	<GetSearchResults dest="3">
-		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="3">
+		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="3">
 			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://straight.theater.aebn.net/dispatcher/movieDetail?movieId=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
-				<expression repeat="yes" trim="1,2">&lt;a id=&quot;FTSMovieSearch_link_image_detail_[0-9]+&quot; href=&quot;/dispatcher/movieDetail?[^&quot;]*movieId=([0-9]+)[^&quot;]*&quot;\s+title=&quot;(.*?)&quot;&gt;</expression>
+				<expression repeat="yes" trim="1,2">&lt;a id="FTSMovieSearch_link_title_detail_[0-9]+" href="/dispatcher/movieDetail\?movieId=([0-9]+)[^"]*"[^&gt;]*&gt;([^&lt;]+)&lt;/a&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
