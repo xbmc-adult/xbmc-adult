@@ -818,13 +818,16 @@ class CCurrentList:
                             value = u'rss'
                         tmp.infos_dict['type'] = value
                     elif key == 'url':
-                        tmp.infos_dict['url'] = value
-                        if lItem != None:
-                            for info_name, info_value \
-                                    in lItem.infos_dict.iteritems():
-                                if info_name not in tmp.infos_dict:
-                                    tmp.infos_dict[info_name] = info_value
-                        self.items.append(tmp)
+                        if (self.cfg == 'sites.list' \
+                            and addon.getSetting(tmp.infos_dict['title']) == 'true') \
+                            or (self.cfg <> 'sites.list'):
+                            tmp.infos_dict['url'] = value
+                            if lItem != None:
+                                for info_name, info_value \
+                                        in lItem.infos_dict.iteritems():
+                                    if info_name not in tmp.infos_dict:
+                                        tmp.infos_dict[info_name] = info_value
+                            self.items.append(tmp)
                         tmp = None
                     elif tmp != None:
                         tmp.infos_dict[key] = value
