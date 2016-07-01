@@ -105,8 +105,6 @@ def showListCommon(localpath, handle, pageUrl):
 	for url, name in matchVid:
 		thumb, duration = matchThumb[n], matchlength[n][0]
 		li=xbmcgui.ListItem(name, name, thumb, thumb)
-		li.setInfo(type="Video",
-               infoLabels={ "Title": name, "Duration": duration })
 		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
       "&url=" + urllib.quote_plus(url)
 		print ">>>u: %s" % u

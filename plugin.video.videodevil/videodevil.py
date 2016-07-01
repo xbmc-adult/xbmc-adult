@@ -1124,7 +1124,8 @@ class Main:
                     req = Request(url)
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
-                        req.add_header(source.rule.reference, source.rule.content)
+                        req.add_header(source.rule.reference,
+                                       source.rule.content)
                     try:
                         urlfile = opener.open(req)
                     except Exception:
@@ -1139,7 +1140,8 @@ class Main:
                     req = Request(source.rule.url, data)
                     req.add_header('User-Agent', USERAGENT)
                     if source.rule.reference != '':
-                        req.add_header(source.rule.reference, source.rule.content)
+                        req.add_header(source.rule.reference,
+                                       source.rule.content)
                     response = urlopen(req)
                     if source.rule.limit == 0:
                         fc = response.read()
@@ -1175,7 +1177,8 @@ class Main:
                         ext_req = Request(ext_url)
                         ext_req.add_header('User-Agent', USERAGENT)
                         if source.ext_rule.reference != '':
-                            ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
+                            ext_req.add_header(source.ext_rule.reference,
+                                               source.ext_rule.content)
                         try:
                             ext_urlfile = opener.open(ext_req)
                         except urllib2.HTTPError as e:
@@ -1192,7 +1195,8 @@ class Main:
                         ext_req = Request(source.ext_rule.url, ext_data)
                         ext_req.add_header('User-Agent', USERAGENT)
                         if source.ext_rule.reference != '':
-                            ext_req.add_header(source.ext_rule.reference, source.ext_rule.content)
+                            ext_req.add_header(source.ext_rule.reference,
+                                               source.ext_rule.content)
                         ext_response = urlopen(ext_req)
                         ext_fc = ext_response.read()
                         if source.ext_rule.limit == 0:
@@ -1200,7 +1204,8 @@ class Main:
                         else:
                             ext_fc = ext_response.read(source.ext_rule.limit)
                     if enable_debug:
-                        f = open(os.path.join(cacheDir, 'ext_catcher.html'), 'w')
+                        f = open(os.path.join(cacheDir, 'ext_catcher.html'),
+                                 'w')
                         f.write('<Titel>'+ match + '</Title>\n\n')
                         f.write(ext_fc)
                         f.close()
@@ -1319,13 +1324,16 @@ class Main:
         listitem.setInfo('video', {'Title':title})
         for info_name, info_value in videoItem.infos_dict.iteritems():
             try:
-                listitem.setInfo(type='Video', infoLabels={info_name: info_value})
+                listitem.setInfo(type='Video',
+                                 infoLabels={info_name: info_value})
             except:
                 pass
         if self.currentlist.skill.find('nodownload') == -1:
             if addon.getSetting('download') == 'true':
                 self.pDialog = xbmcgui.DialogProgress()
-                self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
+                self.pDialog.create('VideoDevil',
+                                    __language__(30050),
+                                    __language__(30051))
                 flv_file = self.downloadMovie(url, title)
                 self.pDialog.close()
                 if flv_file == None:
@@ -1335,7 +1343,9 @@ class Main:
                 dia = xbmcgui.Dialog()
                 if dia.yesno('', __language__(30052)):
                     self.pDialog = xbmcgui.DialogProgress()
-                    self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
+                    self.pDialog.create('VideoDevil',
+                                        __language__(30050),
+                                        __language__(30051))
                     flv_file = self.downloadMovie(url, title)
                     self.pDialog.close()
                     if flv_file == None:
@@ -1360,16 +1370,25 @@ class Main:
         download_path = addon.getSetting('download_path')
         if download_path == '':
             try:
-                download_path = xbmcgui.Dialog().browse(0, __language__(30017), 'files', '', False, False)
+                download_path = xbmcgui.Dialog().browse(0,
+                                                        __language__(30017),
+                                                        'files',
+                                                        '',
+                                                        False,
+                                                        False)
                 addon.setSetting(id='download_path', value=download_path)
                 if not os.path.exists(download_path):
                     os.mkdir(download_path)
             except:
                 pass
-        tmp_file = tempfile.mktemp(dir=download_path, suffix=self.videoExtension)
+        tmp_file = tempfile.mktemp(dir=download_path,
+                                   suffix=self.videoExtension)
         tmp_file = xbmc.makeLegalFilename(tmp_file)
-        urllib.urlretrieve(urllib.unquote(url), tmp_file, self.video_report_hook)
-        vidfile = xbmc.makeLegalFilename(download_path + clean_filename(title) + self.videoExtension)
+        urllib.urlretrieve(urllib.unquote(url),
+                           tmp_file,
+                           self.video_report_hook)
+        vidfile = xbmc.makeLegalFilename(
+            download_path + clean_filename(title) + self.videoExtension)
         try:
           os.rename(tmp_file, vidfile)
           return vidfile
@@ -1382,13 +1401,9 @@ class Main:
         if self.pDialog.iscanceled():
             raise KeyboardInterrupt
 
-    def TargetFormatter(self, url, cfg_file): # Site specific target url handling
-        if 'hardsextube' in url:
-            url = url.replace('_@?_', '&')
-        if '4tube.com' in url:
-            url = url.replace('\\', '')
-        if 'v.sexu.com' in url:
-            url = url.replace('\/', '/')
+    def TargetFormatter(self, url, cfg_file): #Site specific target url handling
+        if 'tukif' in url:
+            url = url + '|Referer=http://www.tukif.com'
         if 'extremetube' in url:
             url = url.replace('\/', '/')
         return url
@@ -1418,16 +1433,21 @@ class Main:
             cfg_file = lItem.infos_dict['cfg']
             if lItem.infos_dict['type'] == 'video':
                 self.currentlist.loadLocal(cfg_file, False, lItem, True)
-                lItem.infos_dict['url'] = self.getDirectLink(lItem.infos_dict['url'])
-            lItem.infos_dict['url'] = self.TargetFormatter(lItem.infos_dict['url'], cfg_file)
+                lItem.infos_dict['url'] = self.getDirectLink(
+                                              lItem.infos_dict['url'])
+            lItem.infos_dict['url'] = self.TargetFormatter(
+                                          lItem.infos_dict['url'], cfg_file)
             if 'extension' in lItem.infos_dict:
                 self.videoExtension = '.' + lItem.infos_dict['extension']
             if ext == 'videodevil':
                 result = self.playVideo(lItem)
             else:
                 self.pDialog = xbmcgui.DialogProgress()
-                self.pDialog.create('VideoDevil', __language__(30050), __language__(30051))
-                self.downloadMovie(lItem.infos_dict['url'], lItem.infos_dict['title'])
+                self.pDialog.create('VideoDevil',
+                                    __language__(30050),
+                                    __language__(30051))
+                self.downloadMovie(lItem.infos_dict['url'],
+                                   lItem.infos_dict['title'])
                 self.pDialog.close()
             return -2
         else:
@@ -1515,7 +1535,8 @@ class Main:
                     cItem.infos_dict['url'] = info_value
                     cItem.infos_dict['type'] = 'rss'
                     action = 'XBMC.RunPlugin(%s)' % (sys.argv[0] + '?url=' + self.currentlist.codeUrl(cItem))
-                    liz.addContextMenuItems([(info_name[info_name.find('.') + 1:], action)])
+                    liz.addContextMenuItems(
+                        [(info_name[info_name.find('.') + 1:], action)])
                 except:
                     pass
             if info_name.find('.append') == -1 \
@@ -1610,4 +1631,5 @@ class Main:
             if enable_debug:
                 traceback.print_exc(file=sys.stdout)
             dialog = xbmcgui.Dialog()
-            dialog.ok('VideoDevil Error', 'Error running VideoDevil.\n\nReason:\n' + str(e))
+            dialog.ok('VideoDevil Error',
+                      'Error running VideoDevil.\n\nReason:\n' + str(e))

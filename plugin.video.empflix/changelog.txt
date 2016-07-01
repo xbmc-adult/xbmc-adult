@@ -1,3 +1,7 @@
+[B]2.0.9[/B]
+
+Fix video url
+
 [B]2.0.8[/B]
 
 Speed up video play

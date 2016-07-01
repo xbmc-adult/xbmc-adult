@@ -1,3 +1,6 @@
+1.0.11
+ - Get rid of "CreateLoader - unsupported protocol(plugin)" warnings
+
 1.0.10
  - Fixed video url
 

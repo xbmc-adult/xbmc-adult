@@ -1,7 +1,67 @@
+[B]Version 1.7.134[/B]
+
+- Updated: vporn
+- Fixed: search
+
+[B]Version 1.7.133[/B]
+
+- Updated: tnaflix
+- Fixed: video list
+- Fixed: catcher
+- Fixed: categories
+- Updated: xhamster
+- Fixed: video list
+
+[B]Version 1.7.132[/B]
+
+- Updated: tukif
+- Fixed: video play 
+
+[B]Version 1.7.131[/B]
+
+- Updated: faapy
+- Fixed: video list
+- Deleted: jacquietmicheltv
+- Updated: sexu
+- Fixed: video list
+- Fixed: catcher
+
+[B]Version 1.7.130[/B]
+
+- Updated: youporn
+- Fixed: video list
+
+[B]Version 1.7.129[/B]
+
+- Updated: motherless
+- Fixed: video list
+- Updated: pornomovies
+- Fixed: catcher
+
+[B]Version 1.7.128[/B]
+
+- Updated: gfvideos
+- Fixed: video list
+- Updated: motherless
+- Fixed: video list
+
+
+[B]Version 1.7.127[/B]
+
+- Updated: eporner
+- Fixed: catcher
+
+
+[B]Version 1.7.126[/B]
+
+- Updated: xhamster.com
+- Add gay and shemale categories
+
+
 [B]Version 1.7.125[/B]
 
 - Updated: xhamster.com
-- Fix: categories
+- Fixed: categories
 
 
 [B]Version 1.7.124[/B]

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
   <category label="Search Setting">
-    <setting label="40000" type="select" id="search_engine" values="Google|Bing|Data18" default="Google"/>
+    <setting label="40000" type="select" id="data18_search_engine" values="Google|Bing|Data18" default="Bing"/>
   </category>
 </settings>

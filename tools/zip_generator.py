@@ -26,7 +26,7 @@ def create_zip_file(addon_dir):
       for file_path in files:
         if file_path.endswith('.zip'):
           continue
-        print "adding %s" % os.path.join(root, file_path) 
+        print "adding %s" % os.path.join(root, file_path)
         addonzip.write(os.path.join(root, file_path))
     addonzip.close()
 
@@ -35,11 +35,11 @@ def main():
   dirs = (os.listdir('.'))
   for addon_dir in dirs:
     if(not os.path.isdir(addon_dir)):
-      continue	  
+      continue
     if(addon_dir.startswith('.')):
       # skip hidden dirs
       continue
-    if(addon_dir == "repositor.xbmc-adult"):
+    if(addon_dir == "repository.xbmc-adult"):
       # skip download directory
       continue
     create_zip_file(addon_dir)
