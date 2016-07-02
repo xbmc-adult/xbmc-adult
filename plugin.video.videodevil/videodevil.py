@@ -818,16 +818,13 @@ class CCurrentList:
                             value = u'rss'
                         tmp.infos_dict['type'] = value
                     elif key == 'url':
-                        if (self.cfg == 'sites.list' \
-                            and addon.getSetting(tmp.infos_dict['title']) == 'true') \
-                            or (self.cfg <> 'sites.list'):
-                            tmp.infos_dict['url'] = value
-                            if lItem != None:
-                                for info_name, info_value \
-                                        in lItem.infos_dict.iteritems():
-                                    if info_name not in tmp.infos_dict:
-                                        tmp.infos_dict[info_name] = info_value
-                            self.items.append(tmp)
+                        tmp.infos_dict['url'] = value
+                        if lItem != None:
+                            for info_name, info_value \
+                                    in lItem.infos_dict.iteritems():
+                                if info_name not in tmp.infos_dict:
+                                    tmp.infos_dict[info_name] = info_value
+                        self.items.append(tmp)
                         tmp = None
                     elif tmp != None:
                         tmp.infos_dict[key] = value
@@ -1484,6 +1481,8 @@ class Main:
                                            'videodevil')
             result = self.parseView(url)
         else:
+            if url == 'sites.list':
+                self.currentlist.items = [item for item in self.currentlist.items if addon.getSetting(item.infos_dict['title']) == 'true']
             for m in self.currentlist.items:
                 m_url = m.infos_dict['url']
                 try:
