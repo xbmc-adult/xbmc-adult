@@ -3,6 +3,8 @@
 - Updated: eporner
 - Fixed: video list
 - Fixed: catcher
+- Updated: porn.com
+- Fixed: video list
 
 [B]Version 1.7.134[/B]
 
