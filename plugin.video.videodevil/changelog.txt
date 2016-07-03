@@ -646,6 +646,8 @@ Jarvis
 - Fixed: video listing
 - Updated: pornhd
 - Fixed: catcher
+- Updated: tnaflix
+- Fixed: catcher
 
 
 [B]Version 1.7.50[/B]
