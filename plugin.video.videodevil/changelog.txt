@@ -644,6 +644,8 @@ Jarvis
 - Fixed: video listing
 - Updated: pornomovies
 - Fixed: video listing
+- Updated: pornhd
+- Fixed: catcher
 
 
 [B]Version 1.7.50[/B]

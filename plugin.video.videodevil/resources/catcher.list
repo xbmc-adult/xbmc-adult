@@ -355,7 +355,12 @@ quality=standard
 title=pornhd.com
 target='480p'  : '([^']+)',
 url=%s
+header=Referer|http://pornhd.com
 quality=standard
+target='720p'  : '([^']+)',
+url=%s
+header=Referer|http://pornhd.com
+quality=high
 ########################################################
 title=faapy.com
 target=video_url: '([^']+)',
