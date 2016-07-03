@@ -45,7 +45,7 @@ build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
 title=eporner.com
-target=/config7/(\d+)/
+target=/config7/([^/]+)/
 url=%s
 ext_target=file: "([^"]+\d-360p.mp4)"
 ext_url=http://www.eporner.com/config5/%s

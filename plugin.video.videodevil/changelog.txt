@@ -1,3 +1,9 @@
+[B]Version 1.7.135[/B]
+
+- Updated: eporner
+- Fixed: video list
+- Fixed: catcher
+
 [B]Version 1.7.134[/B]
 
 - Updated: vporn
