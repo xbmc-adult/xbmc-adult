@@ -1481,6 +1481,8 @@ class Main:
                                            'videodevil')
             result = self.parseView(url)
         else:
+            if url == 'sites.list':
+                self.currentlist.items = [item for item in self.currentlist.items if addon.getSetting(item.infos_dict['title']) == 'true']
             for m in self.currentlist.items:
                 m_url = m.infos_dict['url']
                 try:
