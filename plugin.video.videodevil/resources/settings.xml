@@ -11,8 +11,8 @@
   </category>
   <category label="30018">
     <setting id="Ah-Me" type="bool" label="Ah-Me" default="true" />
-    <setting id="EPORNER" type="bool" label="EPORNER" default="true" />
     <setting id="Empflix" type="bool" label="Empflix" default="true" />
+    <setting id="EPORNER" type="bool" label="EPORNER" default="true" />
     <setting id="ExtremeTube" type="bool" label="ExtremeTube" default="true" />
     <setting id="Faapy" type="bool" label="Faapy" default="true" />
     <setting id="Fapdu" type="bool" label="Fapdu" default="true" />
@@ -22,8 +22,8 @@
     <setting id="MofoSex" type="bool" label="MofoSex" default="true" />
     <setting id="Motherless" type="bool" label="Motherless" default="true" />
     <setting id="MovieFap" type="bool" label="MovieFap" default="true" />
-    <setting id="Porn.com" type="bool" label="Porn.com" default="true" />
     <setting id="Pornburst.xxx" type="bool" label="Pornburst.xxx" default="true" />
+    <setting id="Porn.com" type="bool" label="Porn.com" default="true" />
     <setting id="Pornhd" type="bool" label="Pornhd" default="true" />
     <setting id="Pornhub" type="bool" label="Pornhub" default="true" />
     <setting id="Pornmaki" type="bool" label="Pornmaki" default="true" />
@@ -37,9 +37,9 @@
     <setting id="TnAflix" type="bool" label="TnAflix" default="true" />
     <setting id="Tukif" type="bool" label="Tukif" default="true" />
     <setting id="Vporn" type="bool" label="Vporn" default="true" />
+    <setting id="xHamster" type="bool" label="xHamster" default="true" />
     <setting id="XVideos" type="bool" label="XVideos" default="true" />
     <setting id="YouPorn" type="bool" label="YouPorn" default="true" />
-    <setting id="xHamster" type="bool" label="xHamster" default="true" />
     <setting id="yuvutu" type="bool" label="yuvutu" default="true" />
   </category>
 </settings>
