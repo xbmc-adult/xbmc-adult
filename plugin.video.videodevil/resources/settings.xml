@@ -1,10 +1,45 @@
 <settings>
-   <setting id="hide_warning" type="bool" label="30002" default="false"/>
-   <setting id="enable_debug" type="bool" label="20191" default="false"/>
-   <setting type="sep"/>
-   <setting id="video_type" type="enum" lvalues="30013|30014|30015|30016" label="30012" default="0"/>
-   <setting type="sep" />
-   <setting id="download" type="bool" label="30007" default="false"/>
-   <setting id="download_path" type="folder" enable="eq(-1,true)" source="video" label="30008"  option="writeable" default=""/>
-   <setting id="download_ask" type="bool" enable="eq(-2,false)" label="30009" default="false"/>
+  <category label="30218">
+    <setting id="hide_warning" type="bool" label="30002" default="false"/>
+    <setting id="enable_debug" type="bool" label="20191" default="false"/>
+    <setting type="sep"/>
+    <setting id="video_type" type="enum" lvalues="30013|30014|30015|30016" label="30012" default="0"/>
+    <setting type="sep" />
+    <setting id="download" type="bool" label="30007" default="false"/>
+    <setting id="download_path" type="folder" enable="eq(-1,true)" source="video" label="30008"  option="writeable" default=""/>
+    <setting id="download_ask" type="bool" enable="eq(-2,false)" label="30009" default="false"/>
+  </category>
+  <category label="30018">
+    <setting id="Ah-Me" type="bool" label="Ah-Me" default="true" />
+    <setting id="EPORNER" type="bool" label="EPORNER" default="true" />
+    <setting id="Empflix" type="bool" label="Empflix" default="true" />
+    <setting id="ExtremeTube" type="bool" label="ExtremeTube" default="true" />
+    <setting id="Faapy" type="bool" label="Faapy" default="true" />
+    <setting id="Fapdu" type="bool" label="Fapdu" default="true" />
+    <setting id="GirlfriendVideos" type="bool" label="GirlfriendVideos" default="true" />
+    <setting id="Hentaigasm" type="bool" label="Hentaigasm" default="true" />
+    <setting id="MadThumbs" type="bool" label="MadThumbs" default="true" />
+    <setting id="MofoSex" type="bool" label="MofoSex" default="true" />
+    <setting id="Motherless" type="bool" label="Motherless" default="true" />
+    <setting id="MovieFap" type="bool" label="MovieFap" default="true" />
+    <setting id="Porn.com" type="bool" label="Porn.com" default="true" />
+    <setting id="Pornburst.xxx" type="bool" label="Pornburst.xxx" default="true" />
+    <setting id="Pornhd" type="bool" label="Pornhd" default="true" />
+    <setting id="Pornhub" type="bool" label="Pornhub" default="true" />
+    <setting id="Pornmaki" type="bool" label="Pornmaki" default="true" />
+    <setting id="PornoMovies" type="bool" label="PornoMovies" default="true" />
+    <setting id="PornoXO" type="bool" label="PornoXO" default="true" />
+    <setting id="RedTube" type="bool" label="RedTube" default="true" />
+    <setting id="Sexu" type="bool" label="Sexu" default="true" />
+    <setting id="Slutload" type="bool" label="Slutload" default="true" />
+    <setting id="SpankWire" type="bool" label="SpankWire" default="true" />
+    <setting id="SunPorno" type="bool" label="SunPorno" default="true" />
+    <setting id="TnAflix" type="bool" label="TnAflix" default="true" />
+    <setting id="Tukif" type="bool" label="Tukif" default="true" />
+    <setting id="Vporn" type="bool" label="Vporn" default="true" />
+    <setting id="XVideos" type="bool" label="XVideos" default="true" />
+    <setting id="YouPorn" type="bool" label="YouPorn" default="true" />
+    <setting id="xHamster" type="bool" label="xHamster" default="true" />
+    <setting id="yuvutu" type="bool" label="yuvutu" default="true" />
+  </category>
 </settings>
