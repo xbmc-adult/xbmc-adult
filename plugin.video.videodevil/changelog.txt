@@ -1,3 +1,7 @@
+[B]Version 1.7.137[/B]
+
+- Merged: Fix xvideo
+
 [B]Version 1.7.136[/B]
 
 - Merged: site enabling feature
