@@ -849,7 +849,7 @@ class CCurrentList:
                                       ).replace('\\"', '\"')
         if info_name == 'title':
             try:
-                info_value = clean_safe(info_value.strip())
+                info_value = clean_safe(info_value.lstrip(' -@#$%^&*_-+=.,\';:"\|/?`~>)]}!').rstrip())
             except:
                 info_value = '...'
             if len(info_value) == 0:
