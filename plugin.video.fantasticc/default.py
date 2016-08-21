@@ -631,3 +631,4 @@ elif topmode == 5:
 elif topmode == 6:
     xbmc.log('Category: SEARCH_RESULTS')
     SEARCH_RESULTS(topurl)
+xbmcplugin.endOfDirectory(int(sys.argv[1]))
