@@ -507,6 +507,27 @@ def GET_LINK(url, collections, url2):
         for each in match:
             fetchurl = each.replace('&amp;', '&')
         xbmc.log('fetchurl: %s' % fetchurl)
+    elif 'pornxs' in url2:
+        match = re.compile('(http://pornxs.com/.+?)"').findall(html)
+        html = get_html(match[0])
+        match = re.compile('config-final-url="(.+?)"').findall(html)
+        fetchurl = urllib.unquote(match[0])
+        xbmc.log('fetchurl: %s' % fetchurl)
+    elif 'xhcdn' in url2:
+        match = re.compile('http://xhamster.com/movies/[^"]*').findall(html)
+        html = get_html(match[0])
+        match = re.compile('file: \'([^\']+)\'').findall(html)
+        fetchurl = match[0]
+        xbmc.log('fetchurl: %s' % fetchurl)
+    elif 'spankwire' in url2:
+        match = re.compile('data-origin-source="(http://www.spankwire.com/.+?)">').findall(html)
+        html = get_html(match[0])
+        match = re.compile('playerData.cdnPath.+?= \'(.+?)\'').findall(html)
+        qualityarray = match
+        # Play highest quality version
+        qualityarray.reverse()
+        fetchurl = urllib.unquote(qualityarray[0])
+        xbmc.log('fetchurl: %s' % fetchurl)
     else:
         xbmc.log('Unknown source (%s).' % url2)
         fetchurl = None
