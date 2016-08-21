@@ -299,11 +299,8 @@ def SEARCH_RESULTS(url, html=False):
 def INDEX(url):
     html = get_html(url)
     if 'collection' in url: # Collections
-        match = re.compile('<a\s+title="([^"]+)" href="([^"]+)">\s*<img '
-                           'src="([^"]+)"'
-                           ' border="0" alt="([^"]+)"  '
-                           'class="collection_image" />').findall(html)
-        for name, gurl, thumbnail, junk in match:
+        match = re.compile('<i class="submitted-video-play fa fa-play-circle-o"></i>.*?<img height=".*?" width=".*?".src="(.+?)".alt="(.*?)">.*?<a href="(.*?)"', re.DOTALL).findall(html)
+        for thumbnail, name, gurl in match:
             vid_id = string.split(gurl, '/')[-3]
             realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
             mode = 4
@@ -351,30 +348,29 @@ def addSupportedLinks(gurl, name, thumbnail):
 def INDEXCOLLECT(url):   # Index Collections Pages
     xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
-    match = re.compile('<div style="font-size:24px; line-height:30px; ">'
-                       '<a href="(.+?)">(.+?)</a>(.+?)<span id="chunk.+?\>'
-                       '(.+?)</div>', re.DOTALL).findall(html)
-    for gurl, name, chtml, description in match:
-        xbmc.log('Name %s' % name)
+
+    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div class="tag-list">', re.DOTALL).findall(html)
+
+    for gurl, name,chtml  in match:
+        xbmc.log('Name [%s]' % name)
         realurl = 'http://fantasti.cc%s' % gurl
         name = unescape(name)
         mode = 1
 
         #scrape number of vids
-        num_of_vids = (re.compile('line-height:100\%;">(.+?) videos<br>',
-                       re.DOTALL).findall(chtml))[0]
+        num_of_vids = (re.compile('<div class="counter-right">(.+?) videos</div>',
+                       re.DOTALL).findall(html))[0]
         #trim whitespace from beginning of string
         num_of_vids = re.sub('^[ \t\r\n]+', '', num_of_vids)
 
         # do some cool stuff to get the images and join them.
-        icons = re.compile('<img src="(.+?)"').findall(chtml)
+        icons = re.compile('style="background: url\((.+?)\);"></a>').findall(chtml)
         if not icons:
           continue # some collections are empty so they don't have icons
 
         addDir(name + ' (' + num_of_vids + ' vids)', realurl, mode, icons[0])
 
-    match = re.compile('<a href="(.+?)">next &gt;&gt;</a></span></div>'
-                      ).findall(html)
+    match = re.compile('<a href="(.+?)">next &gt;&gt;</a>').findall(html)
     for next_match in match:
         mode = 2
         next_match = string.split(next_match, '"')[-1]
@@ -512,7 +508,7 @@ def GET_LINK(url, collections, url2):
             fetchurl = each.replace('&amp;', '&')
         xbmc.log('fetchurl: %s' % fetchurl)
     else:
-        xbmc.log('Unknown source (%s).' % r)
+        xbmc.log('Unknown source (%s).' % url2)
         fetchurl = None
     return fetchurl
 
@@ -611,7 +607,6 @@ elif topmode == 4:
 elif topmode == 5:
     xbmc.log('Category: Search')
     SEARCH(topurl)
-
 elif topmode == 6:
     xbmc.log('Category: SEARCH_RESULTS')
     SEARCH_RESULTS(topurl)
