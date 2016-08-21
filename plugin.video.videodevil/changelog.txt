@@ -1,3 +1,8 @@
+[B]Version 1.7.138[/B]
+
+- Merged: Fix spankwire in videodevil (next and categories)
+- Merged: Fix extremetube in videodevil (next and categories)
+
 [B]Version 1.7.137[/B]
 
 - Merged: Fix xvideo
