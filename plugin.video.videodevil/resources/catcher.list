@@ -45,15 +45,13 @@ build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
 title=eporner.com
-target=/config7/([^/]+)/
+target="(/dload/[^"]+360p.mp4)
 url=%s
-ext_target=file: "([^"]+\d-360p.mp4)"
-ext_url=http://www.eporner.com/config5/%s
+build=http://www.eporner.com%s
 quality=low
-target=/config7/(\d+)/
+target="(/dload/[^"]+720p.mp4)
 url=%s
-ext_target=file: "([^"]+\dp.mp4)"
-ext_url=http://www.eporner.com/config5/%s
+build=http://www.eporner.com%s
 quality=high
 ########################################################
 title=2video.de
