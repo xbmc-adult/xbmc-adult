@@ -79,6 +79,7 @@ def SEARCHVIDEOS(url):
 
 
 def getHtml(url):
+        xbmc.log("getHtml: " + url)
         req = urllib2.Request(url)
         req.add_header('User-Agent', USER_AGENT)
         response = urllib2.urlopen(req)
