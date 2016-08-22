@@ -1,3 +1,8 @@
+1.0.12
+ - Fixed video regex
+ - Cleaned up style and removed dead code
+ - Added logging
+
 1.0.11
  - Get rid of "CreateLoader - unsupported protocol(plugin)" warnings
 

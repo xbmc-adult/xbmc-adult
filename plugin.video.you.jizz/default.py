@@ -32,9 +32,11 @@ def INDEX(url):
         addDir('Home', '', None, '')
         link = getHtml(url)
         matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
-        matchurl = re.compile('class="frame" href=\'\/videos\/.+?(\d+).html').findall(link)
+        matchurl = re.compile('class="frame" href=\'\/videos\/.+?(\d+).html'
+                             ).findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
-        matchduration = re.compile('thumbtime\'><span.*>(\d{1,}:\d{2})').findall(link)
+        matchduration = re.compile('thumbtime\'><span.*>(\d{1,}:\d{2})'
+                                  ).findall(link)
         for name, url, thumb, duration in zip(matchname, matchurl, matchthumb,
                                            matchduration):
                 url = '/videos/embed/' + url
@@ -42,7 +44,8 @@ def INDEX(url):
                             url,
                             2,
                             thumb)
-        matchpage = re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
+        matchpage = re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>'
+                               '[\s\S]+?href="(.+?html)').findall(link)
         for nexturl in matchpage:
                 addDir('Next Page', 'http://www.youjizz.com' + nexturl, 1, '')
 
