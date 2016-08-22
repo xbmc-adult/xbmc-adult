@@ -51,17 +51,6 @@ def VIDEOLINKS(url, name):
         link = getHtml('http://www.youjizz.com' + url)
         match = re.compile('src="([^"]+\.mp4[^"]+)').findall(link)
         if not match:
-                # Try to find a playlist instead on the page
-                match = re.compile('so.addVariable\("playlist", "([^"]+)"').findall(link)
-                for url in match:
-                        # Download the playlist and find the last URL for the
-                        # highest def video
-                        link = getHtml(url)
-                        match = re.compile('file="([^"]+)"').findall(link)
-                        if match:
-                                match = match[-1:]
-                                match[0] = urllib.unquote(match[0])
-        if not match:
                 xbmc.log("Failed to find video URL")
         for url in match:
                 listitem = xbmcgui.ListItem(name)
