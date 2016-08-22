@@ -59,7 +59,7 @@ def VIDEOLINKS(url,name):
                                 match = match[-1:]
                                 match[0] = urllib.unquote(match[0])
         if not match:
-                print "Failed to find video URL"
+                xbmc.log("Failed to find video URL")
         for url in match:
                 listitem = xbmcgui.ListItem(name)
                 listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
@@ -74,7 +74,7 @@ def SEARCHVIDEOS(url):
         # we need to set the title to our query
         title = urllib.quote_plus(vq)
         searchUrl += title
-        print "Searching URL: " + searchUrl
+        xbmc.log("Searching URL: " + searchUrl)
         INDEX(searchUrl)
 
 
@@ -152,24 +152,20 @@ try:
 except:
         pass
 
-print "Mode: " + str(mode)
-print "URL: " + str(url)
-print "Name: " + str(name)
+xbmc.log("Mode: " + str(mode))
+xbmc.log("URL: " + str(url))
+xbmc.log("Name: " + str(name))
 
 if mode == None or url == None or len(url)<1:
-        print ""
         CATEGORIES()
 
 elif mode == 1:
-        print "" + url
         INDEX(url)
 
 elif mode == 2:
-        print "" + url
         VIDEOLINKS(url,name)
 
 elif mode == 3:
-        print mode
         SEARCHVIDEOS(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
