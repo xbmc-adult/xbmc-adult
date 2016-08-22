@@ -5,8 +5,8 @@ __scriptid__ = "plugin.video.you.jizz"
 __credits__ = "Pillager & anarchintosh"
 __version__ = "1.0.6"
 
-import urllib,urllib2,re
-import xbmc,xbmcplugin,xbmcgui,sys
+import urllib, urllib2, re
+import xbmc, xbmcplugin, xbmcgui, sys
 
 USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
@@ -21,21 +21,21 @@ def _get_keyboard(default="", heading="", hidden=False):
 
 
 def CATEGORIES():
-        addDir('Newest','http://www.youjizz.com/newest-clips/1.html',1,'')
-        addDir('Top Rated','http://www.youjizz.com/top-rated/1.html',1,'')
-        addDir('Random Videos','http://www.youjizz.com/random.php',1,'')
+        addDir('Newest', 'http://www.youjizz.com/newest-clips/1.html', 1, '')
+        addDir('Top Rated', 'http://www.youjizz.com/top-rated/1.html', 1, '')
+        addDir('Random Videos', 'http://www.youjizz.com/random.php', 1, '')
         INDEX('http://www.youjizz.com/page/1.html')
 
 
 def INDEX(url):
-        addDir('Search','http://www.youjizz.com/srch.php?q=',3,'')
-        addDir('Home','',None,'')
+        addDir('Search', 'http://www.youjizz.com/srch.php?q=', 3, '')
+        addDir('Home', '', None, '')
         link = getHtml(url)
         matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
         matchurl = re.compile('class="frame" href=\'\/videos\/.+?(\d+).html').findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
         matchduration = re.compile('thumbtime\'><span.*>(\d{1,}:\d{2})').findall(link)
-        for name,url,thumb,duration in zip(matchname, matchurl, matchthumb,
+        for name, url, thumb, duration in zip(matchname, matchurl, matchthumb,
                                            matchduration):
                 url = '/videos/embed/' + url
                 addDownLink(name + ' ' + '(' + duration + ')',
@@ -44,10 +44,10 @@ def INDEX(url):
                             thumb)
         matchpage = re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
         for nexturl in matchpage:
-                addDir('Next Page','http://www.youjizz.com' + nexturl,1,'')
+                addDir('Next Page', 'http://www.youjizz.com' + nexturl, 1, '')
 
 
-def VIDEOLINKS(url,name):
+def VIDEOLINKS(url, name):
         link = getHtml('http://www.youjizz.com' + url)
         match = re.compile('src="([^"]+\.mp4[^"]+)').findall(link)
         if not match:
@@ -91,13 +91,12 @@ def getHtml(url):
         return data
 
 
-
 def getParams():
         param = []
         paramstring = sys.argv[2]
         if len(paramstring) >= 2:
                 params = sys.argv[2]
-                cleanedparams = params.replace('?','')
+                cleanedparams = params.replace('?', '')
                 if (params[len(params)-1] == '/'):
                         params = params[0:len(params)-2]
                 pairsofparams = cleanedparams.split('&')
@@ -111,7 +110,7 @@ def getParams():
         return param
 
 
-def addDownLink(name,url,mode,iconimage):
+def addDownLink(name, url, mode, iconimage):
         u = (sys.argv[0] +
              "?url=" + urllib.quote_plus(url) +
              "&mode=" + str(mode) +
@@ -124,7 +123,7 @@ def addDownLink(name,url,mode,iconimage):
         return ok
 
 
-def addDir(name,url,mode,iconimage):
+def addDir(name, url, mode, iconimage):
         u = (sys.argv[0] +
              "?url=" + urllib.quote_plus(url) +
              "&mode=" + str(mode) +
@@ -167,7 +166,7 @@ elif mode == 1:
         INDEX(url)
 
 elif mode == 2:
-        VIDEOLINKS(url,name)
+        VIDEOLINKS(url, name)
 
 elif mode == 3:
         SEARCHVIDEOS(url)
