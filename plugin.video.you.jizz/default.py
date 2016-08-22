@@ -38,7 +38,10 @@ def INDEX(url):
         for name,url,thumb,duration in zip(matchname, matchurl, matchthumb,
                                            matchduration):
                 url = '/videos/embed/' + url
-                addDownLink(name + ' ' + duration, url,2, thumb)
+                addDownLink(name + ' ' + '(' + duration + ')',
+                            url,
+                            2,
+                            thumb)
         matchpage = re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>[\s\S]+?href="(.+?html)').findall(link)
         for nexturl in matchpage:
                 addDir('Next Page','http://www.youjizz.com' + nexturl,1,'')
