@@ -46,7 +46,7 @@ def INDEX(url):
 
 def VIDEOLINKS(url,name):
         link = getHtml('http://www.youjizz.com' + url)
-        match = re.compile('so.addVariable[(]"file",[^"]+"(http[^"]+flv[^"]+)').findall(link)
+        match = re.compile('src="([^"]+\.mp4[^"]+)').findall(link)
         if not match:
                 # Try to find a playlist instead on the page
                 match = re.compile('so.addVariable\("playlist", "([^"]+)"').findall(link)
