@@ -231,33 +231,27 @@ quality=high
 #quality=standard
 ########################################################
 title=empflix.com
-target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+target=config" value="([^"]+)
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+100p.mp4[^<]+)
+ext_target=CDATA\[([^\]]+144p.mp4[^\]]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=low
-target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+target=config" value="([^"]+)
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+144p.mp4[^<]+)
-ext_url=http:%s
-ext_build=http:%s
-quality=low
-target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
-url=%s
-ext_target=<videoLink>(?:http:|)([^<]+480p.mp4[^<]+)
+ext_target=CDATA\[([^\]]+480p.mp4[^\]]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=standard
-target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+target=config" value="([^"]+)
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+720p.mp4[^<]+)
+ext_target=CDATA\[([^\]]+720p.mp4[^\]]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=high
-target=flashvars\.config\s*=\s*escape\("([^"]*)"\);
+target=config" value="([^"]+)
 url=%s
-ext_target=<videoLink>(?:http:|)([^<]+1080p.mp4[^<]+)
+ext_target=CDATA\[([^\]]+1080p.mp4[^\]]+)
 ext_url=http:%s
 ext_build=http:%s
 quality=high
