@@ -88,10 +88,10 @@ def get_params():
 
 
 def addLink(name, url, mode, iconimage):
-    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode)\
-        + "&name=" + urllib.quote_plus(name)
+    u = sys.argv[0] + '?url=' + urllib.quote_plus(url) + '&mode=' + str(mode)\
+        + '&name=' + urllib.quote_plus(name)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
+    liz = xbmcgui.ListItem(name, iconImage='DefaultFolder.png',
                            thumbnailImage=iconimage)
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
                                      listitem=liz, isFolder=False)
@@ -99,10 +99,10 @@ def addLink(name, url, mode, iconimage):
 
 
 def addDir(name, url, mode, iconimage, page):
-    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) +\
-        "&name=" + urllib.quote_plus(name) + "&page=" + str(page)
+    u = sys.argv[0] + '?url=' + urllib.quote_plus(url) + '&mode=' + str(mode) +\
+        '&name=' + urllib.quote_plus(name) + '&page=' + str(page)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
+    liz = xbmcgui.ListItem(name, iconImage='DefaultFolder.png',
                            thumbnailImage=iconimage)
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
                                      listitem=liz, isFolder=True)
@@ -125,19 +125,19 @@ def main():
     page = 1
 
     try:
-        url = urllib.unquote_plus(params["url"])
+        url = urllib.unquote_plus(params['url'])
     except:
         pass
     try:
-        name = urllib.unquote_plus(params["name"])
+        name = urllib.unquote_plus(params['name'])
     except:
         pass
     try:
-        mode = int(params["mode"])
+        mode = int(params['mode'])
     except:
         pass
     try:
-        page = int(params["page"])
+        page = int(params['page'])
     except:
         pass
 
@@ -145,18 +145,18 @@ def main():
         CATEGORIES()
 
     elif mode == 1:
-        xbmc.log("SORTMETHOD " + url)
+        xbmc.log('SORTMETHOD ' + url)
         SORTMETHOD(url)
 
     elif mode == 2:
-        xbmc.log("VIDEOLIST " + url)
-        xbmc.log("VIDEOLIST " + str(page))
+        xbmc.log('VIDEOLIST ' + url)
+        xbmc.log('VIDEOLIST ' + str(page))
         VIDEOLIST(url, page)
 
     elif mode == 3:
-        xbmc.log("PLAYVIDEO " + url)
+        xbmc.log('PLAYVIDEO ' + url)
         PLAYVIDEO(url)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
