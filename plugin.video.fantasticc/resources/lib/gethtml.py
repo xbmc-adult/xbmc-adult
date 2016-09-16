@@ -23,6 +23,8 @@ import urllib2
 import cookielib
 import os
 import re
+import sys
+import xbmc
 
 #!!!!!!!!!!! Please set the compatible_urllist
 #set the list of URLs you want to load with cookies.
@@ -70,7 +72,11 @@ def get(url, cookiepath=None):
 def _loadwithoutcookies(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', USER_AGENT_STRING)
-    response = urllib2.urlopen(req)
+    try:
+        response = urllib2.urlopen(req)
+    except urllib2.HTTPError as e:
+        xbmc.log("%s %s" % (url, e.reason), xbmc.LOGFATAL)
+        sys.exit(0)
     link = response.read()
     response.close()
     return link
