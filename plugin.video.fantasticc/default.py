@@ -222,23 +222,23 @@ def SEARCH(url):
             search = re.sub(' +', '+', search)
 
             # create the search url
-            search_url = main_url + 'search/' + search + '/videos/'
+            search_url = main_url + 'search/' + search + '/tube/'
             xbmc.log('SEARCH:%s' % search_url)
 
             # get the source code of first page
             first_page = get_html(search_url)
 
             # do a search to see if no results found
-            no_results_found = re.search('did not match any content.',
-                                         first_page)
+            no_results_found = re.search('result-items">\s+</div>', first_page)
 
             # if there are results on page...
-            if no_results_found is None:
+            if not no_results_found:
 
                 # scrape to get the number of all the results pages (this is
                 # listed on the first page)
-                match = re.compile('/videos/page_(.+?)">').findall(first_page)
-                xbmc.log('Number of pages:%s' % match)
+                match = re.compile(
+                    '([^"]+)page_(\d+)">last').findall(first_page)
+                xbmc.log('Number of pages:%s' % match[0][1])
 
                 # if there weren't any multiple pages of search results
                 if not match:
@@ -251,12 +251,7 @@ def SEARCH(url):
 
                     # convert the list of strings produced by re.compile to a
                     # list of integers, so we can use them for calculations
-                    match = [int(result) for result in match]
-
-                    # get the highest results page number, to get the total
-                    # number of results pages.
-                    # this gets the highest integer in the list of integers
-                    total_pages = max(match)
+                    total_pages = int(match[0][1])
 
                     # generate a list of numbers 1 to total_pages (eg if
                     # total_pages is 3 generate: 1, 2, 3)
@@ -276,6 +271,7 @@ def SEARCH(url):
                         # make the page name
                         name = 'Page ' + thenumber
 
+                        search_url = main_url + match[0][0]
                         # make the page url
                         url = search_url + 'page_' + thenumber
 
@@ -284,15 +280,16 @@ def SEARCH(url):
 
 
 def SEARCH_RESULTS(url, html=False):
+    xbmc.log(url)
     # this function scrapes the search results pages
     # accepts page source code (html) for any searches where there is only one
     # page of results
     if html is False:
         html = get_html(url)
-    match = re.compile('<a href="(.+?)" onclick="document.cookie = \'ii=1;'
-                       'path=/\';"  class="xxx" target="_blank"><img '
-                       'alt="(.+?)"   src="(.+?)"').findall(html)
-    for gurl, name, thumbnail in match:
+    match = re.compile('searchVideo">\s+<a href="([^"]+)">\s+<img src="([^"]+)"'
+                       ).findall(html)
+    for gurl, thumbnail in match:
+        name = gurl.split('/')[-2]
         addSupportedLinks(gurl, name, thumbnail)
 
 
