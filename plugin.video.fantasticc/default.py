@@ -363,13 +363,12 @@ def INDEXCOLLECT(url):   # Index Collections Pages
 
         addDir(name + ' (' + num_of_vids + ' vids)', realurl, mode, icons)
 
-    match = re.compile('<a href="(.+?)">next &gt;&gt;</a>').findall(html)
-    for next_match in match:
-        mode = 2
-        next_match = string.split(next_match, '"')[-1]
-        fixedNext = 'http://fantasti.cc%s' % next_match
-        xbmc.log('FixedNext: %s' % fixedNext)
-        addDir('Next Page', fixedNext, mode, default_image)
+    next_match = re.compile(
+        '<a href="([^"]+)">next &gt;&gt;</a>').findall(html)
+    mode = 2
+    fixedNext = 'http://fantasti.cc%s' % next_match[0]
+    xbmc.log('FixedNext: %s' % fixedNext)
+    addDir('Next Page', fixedNext, mode, default_image)
 
     xbmcplugin.endOfDirectory(pluginhandle)
 
