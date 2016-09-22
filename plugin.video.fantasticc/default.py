@@ -349,26 +349,19 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
 
-    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div class="tag-list">', re.DOTALL).findall(html)
-
-    for gurl, name,chtml  in match:
+    match = re.compile(
+        '<a class="clnk" href="([^"]+)">([^<]+)</a>.+?"counter-right">'
+        '(\d+) videos.+?style="background: url\(([^)]+)\);',
+        re.DOTALL).findall(html)
+    for gurl, name, num_of_vids, icons in match:
         xbmc.log('Name [%s]' % name)
         realurl = 'http://fantasti.cc%s' % gurl
         name = unescape(name)
         mode = 1
+        if num_of_vids == str(0):
+            continue
 
-        #scrape number of vids
-        num_of_vids = (re.compile('<div class="counter-right">(.+?) videos</div>',
-                       re.DOTALL).findall(html))[0]
-        #trim whitespace from beginning of string
-        num_of_vids = re.sub('^[ \t\r\n]+', '', num_of_vids)
-
-        # do some cool stuff to get the images and join them.
-        icons = re.compile('style="background: url\((.+?)\);"></a>').findall(chtml)
-        if not icons:
-          continue # some collections are empty so they don't have icons
-
-        addDir(name + ' (' + num_of_vids + ' vids)', realurl, mode, icons[0])
+        addDir(name + ' (' + num_of_vids + ' vids)', realurl, mode, icons)
 
     match = re.compile('<a href="(.+?)">next &gt;&gt;</a>').findall(html)
     for next_match in match:
