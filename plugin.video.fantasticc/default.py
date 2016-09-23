@@ -303,19 +303,17 @@ def INDEX(url):
             mode = 4
             xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
-        match = re.compile('\(\'(.+?)\', ([0-9]*),\'(.+?)\', \'(.+?)\'\)'
-                           ';return false;" href="#">next').findall(html)
-        if len(match) >= 1:
-            fixedNext = None
-            for next_match in match:
-                mode = 1
-                page = next_match[0][-1]
-                vid_id = next_match[1]
-                fixedNext = 'http://fantasti.cc/ajax/pager.php?page=%s&pid=%s'\
-                            '&div=collection_%s&uid=14657' % \
-                            (page, vid_id, vid_id)
-                xbmc.log('fixedNext %s' % fixedNext)
-            addDir('Next Page', fixedNext, mode, default_image)
+
+        match = re.compile('#(\d+)').findall(url)
+        if not match:
+            fixedNext = url + '#2'
+        else:
+            page = int(match[0]) + 1
+            fixedNext = url.rstrip('123456789') + str(page)
+
+        mode = 1
+        xbmc.log('fixedNext %s' % fixedNext)
+        addDir('Next Page', fixedNext, mode, default_image)
     else:
         match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
                            ' alt="([^"]+)"[^>]+>.+?'
