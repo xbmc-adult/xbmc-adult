@@ -52,6 +52,10 @@ quality=low
 target="(/dload/[^"]+720p.mp4)
 url=%s
 build=http://www.eporner.com%s
+quality=standard
+target="(/dload/[^"]+1080p.mp4)
+url=%s
+build=http://www.eporner.com%s
 quality=high
 ########################################################
 title=2video.de
