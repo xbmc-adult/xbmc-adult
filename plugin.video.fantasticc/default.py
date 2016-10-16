@@ -344,19 +344,28 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
 
-    match = re.compile(
-        '<a class="clnk" href="([^"]+)">([^<]+)</a>.+?"counter-right">'
-        '(\d+) videos.+?style="background: url\(([^)]+)\);',
-        re.DOTALL).findall(html)
-    for gurl, name, num_of_vids, icons in match:
+    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div class="tag-list">', re.DOTALL).findall(html)
+
+    for gurl, name, chtml in match:
         xbmc.log('Name [%s]' % name)
         realurl = 'http://fantasti.cc%s' % gurl
         name = unescape(name)
         mode = 1
-        if num_of_vids == str(0):
-            continue
 
-        addDir(name + ' (' + num_of_vids + ' vids)', realurl, mode, icons)
+        #scrape number of vids
+        vidnumber = re.search('"videosListNumber"><b>(.*?)<',chtml)
+        if vidnumber:
+            num_of_vids = vidnumber.group(1)
+        else:
+            num_of_vids = len(re.findall('div (class="item")',chtml))
+
+        # do some cool stuff to get the images and join them.
+        icons = re.compile("background:.*?(http.*?)'").findall(chtml)
+
+        if not icons:
+          continue # some collections are empty so they don't have icons
+
+        addDir('%s (%s vids)'%(name,num_of_vids), realurl, mode, icons[0])
 
     try:
         next_match = re.compile(
