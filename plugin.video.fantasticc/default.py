@@ -344,7 +344,8 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
 
-    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div class="tag-list">', re.DOTALL).findall(html)
+    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div ' +
+                       'class="tag-list">', re.DOTALL).findall(html)
 
     for gurl, name, chtml in match:
         xbmc.log('Name [%s]' % name)
