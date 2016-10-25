@@ -5,6 +5,8 @@
 - Updated: pornburst.xxx
 - Fixed: catcher
 - Fixed: categories
+- Updated: pornoxo
+- Fixed: url parsing
 
 [B]Version 1.7.141[/B]
 
