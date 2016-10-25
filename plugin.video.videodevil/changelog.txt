@@ -4,6 +4,7 @@
 - Fixed: url parsing
 - Updated: pornburst.xxx
 - Fixed: catcher
+- Fixed: categories
 
 [B]Version 1.7.141[/B]
 
