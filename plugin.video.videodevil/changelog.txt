@@ -2,6 +2,8 @@
 
 - Updated: xvideos
 - Fixed: url parsing
+- Updated: pornburst.xxx
+- Fixed: catcher
 
 [B]Version 1.7.141[/B]
 
@@ -437,7 +439,7 @@ Jarvis
 [B]Version 1.7.84[/B]
 
 - Updated: moviesand
-- Fixed:  catcher
+- Fixed: catcher
 
 [B]Version 1.7.83[/B]
 
