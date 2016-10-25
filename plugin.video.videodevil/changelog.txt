@@ -1,3 +1,8 @@
+[B]Version 1.7.142[/B]
+
+- Updated: xvideos
+- Fixed: url parsing
+
 [B]Version 1.7.141[/B]
 
 - Updated: eporner
