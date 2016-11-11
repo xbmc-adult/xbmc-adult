@@ -8,6 +8,13 @@ director=VideoDevil
 icon=video.devil.image|ahme.png
 url=ahme.com.cfg
 ########################################################
+title=bitporno.sx
+type=rss
+genre=bitporno.sx
+director=VideoDevil
+icon=video.devil.image|bitporno.png
+url=bitporno.sx.cfg
+########################################################
 title=Empflix
 type=rss
 genre=empflix
