@@ -296,32 +296,24 @@ def SEARCH_RESULTS(url, html=False):
 def INDEX(url):
     html = get_html(url)
     if 'collection' in url: # Collections
-        # match = re.compile('<i class="submitted-video-play fa fa-play-circle-o"></i>.*?<img height=".*?" width=".*?".src="(.+?)".alt="(.*?)">.*?<a href="(.*?)"', re.DOTALL).findall(html)
-        # for thumbnail, name, gurl in match:
-            # vid_id = string.split(gurl, '/')[-3]
-            # realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
-            # mode = 4
-            # xbmc.log('realurl %s' % realurl)
-            # addLink(name, realurl, mode, thumbnail)
-
-        # match = re.compile('#(\d+)').findall(url)
-        # if not match:
-            # fixedNext = url + '#2'
-        # else:
-            # page = int(match[0]) + 1
-            # fixedNext = url.rstrip('123456789') + str(page)
-
-        # mode = 1
-        # xbmc.log('fixedNext %s' % fixedNext)
-        # addDir('Next Page', fixedNext, mode, default_image)
-        srclist = re.findall('videosJSON = (\[.*?\]);', html)[0]
-        videosJSON = eval(srclist)
-        for item in videosJSON:
-            name = item['title']
-            realurl = 'http://fantasti.cc/video.php?id=%s' % item['id']
-            thumbnail = item['rawThumb'].replace('\\/','/')
+        match = re.compile('<i class="submitted-video-play fa fa-play-circle-o"></i>.*?<img height=".*?" width=".*?".src="(.+?)".alt="(.*?)">.*?<a href="(.*?)"', re.DOTALL).findall(html)
+        for thumbnail, name, gurl in match:
+            vid_id = string.split(gurl, '/')[-3]
+            realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
             mode = 4
+            xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
+
+        match = re.compile('#(\d+)').findall(url)
+        if not match:
+            fixedNext = url + '#2'
+        else:
+            page = int(match[0]) + 1
+            fixedNext = url.rstrip('123456789') + str(page)
+
+        mode = 1
+        xbmc.log('fixedNext %s' % fixedNext)
+        addDir('Next Page', fixedNext, mode, default_image)
     else:
         match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
                            ' alt="([^"]+)"[^>]+>.+?'
