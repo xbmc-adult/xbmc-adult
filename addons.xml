@@ -162,7 +162,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.33"
+       version="2.3.34"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.141"
+  version="1.7.144"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>

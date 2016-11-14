@@ -1,3 +1,22 @@
+[B]Version 1.7.144[/B]
+
+- Added: bitporno.sx
+
+[B]Version 1.7.143[/B]
+
+- Updated: xhamster
+- Fixed: categories
+
+[B]Version 1.7.142[/B]
+
+- Updated: xvideos
+- Fixed: url parsing
+- Updated: pornburst.xxx
+- Fixed: catcher
+- Fixed: categories
+- Updated: pornoxo
+- Fixed: url parsing
+
 [B]Version 1.7.141[/B]
 
 - Updated: eporner
@@ -432,7 +451,7 @@ Jarvis
 [B]Version 1.7.84[/B]
 
 - Updated: moviesand
-- Fixed:  catcher
+- Fixed: catcher
 
 [B]Version 1.7.83[/B]
 

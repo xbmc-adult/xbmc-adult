@@ -318,7 +318,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornburst.xxx
-target=url: '(http://c[^']+)'
+target=source src="([^"]+)
 url=%s
 quality=standard
 ########################################################
@@ -350,3 +350,13 @@ target=video_url: '([^']+)',
 url=%s
 quality=standard
 ########################################################
+title=bitporno.sx
+target="file":"([^"]+)","label":"720p"
+url=%s
+quality=high
+target="file":"([^"]+)","label":"360p"
+url=%s
+quality=standard
+target="file":"([^"]+)","label":"[^""]*"(,"default":"true"|)
+url=%s
+quality=fallback
