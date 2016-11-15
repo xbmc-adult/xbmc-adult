@@ -5,7 +5,7 @@
 # Released under GPL(v2)
 
 import urllib, urllib2, htmllib
-import re, string
+import re, string, json
 import os
 import sys
 import xbmcplugin, xbmcaddon, xbmcgui, xbmc
@@ -296,24 +296,14 @@ def SEARCH_RESULTS(url, html=False):
 def INDEX(url):
     html = get_html(url)
     if 'collection' in url: # Collections
-        match = re.compile('<i class="submitted-video-play fa fa-play-circle-o"></i>.*?<img height=".*?" width=".*?".src="(.+?)".alt="(.*?)">.*?<a href="(.*?)"', re.DOTALL).findall(html)
-        for thumbnail, name, gurl in match:
-            vid_id = string.split(gurl, '/')[-3]
-            realurl = 'http://fantasti.cc/video.php?id=%s' % vid_id
+        videosJSON = json.loads(re.findall('videosJSON = (\[.*?\]);', html)[0])
+        for item in videosJSON:
+            name = item['title'].encode('utf8')
+            realurl = 'http://fantasti.cc/video.php?id=%s' % item['id']
+            thumbnail = item['rawThumb']
             mode = 4
-            xbmc.log('realurl %s' % realurl)
+            #xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
-
-        match = re.compile('#(\d+)').findall(url)
-        if not match:
-            fixedNext = url + '#2'
-        else:
-            page = int(match[0]) + 1
-            fixedNext = url.rstrip('123456789') + str(page)
-
-        mode = 1
-        xbmc.log('fixedNext %s' % fixedNext)
-        addDir('Next Page', fixedNext, mode, default_image)
     else:
         match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
                            ' alt="([^"]+)"[^>]+>.+?'
@@ -555,7 +545,7 @@ def get_params():
 
 def addLink(name, url, mode, iconimage):
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
-        + "&name=" + urllib.quote_plus(name) + "&name=" + "&iconimage=" \
+        + "&name=" + urllib.quote_plus(name) + "&iconimage=" \
         + urllib.quote_plus(iconimage)
     ok = True
     liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png',
