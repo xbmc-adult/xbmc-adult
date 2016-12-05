@@ -1,13 +1,12 @@
 import sys
-import os
-import xbmc
-import xbmcgui
-import xbmcplugin
-import xbmcaddon
 import urllib
 import urllib2
 import cookielib
 import re
+import xbmc
+import xbmcgui
+import xbmcplugin
+import xbmcaddon
 
 settings = xbmcaddon.Addon(id='plugin.video.empflix')
 cookiejar = cookielib.LWPCookieJar()
@@ -54,7 +53,7 @@ def VIDEOLIST(url, page):
                 'http:' + videourl + '?',
                 3,
                 'http:'+thumb.strip())
-    if (len(match) == 24):
+    if len(match) == 24:
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -70,19 +69,18 @@ def PLAYVIDEO(url):
 
 
 def get_params():
-    param = []
     paramstring = sys.argv[2]
     if len(paramstring) >= 2:
         params = sys.argv[2]
         cleanedparams = params.replace('?', '')
-        if (params[len(params)-1] == '/'):
+        if params[len(params)-1] == '/':
             params = params[0:len(params)-2]
         pairsofparams = cleanedparams.split('&')
         param = {}
         for i in range(len(pairsofparams)):
             splitparams = {}
             splitparams = pairsofparams[i].split('=')
-            if (len(splitparams)) == 2:
+            if len(splitparams) == 2:
                 param[splitparams[0]] = splitparams[1]
     return param
 
@@ -120,16 +118,11 @@ def openURL(url):
 def main():
     params = get_params()
     url = None
-    name = None
     mode = None
     page = 1
 
     try:
         url = urllib.unquote_plus(params['url'])
-    except:
-        pass
-    try:
-        name = urllib.unquote_plus(params['name'])
     except:
         pass
     try:
@@ -141,7 +134,7 @@ def main():
     except:
         pass
 
-    if mode == None or url == None or len(url) < 1:
+    if mode is None or url is None or len(url) < 1:
         CATEGORIES()
 
     elif mode == 1:
