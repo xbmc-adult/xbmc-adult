@@ -5,7 +5,7 @@
 # Released under GPL(v2)
 
 import urllib, urllib2, htmllib
-import re, string, json
+import re, json
 import os
 import sys
 import xbmcplugin, xbmcaddon, xbmcgui, xbmc
@@ -20,7 +20,7 @@ __addonpath__ = xbmcaddon.Addon(id=__addonname__).getAddonInfo('path')
 __datapath__ = xbmc.translatePath('special://profile/addon_data/'+__addonname__)
 
 #append lib directory
-sys.path.append( os.path.join( __addonpath__, 'resources', 'lib' ) )
+sys.path.append(os.path.join(__addonpath__, 'resources', 'lib'))
 
 #import from lib directory
 import weblogin
@@ -75,7 +75,7 @@ def LOGIN(username, password, hidesuccess):
     lc = username.lower()
 
     logged_in = weblogin.doLogin(__datapath__, username, password)
-    if logged_in == True:
+    if logged_in:
         avatar = get_avatar(lc)
 
         if hidesuccess == 'false':
@@ -91,7 +91,7 @@ def LOGIN(username, password, hidesuccess):
         addDir(uc + '\'s Rated Collections',
                main_url + 'user/' + lc + '/collections/rated', 2, avatar)
 
-    elif logged_in == False:
+    elif not logged_in:
         Notify('Login Failure', uc + ' could not login', '4000', default_image)
 
 
@@ -207,7 +207,7 @@ def SEARCH(url):
     kb.doModal()
 
     # if user presses enter
-    if (kb.isConfirmed()):
+    if kb.isConfirmed():
 
         # get text from keyboard
         search = kb.getText()
@@ -215,7 +215,7 @@ def SEARCH(url):
         # if the search text is not nothing
         if search is not '':
 
-            # encode the search phrase to put in url 
+            # encode the search phrase to put in url
             # (ie replace ' ' with '+' etc)
             # normally you would use: search = urllib.quoteplus(search)
             # but fantasti's search urls are a bit weird
@@ -287,7 +287,7 @@ def SEARCH_RESULTS(url, html=False):
         xbmc.log(url)
         html = get_html(url)
     match = re.compile('searchVideo">\s+<a href="([^"]+)" >\s+<img src="([^"]+)"'
-                       ).findall(html)
+                      ).findall(html)
     for gurl, thumbnail in match:
         name = gurl.split('/')[-2]
         addSupportedLinks(gurl, name, thumbnail)
@@ -344,11 +344,11 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         mode = 1
 
         #scrape number of vids
-        vidnumber = re.search('"videosListNumber"><b>(.*?)<',chtml)
+        vidnumber = re.search('"videosListNumber"><b>(.*?)<', chtml)
         if vidnumber:
             num_of_vids = vidnumber.group(1)
         else:
-            num_of_vids = len(re.findall('div (class="item")',chtml))
+            num_of_vids = len(re.findall('div (class="item")', chtml))
 
         # do some cool stuff to get the images and join them.
         icons = re.compile("background:.*?(http.*?)'").findall(chtml)
@@ -356,7 +356,7 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         if not icons:
           continue # some collections are empty so they don't have icons
 
-        addDir('%s (%s vids)'%(name,num_of_vids), realurl, mode, icons[0])
+        addDir('%s (%s vids)'%(name, num_of_vids), realurl, mode, icons[0])
 
     try:
         next_match = re.compile(
@@ -367,17 +367,16 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         addDir('Next Page', fixedNext, mode, default_image)
     except IndexError:
         xbmc.log("IndexError skipped")
-        pass
 
     xbmcplugin.endOfDirectory(pluginhandle)
 
 
-def PLAY(url, topthumbnail):
+def PLAY(url, thumbnail):
     xbmc.log('Play URL: %s' % url)
     if 'id=' in url:
-        realurl = GET_LINK(url, 1 ,topthumbnail)
+        realurl = GET_LINK(url, 1, thumbnail)
     else:
-        realurl = GET_LINK(url, 0 ,topthumbnail)
+        realurl = GET_LINK(url, 0, thumbnail)
     xbmc.log('Real url: %s' % realurl)
     if not realurl:
         Notify('Failure', 'Try another video', '4000', default_image)
@@ -526,12 +525,11 @@ def GET_LINK(url, collections, url2):
 
 
 def get_params():
-    param = []
     paramstring = sys.argv[2]
-    if len(paramstring)>= 2:
+    if len(paramstring) >= 2:
         params = sys.argv[2]
         cleanedparams = params.replace('?', '')
-        if (params[len(params)-1] == '/'):
+        if params[len(params)-1] == '/':
             params = params[0:len(params)-2]
         pairsofparams = cleanedparams.split('&')
         param = {}
@@ -562,7 +560,7 @@ def addDir(name, url, mode, iconimage):
     ok = True
     liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
                            thumbnailImage=iconimage)
-    liz.setInfo( type='Video', infoLabels={ 'Title': name } )
+    liz.setInfo(type='Video', infoLabels={'Title': name})
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
                                      listitem=liz, isFolder=True)
     return ok
@@ -604,7 +602,7 @@ xbmc.log('Mode: ' + str(topmode))
 xbmc.log('URL: ' + str(topurl))
 xbmc.log('Name: ' + str(topname))
 
-if topmode == None:
+if topmode is None:
     xbmc.log('Generate Main Menu')
     CATEGORIES()
 elif topmode == 1:
@@ -615,7 +613,7 @@ elif topmode == 2:
     INDEXCOLLECT(topurl)
 elif topmode == 4:
     xbmc.log('Play Video')
-    PLAY(topurl,topthumbnail)
+    PLAY(topurl, topthumbnail)
 elif topmode == 5:
     xbmc.log('Category: Search')
     SEARCH(topurl)

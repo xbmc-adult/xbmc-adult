@@ -48,7 +48,7 @@ def get(url, cookiepath=None):
     # use cookies if cookiepath is set and if the cookiepath exists.
     if cookiepath is not None:
         #only use cookies for urls specified
-        if url_for_cookies(url) == True:
+        if url_for_cookies(url):
             #check if user has supplied only a folder path, or a full path
             if not os.path.isfile(cookiepath):
                 #if the user supplied only a folder path, append on to the end
