@@ -286,7 +286,7 @@ def SEARCH_RESULTS(url, html=False):
     if html is False:
         xbmc.log(url)
         html = get_html(url)
-    match = re.compile('searchVideo">\s+<a href="([^"]+)">\s+<img src="([^"]+)"'
+    match = re.compile('searchVideo">\s+<a href="([^"]+)" >\s+<img src="([^"]+)"'
                        ).findall(html)
     for gurl, thumbnail in match:
         name = gurl.split('/')[-2]
