@@ -352,7 +352,7 @@ def clean1(s): # remove &XXX;
     for name, value in entitydefs.iteritems():
         if u'&' in s:
             s = s.replace(u'&' + name + u';', value)
-    return s;
+    return s
 
 def clean2(s): # remove \\uXXX
     pat = re.compile(r'\\u(....)')
@@ -371,7 +371,7 @@ def decode(s):
         return ''
     try:
         dic = htmlentitydefs.name2codepoint
-        for key in dic.keys():
+        for key in dic:
             entity = '&' + key + ';'
             s = s.replace(entity, unichr(dic[key]))
     except:
@@ -388,7 +388,7 @@ def unquote_safe(s): # unquote
     except:
         if enable_debug:
             traceback.print_exc(file=sys.stdout)
-    return s;
+    return s
 
 def quote_safe(s): # quote
     if not s:
@@ -399,7 +399,7 @@ def quote_safe(s): # quote
     except:
         if enable_debug:
             traceback.print_exc(file=sys.stdout)
-    return s;
+    return s
 
 def smart_unicode(s):
     if not s:
@@ -436,7 +436,7 @@ def clean_filename(s):
     if not s:
         return ''
     badchars = '\\/:*?\"<>|'
-    return s.strip(badchars);
+    return s.strip(badchars)
 
 def smart_read_file(directory, filename):
     f = open(str(os.path.join(directory, filename)), 'r')
@@ -723,10 +723,7 @@ class CCurrentList:
 
         self.cfg = filename
         if self.getFileExtension(self.cfg) == 'cfg' and lItem != None:
-            try:
-                lItem.infos_dict[strin] = self.cfg
-            except:
-                lItem.infos_dict['cfg'] = self.cfg
+            lItem.infos_dict['cfg'] = self.cfg
         del self.items[:]
         tmp = None
         for m in data:
@@ -830,7 +827,7 @@ class CCurrentList:
                         tmp.infos_dict[key] = value
 
         if recursive and self.start != '':
-            if lItem == None:
+            if lItem is None:
                 self.loadRemote(self.start, False)
             else:
                 if self.getFileExtension(lItem.infos_dict['url']) == 'cfg':
@@ -869,7 +866,7 @@ class CCurrentList:
         remote_url = urllib.unquote_plus(remote_url)
         if enable_debug:
             xbmc.log('loadRemote: ' + repr(remote_url))
-        if lItem == None:
+        if lItem is None:
             lItem = self.decodeUrl(remote_url)
         try:
             curr_url = remote_url
@@ -888,7 +885,7 @@ class CCurrentList:
                         except:
                             addon.setSetting('curr_search', '')
                         search_phrase = self.getKeyboard(default=curr_phrase,
-                                heading = __language__(30102))
+                                heading=__language__(30102))
                         if search_phrase == '':
                             return -1
                         addon.setSetting('curr_search', search_phrase)
@@ -936,7 +933,6 @@ class CCurrentList:
             return -1
 
         # Find list items
-        reinfos = []
         lock = False
         for item_rule in self.rules:
             if item_rule.skill.find('lock') != -1 and lock:
@@ -946,25 +942,18 @@ class CCurrentList:
                                           prefix=(self.cfg + '.dir.'),
                                           dir='')
             f = None
-            if item_rule.order.find('|') != -1:
-                reinfos = []
-                infos_nbr = len(item_rule.order.split('|'))
-                for idx in range(infos_nbr):
-                    reinfos.append('')
-            else:
-                reinfos = ''
             revid = re.compile(item_rule.infos,
                                re.IGNORECASE + re.DOTALL + re.MULTILINE)
-            for reinfos in revid.findall(data):
+            for reinfo in revid.findall(data):
                 if item_rule.skill.find('lock') != -1 and lock:
                     continue
                 tmp = CListItem()
                 if item_rule.order.find('|') != -1:
                     infos_names = item_rule.order.split('|')
-                    infos_values = list(reinfos)
+                    infos_values = list(reinfo)
                     tmp.infos_dict = dict(zip(infos_names, infos_values))
                 else:
-                    tmp.infos_dict[item_rule.order] = reinfos
+                    tmp.infos_dict[item_rule.order] = reinfo
                 for info in item_rule.info_list:
                     info_value = ''
                     if info.name in tmp.infos_dict:
@@ -1023,7 +1012,7 @@ class CCurrentList:
                 else:
                     if item_rule.skill.find('directory') != -1:
                         one_found = True
-                        if f == None:
+                        if f is None:
                             f = open(str(os.path.join(cacheDir, catfilename)), 'w')
                             f.write(smart_unicode('########################################################\n').encode('utf-8'))
                             f.write(smart_unicode('#                    Temporary file                    #\n').encode('utf-8'))
@@ -1060,7 +1049,7 @@ class CCurrentList:
                             tmp.infos_dict[info_name] = info_value
                     if item_rule.skill.find('directory') != -1:
                         one_found = True
-                        if f == None:
+                        if f is None:
                             f = open(str(os.path.join(cacheDir, catfilename)), 'w')
                             f.write(smart_unicode('########################################################\n').encode('utf-8'))
                             f.write(smart_unicode('#                    Temporary file                    #\n').encode('utf-8'))
@@ -1298,7 +1287,7 @@ class Main:
         return ''
 
     def playVideo(self, videoItem):
-        if videoItem == None:
+        if videoItem is None:
             return
         if videoItem.infos_dict['url'] == '':
             return
@@ -1336,7 +1325,7 @@ class Main:
                                     __language__(30051))
                 flv_file = self.downloadMovie(url, title)
                 self.pDialog.close()
-                if flv_file == None:
+                if flv_file is None:
                     dialog = xbmcgui.Dialog()
                     dialog.ok('VideoDevil Info', __language__(30053))
             elif addon.getSetting('download') == 'false' and addon.getSetting('download_ask') == 'true':
@@ -1348,7 +1337,7 @@ class Main:
                                         __language__(30051))
                     flv_file = self.downloadMovie(url, title)
                     self.pDialog.close()
-                    if flv_file == None:
+                    if flv_file is None:
                         dialog = xbmcgui.Dialog()
                         dialog.ok('VideoDevil Info', __language__(30053))
         else:
@@ -1401,7 +1390,7 @@ class Main:
         if self.pDialog.iscanceled():
             raise KeyboardInterrupt
 
-    def TargetFormatter(self, url, cfg_file): #Site specific target url handling
+    def TargetFormatter(self, url): #Site specific target url handling
         if 'tukif' in url:
             url = url + '|Referer=http://www.tukif.com'
         if 'extremetube' in url:
@@ -1436,7 +1425,7 @@ class Main:
                 lItem.infos_dict['url'] = self.getDirectLink(
                                               lItem.infos_dict['url'])
             lItem.infos_dict['url'] = self.TargetFormatter(
-                                          lItem.infos_dict['url'], cfg_file)
+                                          lItem.infos_dict['url'])
             if 'extension' in lItem.infos_dict:
                 self.videoExtension = '.' + lItem.infos_dict['extension']
             if ext == 'videodevil':
@@ -1484,7 +1473,6 @@ class Main:
             if url == 'sites.list':
                 self.currentlist.items = [item for item in self.currentlist.items if addon.getSetting(item.infos_dict['title']) == 'true']
             for m in self.currentlist.items:
-                m_url = m.infos_dict['url']
                 try:
                     m_type = m.infos_dict['type']
                 except:
@@ -1569,7 +1557,7 @@ class Main:
                                     totalItems=totalItems)
 
     def purgeCache(self):
-        for root, dirs, files in os.walk(cacheDir , topdown=False):
+        for root, dirs, files in os.walk(cacheDir, topdown=False):
             for name in files:
                 os.remove(os.path.join(root, name))
 
