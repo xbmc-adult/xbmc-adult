@@ -69,6 +69,7 @@ def PLAYVIDEO(url):
 
 
 def get_params():
+    param = {}
     paramstring = sys.argv[2]
     if len(paramstring) >= 2:
         params = sys.argv[2]
@@ -76,7 +77,6 @@ def get_params():
         if params[len(params)-1] == '/':
             params = params[0:len(params)-2]
         pairsofparams = cleanedparams.split('&')
-        param = {}
         for i in range(len(pairsofparams)):
             splitparams = {}
             splitparams = pairsofparams[i].split('=')
