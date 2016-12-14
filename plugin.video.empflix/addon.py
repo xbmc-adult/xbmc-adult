@@ -16,12 +16,11 @@ opener = urllib2.build_opener(cookie_handler)
 
 def CATEGORIES():
     link = openURL('http://www.empflix.com/categories.php')
-    match = re.compile('<li><a href="//www.empflix.com/categories/'
-                       '([^"]+)">([^<]+)').findall(link)
+    match = re.compile('/([^/]+)/\?a=1&d=" title="([^"]+)"').findall(link)
     addDir('All', 'http://www.empflix.com/browse.php', 1, '', 1)
     for channame, name in match:
         addDir(name,
-               ('http://www.empflix.com/categories/' + channame),
+               ('http://www.empflix.com/' + channame),
                2, '', 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -44,15 +43,14 @@ def SORTMETHOD(url):
 
 
 def VIDEOLIST(url, page):
-    link = openURL(url + '&page=' + str(page))
-    match = re.compile('<a href="([^"]*.html)"[^>]+title="[^"]*">.+?'
-                       '<h2>([^<]+)</h2>.+?<span class="duringTime">([\d:]+)'
-                       '.+?<img src="([^"]+)"', re.DOTALL).findall(link)
-    for videourl, name, duration, thumb in match:
+    link = openURL(url + '/?page=' + str(page))
+    match = re.compile(r"data-vid.+?data-name='([^']+)'.+?href='([^']+).+?data-original='([^']+)'.+?'>([\d:]+)",
+                       re.DOTALL).findall(link)
+    for name, videourl, thumb, duration in match:
         addLink(name + ' (' + duration + ')',
-                'http:' + videourl + '?',
+                'http://www.empflix.com' + videourl + '?',
                 3,
-                'http:'+thumb.strip())
+                thumb.strip())
     if len(match) == 24:
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -60,12 +58,8 @@ def VIDEOLIST(url, page):
 
 def PLAYVIDEO(url):
     link = openURL(url)
-    match = re.compile('name="config" value="([^"]+)"').findall(link)
-    for configurl in match:
-        link = openURL('http:' + configurl)
-        match2 = re.compile('CDATA\[([^\]]+\d+p.mp4[^\]]+)').findall(link)
-        if match2:
-            xbmc.Player().play('http:' + match2[-1])
+    match = re.compile('contentUrl" content="([^"]+)').findall(link)
+    xbmc.Player().play(match[0])
 
 
 def get_params():
