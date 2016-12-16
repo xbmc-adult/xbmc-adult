@@ -8,10 +8,10 @@ import xbmcgui
 import xbmcplugin
 import xbmcaddon
 
-settings = xbmcaddon.Addon(id='plugin.video.empflix')
+xbmcaddon.Addon(id='plugin.video.empflix')
 cookiejar = cookielib.LWPCookieJar()
 cookie_handler = urllib2.HTTPCookieProcessor(cookiejar)
-opener = urllib2.build_opener(cookie_handler)
+urllib2.build_opener(cookie_handler)
 
 
 def CATEGORIES():
