@@ -577,7 +577,6 @@ topparams = get_params()
 topurl = None
 topname = None
 topmode = None
-cookie = None
 topthumbnail = None
 
 try:
