@@ -12,11 +12,10 @@ if rootDir.endswith(';'):
 class Main:
     def __init__(self):
         self.pDialog = None
-        self.curr_file = ''
         self.run()
 
     def run(self):
         import videodevil
         videodevil.Main()
 
-win = Main()
+Main()

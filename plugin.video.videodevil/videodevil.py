@@ -328,23 +328,6 @@ entitydefs2 = {
     '`':    '%60'
 }
 
-entitydefs3 = {
-    u'ÂÁÀÄÃÅ':  u'A',
-    u'âáàäãå':  u'a',
-    u'ÔÓÒÖÕ':   u'O',
-    u'ôóòöõğø': u'o',
-    u'ÛÚÙÜ':    u'U',
-    u'ûúùüµ':   u'u',
-    u'ÊÉÈË':    u'E',
-    u'êéèë':    u'e',
-    u'ÎÍÌÏ':    u'I',
-    u'îìíï':    u'i',
-    u'ñ':       u'n',
-    u'ß':       u'B',
-    u'÷':       u'%',
-    u'ç':       u'c',
-    u'æ':       u'ae'
-}
 
 def clean1(s): # remove &XXX;
     if not s:
@@ -1090,7 +1073,6 @@ class Main:
         if enable_debug:
             xbmc.log('Initializing VideoDevil')
         self.pDialog = None
-        self.curr_file = ''
         self.urlList = []
         self.extensionList = []
         self.selectionList = []
