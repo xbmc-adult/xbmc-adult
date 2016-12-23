@@ -4,8 +4,10 @@ import os.path as path
 import re
 import urllib
 import urllib2
-
 from kodiswift import Plugin, xbmc, ListItem, download_page, clean_dict, SortMethod
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 plugin = Plugin()
 __addondir__ = xbmc.translatePath(plugin.addon.getAddonInfo('path'))
@@ -171,7 +173,6 @@ def makeVideoItems(itemlist, sitename=None):
                 xli.thumbnail = thumb
                 xli.icon = thumb
                 xli.poster = thumb
-                xli.add_context_menu_items([('Download', 'RunPlugin("{0}")'.format(plugin.url_for(download, name=lbl, url=vurl)),)])
                 infolbl = {'Duration': lengthnum, 'Genre': SITE, 'Plot': plotstring + tagstring, 'Rating': views, 'Premiered': reldate, 'Year': reldate, 'Title': title}
                 xli.set_info(info_type='video', info_labels=infolbl)
                 if thumb2 != '':
@@ -547,7 +548,7 @@ def getAPIURLS(sitename=None):
     :param sitename:
     :return: URL of API for sitename specified or DICT(sitename: URL, sitename2: URL)
     """
-    b = "http://www."
+    b = "http://"
     sitecatsapis = dict(spankwire=b+"spankwire.com/api/HubTrafficApiCall?data=getCategoriesList&output=json&segment=gay",
                         xtube=b+"xtube.com/webmaster/api.php?action=getCategoryList",
                         youporn=b+"youporn.com/api/webmasters/categories/",
@@ -556,14 +557,14 @@ def getAPIURLS(sitename=None):
                         redtube="http://api.redtube.com/?data=redtube.Categories.getCategoriesList&output=json",
                         tube8="http://api.tube8.com/api.php?action=getcategorieslist&output=json")
     siteapis = dict(
-        gaytube=b + "gaytube.com/api/webmasters/search/?ordering=newest&period=alltime&thumbsize=preview&category=&page=1&search=&tags[]=&count=250",
-        pornhub=b + "pornhub.com/webmasters/search?id=44bc40f3bc04f65b7a35&category=gay&ordering=newest&tags[]=&search=&page=1&thumbsize=large",
-        redtube="http://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=big&ordering=newest&page=1&search=&tags[]=gay&category=&period=alltime",
+        gaytube=b+"gaytube.com/api/webmasters/search/?ordering=newest&period=alltime&thumbsize=preview&category=&page=1&search=&tags[]=&count=250",
+        pornhub=b+"pornhub.com/webmasters/search?id=44bc40f3bc04f65b7a35&category=gay&ordering=newest&tags[]=&search=&page=1&thumbsize=large",
+        redtube=b+"api.redtube.com/?data=redtube.Videos.searchVideos&output=json&thumbsize=big&ordering=newest&page=1&search=&tags[]=gay&category=&period=alltime",
         spankwire=b + "spankwire.com/api/HubTrafficApiCall?data=searchVideos&output=json&ordering=newest&page=1&segment=gay&count=100&search=&tags=gay&thumbsize=big",
-        tube8="http://api.tube8.com/api.php?action=searchVideos&output=json&ordering=newest&search=gay&thumbsize=big&page=1&orientation=gay",
-        xtube=b + "xtube.com/webmaster/api.php?action=getVideosBySearchParams&tags=&ordering=newest&thumbsize=400x300&fields=title,tags,duration,thumbnail,url,embed,categories&search=gay&category=&page=1&count=100",
-        youporn=b + "youporn.com/api/webmasters/search?search=&page=1&ordering=newest&tags[]=gay&category=&thumbsize=big",
-        motherless=b+"http://motherless.com/feeds/tags/gay/videos?format=json&limit=250&offset=0",
+        tube8=b+"api.tube8.com/api.php?action=searchVideos&output=json&ordering=newest&search=gay&thumbsize=big&page=1&orientation=gay",
+        xtube=b+"xtube.com/webmaster/api.php?action=getVideosBySearchParams&tags=&ordering=newest&thumbsize=400x300&fields=title,tags,duration,thumbnail,url,embed,categories&search=gay&category=&page=1&count=100",
+        youporn=b+"youporn.com/api/webmasters/search?search=&page=1&ordering=newest&tags[]=gay&category=&thumbsize=big",
+        motherless=b+"motherless.com/feeds/tags/gay/videos?format=json&limit=250&offset=0",
         motherless_search=b+"motherless.com/feeds/search/gay+{0}/videos?format=json&sort=date&offset=0&limit=250",
         porkytube=b+"porkytube.com/api/?output=json&command=media.newest&type=videos&offset=0&page=1&amount=500",
         porkytube_search=b+"porkytube.com/api/?output=json&command=media.search&q={0}&type=videos&offset=0&page=1&amount=500")
@@ -671,6 +672,90 @@ def find_video(url):
         return matches
 
 
+@plugin.route('/tumblr/play/<url>')
+def tumblrplay(url=''):
+    #url = urllib.unquote(url.decode('utf-8', 'ignore'))
+    vidurl = None
+    try:
+        import YDStreamExtractor
+        info = YDStreamExtractor.getVideoInfo(url)
+        vidurl = info.streamURL()
+    except:
+        vidurl = url
+    if vidurl is not None:
+        #xbmc.executebuiltin('PlayMedia("{0}")'.format(vidurl))
+        #xbmc.executebuiltin('PlayMedia(%s)' % vidurl.decode('utf-8', 'ignore'))
+        #plugin.play_video(item=vidurl)
+        #plugin.set_resolved_url(vidurl)
+        #plugin.add_items(items=[plugin.set_resolved_url(vidurl)])
+        xbmc.Player().play(vidurl)
+        #plugin.end_of_directory(True, True, False)
+        #return plugin.clear_added_items()
+        #return []
+        #return
+        #vitem = ListItem(label=vidurl, label2='Tumblr', icon='DefaultVideo.png', thumbnail='DefaultVideo.png', path=vidurl)
+        #vitem.playable = True
+        #vitem.set_info(info_type='video', info_labels={'Genre': 'Tumblr'})
+        #plugin.play_video(vitem)
+        #return plugin.finish([plugin.set_resolved_url(vitem)], None, True,True, False)
+        #plugin.clear_added_items()
+        #plugin.set_resolved_url(vitem)
+        #plugin.redirect(plugin.url_for(tumblrindex, blogname=plugin.get_setting('tumblrblog'), pagestart=1))
+        #return plugin.finish(None, None, True, False, False, viewmode)
+
+
+@plugin.route('/tumblr/<blogname>/<pagestart>')
+def tumblrindex(blogname='', pagestart=1):
+    blogurl = "http://{0}.tumblr.com/page/".format(blogname) + "{0}"
+    html = ''
+    lastpage = False
+    pagenext = int(pagestart) + 10
+    for page in range(int(pagestart), int(pagenext)):
+        try:
+            html += download_page(blogurl.format(page))
+            lastpage = False
+        except:
+            lastpage = True
+    vids = []
+    posts = []
+    posts = re.compile(r'<div class="post-background">(.*?)<!-- captions -->(.*?)<!-- captions -->', re.DOTALL).findall(html)
+    vids = []
+    caps = []
+    imgs = []
+    links = []
+    details = []
+    url = ''
+    link = ''
+    for v, c in posts:
+        if v.find('img src="') != -1:
+            thumb1 = str(v).split('img src="', 1)
+            if thumb1 is not None and len(thumb1) > 0:
+                thumbnail = str(str(thumb1[1]).partition('.jpg')[0]) + ".jpg"
+                imgs.append(thumbnail)
+        if c.find('window.open(') != -1:
+            link = c.split("window.open('", 1)[1].partition("')")[0]
+            if len(link) > 0: url = link
+        li = {'label': url.rpartition('/')[-1], 'thumbnail': thumbnail, 'icon': thumbnail, 'label2': url, 'path': plugin.url_for(tumblrplay, url=url), 'is_folder': False, 'info_type': 'video', 'info_labels': {}}
+        li.setdefault(li.keys()[0])
+        vids.append(li)
+        #item = ListItem.from_dict(**li)
+        #infolbl = {'Genre': blogname, 'Title': url}
+        #item.set_info(info_type='video', info_labels=infolbl)
+        #item.add_context_menu_items([('Download', 'RunPlugin("{0}")'.format(plugin.url_for(tumblrplay, save=True, url=url,)),)])
+        #item.set_is_playable(True)
+        #vids.append(item)
+    if not lastpage:
+        __imgnext__ = __imgsearch__.replace('search.png', 'next.png')
+        pageend = pagenext + 10
+        itemtumblr = {'label': 'Pages [COLOR green]{0} to {1}[/COLOR] ->'.format(pagenext, pageend), 'path': plugin.url_for(tumblrindex, blogname=blogname, pagestart=pagenext), 'icon': __imgnext__, 'thumb': __imgnext__}
+        itemtumblr.setdefault(itemtumblr.keys()[0])
+        #vids.append(ListItem.from_dict(**itemtumblr))
+        vids.append(itemtumblr)
+    #return plugin.end_of_directory(items=vids, sort_methods=None, succeeded= True, update_listing=True, cache_to_disc=True)
+    #plugin.finish(items=vids)
+    return vids
+
+
 @plugin.route('/')
 def index():
     """
@@ -692,11 +777,11 @@ def index():
             sitem = {'label': sitename.title(), 'icon': sicon, 'thumb': sicon, 'path': spath}
             sitem.setdefault(sitem.keys()[0])
             litems.append(sitem)
-    if not DOSTR8:
-        igayp = __imgsearch__.replace('search.', 'fgaypower.')
-        item = {'label': 'GayPower (DVD STREAMS)', 'icon': igayp, 'thumb': igayp, 'path': plugin.url_for(gaypower, page=1)}
-        item.setdefault(item.keys()[0])
-        litems.append(item)
+    #if not DOSTR8:
+    #    igayp = __imgsearch__.replace('search.', 'fgaypower.')
+    #    item = {'label': 'GayPower (DVD STREAMS)', 'icon': igayp, 'thumb': igayp, 'path': plugin.url_for(gaypower, page=1)}
+    #    item.setdefault(item.keys()[0])
+    #    litems.append(item)
     allitems = sorted(litems, key=lambda litems: litems['label'])
     ifolder = __imgsearch__.replace('search.', 'folder.')
     itemallcats = {'label': 'Global Category List', 'path': plugin.url_for(allcats), 'icon': ifolder,
@@ -705,9 +790,19 @@ def index():
                   'thumb': __imgsearch__}
     itemstream = {'label': 'Play Web URL', 'path': plugin.url_for(resolver), 'icon': 'DefaultFolder.png',
                   'thumb': 'DefaultFolder.png'}
+    timg = __imgsearch__.replace('search.', 'ftumblr.')
+
+    blogname = plugin.get_setting('tumblrblog')
+    if blogname is None:
+        blogname = "exhibing"
+        plugin.set_setting('tumblrblog', blogname)
+
+    itemtumblr = {'label': 'Tumblr', 'path': plugin.url_for(tumblrindex, blogname=blogname, pagestart=1), 'icon': timg, 'thumb': timg}
+    itemtumblr.setdefault(itemtumblr.keys()[0])
     itemallcats.setdefault(itemallcats.keys()[0])
     itemstream.setdefault(itemstream.keys()[0])
     itemsearch.setdefault(itemsearch.keys()[0])
+    allitems.append(itemtumblr)
     allitems.append(itemallcats)
     allitems.append(itemstream)
     allitems.append(itemsearch)
@@ -1004,8 +1099,8 @@ def resolver():
             plugin.redirect(plugin.url_for(index))
     except:
         pass
-    plugin.redirect(plugin.url_for(index))
-    #return plugin.finish(items=None)
+    #plugin.redirect(plugin.url_for(index))
+    return plugin.finish()
     #return []
 
 
@@ -1136,21 +1231,30 @@ def playmovie(url):
         try:
             resolved = urlresolver.HostedMediaFile(url).resolve()
             if not resolved:
-                resolved = urlresolver.HostedMediaFile("http://www.flashx.tv/embed.php?c={0}".format(mid)).resolve()
+                resolved = urlresolver.resolve(url)
+                #resolved = urlresolver.HostedMediaFile("http://www.flashx.tv/embed.php?c={0}".format(mid)).resolve()
                 if resolved is None or len(resolved) < 1:
-                    resolved = urlresolver.resolve("http://www.flashx.tv/{0}.html".format(mid))
-                if resolved is None or resolved == False or len(resolved) < 1:
-                    resolved = urlresolver.resolve("http://www.flashx.tv/{0}.htm".format(mid))
-                if resolved is None or resolved == False or len(resolved) < 1:
-                    resolved = urlresolver.resolve(url)
+                    resolved = urlresolver.resolve(urllib.unquote(url))
+                    #resolved = urlresolver.resolve("http://www.flashx.tv/{0}.html".format(mid))
+                #if resolved is None or resolved == False or len(resolved) < 1:
+                #    resolved = urlresolver.resolve("http://www.flashx.tv/{0}.htm".format(mid))
+                #if resolved is None or resolved == False or len(resolved) < 1:
+            if not resolved or len(resolved) < 1:
+                try:
+                    import YDStreamExtractor
+                    info = YDStreamExtractor.getVideoInfo(url)
+                    resolved = info.streamURL()
+                    return [plugin.play_video(resolved)]
+                except:
+                    pass
         except:
             xbmc.log("\n****Resolve attempts all failed Failed to use URL Resolver to play video {0}".format(url))
         vli = ListItem(label='Gaypower', label2=url, path=resolved.encode('utf-8'))
         vli.playable = True
         vli.thumbnail = 'DefaultVideo.png'
         vli.icon = 'DefaultVideo.png'
-        xbmc.log("\n****URL RESOLVER RESULT = {0}".format(str(repr(vli))))
-        plugin.play_video(vli)
+        #xbmc.log("\n****URL RESOLVER RESULT = {0}".format(str(repr(vli))))
+        #plugin.play_video(vli)
         xbmc.executebuiltin('PlayMedia(%s)' % resolved.decode('utf-8', 'ignore'))
         # return plugin.end_of_directory()
     except:
@@ -1163,9 +1267,7 @@ def playmovie(url):
                 livestreamerurl = 'plugin://plugin.video.livestreamerkodi/play/{0}'.format(urllib.quote_plus(url))
                 xbmc.executebuiltin('RunPlugin({0})'.format(livestreamerurl))
             except:
-                livestreamerurl = 'plugin://plugin.video.livestreamer/play/?url={0}'.format(urllib.quote_plus(url))
-                xbmc.executebuiltin('RunPlugin({0})'.format(livestreamerurl))
-            xbmc.log("\n****Failed to use URL Resolver to play video {0}".format(url))
+                xbmc.log("\n****Failed to use URL Resolver to play video {0}".format(url))
 
 
 @plugin.route('/play/<url>/<video>/<title>')
@@ -1190,10 +1292,11 @@ def play(url='', video='DefaultVideo.png', title=''):
     try:
         vidurl = find_video(url)
         if vidurl is not None:
-            xbmc.executebuiltin('PlayMedia(%s)' % vidurl.decode('utf-8', 'ignore'))
+            #xbmc.executebuiltin('PlayMedia(%s)' % vidurl.decode('utf-8', 'ignore'))
             #plugin.clear_added_items()
             #return plugin.finish(items=[plugin.set_resolved_url(vidurl)], succeeded=True, update_listing=False, cache_to_disc=False)
-            return []
+            #return []
+            plugin.play_video(vidurl)
     except:
         xbmc.log("\n***FLASHVAR SCRAPE FAILED TO PLAY SCRAPED SOURCE {0}".format(url))
     try:
@@ -1203,10 +1306,11 @@ def play(url='', video='DefaultVideo.png', title=''):
     except:
         livestreamerurl = 'plugin://plugin.video.livestreamer/play/?url={0}'.format(urllib.quote_plus(url))
         xbmc.executebuiltin('RunPlugin({0})'.format(livestreamerurl))
-    plugin.set_resolved_url(url)
+    # plugin.set_resolved_url(url)
     # plugin.clear_added_items()
     # return plugin.finish(items=None, update_listing=True, cache_to_disc=False)
     # return plugin.end_of_directory(True, True, False)
+    #return plugin.finish()
 
 
 @plugin.route('/download/<name>/<url>')
@@ -1252,6 +1356,7 @@ def download(name='', url=''):
 
 if __name__ == '__main__':
     plugin.run()
+    plugin.set_content('movies')
     viewmode = int(plugin.get_setting('viewmode'))
     if viewmode is None: viewmode = 500
     plugin.set_view_mode(viewmode)
