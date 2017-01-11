@@ -9,7 +9,7 @@ import urllib, urllib2, re
 import xbmc, xbmcplugin, xbmcgui, sys
 
 USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
-
+BASE_URL = 'https://www.youjizz.com'
 
 def _get_keyboard(default="", heading="", hidden=False):
         """ shows a keyboard and returns a value """
@@ -21,14 +21,14 @@ def _get_keyboard(default="", heading="", hidden=False):
 
 
 def CATEGORIES():
-        addDir('Newest', 'http://www.youjizz.com/newest-clips/1.html', 1, '')
-        addDir('Top Rated', 'http://www.youjizz.com/top-rated/1.html', 1, '')
-        addDir('Random Videos', 'http://www.youjizz.com/random.php', 1, '')
-        INDEX('http://www.youjizz.com/page/1.html')
+        addDir('Newest', BASE_URL + '/newest-clips/1.html', 1, '')
+        addDir('Top Rated', BASE_URL + '/top-rated/1.html', 1, '')
+        addDir('Random Videos', BASE_URL + '/random.php', 1, '')
+        INDEX(BASE_URL + '/page/1.html')
 
 
 def INDEX(url):
-        addDir('Search', 'http://www.youjizz.com/srch.php?q=', 3, '')
+        addDir('Search', BASE_URL + '/srch.php?q=', 3, '')
         addDir('Home', '', None, '')
         link = getHtml(url)
         matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
@@ -47,18 +47,18 @@ def INDEX(url):
         matchpage = re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>'
                                '[\s\S]+?href="(.+?html)').findall(link)
         for nexturl in matchpage:
-                addDir('Next Page', 'http://www.youjizz.com' + nexturl, 1, '')
+                addDir('Next Page', BASE_URL + '' + nexturl, 1, '')
 
 
 def VIDEOLINKS(url, name):
-        link = getHtml('http://www.youjizz.com' + url)
-        match = re.compile('src="([^"]+\.mp4[^"]+)').findall(link)
+        link = getHtml(BASE_URL + '' + url)
+        match = re.compile('src="(?:https:)?//([^"]+\.mp4[^"]+)').findall(link)
         if not match:
                 xbmc.log("Failed to find video URL")
         for url in match:
                 listitem = xbmcgui.ListItem(name)
                 listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
-                xbmc.Player().play(url, listitem)
+                xbmc.Player().play('https://' + url, listitem)
 
 
 def SEARCHVIDEOS(url):
