@@ -1,3 +1,6 @@
+1.0.13
+ - Fixed video URL
+
 1.0.12
  - Fixed video regex
  - Cleaned up style and removed dead code
