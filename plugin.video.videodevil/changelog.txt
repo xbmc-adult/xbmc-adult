@@ -1,3 +1,8 @@
+[B]Version 1.7.146[/B]
+
+- Updated: xhamster
+- Fixed: categories
+
 [B]Version 1.7.144[/B]
 
 - Added: bitporno.sx
