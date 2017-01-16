@@ -360,3 +360,23 @@ quality=standard
 target="file":"([^"]+)","label":"[^""]*"(,"default":"true"|)
 url=%s
 quality=fallback
+########################################################
+title=indiangilma.com
+target=new SWFObject.".*?config=([^"]+)"
+url=%s
+ext_target=<html5>([^<]+)<
+ext_url=%s
+quality=standard
+ext_target=<file>([^<]+)<
+ext_url=%s
+quality=fallback
+########################################################
+title=vmasala.com
+target=new SWFObject.".*?config=([^"]+)"
+url=%s
+ext_target=<filehd>([^<]+)<
+ext_url=%s
+quality=high
+ext_target=<file>([^<]+)<
+ext_url=%s
+quality=fallback

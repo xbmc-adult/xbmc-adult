@@ -64,6 +64,13 @@ director=VideoDevil
 icon=http://hentaigasm.com/wp-content/themes/detube/images/logo.png
 url=hentaigasm.com.cfg
 ########################################################
+title=IndianGilma
+type=rss
+genre=IndianGilma
+director=VideoDevil
+icon=http://www.indiangilma.com/templates/frontend/dark-magenta/img/logo.png
+url=indiangilma.com.cfg
+########################################################
 title=MadThumbs
 type=rss
 genre=madthumbs
@@ -189,6 +196,13 @@ genre=Tukif
 director=VideoDevil
 icon=video.devil.image|tukif.png
 url=tukif.com.cfg
+########################################################
+title=VMasala
+type=rss
+genre=vmasala.com
+director=VideoDevil
+icon=http://www.vmasala.com/templates/frontend/bright-magenta/img/logo.png
+url=vmasala.com.cfg
 ########################################################
 title=Vporn
 type=rss
