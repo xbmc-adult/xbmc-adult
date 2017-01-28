@@ -1374,7 +1374,7 @@ class Main:
     def TargetFormatter(self, url): #Site specific target url handling
         if 'tukif' in url:
             url = url + '|Referer=http://www.tukif.com'
-        if 'extremetube' in url:
+        if ':\/\/' in url:
             url = url.replace('\/', '/')
         return url
 
