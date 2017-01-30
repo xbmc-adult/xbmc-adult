@@ -1,3 +1,8 @@
+[B]Version 1.7.149[/B]
+
+- Updated: pornburst
+- Fixed: catcher
+
 [B]Version 1.7.148[/B]
 
 - Updated: bitporno
