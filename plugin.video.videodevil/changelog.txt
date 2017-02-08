@@ -1,3 +1,8 @@
+[B]Version 1.7.151[/B]
+
+- Updated: bitporno
+- Fixed: catcher
+
 [B]Version 1.7.150[/B]
 
 - Updated: sunporno
