@@ -1,3 +1,8 @@
+[B]Version 1.7.152[/B]
+
+- Updated: pornhub
+- Fixed: catcher
+
 [B]Version 1.7.151[/B]
 
 - Updated: bitporno
