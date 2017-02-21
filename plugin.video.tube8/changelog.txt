@@ -1,3 +1,8 @@
+[B]2.1.11[/B]
+
+- Fix categories
+- Search still broken
+
 [B]2.1.10[/B]
 
 - Get rid of "CreateLoader - unsupported protocol(plugin)" warnings

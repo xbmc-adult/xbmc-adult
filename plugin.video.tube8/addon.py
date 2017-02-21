@@ -51,7 +51,7 @@ def showCategories(localpath, handle):
 	a=f.read()
 	f.close()
 
-	catRE = re.compile('<li><a href="(http://www\.tube8\.com/cat/.+?)">(.+?)</a>')
+	catRE = re.compile('<li><a href="(http://www\.tube8\.com/cat/.+?)".+?span>(.+?)</a>', re.DOTALL)
 	match = catRE.findall(a)
 	categories = []
 	for url, name in match:
@@ -103,7 +103,11 @@ def showListCommon(localpath, handle, pageUrl):
 	matchlength=lenghtPattern.findall(a)
 	n = 0
 	for url, name in matchVid:
-		thumb, duration = matchThumb[n], matchlength[n][0]
+		try:
+			thumb = matchThumb[n]
+			duration = matchlength[n][0]
+		except:
+			continue
 		li=xbmcgui.ListItem(name, name, thumb, thumb)
 		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
       "&url=" + urllib.quote_plus(url)
@@ -143,7 +147,7 @@ def get_params(args):
 		return param
 
 def search_videos(localpath, handle):
-	searchUrl = "http://www.tube8.com/search.html?q="
+	searchUrl = "http://www.tube8.com/searches.html?q="
 	vq = _get_keyboard( heading="Enter the query" )
 	# if blank or the user cancelled the keyboard, return
 	if ( not vq ): return False, 0
