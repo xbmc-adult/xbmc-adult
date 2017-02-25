@@ -1586,8 +1586,7 @@ class Main:
                     xbmc.log('End of directory')
                 xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
             else:
-                params = sys.argv[2]
-                currentView = params[5:]
+                currentView = paramstring[5:]
                 if enable_debug:
                     # unquote twice otherwise url is not unquoted
                     unquoted_currentView = urllib2.unquote(currentView)
