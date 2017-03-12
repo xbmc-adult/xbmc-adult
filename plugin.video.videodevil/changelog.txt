@@ -1,3 +1,9 @@
+[B]Version 1.7.157[/B]
+
+- Updated: extremetube
+- Fixed: catcher
+- Fixed: video list
+
 [B]Version 1.7.156[/B]
 
 - Updated: pornhub
