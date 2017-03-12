@@ -1,7 +1,7 @@
 [B]Version 1.7.154[/B]
 
 - Updated: pornhub
-- Fixed: categories
+- Fixed: quality
 
 [B]Version 1.7.152[/B]
 

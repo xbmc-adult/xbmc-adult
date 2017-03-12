@@ -214,9 +214,9 @@ url=%s
 quality=high
 ########################################################
 title=m.pornhub.com
-target=data-default="([^"]+)"
+target=video [^>]+ src="([^"]+)"
 url=%s
-header=Cookie|platform=mobile
+header=Cookie|platform=tv
 quality=standard
 ########################################################
 #title=viloader.net
