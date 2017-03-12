@@ -5,6 +5,9 @@
 - Fixed: video list
 - Updated: pornhd
 - Fixed catcher
+- Updated: redtube
+- Fixed: catcher
+- Fixed: video list
 
 [B]Version 1.7.156[/B]
 

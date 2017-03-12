@@ -130,7 +130,8 @@ quality=standard
 title=redtube.com
 target=source src="([^"]+)"
 url=%s
-build=%s&ec_seek=0
+build=http:%s
+action=decode
 quality=standard
 ########################################################
 title=mofosex.com
