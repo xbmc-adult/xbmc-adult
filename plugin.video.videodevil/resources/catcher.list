@@ -337,11 +337,11 @@ url=%s
 quality=standard
 ########################################################
 title=pornhd.com
-target='480p'  : '([^']+)',
+target='480p'\s*:s\s*'([^']+)',
 url=%s
 header=Referer|http://pornhd.com
 quality=standard
-target='720p'  : '([^']+)',
+target='720p'\s*:\s*'([^']+)',
 url=%s
 header=Referer|http://pornhd.com
 quality=high
