@@ -223,10 +223,18 @@ url=%s
 quality=high
 ########################################################
 title=m.pornhub.com
-target=video [^>]+ src="([^"]+)"
+target=quality_[^"]+":"([^"]+480P_[^"]+)
 url=%s
-header=Cookie|platform=tv
+header=Cookie|platform=tablet
 quality=standard
+target=quality_[^"]+":"([^"]+720P_[^"]+)
+url=%s
+header=Cookie|platform=tablet
+quality=high
+target=quality_[^"]+":"([^"]+1080P_[^"]+)
+url=%s
+header=Cookie|platform=tablet
+quality=high
 ########################################################
 #title=viloader.net
 #target=unescape%28%22(http.+?\.flv)%22%29%3
