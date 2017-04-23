@@ -1,3 +1,8 @@
+[B]Version 1.7.159[/B]
+
+- Updated: extremetube
+- Fixed: video listing
+
 [B]Version 1.7.158[/B]
 
 - Updated: pornhub
