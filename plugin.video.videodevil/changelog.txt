@@ -1,7 +1,9 @@
 [B]Version 1.7.159[/B]
 
 - Updated: extremetube
-- Fixed: video listing
+- Fixed: video list
+- Updated: empflix
+- Fixed: video list
 
 [B]Version 1.7.158[/B]
 
