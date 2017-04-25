@@ -1,0 +1,5 @@
+1.0.0
+- Resolved critical problems of 0.1.2 version
+
+0.1.2
+- First try of fork from 0.2 version of youporn gay
