@@ -11,7 +11,7 @@
   </category>
   <category label="30018">
     <setting id="Ah-Me" type="bool" label="Ah-Me" default="true" />
-    <setting id="bitporno.sx" type="bool" label="bitporno.sx" default="true" />
+    <setting id="bitporno.com" type="bool" label="bitporno.com" default="true" />
     <setting id="Empflix" type="bool" label="Empflix" default="true" />
     <setting id="EPORNER" type="bool" label="EPORNER" default="true" />
     <setting id="ExtremeTube" type="bool" label="ExtremeTube" default="true" />
