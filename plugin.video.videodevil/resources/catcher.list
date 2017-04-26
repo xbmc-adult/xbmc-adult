@@ -339,7 +339,7 @@ target=video_url: '([^']+)',
 url=%s
 quality=standard
 ########################################################
-title=bitporno.sx
+title=bitporno.com
 target="file":"([^"]+)","label":"(1080p HD|720p)"
 url=%s
 quality=high
