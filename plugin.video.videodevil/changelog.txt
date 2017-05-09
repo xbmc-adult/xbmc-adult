@@ -1,3 +1,8 @@
+[B]Version 1.7.162[/B]
+
+- Updated: pornhub
+- Fixed: icon
+
 [B]Version 1.7.161[/B]
 
 - Updated: bitporno
