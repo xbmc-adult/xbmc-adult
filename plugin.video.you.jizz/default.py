@@ -28,21 +28,22 @@ def CATEGORIES():
 
 
 def INDEX(url):
-        addDir('Search', BASE_URL + '/srch.php?q=', 3, '')
+        addDir('Search', BASE_URL + '/search/%s-1.html', 3, '')
         addDir('Home', '', None, '')
         link = getHtml(url)
+        link = re.compile('content">[\s\S]+<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
         matchname = re.compile('title">[^>]+>([^<]+)').findall(link)
         matchurl = re.compile('class="frame" href="/videos/.+?(\d+).html'
                              ).findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
-        matchduration = re.compile('time">(\d{1,}:\d{2})').findall(link)
+        matchduration = re.compile('time">(\d{1,}:\d{2}:?\d{0,2})').findall(link)
         for name, url, thumb, duration in zip(matchname, matchurl, matchthumb,
                                            matchduration):
                 url = '/videos/embed/' + url
                 addDownLink(name + ' ' + '(' + duration + ')',
                             url,
                             2,
-                            "http:" + thumb)
+                            "https:" + thumb)
         matchpage = re.compile('pagination".+?active.+?<li><a href="([^"]+html)'
                               ).findall(link)
         if matchpage:
@@ -52,6 +53,7 @@ def INDEX(url):
 def VIDEOLINKS(url, name):
         h = HTMLParser.HTMLParser()
         link = getHtml(BASE_URL + '' + url)
+        link = re.compile('<video id="yj-video([.\s\S]+?)<\/video').findall(link)[0]
         match = re.compile('src="(?:https:)?//([^"]+\.mp4[^"]+)" type'
                           ).findall(link)
         if not match:
@@ -69,8 +71,8 @@ def SEARCHVIDEOS(url):
         # if blank or the user cancelled the keyboard, return
         if (not vq): return False, 0
         # we need to set the title to our query
-        title = urllib.quote_plus(vq)
-        searchUrl += title
+        title = re.sub('[^0-9a-zA-Z]+', '-', vq)
+        searchUrl = searchUrl % title
         xbmc.log("Searching URL: " + searchUrl)
         INDEX(searchUrl)
 
