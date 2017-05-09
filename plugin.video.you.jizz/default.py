@@ -5,7 +5,7 @@ __scriptid__ = "plugin.video.you.jizz"
 __credits__ = "Pillager & anarchintosh"
 __version__ = "1.0.6"
 
-import urllib, urllib2, re
+import urllib, urllib2, re, HTMLParser
 import xbmc, xbmcplugin, xbmcgui, sys
 
 USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
@@ -24,38 +24,40 @@ def CATEGORIES():
         addDir('Newest', BASE_URL + '/newest-clips/1.html', 1, '')
         addDir('Top Rated', BASE_URL + '/top-rated/1.html', 1, '')
         addDir('Random Videos', BASE_URL + '/random.php', 1, '')
-        INDEX(BASE_URL + '/page/1.html')
+        INDEX(BASE_URL + '/most-popular' + '/1.html')
 
 
 def INDEX(url):
         addDir('Search', BASE_URL + '/srch.php?q=', 3, '')
         addDir('Home', '', None, '')
         link = getHtml(url)
-        matchname = re.compile('title1">[\n]{0,1}\s*(.+?)<').findall(link)
-        matchurl = re.compile('class="frame" href=\'\/videos\/.+?(\d+).html'
+        matchname = re.compile('title">[^>]+>([^<]+)').findall(link)
+        matchurl = re.compile('class="frame" href="/videos/.+?(\d+).html'
                              ).findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
-        matchduration = re.compile('thumbtime\'><span.*>(\d{1,}:\d{2})'
-                                  ).findall(link)
+        matchduration = re.compile('time">(\d{1,}:\d{2})').findall(link)
         for name, url, thumb, duration in zip(matchname, matchurl, matchthumb,
                                            matchduration):
                 url = '/videos/embed/' + url
                 addDownLink(name + ' ' + '(' + duration + ')',
                             url,
                             2,
-                            thumb)
-        matchpage = re.compile('pagination[\s\S]+?<span>\d{1,}<\/span>'
-                               '[\s\S]+?href="(.+?html)').findall(link)
-        for nexturl in matchpage:
-                addDir('Next Page', BASE_URL + '' + nexturl, 1, '')
+                            "http:" + thumb)
+        matchpage = re.compile('pagination".+?active.+?<li><a href="([^"]+html)'
+                              ).findall(link)
+        if matchpage:
+                addDir('Next Page', BASE_URL + '' + matchpage[0], 1, '')
 
 
 def VIDEOLINKS(url, name):
+        h = HTMLParser.HTMLParser()
         link = getHtml(BASE_URL + '' + url)
-        match = re.compile('src="(?:https:)?//([^"]+\.mp4[^"]+)').findall(link)
+        match = re.compile('src="(?:https:)?//([^"]+\.mp4[^"]+)" type'
+                          ).findall(link)
         if not match:
                 xbmc.log("Failed to find video URL")
         for url in match:
+                url = h.unescape(url)
                 listitem = xbmcgui.ListItem(name)
                 listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
                 xbmc.Player().play('https://' + url, listitem)

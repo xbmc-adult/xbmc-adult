@@ -1,3 +1,6 @@
+1.0.14
+ - Fixed list URL
+
 1.0.13
  - Fixed video URL
 
