@@ -21,7 +21,7 @@
     <GetDetails dest="3">
         <RegExp dest="3" output="&lt;details&gt;\1&lt;/details&gt;" input="$$5">
             <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$1">
-                <expression>&lt;a href="([^"]*[0-9]+h\.jpg)"[^&gt;]*id="front-cover"</expression>
+                <expression>&lt;a data-href="([^"]*[0-9]+h\.jpg)"[^&gt;]*id="front-cover"</expression>
             </RegExp>
             <RegExp dest="5+" output="&lt;thumb&gt;\1&lt;/thumb&gt;" input="$$1">
                 <expression>&lt;a href="([^"]*[0-9]+bh\.jpg)"[^&gt;]*id="back-cover"</expression>
