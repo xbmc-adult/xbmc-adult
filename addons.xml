@@ -2,7 +2,7 @@
 <addons>
 <addon id="metadata.movie.adultdvdempire.com"
        name="AdultDVDEmpire"
-       version="2.0"
+       version="2.1"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
