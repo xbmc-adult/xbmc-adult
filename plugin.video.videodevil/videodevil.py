@@ -1426,6 +1426,7 @@ class Main:
 
         xbmcplugin.addSortMethod(handle=self.handle,
                                  sortMethod=xbmcplugin.SORT_METHOD_LABEL)
+        xbmcplugin.setContent(self.handle, 'movies')
         if self.currentlist.sort.find('label') != -1:
             xbmcplugin.addSortMethod(handle=self.handle,
                                      sortMethod=xbmcplugin.SORT_METHOD_LABEL)
