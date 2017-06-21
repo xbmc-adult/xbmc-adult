@@ -372,3 +372,9 @@ quality=high
 ext_target=<file>([^<]+)<
 ext_url=%s
 quality=fallback
+########################################################
+title=spankingtube.com
+target=<source src="([^"]+)" type="video/mp4">
+url=%s
+quality=standard
+########################################################

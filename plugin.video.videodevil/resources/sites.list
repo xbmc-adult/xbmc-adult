@@ -169,6 +169,13 @@ director=VideoDevil
 icon=http://www.slutload.com/td/i/sl_logo_1.png
 url=slutload.com.cfg
 ########################################################
+title=Spankingtube
+type=rss
+genre=Spankingtube
+director=VideoDevil
+icon=video.devil.image|spankingtube.png
+url=spankingtube.cfg
+########################################################
 title=SpankWire
 type=rss
 genre=SpankWire
