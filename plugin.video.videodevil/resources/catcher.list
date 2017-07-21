@@ -320,9 +320,18 @@ url=%s
 quality=high
 ########################################################
 title=vporn.com
-target=flashvars.videoUrlMedium2 = "([^"]+)";
+target=<source src="([^"]+)" type="video/mp4" label="720p HD"
 url=%s
+header=Referer|https://www.vporn.com
+quality=high
+target=<source src="([^"]+)" type="video/mp4" label="480p"
+url=%s
+header=Referer|https://www.vporn.com
 quality=standard
+target=<source src="([^"]+)" type="video/mp4" label="320p"
+url=%s
+header=Referer|https://www.vporn.com
+quality=low
 ########################################################
 title=pornhd.com
 target='480p'\s*:s\s*'([^']+)',
