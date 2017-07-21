@@ -5,7 +5,7 @@ __scriptid__ = "plugin.video.you.jizz"
 __credits__ = "Pillager & anarchintosh"
 __version__ = "1.0.6"
 
-import urllib, urllib2, re, HTMLParser
+import urllib, urllib2, re, HTMLParser, json
 import xbmc, xbmcplugin, xbmcgui, sys
 
 USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
@@ -33,19 +33,12 @@ def INDEX(url):
         link = getHtml(url)
         link = re.compile('content">[\s\S]+<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
         matchname = re.compile('title">[^>]+>([^<]+)').findall(link)
-        matchurl = re.compile('class="frame" href="/videos/.+?(\d+).html'
-                             ).findall(link)
+        matchurl = re.compile('class="frame" href="(/videos/.+?\d+.html)').findall(link)
         matchthumb = re.compile('data-original="([^"]+jpg)').findall(link)
         matchduration = re.compile('time">(\d{1,}:\d{2}:?\d{0,2})').findall(link)
-        for name, url, thumb, duration in zip(matchname, matchurl, matchthumb,
-                                           matchduration):
-                url = '/videos/embed/' + url
-                addDownLink(name + ' ' + '(' + duration + ')',
-                            url,
-                            2,
-                            "https:" + thumb)
-        matchpage = re.compile('pagination".+?active.+?<li><a href="([^"]+html)'
-                              ).findall(link)
+        for name, url, thumb, duration in zip(matchname, matchurl, matchthumb, matchduration):
+                addDownLink(name + ' ' + '(' + duration + ')', url, 2, "https:" + thumb)
+        matchpage = re.compile('pagination".+?active.+?<li><a href="([^"]+html)').findall(link)
         if matchpage:
                 addDir('Next Page', BASE_URL + '' + matchpage[0], 1, '')
 
@@ -53,16 +46,19 @@ def INDEX(url):
 def VIDEOLINKS(url, name):
         h = HTMLParser.HTMLParser()
         link = getHtml(BASE_URL + '' + url)
-        link = re.compile('<video id="yj-video([.\s\S]+?)<\/video').findall(link)[0]
-        match = re.compile('src="(?:https:)?//([^"]+\.mp4[^"]+)" type'
-                          ).findall(link)
-        if not match:
+        encodings = re.compile('var encodings = (\[[.\s\S]+?\]);').findall(link)
+
+        if not encodings:
                 xbmc.log("Failed to find video URL")
-        for url in match:
-                url = h.unescape(url)
-                listitem = xbmcgui.ListItem(name)
-                listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
-                xbmc.Player().play('https://' + url, listitem)
+        else:
+                encodings = json.loads(encodings[0])
+
+                for encoding in encodings:
+                        if "_hls" not in encoding['filename']:
+                                url = h.unescape(encoding['filename'])
+                                listitem = xbmcgui.ListItem(name)
+                                listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
+                                xbmc.Player().play('https:' + url, listitem)
 
 
 def SEARCHVIDEOS(url):
