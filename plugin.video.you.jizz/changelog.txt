@@ -1,3 +1,6 @@
+1.0.16
+ - Fixed video URL
+
 1.0.15
  - Merged commit with fixes for duration and duplicate entries
 
