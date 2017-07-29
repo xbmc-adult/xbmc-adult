@@ -260,28 +260,32 @@ action=decode
 quality=standard
 ########################################################
 title=tukif.com
-target=(http://videos.tukif.com/download[^"]+6)"
+target=(https://videos.tukif.com/download[^"]+6)"
 url=%s
-header=Referer|http://www.tukif.com
+header=Referer|https://tukif.com
 quality=low
-target=(http://videos.tukif.com/download[^"]+8)"
+target=(https://videos.tukif.com/download[^"]+7)"
 url=%s
-header=Referer|http://www.tukif.com
-quality=medium
-target=(http://videos.tukif.com/download[^"]+12)"
+header=Referer|https://tukif.com
+quality=standard
+target=(https://videos.tukif.com/download[^"]+8)"
 url=%s
-header=Referer|http://www.tukif.com
+header=Referer|https://tukif.com
 quality=high
-target=(http://videos.tukif.com/download[^"]+13)"
+target=(https://videos.tukif.com/download[^"]+12)"
 url=%s
-header=Referer|http://www.tukif.com
+header=Referer|https://tukif.com
 quality=high
+target=(https://videos.tukif.com/download[^"]+13)"
+url=%s
+header=Referer|https://tukif.com
+quality=fallback
 ########################################################
 title=yuvutu.com
-target=<td width="600" class="videoPlayer">[\s]+<!-- all -->[\s]+<iframe src="([^"]+)"
+target=<iframe src="/([^"]+)"
 url=%s
 ext_target=file=(.*?)&amp;
-ext_url=http://yuvutu.com/%s
+ext_url=http://www.yuvutu.com/%s
 quality=standard
 ########################################################
 title=hentaigasm.com
@@ -365,10 +369,10 @@ quality=fallback
 title=indiangilma.com
 target=new SWFObject.".*?config=([^"]+)"
 url=%s
-ext_target=<html5>([^<]+)<
+ext_target=<file>([^<]+)<
 ext_url=%s
 quality=standard
-ext_target=<file>([^<]+)<
+ext_target=<html5>([^<]+)<
 ext_url=%s
 quality=fallback
 ########################################################
