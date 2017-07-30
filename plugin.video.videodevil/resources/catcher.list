@@ -375,11 +375,13 @@ quality=fallback
 title=vmasala.com
 target=new SWFObject.".*?config=([^"]+)"
 url=%s
-ext_target=<filehd>([^<]+)<
-ext_url=%s
-quality=high
 ext_target=<file>([^<]+)<
 ext_url=%s
+ext_build=%s|User-Agent=iPhone
+quality=standard
+ext_target=<filehd>([^<]+)<
+ext_url=%s
+ext_build=%s|User-Agent=iPad
 quality=fallback
 ########################################################
 title=spankingtube.com
