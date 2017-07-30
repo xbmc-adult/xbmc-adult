@@ -282,10 +282,10 @@ header=Referer|https://tukif.com
 quality=fallback
 ########################################################
 title=yuvutu.com
-target=<td width="600" class="videoPlayer">[\s]+<!-- all -->[\s]+<iframe src="([^"]+)"
+target=<iframe src="/([^"]+)"
 url=%s
 ext_target=file=(.*?)&amp;
-ext_url=http://yuvutu.com/%s
+ext_url=http://www.yuvutu.com/%s
 quality=standard
 ########################################################
 title=hentaigasm.com
