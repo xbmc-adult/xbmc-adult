@@ -194,7 +194,7 @@ title=TnAflix
 type=rss
 genre=tnaflix
 director=VideoDevil
-icon=http://www.tnaflix.com/images/logo_left.jpg
+icon=https://www.tnaflix.com/images/mx.png
 url=tnaflix.com.cfg
 ########################################################
 title=Tukif
