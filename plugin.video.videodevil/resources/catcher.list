@@ -365,10 +365,10 @@ quality=fallback
 title=indiangilma.com
 target=new SWFObject.".*?config=([^"]+)"
 url=%s
-ext_target=<html5>([^<]+)<
+ext_target=<file>([^<]+)<
 ext_url=%s
 quality=standard
-ext_target=<file>([^<]+)<
+ext_target=<html5>([^<]+)<
 ext_url=%s
 quality=fallback
 ########################################################
