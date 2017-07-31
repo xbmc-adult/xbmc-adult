@@ -90,17 +90,9 @@ action=unquote
 quality=standard
 ########################################################
 title=youporn.com
-target=240: '([^']+)
+target=videoUrl":"([^"]+)
 url=%s
-quality=low
-target=480: '([^']+)
-url=%s
-quality=standard
-target=720: '([^']+)
-url=%s
-quality=high
-target=videoUrl: '([^']+)
-url=%s
+build=%s|Referer=https://www.youporn.com/
 quality=standard
 ########################################################
 title=extremetube.com
