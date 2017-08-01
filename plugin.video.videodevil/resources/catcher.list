@@ -120,11 +120,18 @@ url=%s
 quality=standard
 ########################################################
 title=redtube.com
-target=source src="([^"]+)"
+target=240","videoUrl":"([^"]+)"
 url=%s
-build=http:%s
-action=decode
+extension=mp4
+quality=low
+target=480","videoUrl":"([^"]+)"
+url=%s
+extension=mp4
 quality=standard
+target=720","videoUrl":"([^"]+)"
+url=%s
+extension=mp4
+quality=high
 ########################################################
 title=mofosex.com
 target=<a href="(http://[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
