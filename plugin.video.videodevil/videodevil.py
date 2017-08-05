@@ -1480,6 +1480,8 @@ class Main:
         # ignore characters that can't be converted to ascii
         quoted_url = urllib2.quote(url.encode('ascii', 'ignore'))
         u = sys.argv[0] + '?url=' + quoted_url
+        if ' ' in icon:  # Some sites such as hentaigasm have space character in thumbnail
+            icon = urllib.quote(icon, safe=':/')
         liz = xbmcgui.ListItem(title, title, icon, icon)
         if self.currentlist.getFileExtension(url) == 'videodevil' \
             and self.currentlist.skill.find('nodownload') == -1:
