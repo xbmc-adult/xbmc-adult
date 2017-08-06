@@ -134,8 +134,13 @@ extension=mp4
 quality=high
 ########################################################
 title=mofosex.com
-target=<a href="(http://[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
+target=<a href="(//[^"]+(flv|mp4)[?][^"]+hash=[^"]+)"
 url=%s
+build=http:%s
+quality=high
+target="video_url":"([^"]+)
+url=%s
+build=http:%s
 quality=standard
 ########################################################
 title=xhamster.com
