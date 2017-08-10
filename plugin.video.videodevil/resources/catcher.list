@@ -34,9 +34,15 @@ url=%s
 quality=standard
 ########################################################
 title=pornoxo.com
-target=file'?: "([^"]+)"
+target=file':\s*"([^"]+)"
 url=%s
 quality=standard
+target=file:\s*"([^"]+)",\s*label:\s*"Standard
+url=%s
+quality=standard
+target=file:\s*"([^"]+)",\s*label:\s*"High
+url=%s
+quality=high
 ########################################################
 title=gfvideos.com
 target=href="(/videos/[^"]+)"
