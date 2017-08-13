@@ -422,3 +422,8 @@ target=<source src="([^"]+)" type="video/mp4">
 url=%s
 quality=standard
 ########################################################
+title=indianpornvideos.com
+target=mp4"\s*src="([^"]+)
+url=%s
+quality=standard
+########################################################
