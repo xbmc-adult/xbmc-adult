@@ -1,3 +1,7 @@
+[B]Version 1.7.167[/B]
+
+- Multiple fixes
+
 [B]Version 1.7.166[/B]
 
 - GFVideos Fix
