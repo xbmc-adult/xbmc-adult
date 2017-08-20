@@ -178,6 +178,7 @@ quality=standard
 title=simple-match
 target=(https*://[^"<]+?.(mp4|flv))
 url=%s
+action=quote
 quality=standard
 ########################################################
 title=spankwire.com
