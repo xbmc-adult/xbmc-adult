@@ -1103,7 +1103,7 @@ class Main:
         message = __language__(errorCode)
         xbmc.log('an error occured [%d]: %s' % (errorCode, message))
         xbmcgui.Dialog().notification(
-            __addonname__, message, xbmcgui.NOTIFICATION_ERROR)
+            __addonname__, message, xbmcgui.NOTIFICATION_ERROR, sound=False)
 
     def getDirectLink(self, orig_url):
         if enable_debug:

@@ -1,3 +1,7 @@
+[B]Version 1.7.170[/B]
+
+- Fixed: removed beep on "no video found" notification
+
 [B]Version 1.7.169[/B]
 
 - Added: "no video found" notification
