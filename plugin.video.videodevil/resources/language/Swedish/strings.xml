@@ -7,6 +7,7 @@
 <strings>
   <string id="30000">VideoDevil</string>
   <string id="30001">XBMC Media Center</string>
+
   <string id="20191">Aktivera debugloggning</string>
   <string id="30002">Avaktivera ansvarsfriskrivning</string>
   <string id="30007">Spara film</string>
@@ -20,6 +21,7 @@
   <string id="30015">Standard</string>
   <string id="30016">Hög</string>
   <string id="30017">Välj nedladdningssökväg:</string>
+
   <string id="30050">Laddar ner film...</string>
   <string id="30051">Var god vänta.</string>
   <string id="30052">Vill du ladda ner denna film?</string>
@@ -37,6 +39,8 @@
   <string id="30064">du bor eller från vart du har åtkomst till detta material.</string>
   <string id="30065">Avsluta</string>
   <string id="30066">Fortsätt</string>
+  <string id="30067">Förlåt! Det gick inte att hitta videon</string>
+
   <string id="30100">Kategorier</string>
   <string id="30101">Underkategorier</string>
   <string id="30102">Sök</string>

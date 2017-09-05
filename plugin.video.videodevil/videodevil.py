@@ -11,6 +11,8 @@ import cookielib, htmlentitydefs
 
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 __language__ = addon.getLocalizedString
+__addonname__ = addon.getAddonInfo('name')
+__icon__ = addon.getAddonInfo('icon')
 rootDir = addon.getAddonInfo('path')
 if rootDir[-1] == ';':
     rootDir = rootDir[0:-1]
@@ -1067,6 +1069,21 @@ class CCurrentList:
                 f.close()
         return 0
 
+class PreferredQuality:
+    ASK = 0
+    LOW = 1
+    STANDARD = 2
+    HIGH = 3
+
+    @staticmethod
+    def getSortedQualities(preference):
+        sorted_qualities_by_preference = {
+            PreferredQuality.LOW: ('low', 'standard', 'high'),
+            PreferredQuality.STANDARD: ('standard', 'low', 'high'),
+            PreferredQuality.HIGH: ('high', 'standard', 'low')
+        }
+        return sorted_qualities_by_preference.get(preference, PreferredQuality.ASK)
+
 class Main:
     def __init__(self):
         if enable_debug:
@@ -1082,7 +1099,15 @@ class Main:
             xbmc.log('VideoDevil initialized')
         self.run()
 
+    def showErrorNotification(self, errorCode):
+        message = __language__(errorCode)
+        xbmc.log('an error occured [%d]: %s' % (errorCode, message))
+        xbmcgui.Dialog().notification(
+            __addonname__, message, xbmcgui.NOTIFICATION_ERROR)
+
     def getDirectLink(self, orig_url):
+        if enable_debug:
+            xbmc.log('getting direct link (%s)' % orig_url)
         orig_url = orig_url.strip()
         self.videoExtension = '.flv'
         for source in self.currentlist.catcher:
@@ -1216,56 +1241,33 @@ class Main:
                             self.selectionList.append(__language__(30058) + ' (' + source.extension + ')')
                         else:
                             self.selectionList.append(__language__(30058) + ' (' + source.info + ')')
+        return self.determinePreferredUrl(orig_url)
 
-        if len(self.urlList) > 0:
-            if len(self.urlList) == 1:
-                self.videoExtension = '.' + self.extensionList[0]
-                return self.urlList[0]
-            elif int(addon.getSetting('video_type')) == 0:
-                dia = xbmcgui.Dialog()
-                selection = dia.select(__language__(30055), self.selectionList)
-                self.videoExtension = '.' + self.extensionList[selection]
-                return self.urlList[selection]
-            elif int(addon.getSetting('video_type')) == 1: # low
-                for source in self.currentlist.catcher:
-                    if source.quality == 'low' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'standard' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'high' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-            elif int(addon.getSetting('video_type')) == 3: # high
-                for source in self.currentlist.catcher:
-                    if source.quality == 'high' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'standard' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'low' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-            elif int(addon.getSetting('video_type')) == 2: # standard
-                for source in self.currentlist.catcher:
-                    if source.quality == 'standard' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'low' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                for source in self.currentlist.catcher:
-                    if source.quality == 'high' and source.match != '':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-        return ''
+    def determinePreferredUrl(self, orig_url):
+        preference = int(addon.getSetting('video_type'))
+        if enable_debug:
+            xbmc.log('found %d urls, prefered video type: %d'
+                % (len(self.urlList), preference))
+        if len(self.urlList) == 0:
+            self.showErrorNotification(30067)
+            return ''
+        if len(self.urlList) == 1:
+            self.videoExtension = '.' + self.extensionList[0]
+            return self.urlList[0]
+
+        sorted_qualities = PreferredQuality.getSortedQualities(preference)
+
+        if sorted_qualities == PreferredQuality.ASK:
+            dia = xbmcgui.Dialog()
+            selection = dia.select(__language__(30055), self.selectionList)
+            self.videoExtension = '.' + self.extensionList[selection]
+            return self.urlList[selection]
+
+        for quality in sorted_qualities:
+            for source in self.currentlist.catcher:
+                if source.match != '' and source.quality == quality:
+                    self.videoExtension = '.' + source.extension
+                    return source.match
 
     def playVideo(self, videoItem):
         if videoItem is None:
