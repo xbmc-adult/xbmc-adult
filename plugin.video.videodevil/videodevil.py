@@ -1084,6 +1084,121 @@ class PreferredQuality:
         }
         return sorted_qualities_by_preference.get(preference, PreferredQuality.ASK)
 
+    @staticmethod
+    def translate(quality):
+        quality_labels = {
+            'low': 30056,
+            'standard': 30057,
+            'high': 30058
+        }
+        label_code = quality_labels.get(quality, 30057)
+        return __language__(label_code)
+
+class ContentFetcher:
+    def __init__(self):
+        self.lastFetchedUri = None
+        self.lastFetchedContents = None
+
+    def request(self, name, rule, url):
+        request = self.buildRequest(rule, url)
+
+        if self.isCached(request):
+            return self.lastFetchedContents
+        else:
+            contents = self.sendRequest(name, rule, url, request)
+            self.lastFetchedUri = self.getUriKey(request)
+            self.lastFetchedContents = contents
+
+        if enable_debug:
+            self.dumpRequest(name, rule, url, request, contents)
+        return contents
+
+    def buildRequest(self, rule, original_url):
+        if rule.data == '':
+            url = rule.url % original_url
+            data = None
+        else:
+            url = rule.url
+            data = rule.data % original_url
+
+        req = Request(url, data)
+        req.add_header('User-Agent', USERAGENT)
+        if rule.reference != '':
+            req.add_header(
+                rule.reference,
+                rule.content)
+        return req
+
+    def sendRequest(self, name, rule, url, request):
+        if enable_debug:
+            xbmc.log('Sending HTTP-Request %s (%s)' %
+                (request.get_full_url(), name))
+        try:
+            response = opener.open(request)
+        except urllib2.HTTPError as e:
+            xbmc.log('HTTP-Request failed %s %s' %
+                (e, request.get_full_url()))
+            self.dumpRequest(name, rule, url, request, str(e))
+            raise
+        if rule.limit == 0:
+            contents = response.read()
+        else:
+            contents = response.read(rule.limit)
+        return contents
+
+    def isCached(self, request):
+        uri = self.getUriKey(request)
+        return self.lastFetchedUri == uri
+
+    def getUriKey(self, request):
+        return str(request.get_full_url()) + str(request.get_data())
+
+    def dumpRequest(self, name, rule, url, request, contents):
+        f = open(os.path.join(cacheDir, name + '.html'), 'w')
+        f.write('<Rule>\n')
+        f.write('   <Url>'+ rule.url + '</Url>\n')
+        f.write('   <Data>'+ rule.data + '</Data>\n')
+        f.write('   <Reference>'+ rule.reference + '</Reference>\n')
+        f.write('</Rule>\n')
+
+        f.write('<Request>\n')
+        f.write('   <Url>' + str(request.get_full_url()) + '</Url>\n')
+        f.write('   <Method>' + str(request.get_method()) + '</Method>\n')
+        f.write('   <Data>'+ str(request.get_data()) + '</Data>\n')
+        f.write('   <Headers>\n')
+        for header_item in request.header_items():
+            f.write('   <Header>%s: %s</Header>\n' %
+                (header_item[0], header_item[1]))
+        f.write('   </Headers>\n')
+        f.write('</Request>\n')
+
+        f.write('<Response>\n')
+        f.write(contents)
+        f.write('</Response>\n')
+        f.close()
+
+class ContentMatcher:
+    def search(self, rule, contents):
+        matches = re.search(rule.target, contents)
+        if not matches:
+            return ''
+
+        match = matches.group(1).strip()
+        if enable_debug:
+            xbmc.log('pre-action target is %s' % match)
+        if rule.action.find('unquote') != -1:
+            match = unquote_safe(match)
+        elif rule.action.find('decode') != -1:
+            match = decode(match)
+        elif rule.action.find('quote') != -1:
+            match = quote_safe(match)
+        if rule.build.find('%s') != -1:
+            match = rule.build % match
+        if enable_debug:
+            xbmc.log('target is %s' % match)
+
+        return match
+
 class Main:
     def __init__(self):
         if enable_debug:
@@ -1095,6 +1210,9 @@ class Main:
         self.videoExtension = '.flv'
         self.handle = 0
         self.currentlist = CCurrentList()
+        self.fetcher = ContentFetcher()
+        self.extFetcher = ContentFetcher()
+        self.matcher = ContentMatcher()
         if enable_debug:
             xbmc.log('VideoDevil initialized')
         self.run()
@@ -1105,145 +1223,47 @@ class Main:
         xbmcgui.Dialog().notification(
             __addonname__, message, xbmcgui.NOTIFICATION_ERROR, sound=False)
 
-    def getDirectLink(self, orig_url):
+    def getDirectLink(self, original_url):
         if enable_debug:
-            xbmc.log('getting direct link (%s)' % orig_url)
-        orig_url = orig_url.strip()
-        self.videoExtension = '.flv'
-        for source in self.currentlist.catcher:
-            if len(self.urlList) > 0 and source.quality == 'fallback':
-                continue
-            if source.rule.url != '':
-                if source.rule.data == '':
-                    url = source.rule.url % orig_url
-                    req = Request(url)
-                    req.add_header('User-Agent', USERAGENT)
-                    if source.rule.reference != '':
-                        req.add_header(source.rule.reference,
-                                       source.rule.content)
-                    try:
-                        urlfile = opener.open(req)
-                    except Exception:
-                        xbmc.log("Failed: " % url)
-                        raise
-                    if source.rule.limit == 0:
-                        fc = urlfile.read()
-                    else:
-                        fc = urlfile.read(source.rule.limit)
-                else:
-                    data = source.rule.data % orig_url
-                    req = Request(source.rule.url, data)
-                    req.add_header('User-Agent', USERAGENT)
-                    if source.rule.reference != '':
-                        req.add_header(source.rule.reference,
-                                       source.rule.content)
-                    response = urlopen(req)
-                    if source.rule.limit == 0:
-                        fc = response.read()
-                    else:
-                        fc = response.read(source.rule.limit)
-                if enable_debug:
-                    f = open(os.path.join(cacheDir, 'catcher.html'), 'w')
-                    f.write('<Titel>'+ orig_url + '</Title>\n\n')
-                    f.write(fc)
-                    f.close()
-            urlsearch = re.search(source.rule.target, fc)
-            match = ''
-            if urlsearch:
-                match = urlsearch.group(1).strip()
-                if enable_debug:
-                    xbmc.log('pre-action target is %s' % match)
-                if source.rule.action.find('unquote') != -1:
-                    match = unquote_safe(match)
-                elif source.rule.action.find('decode') != -1:
-                    match = decode(match)
-                elif source.rule.action.find('quote') != -1:
-                    match = quote_safe(match)
-                if source.rule.build.find('%s') != -1:
-                    match = source.rule.build % match
-                if enable_debug:
-                    xbmc.log('target is %s' % match)
-                if source.ext_rule != None:
-                    if source.ext_rule.data == '':
-                        if source.ext_rule.url.find('%s') != -1:
-                            ext_url = source.ext_rule.url % match
-                        else:
-                            ext_url = match
-                        ext_req = Request(ext_url)
-                        ext_req.add_header('User-Agent', USERAGENT)
-                        if source.ext_rule.reference != '':
-                            ext_req.add_header(source.ext_rule.reference,
-                                               source.ext_rule.content)
-                        try:
-                            ext_urlfile = opener.open(ext_req)
-                        except urllib2.HTTPError as e:
-                            if enable_debug:
-                                xbmc.log('Failed %s %s' %
-                                         (e, ext_req.get_full_url()))
-                            raise
-                        if source.ext_rule.limit == 0:
-                            ext_fc = ext_urlfile.read()
-                        else:
-                            ext_fc = ext_urlfile.read(source.ext_rule.limit)
-                    else:
-                        ext_data = source.ext_rule.data % match
-                        ext_req = Request(source.ext_rule.url, ext_data)
-                        ext_req.add_header('User-Agent', USERAGENT)
-                        if source.ext_rule.reference != '':
-                            ext_req.add_header(source.ext_rule.reference,
-                                               source.ext_rule.content)
-                        ext_response = urlopen(ext_req)
-                        ext_fc = ext_response.read()
-                        if source.ext_rule.limit == 0:
-                            ext_fc = ext_response.read()
-                        else:
-                            ext_fc = ext_response.read(source.ext_rule.limit)
-                    if enable_debug:
-                        f = open(os.path.join(cacheDir, 'ext_catcher.html'),
-                                 'w')
-                        f.write('<Titel>'+ match + '</Title>\n\n')
-                        f.write(ext_fc)
-                        f.close()
-                    ext_urlsearch = re.search(source.ext_rule.target, ext_fc)
-                    if ext_urlsearch:
-                        match = ext_urlsearch.group(1).strip()
-                        if source.ext_rule.action.find('unquote') != -1:
-                            match = unquote_safe(match)
-                        elif source.ext_rule.action.find('decode') != -1:
-                            match = decode(match)
-                        elif source.ext_rule.action.find('quote') != -1:
-                            match = quote_safe(match)
-                        if source.ext_rule.build.find('%s') != -1:
-                            match = source.ext_rule.build % match
-                        if enable_debug:
-                            xbmc.log('ext_target is %s' % match)
-                    else:
-                        match = ''
-                source.match = match
-                if source.match != '':
-                    self.urlList.append(source.match)
-                    self.extensionList.append(source.extension)
-                    if source.quality == 'fallback':
-                        self.videoExtension = '.' + source.extension
-                        return source.match
-                    elif source.quality == 'low':
-                        if source.info == '':
-                            self.selectionList.append(__language__(30056) + ' (' + source.extension + ')')
-                        else:
-                            self.selectionList.append(__language__(30056) + ' (' + source.info + ')')
-                    elif source.quality == 'standard':
-                        if source.info == '':
-                            self.selectionList.append(__language__(30057) + ' (' + source.extension + ')')
-                        else:
-                            self.selectionList.append(__language__(30057) + ' (' + source.info + ')')
-                    elif source.quality == 'high':
-                        if source.info == '':
-                            self.selectionList.append(__language__(30058) + ' (' + source.extension + ')')
-                        else:
-                            self.selectionList.append(__language__(30058) + ' (' + source.info + ')')
-        return self.determinePreferredUrl(orig_url)
+            xbmc.log('getting direct link (%s)' % original_url)
+        original_url = original_url.strip()
 
-    def determinePreferredUrl(self, orig_url):
+        for source in self.currentlist.catcher:
+            self.matchDirectLink(source, original_url)
+
+        return self.determinePreferredLink()
+
+    def matchDirectLink(self, source, original_url):
+        if len(self.urlList) > 0 and source.quality == 'fallback':
+            return
+
+        contents = self.fetcher.request("catcher", source.rule, original_url)
+        match = self.matcher.search(source.rule, contents)
+        if match == '':
+            return
+
+        if source.ext_rule != None:
+            if source.ext_rule.url.find('%s') != -1:
+                ext_url = source.ext_rule.url % match
+            else:
+                ext_url = match
+
+            contents = self.extFetcher.request(
+                "ext_catcher", source.ext_rule, ext_url)
+            match = self.matcher.search(source.ext_rule, contents)
+            if match == '':
+                return
+
+        source.match = match
+        self.urlList.append(source.match)
+        self.extensionList.append(source.extension)
+
+        selection_label = PreferredQuality.translate(source.quality)
+        selection_info = source.extension if source.info == '' else source.info
+        self.selectionList.append(
+            "%s (%s)" % (selection_label, selection_info))
+
+    def determinePreferredLink(self):
         preference = int(addon.getSetting('video_type'))
         if enable_debug:
             xbmc.log('found %d urls, prefered video type: %d'
@@ -1401,14 +1421,14 @@ class Main:
         elif ext == 'videodevil' or ext == 'dwnlddevil':
             url = urllib.unquote_plus(url)
             url = url[:len(url) - 11]
-            lItem.infos_dict['url'] = url
             cfg_file = lItem.infos_dict['cfg']
             if lItem.infos_dict['type'] == 'video':
                 self.currentlist.loadLocal(cfg_file, False, lItem, True)
-                lItem.infos_dict['url'] = self.getDirectLink(
-                                              lItem.infos_dict['url'])
-            lItem.infos_dict['url'] = self.TargetFormatter(
-                                          lItem.infos_dict['url'])
+                url = self.getDirectLink(url)
+
+            url = self.TargetFormatter(url)
+            lItem.infos_dict['url'] = url
+
             if 'extension' in lItem.infos_dict:
                 self.videoExtension = '.' + lItem.infos_dict['extension']
             if ext == 'videodevil':
