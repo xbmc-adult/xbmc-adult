@@ -392,8 +392,38 @@ quality=standard
 target="file":"([^"]+)","label":"360p"
 url=%s
 quality=low
-target="file":"([^"]+)","label":"[^""]*"(,"default":"true"|)
+target="file":"([^"]+)","label":"[^"]*"(,"default":"true"|)
 url=%s
+quality=fallback
+########################################################
+title=fux.com
+target=<button id="download720p.*?data-id="([^"]+)"
+url=%s
+build=https://tkn.kodicdn.com/%s/desktop/720
+ext_target="720":{"status":"success","token":"([^"]+)"
+ext_url=%s
+ext_header=Origin|https://www.fux.com/
+quality=high
+target=<button id="download480p.*?data-id="([^"]+)"
+url=%s
+build=https://tkn.kodicdn.com/%s/desktop/480
+ext_target="480":{"status":"success","token":"([^"]+)"
+ext_url=%s
+ext_header=Origin|https://www.fux.com/
+quality=standard
+target=<button id="download360p.*?data-id="([^"]+)"
+url=%s
+build=https://tkn.kodicdn.com/%s/desktop/360
+ext_target="360":{"status":"success","token":"([^"]+)"
+ext_url=%s
+ext_header=Origin|https://www.fux.com/
+quality=low
+target=<button id="download240p.*?data-id="([^"]+)"
+url=%s
+build=https://tkn.kodicdn.com/%s/desktop/240
+ext_target="240":{"status":"success","token":"([^"]+)"
+ext_url=%s
+ext_header=Origin|https://www.fux.com/
 quality=fallback
 ########################################################
 title=indiangilma.com
