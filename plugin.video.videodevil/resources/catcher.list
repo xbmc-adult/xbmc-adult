@@ -51,7 +51,7 @@ build=http://www.girlfriendvideos.com%s
 quality=standard
 ########################################################
 title=eporner.com
-target="(/dload/[^"]+360p.mp4)
+target="(/dload/[^"]+(?:240p|360p).mp4)
 url=%s
 build=http://www.eporner.com%s
 quality=low
