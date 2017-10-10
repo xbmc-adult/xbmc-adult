@@ -25,7 +25,7 @@
 title=ahme.com
 target=video src="([^"]+)"
 url=%s
-header=Cookie|gndr=F
+build=%s|Referer=https://www.ah-me.com/
 quality=standard
 ########################################################
 title=madthumbs.com
