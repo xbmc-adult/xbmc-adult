@@ -381,7 +381,7 @@ header=Referer|https://www.pornhd.com/
 quality=high
 ########################################################
 title=faapy.com
-target=video_url: '([^']+)',
+target=(?:video_url|file):\s['"]([^'"]+)
 url=%s
 quality=standard
 ########################################################
