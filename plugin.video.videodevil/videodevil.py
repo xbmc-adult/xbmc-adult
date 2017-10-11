@@ -363,6 +363,17 @@ def decode(s):
             traceback.print_exc(file=sys.stdout)
     return s
 
+def prefix(s):
+    if not s:
+        return ''
+    try:
+        if 'http' not in s:
+            s = 'https:' + s
+    except:
+        if enable_debug:
+            traceback.print_exc(file=sys.stdout)
+    return s
+
 def unquote_safe(s): # unquote
     if not s:
         return ''
@@ -1192,6 +1203,8 @@ class ContentMatcher:
             match = decode(match)
         elif rule.action.find('quote') != -1:
             match = quote_safe(match)
+        elif rule.action.find('prefix') != -1:
+            match = prefix(match)
         if rule.build.find('%s') != -1:
             match = rule.build % match
         if enable_debug:
