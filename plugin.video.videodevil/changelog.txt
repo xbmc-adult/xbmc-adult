@@ -1,3 +1,12 @@
+[B]Version 1.7.172[/B]
+
+- Fixed: fux
+- Fixed: extremetube
+- Fixed: faapy
+- Fixed: eporner
+- Fixed: ahme
+- Added: prefix action
+
 [B]Version 1.7.171[/B]
 
 - Added: fux.com (contrib)
