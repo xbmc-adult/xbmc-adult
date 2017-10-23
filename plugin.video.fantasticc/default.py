@@ -45,8 +45,8 @@ SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'redtube',
                   'you_porn']
 
 
-def get_html(url):
-    return gethtml.get(url, __datapath__)
+def get_html(url, cookie=None):
+    return gethtml.get(url, __datapath__, cookie=cookie)
 
 
 def get_avatar(lc):
