@@ -55,19 +55,20 @@ def get(url, cookiepath=None, cookie=None):
                 #of the path a common filename.
                 cookiepath = os.path.join(cookiepath, 'cookies.lwp')
             #check that the cookie exists
-            if os.path.exists(cookiepath):
-                cj = cookielib.LWPCookieJar()
-                cj.load(cookiepath)
-                req = urllib2.Request(url)
-                req.add_header('User-Agent', USER_AGENT_STRING)
-                if cookie:
-                  req.add_header('Cookie', cookie)
-                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-                response = opener.open(req)
-                link = response.read()
-                response.close()
-                return link
-            else: return _loadwithoutcookies(url)
+            if not os.path.exists(cookiepath):
+                with open(cookiepath, 'w') as f:
+                    f.write('#LWP-Cookies-2.0\n')
+            cj = cookielib.LWPCookieJar()
+            cj.load(cookiepath)
+            req = urllib2.Request(url)
+            req.add_header('User-Agent', USER_AGENT_STRING)
+            if cookie:
+              req.add_header('Cookie', cookie)
+            opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+            response = opener.open(req)
+            link = response.read()
+            response.close()
+            return link
         else: return _loadwithoutcookies(url)
     else: return _loadwithoutcookies(url)
 
