@@ -403,9 +403,10 @@ def GET_LINK(url, collections, url2):
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'pornhub' in url2:
         match = re.compile('source="([^"]+)').findall(html)
-        html = get_html(match[0])
-        match = re.compile('quality_[^=]+= \'([^\']+)').findall(html)
-        fetchurl = urllib2.unquote(match[0])
+        html = get_html(match[0].replace('http://', 'https://'), 'platform=tablet')
+        match = re.compile('quality_[^"]+":"([^"]+(?:480|720|1080)[^"]+)').findall(html)
+        each = urllib2.unquote(match[0])
+        fetchurl = each.replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'empflix' in url2:
         match = re.compile('<a style="color:#BBB;" href="([^"]+)"'
