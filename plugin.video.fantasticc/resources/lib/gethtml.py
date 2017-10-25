@@ -65,7 +65,11 @@ def get(url, cookiepath=None, cookie=None):
             if cookie:
               req.add_header('Cookie', cookie)
             opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-            response = opener.open(req)
+            try:
+                response = opener.open(req)
+            except urllib2.URLError as e:
+                xbmc.log('Error opening %s' % url)
+                sys.exit(1)
             link = response.read()
             response.close()
             return link

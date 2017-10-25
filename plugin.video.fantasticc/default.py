@@ -40,9 +40,9 @@ fip = 'http://77.247.181.97/'
 
 # 3rd Party video Sites that are currently supported are listed below
 
-SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'redtube',
-                  'spankwire', 'tnaflix', 'tube8', 'xhamster', 'xhcdn',
-                  'xtube', 'xvideos', 'you_porn']
+SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'phncdn',
+                  'redtube', 'spankwire', 'tnaflix', 'tube8', 'xhamster',
+                  'xhcdn', 'xtube', 'xvideos', 'you_porn']
 
 
 def get_html(url, cookie=None):
@@ -387,7 +387,7 @@ def PLAY(url, thumbnail):
 
 def GET_LINK(url, collections, url2):
 # Get the real video link and feed it into XBMC
-    xbmc.log('GET_LINK URL: %s thumbnail: %s' % (url, url2))
+    xbmc.log('GET_LINK URL: %s \n\tthumbnail: %s' % (url, url2))
     html = get_html(url)
     if collections == 1:   # Make sure we get a url we can parse
         match = re.compile('<link rel="canonical" href="(.+?)" />'
@@ -401,9 +401,11 @@ def GET_LINK(url, collections, url2):
         match = re.compile('flv_url=(.+?)&amp').findall(html)
         fetchurl = urllib.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'pornhub' in url2:
+    elif 'pornhub' in url2 or 'phncdn' in url2:
         match = re.compile('source="([^"]+)').findall(html)
-        html = get_html(match[0].replace('http://', 'https://'), 'platform=tablet')
+        linkurl = match[0].replace('http://https://', 'https://')
+        html = get_html(linkurl.replace('http://', 'https://'),
+                        'platform=tablet')
         match = re.compile('quality_[^"]+":"([^"]+(?:480|720|1080)[^"]+)').findall(html)
         each = urllib2.unquote(match[0])
         fetchurl = each.replace('\\', '')
