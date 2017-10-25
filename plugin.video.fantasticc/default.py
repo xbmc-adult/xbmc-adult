@@ -387,7 +387,7 @@ def PLAY(url, thumbnail):
 
 def GET_LINK(url, collections, url2):
 # Get the real video link and feed it into XBMC
-    xbmc.log('GET_LINK URL: %s' % url)
+    xbmc.log('GET_LINK URL: %s thumbnail: %s' % (url, url2))
     html = get_html(url)
     if collections == 1:   # Make sure we get a url we can parse
         match = re.compile('<link rel="canonical" href="(.+?)" />'
@@ -427,14 +427,11 @@ def GET_LINK(url, collections, url2):
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
-        match = re.compile('flashvars\.config\s*=\s*escape\("([^"]*)"\);'
-                          ).findall(html)
-        for each in match:
-            html = get_html('http:' + each)
-            match = re.compile('<videoLink>([^<]*)').findall(html)
-        for each in match:
-            fetchurl = each
-            xbmc.log('fetchurl: %s' % fetchurl)
+        match = re.compile('config = "([^"]+)').findall(html)
+        html = get_html('http:' + match[0])
+        match = re.compile('<videoLink><\!\[CDATA\[([^\]]*)').findall(html)
+        fetchurl = 'http:' + match[0]
+        xbmc.log('fetchurl: %s' % fetchurl)
     elif 'xhamster' in url2:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
