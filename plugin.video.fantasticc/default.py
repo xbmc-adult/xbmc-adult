@@ -41,8 +41,8 @@ fip = 'http://77.247.181.97/'
 # 3rd Party video Sites that are currently supported are listed below
 
 SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'redtube',
-                  'tnaflix', 'tube8', 'xhamster', 'xhcdn', 'xtube', 'xvideos',
-                  'you_porn']
+                  'spankwire', 'tnaflix', 'tube8', 'xhamster', 'xhcdn',
+                  'xtube', 'xvideos', 'you_porn']
 
 
 def get_html(url, cookie=None):
