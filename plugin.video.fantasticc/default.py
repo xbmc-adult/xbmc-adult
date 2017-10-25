@@ -488,7 +488,7 @@ def GET_LINK(url, collections, url2):
             fetchurl = each.replace('&amp;', '&')
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'madthumbs' in url2:
-        match = re.compile('href="(https?://www.madthumbs.com/[^"]+)"'
+        match = re.compile('source="(https?://www.madthumbs.com/[^"]+)"'
                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
