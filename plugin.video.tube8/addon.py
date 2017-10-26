@@ -92,28 +92,15 @@ def showListCommon(localpath, handle, pageUrl):
 	if 'tube8.com/top/' in pageUrl:
 		thumbRE = '<img class="videoThumbs" .+?\s+src="(.+?)"'
 	else:
-		thumbRE = 'class="videoThumbs"[\s\w]+?id=".+"[\s\w]+?category=".+"[\s\w]+?src="([^"]+)"'
-	videosRE = 'data-video_url="([^"]+).+?title="([^"]+)'
-	lengthRE = 'video_duration">([^<]+)<'
-
-	thumbPattern, videoPattern, lenghtPattern = re.compile(thumbRE), re.compile(videosRE, re.DOTALL), re.compile(lengthRE)
-
-	matchThumb=thumbPattern.findall(a)
-	matchVid=videoPattern.findall(a)
-	matchlength=lenghtPattern.findall(a)
-	n = 0
-	for url, name in matchVid:
-		try:
-			thumb = matchThumb[n]
-			duration = matchlength[n][0]
-		except:
-			continue
-		li=xbmcgui.ListItem(name, name, thumb, thumb)
-		u=localpath + "?mode=3&name=" + urllib.quote_plus(name) + \
+		thumbRE = 'class="videoThumbs[^\[]+?src="([^"]+)'
+        dataRE = 'thumb_box">\s*<a href="([^"]+).+?data-thumb="([^"]+)"\s*src="[^"]+"\s*data-mediabook="[^"]*"\s*alt="([^"]+).+?video_duration">([^<]+)<'
+        dataPattern = re.compile(dataRE, re.DOTALL)
+	for url, thumb, name, duration in dataPattern.findall(a):
+                title = "%s (%s)" % (name, duration)
+		li=xbmcgui.ListItem(title, title, thumb, thumb)
+		u=localpath + "?mode=3&name=" + urllib.quote_plus(title) + \
       "&url=" + urllib.quote_plus(url)
-		print ">>>u: %s" % u
 		xbmcplugin.addDirectoryItem(handle, u, li, False, NB_ITEM_PAGE)
-		n = n + 1
 
 def playVideo(localpath, handle, url):
 	xbmc.log('playVideo: ' + url)
