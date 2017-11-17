@@ -1,3 +1,8 @@
+[B]Version 1.7.173[/B]
+
+- Updated: bitporno
+- Fixed: video list
+
 [B]Version 1.7.172[/B]
 
 - Fixed: fux
