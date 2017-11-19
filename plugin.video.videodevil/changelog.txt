@@ -1,3 +1,8 @@
+[B]Version 1.7.174[/B]
+
+- Updated: extremetube
+- Fixed: video list
+
 [B]Version 1.7.173[/B]
 
 - Updated: bitporno
