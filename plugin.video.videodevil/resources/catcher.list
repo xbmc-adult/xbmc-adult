@@ -442,16 +442,14 @@ ext_url=%s
 quality=standard
 ########################################################
 title=vmasala.com
-target=new SWFObject.".*?config=([^"]+)"
+target=source\s*src="([^"]+).+?label="SD"
 url=%s
-ext_target=<file>([^<]+)<
-ext_url=%s
-ext_build=%s|User-Agent=iPhone
+build=%s|User-Agent=iPhone
 quality=standard
-ext_target=<filehd>([^<]+)<
-ext_url=%s
-ext_build=%s|User-Agent=iPad
-quality=fallback
+target=source\s*src="([^"]+).+?label="HD"
+url=%s
+build=%s|User-Agent=iPad
+quality=high
 ########################################################
 title=spankingtube.com
 target=<source src="([^"]+)" type="video/mp4">
