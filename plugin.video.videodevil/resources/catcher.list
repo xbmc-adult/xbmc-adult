@@ -175,6 +175,7 @@ quality=standard
 title=pornomovies
 target=file: "([^"]+)"
 url=%s
+build=https:%s
 quality=standard
 ########################################################
 title=clipa.tv
