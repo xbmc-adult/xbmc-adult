@@ -37,10 +37,10 @@ title=pornoxo.com
 target=file':\s*"([^"]+)"
 url=%s
 quality=standard
-target=file:\s*"([^"]+)",\s*label:\s*"Standard
+target=file":\s*"([^"]+)",\s*"label":\s*"Standard
 url=%s
 quality=standard
-target=file:\s*"([^"]+)",\s*label:\s*"High
+target=file":\s*"([^"]+)",\s*"label":\s*"High
 url=%s
 quality=high
 ########################################################
