@@ -12,6 +12,7 @@
   <category label="30018">
     <setting id="Ah-Me" type="bool" label="Ah-Me" default="true" />
     <setting id="bitporno.com" type="bool" label="bitporno.com" default="true" />
+	<setting id="ClipsAge" type="bool" label="ClipsAge" default="true" />
     <setting id="DesiXNXX" type="bool" label="DesiXNXX" default="true" />
     <setting id="Empflix" type="bool" label="Empflix" default="true" />
     <setting id="EPORNER" type="bool" label="EPORNER" default="true" />
