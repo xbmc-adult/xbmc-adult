@@ -467,3 +467,13 @@ target=source\s*src="([^"]+)
 url=%s
 quality=standard
 ########################################################
+title=celebsnudeworld.com
+target=source\s*src="([^"]+)[^<]+res="360"
+url=%s
+extension=mp4
+quality=standard
+target=source\s*src="([^"]+)[^<]+res="720"
+url=%s
+extension=mp4
+quality=high
+########################################################
