@@ -483,3 +483,9 @@ url=%s
 extension=mp4
 quality=standard
 ########################################################
+title=stileproject.com
+target=file:\s*'([^']+)',
+url=%s
+extension=mp4
+quality=standard
+########################################################
