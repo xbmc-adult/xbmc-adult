@@ -283,26 +283,30 @@ action=decode
 quality=standard
 ########################################################
 title=tukif.com
-target=(https://videos.tukif.com/download[^"]+6)"
+target=<iframe src="([^"]+)"
 url=%s
+ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="360p
+ext_url=%s
 header=Referer|https://tukif.com
 quality=low
-target=(https://videos.tukif.com/download[^"]+7)"
+target=<iframe src="([^"]+)"
 url=%s
+ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="540p
+ext_url=%s
 header=Referer|https://tukif.com
 quality=standard
-target=(https://videos.tukif.com/download[^"]+8)"
+target=<iframe src="([^"]+)"
 url=%s
+ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="720p
+ext_url=%s
 header=Referer|https://tukif.com
 quality=high
-target=(https://videos.tukif.com/download[^"]+12)"
+target=<iframe src="([^"]+)"
 url=%s
+ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="1080p
+ext_url=%s
 header=Referer|https://tukif.com
 quality=high
-target=(https://videos.tukif.com/download[^"]+13)"
-url=%s
-header=Referer|https://tukif.com
-quality=fallback
 ########################################################
 title=yuvutu.com
 target=<iframe src="([^"]+)"
