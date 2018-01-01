@@ -1,3 +1,8 @@
+[B]Version 1.7.177[/B]
+
+- Updated: tukif
+- Fixed: catcher
+
 [B]Version 1.7.176[/B]
 
 - Added: CelebsNudeWorld
