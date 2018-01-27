@@ -1,3 +1,9 @@
+[B]Version 1.7.178[/B]
+
+- Updated: bitporno
+- Fixed: catcher
+- Fixed: start page
+
 [B]Version 1.7.177[/B]
 
 - Updated: tukif
