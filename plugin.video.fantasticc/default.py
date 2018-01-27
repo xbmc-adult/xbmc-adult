@@ -486,6 +486,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('video[^>]+src="([^"]+)').findall(html)
         for each in match:
             fetchurl = each.replace('&amp;', '&')
+            break
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'madthumbs' in url2:
         match = re.compile('source="(https?://www.madthumbs.com/[^"]+)"'
