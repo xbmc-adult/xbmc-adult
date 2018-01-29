@@ -1291,8 +1291,8 @@ class Main:
         sorted_qualities = PreferredQuality.getSortedQualities(preference)
 
         if sorted_qualities == PreferredQuality.ASK:
-            dia = xbmcgui.Dialog()
-            selection = dia.select(__language__(30055), self.selectionList)
+            selection = xbmcgui.Dialog().select(__language__(30055),
+                                                self.selectionList)
             self.videoExtension = '.' + self.extensionList[selection]
             return self.urlList[selection]
 
@@ -1341,12 +1341,8 @@ class Main:
                                     __language__(30051))
                 flv_file = self.downloadMovie(url, title)
                 self.pDialog.close()
-                if flv_file is None:
-                    dialog = xbmcgui.Dialog()
-                    dialog.ok('VideoDevil Info', __language__(30053))
             elif addon.getSetting('download') == 'false' and addon.getSetting('download_ask') == 'true':
-                dia = xbmcgui.Dialog()
-                if dia.yesno('', __language__(30052)):
+                if xbmcgui.Dialog().yesno('', __language__(30052)):
                     self.pDialog = xbmcgui.DialogProgress()
                     self.pDialog.create('VideoDevil',
                                         __language__(30050),
@@ -1354,8 +1350,8 @@ class Main:
                     flv_file = self.downloadMovie(url, title)
                     self.pDialog.close()
                     if flv_file is None:
-                        dialog = xbmcgui.Dialog()
-                        dialog.ok('VideoDevil Info', __language__(30053))
+                        xbmcgui.Dialog().ok('VideoDevil Info',
+                                            __language__(30053))
         else:
             flv_file = None
 
@@ -1425,8 +1421,7 @@ class Main:
             self.currentlist.addItem(url[:len(url) - 4])
             return -2
         elif ext == 'remove':
-            dia = xbmcgui.Dialog()
-            if dia.yesno('', __language__(30054)):
+            if xbmcgui.Dialog().yesno('', __language__(30054)):
                 url = urllib.unquote_plus(url)
                 self.currentlist.removeItem(url[:len(url) - 7])
                 xbmc.executebuiltin('Container.Refresh')
@@ -1588,13 +1583,12 @@ class Main:
             paramstring = sys.argv[2]
             if len(paramstring) <= 2:
                 if addon.getSetting('hide_warning') == 'false':
-                    dialog = xbmcgui.Dialog()
-                    if not dialog.yesno(__language__(30061),
-                                        __language__(30062),
-                                        __language__(30063),
-                                        __language__(30064),
-                                        __language__(30065),
-                                        __language__(30066)):
+                    if not xbmcgui.Dialog().yesno(__language__(30061),
+                                                  __language__(30062),
+                                                  __language__(30063),
+                                                  __language__(30064),
+                                                  __language__(30065),
+                                                  __language__(30066)):
                         return
                 if enable_debug:
                     xbmc.log('Settings directory: ' + str(settingsDir))
@@ -1638,6 +1632,5 @@ class Main:
         except Exception, e:
             if enable_debug:
                 traceback.print_exc(file=sys.stdout)
-            dialog = xbmcgui.Dialog()
-            dialog.ok('VideoDevil Error',
-                      'Error running VideoDevil.\n\nReason:\n' + str(e))
+            xbmcgui.Dialog().ok('VideoDevil Error',
+                'Error running VideoDevil.\n\nReason:\n' + str(e))
