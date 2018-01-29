@@ -1,3 +1,8 @@
+[B]Version 1.7.179[/B]
+
+- Updated: bitporno
+- Fixed: start page
+
 [B]Version 1.7.178[/B]
 
 - Updated: bitporno
