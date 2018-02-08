@@ -1,3 +1,8 @@
+[B]Version 1.7.180[/B]
+
+- Updated: pornomovies
+- Fixed: catcher
+
 [B]Version 1.7.179[/B]
 
 - Updated: bitporno
