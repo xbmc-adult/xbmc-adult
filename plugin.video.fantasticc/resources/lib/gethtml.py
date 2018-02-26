@@ -44,7 +44,7 @@ def url_for_cookies(url):
         else: url_is_compatible = False
     return url_is_compatible
 
-def get(url, cookiepath=None, cookie=None):
+def get(url, cookiepath=None, cookie=None, user_agent=USER_AGENT_STRING):
     # use cookies if cookiepath is set and if the cookiepath exists.
     if cookiepath is not None:
         #only use cookies for urls specified
@@ -61,7 +61,7 @@ def get(url, cookiepath=None, cookie=None):
             cj = cookielib.LWPCookieJar()
             cj.load(cookiepath)
             req = urllib2.Request(url)
-            req.add_header('User-Agent', USER_AGENT_STRING)
+            req.add_header('User-Agent', user_agent)
             if cookie:
               req.add_header('Cookie', cookie)
             opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
@@ -73,12 +73,12 @@ def get(url, cookiepath=None, cookie=None):
             link = response.read()
             response.close()
             return link
-        else: return _loadwithoutcookies(url)
-    else: return _loadwithoutcookies(url)
+        else: return _loadwithoutcookies(url, user_agent)
+    else: return _loadwithoutcookies(url, user_agent)
 
-def _loadwithoutcookies(url):
+def _loadwithoutcookies(url, user_agent):
     req = urllib2.Request(url)
-    req.add_header('User-Agent', USER_AGENT_STRING)
+    req.add_header('User-Agent', user_agent)
     try:
         response = urllib2.urlopen(req)
     except urllib2.HTTPError as e:
