@@ -77,6 +77,7 @@ def get(url, cookiepath=None, cookie=None, user_agent=USER_AGENT_STRING):
     else: return _loadwithoutcookies(url, user_agent)
 
 def _loadwithoutcookies(url, user_agent):
+    url = url.replace('http:', 'https:')
     req = urllib2.Request(url)
     req.add_header('User-Agent', user_agent)
     try:
