@@ -465,7 +465,7 @@ def GET_LINK(url, collections, url2):
         for each in match:
             fetchurl = urllib.unquote(each)
     elif 'redtube' in url2:
-        match = re.compile('(https?://www.redtube.com/.+?)"').findall(html)
+        match = re.compile('(https?://(?:|www.)redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
         match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
         try:
