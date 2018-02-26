@@ -468,7 +468,13 @@ def GET_LINK(url, collections, url2):
         match = re.compile('(https?://www.redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
         match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
-        fetchurl = urllib.unquote(match[0])
+        try:
+            fetchurl = urllib.unquote(match[0])
+        except IndexError:
+            if re.search('video has been removed', html):
+                Notify('Failure', 'Video Removed', '4000', default_image)
+                return
+        fetchurl = fetchurl.replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'tube8' in url2:
         match = re.compile('source='
