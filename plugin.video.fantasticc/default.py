@@ -45,8 +45,8 @@ SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'phncdn',
                   'xhcdn', 'xtube', 'xvideos', 'you_porn']
 
 
-def get_html(url, cookie=None):
-    return gethtml.get(url, __datapath__, cookie=cookie)
+def get_html(url, cookie=None, user_agent=None):
+    return gethtml.get(url, __datapath__, cookie=cookie, user_agent=user_agent)
 
 
 def get_avatar(lc):
@@ -397,8 +397,8 @@ def GET_LINK(url, collections, url2):
 
     if 'xvideos' in url2:
         match = re.compile('(https?://www.xvideos.com/.+?)"').findall(html)
-        html = get_html(match[0])
-        match = re.compile('flv_url=(.+?)&amp').findall(html)
+        html = get_html(match[0], user_agent='Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1')
+        match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
         fetchurl = urllib.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'pornhub' in url2 or 'phncdn' in url2:
