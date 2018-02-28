@@ -406,7 +406,7 @@ def GET_LINK(url, collections, url2):
         linkurl = match[0].replace('http://https://', 'https://')
         html = get_html(linkurl.replace('http://', 'https://'),
                         'platform=tablet')
-        match = re.compile('quality_[^"]+":"([^"]+(?:480|720|1080)[^"]+)').findall(html)
+        match = re.compile('quality":"(?:480|720|1080)[^"]*",[^}]+videoUrl":"(https:[^"]+)').findall(html)
         each = urllib2.unquote(match[0])
         fetchurl = each.replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
