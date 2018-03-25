@@ -456,7 +456,7 @@ build=%s|User-Agent=iPad
 quality=high
 ########################################################
 title=spankingtube.com
-target=<source src="([^"]+)" type="video/mp4">
+target=<source src="([^"]+)"
 url=%s
 quality=standard
 ########################################################
