@@ -469,104 +469,106 @@ class CCurrentList:
         del self.items[:]
         tmp = None
         for m in data:
-            if m and m[0] != '#':
-                index = m.find('=')
-                if index != -1:
-                    key = lower(m[:index])
-                    value = m[index+1:]
-                    index = value.find('|')
-                    if value[:index] == 'video.devil.locale':
-                        value = ' ' + __language__(int(value[index+1:])) + ' '
-                    elif value[:index] == 'video.devil.image':
-                        value = os.path.join(imgDir, value[index+1:])
-                    if key == 'start':
-                        self.start = value
-                    elif key == 'player':
-                        self.player = value
-                    elif key == 'sort':
-                        self.sort = value
-                    elif key == 'skill':
-                        self.skill = value
-                        skill_file = filename[:filename.find('.')] + '.lnk'
-                        if self.skill.find('redirect') != -1:
-                            try:
-                                f = open(str(os.path.join(resDir, skill_file)),
-                                         'r')
-                                forward_cfg = f.read()
-                                f.close()
-                                if forward_cfg != self.cfg:
-                                    return self.loadLocal(forward_cfg,
-                                                          recursive, lItem,
-                                                          lCatcher)
-                                return 0
-                            except:
-                                pass
-                        elif self.skill.find('store') != -1:
-                            f = open(str(os.path.join(resDir, skill_file)), 'w')
-                            f.write(self.cfg)
-                            f.close()
-                    elif key == 'catcher':
-                        if lCatcher:
-                            try:
-                                ret = self.loadCatcher(value)
-                                if ret != 0:
-                                    if enable_debug:
-                                        xbmc.log('Error while loading catcher')
-                                    return ret
-                            except:
-                                if enable_debug:
-                                    traceback.print_exc(file=sys.stdout)
-                                return -1
-                    elif key == 'header':
-                        index = value.find('|')
-                        self.reference = value[:index]
-                        self.content = value[index+1:]
-                    elif key == 'item_infos':
-                        rule_tmp = CRuleItem()
-                        rule_tmp.infos = value
-                    elif key == 'item_order':
-                        rule_tmp.order = value
-                    elif key == 'item_skill':
-                        rule_tmp.skill = value
-                    elif key == 'item_curr':
-                        rule_tmp.curr = value
-                    elif key == 'item_info_name':
-                        info_tmp = CItemInfo()
-                        index = value.find('|')
-                        if value[:index] == 'video.devil.context':
-                            value = 'context.' \
-                                    + __language__(int(value[index+1:]))
-                        info_tmp.name = value
-                    elif key == 'item_info_from':
-                        info_tmp.src = value
-                    elif key == 'item_info':
-                        info_tmp.rule = value
-                    elif key == 'item_info_default':
-                        info_tmp.default = value
-                    elif key == 'item_info_build':
-                        info_tmp.build = value
-                        rule_tmp.info_list.append(info_tmp)
-                    elif key == 'item_url_build':
-                        rule_tmp.url_build = value
-                        self.rules.append(rule_tmp)
-                    elif key == 'title':
-                        tmp = CListItem()
-                        tmp.infos_dict['title'] = value
-                    elif key == 'type':
-                        if recursive and value == 'once':
-                            value = u'rss'
-                        tmp.infos_dict['type'] = value
-                    elif key == 'url':
-                        tmp.infos_dict['url'] = value
-                        if lItem != None:
-                            for info_name, info_value \
-                                    in lItem.infos_dict.iteritems():
-                                if info_name not in tmp.infos_dict:
-                                    tmp.infos_dict[info_name] = info_value
-                        self.items.append(tmp)
-                        tmp = None
-                    elif tmp != None:
-                        tmp.infos_dict[key] = value
+            if m[0] == '#':
+              continue
+            index = m.find('=')
+            if index == -1:
+              continue
+            key = lower(m[:index])
+            value = m[index+1:]
+            index = value.find('|')
+            if value[:index] == 'video.devil.locale':
+                value = ' ' + __language__(int(value[index+1:])) + ' '
+            elif value[:index] == 'video.devil.image':
+                value = os.path.join(imgDir, value[index+1:])
+            if key == 'start':
+                self.start = value
+            elif key == 'player':
+                self.player = value
+            elif key == 'sort':
+                self.sort = value
+            elif key == 'skill':
+                self.skill = value
+                skill_file = filename[:filename.find('.')] + '.lnk'
+                if self.skill.find('redirect') != -1:
+                    try:
+                        f = open(str(os.path.join(resDir, skill_file)),
+                                 'r')
+                        forward_cfg = f.read()
+                        f.close()
+                        if forward_cfg != self.cfg:
+                            return self.loadLocal(forward_cfg,
+                                                  recursive, lItem,
+                                                  lCatcher)
+                        return 0
+                    except:
+                        pass
+                elif self.skill.find('store') != -1:
+                    f = open(str(os.path.join(resDir, skill_file)), 'w')
+                    f.write(self.cfg)
+                    f.close()
+            elif key == 'catcher':
+                if lCatcher:
+                    try:
+                        ret = self.loadCatcher(value)
+                        if ret != 0:
+                            if enable_debug:
+                                xbmc.log('Error while loading catcher')
+                            return ret
+                    except:
+                        if enable_debug:
+                            traceback.print_exc(file=sys.stdout)
+                        return -1
+            elif key == 'header':
+                index = value.find('|')
+                self.reference = value[:index]
+                self.content = value[index+1:]
+            elif key == 'item_infos':
+                rule_tmp = CRuleItem()
+                rule_tmp.infos = value
+            elif key == 'item_order':
+                rule_tmp.order = value
+            elif key == 'item_skill':
+                rule_tmp.skill = value
+            elif key == 'item_curr':
+                rule_tmp.curr = value
+            elif key == 'item_info_name':
+                info_tmp = CItemInfo()
+                index = value.find('|')
+                if value[:index] == 'video.devil.context':
+                    value = 'context.' \
+                            + __language__(int(value[index+1:]))
+                info_tmp.name = value
+            elif key == 'item_info_from':
+                info_tmp.src = value
+            elif key == 'item_info':
+                info_tmp.rule = value
+            elif key == 'item_info_default':
+                info_tmp.default = value
+            elif key == 'item_info_build':
+                info_tmp.build = value
+                rule_tmp.info_list.append(info_tmp)
+            elif key == 'item_url_build':
+                rule_tmp.url_build = value
+                self.rules.append(rule_tmp)
+            elif key == 'title':
+                tmp = CListItem()
+                tmp.infos_dict['title'] = value
+            elif key == 'type':
+                if recursive and value == 'once':
+                    value = u'rss'
+                tmp.infos_dict['type'] = value
+            elif key == 'url':
+                tmp.infos_dict['url'] = value
+                if lItem != None:
+                    for info_name, info_value \
+                            in lItem.infos_dict.iteritems():
+                        if info_name not in tmp.infos_dict:
+                            tmp.infos_dict[info_name] = info_value
+                self.items.append(tmp)
+                tmp = None
+            elif tmp != None:
+                tmp.infos_dict[key] = value
 
         if recursive and self.start != '':
             if lItem is None:
