@@ -382,6 +382,8 @@ class CCurrentList:
         del self.catcher[:]
         catcher_found = False
         for m in data:
+            if not m:
+              continue
             if m[0] == '#':
                 continue
             index = m.find('=')
@@ -469,6 +471,8 @@ class CCurrentList:
         del self.items[:]
         tmp = None
         for m in data:
+            if not m:
+              continue
             if m[0] == '#':
               continue
             index = m.find('=')
