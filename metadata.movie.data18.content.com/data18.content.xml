@@ -205,10 +205,10 @@
 			<!--Actors with new format-->
 			<RegExp input="$$15" output="\1" dest="5+">
 				<RegExp input="$$1" output="&lt;url function=&quot;GetActorInfo&quot;&gt;\1&lt;/url&gt;" dest="15+">
-					<expression repeat="yes" noclean="1">&lt;a href="([^"]+)" title="(?:[^"]+)"&gt;&lt;img src="http://img.data18.com/images/no_prev_star.jpg" class="yborder"</expression>
+					<expression repeat="yes" noclean="1">&lt;a href="([^"]+)" title="(?:[^"]+)"&gt;&lt;img src="https?://i.datavimg.com/images/no_prev_star.jpg" class="yborder"</expression>
 				</RegExp>
-				<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;thumb&gt;\2/pic2/\3&lt;/thumb&gt;&lt;/actor&gt;" dest="15+">
-					<expression repeat="yes" trim="1" noclean="1,2,3">&lt;a href="http://www.data18.com/[^"]+" title="([^"]+)"&gt;&lt;img src="(http://img.data18.com/images/stars)/pic4/([^"]+)" class="yborder"</expression>
+				<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;\2/pic2/\3&lt;/thumb&gt;&lt;/actor&gt;" dest="15+">
+					<expression repeat="yes" trim="1" noclean="1,2,3">&lt;a href="http://www.data18.com/[^"]+" title="([^"]+)"&gt;&lt;img src="(https?://i.datavimg.com/images/stars)/pic4/([^"]+)" class="yborder"</expression>
 				</RegExp>
 				<expression noclean="1" />
 			</RegExp>
@@ -217,8 +217,8 @@
 	</GetDetails>
 	<GetPhotoFromViewer dest="3">
 		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
-			<RegExp input="$$1" output="&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\501.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\502.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\503.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\504.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\505.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\506.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\507.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\508.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\509.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\510.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\511.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\512.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\513.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\514.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;http://\1/\2/\3/\4/\515.jpg&lt;/thumb&gt;" dest="5">
-				<expression trim="5" noclean="1,2,3,4,5">&lt;img src="http://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg" class="noborder" alt="image" /&gt;</expression>
+			<RegExp input="$$1" output="&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\501.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\502.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\503.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\504.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\505.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\506.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\507.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\508.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\509.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\510.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\511.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\512.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\513.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\514.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;https://\1/\2/\3/\4/\515.jpg&lt;/thumb&gt;" dest="5">
+				<expression trim="5" noclean="1,2,3,4,5">&lt;img src="https?://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg" class="noborder" alt="image" /&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
@@ -226,8 +226,8 @@
 	<GetFanartFromViewer dest="3">
 		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
 			<!-- Try and Use 3rd or 2nd image first so poster and fanart don't have the same image -->
-			<RegExp input="$$1" output="&lt;fanart url=&quot;http://\1/\2/\3/\4/\5&quot; spoof=&quot;http://www.data18.com/viewer/&quot;&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;03.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;02.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;01.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;04.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;05.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;06.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;07.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;08.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;09.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;10.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;11.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;12.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;13.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;14.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;15.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;16.jpg&lt;/thumb&gt;&lt;/fanart&gt;" dest="5">
-				<expression trim="5" noclean="1,2,3,4,5">&lt;img src="http://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg" class="noborder" alt="image" /&gt;</expression>
+			<RegExp input="$$1" output="&lt;fanart url=&quot;https://\1/\2/\3/\4/\5&quot; spoof=&quot;http://www.data18.com/viewer/&quot;&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;03.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;02.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;01.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;04.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;05.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;06.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;07.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;08.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;09.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;10.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;11.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;12.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;13.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;14.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;15.jpg&lt;/thumb&gt;&lt;thumb spoof=&quot;http://www.data18.com/viewer/&quot;&gt;16.jpg&lt;/thumb&gt;&lt;/fanart&gt;" dest="5">
+				<expression trim="5" noclean="1,2,3,4,5">&lt;img src="https?://([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^0-9]+)?([0-9]+).jpg" class="noborder" alt="image" /&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
@@ -236,10 +236,10 @@
 		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
 			<!--Actor with no thumbnail-->
 			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="5">
-				<expression noclean="1">&lt;a href="http://www.data18.com/[^"]+"&gt;\n&lt;img src="http://img.data18.com/images/no_prev_120b.gif" class="noborder" alt="([^"]+)"</expression>
+				<expression noclean="1">&lt;a href="http://www.data18.com/[^"]+"&gt;\n&lt;img src="https?://i.datavimg.com/images/no_prev_120b.gif" class="noborder" alt="([^"]+)"</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;actor&gt;&lt;name&gt;\3&lt;/name&gt;&lt;thumb&gt;\1/120/\2&lt;/thumb&gt;&lt;/actor&gt;" dest="5">
-				<expression noclean="1,2,3">&lt;img src="(http://img.data18.com/images/stars)/pic4/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
+				<expression noclean="1,2,3">&lt;img src="(https?://i.datavimg.com/images/stars)/pic4/([^"]*)"[^&lt;]*alt="([^"]*)</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
