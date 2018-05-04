@@ -158,7 +158,7 @@ action=prefix
 quality=standard
 ########################################################
 title=xhamster.com
-target=file: '([^']+)'
+target=(https:\\/\\/video.xhcdn.com[^"]+)
 url=%s
 quality=standard
 ########################################################
