@@ -487,10 +487,10 @@ extension=mp4
 quality=standard
 ########################################################
 title=stileproject.com
-target=file:\s*'([^']+)',
+target=source\s*src="([^"]+)
 url=%s
 extension=mp4
-quality=standard
+quality=high
 ########################################################
 title=javhihi.com
 target=source\s*src="([^"]+)[^>]+480p
