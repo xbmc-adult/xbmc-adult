@@ -492,3 +492,17 @@ url=%s
 extension=mp4
 quality=standard
 ########################################################
+title=javhihi.com
+target=source\s*src="([^"]+)[^>]+480p
+url=%s
+extension=mp4
+quality=standard
+target=source\s*src="([^"]+)[^>]+720p
+url=%s
+extension=mp4
+quality=high
+target=source\s*src="([^"]+)[^>]+1080p
+url=%s
+extension=mp4
+quality=high
+########################################################
