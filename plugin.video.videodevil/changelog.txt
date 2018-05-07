@@ -1,3 +1,9 @@
+[B]Version 1.7.186[/B]
+
+- Updated: stileproject
+- Fixed: catcher
+- Added: javhihi
+
 [B]Version 1.7.185[/B]
 
 - Updated: xhamster
