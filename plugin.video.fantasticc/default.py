@@ -437,7 +437,7 @@ def GET_LINK(url, collections, url2):
     elif 'xhamster' in url2:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
-        match = re.compile('file":"([^"]+)').findall(html)
+        match = re.compile('File":"([^"]+)').findall(html)
         fetchurl = match[0].replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'hardsextube' in url2:
