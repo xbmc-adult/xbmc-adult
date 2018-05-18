@@ -1,3 +1,8 @@
+[B]Version 1.7.187[/B]
+
+- Updated: xhamster
+- Fixed: video list
+
 [B]Version 1.7.186[/B]
 
 - Updated: stileproject
