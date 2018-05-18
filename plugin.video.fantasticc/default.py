@@ -456,14 +456,15 @@ def GET_LINK(url, collections, url2):
             fetchurl = each.replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'deviantclip' in url2:
-        match = re.compile('<a style="color:#BBB;" href="(.+?)" target="_blank"'
-                           ' rel="nofollow">deviantclip</a>').findall(html)
-        for gurl in match:
-            urlget2 = gurl
+        mediaid = re.compile('mediaid=([0-9]+)').findall(html)
+        for gurl in mediaid:
+            urlget2 = 'http://www.deviantclip.com/playlists/%s/playlist.xml' % gurl
+        xbmc.log('urlget2 %s' % urlget2)
         html = get_html(urlget2)
-        match = re.compile('"file":"(.+?)"').findall(html)
-        for each in match:
-            fetchurl = urllib.unquote(each)
+        xbmc.log('html %s' % html)
+        match = re.compile('location>\s*([^<]+)',re.DOTALL).findall(html)
+        fetchurl = urllib.unquote(match[0])
+        xbmc.log('fetchurl: %s' % fetchurl)
     elif 'redtube' in url2:
         match = re.compile('(https?://(?:|www.)redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
