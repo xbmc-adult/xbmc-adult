@@ -47,36 +47,34 @@ def url_for_cookies(url):
 def get(url, cookiepath=None, cookie=None, user_agent=USER_AGENT_STRING):
     # use cookies if cookiepath is set and if the cookiepath exists.
     if cookiepath is not None:
-        #only use cookies for urls specified
-        if url_for_cookies(url):
-            #check if user has supplied only a folder path, or a full path
-            if not os.path.isfile(cookiepath):
-                #if the user supplied only a folder path, append on to the end
-                #of the path a common filename.
-                cookiepath = os.path.join(cookiepath, 'cookies.lwp')
-            #check that the cookie exists
-            if not os.path.exists(cookiepath):
-                with open(cookiepath, 'w') as f:
-                    f.write('#LWP-Cookies-2.0\n')
-            cj = cookielib.LWPCookieJar()
-            cj.load(cookiepath)
-            req = urllib2.Request(url)
-            req.add_header('User-Agent', user_agent)
-            if cookie:
-              req.add_header('Cookie', cookie)
-            opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-            try:
-                response = opener.open(req)
-            except urllib2.URLError as e:
-                xbmc.log('Error opening %s' % url)
-                sys.exit(1)
-            link = response.read()
-            response.close()
-            return link
-        else: return _loadwithoutcookies(url, user_agent)
+        #check if user has supplied only a folder path, or a full path
+        if not os.path.isfile(cookiepath):
+            #if the user supplied only a folder path, append on to the end
+            #of the path a common filename.
+            cookiepath = os.path.join(cookiepath, 'cookies.lwp')
+        #check that the cookie exists
+        if not os.path.exists(cookiepath):
+            with open(cookiepath, 'w') as f:
+                f.write('#LWP-Cookies-2.0\n')
+        cj = cookielib.LWPCookieJar()
+        cj.load(cookiepath)
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', user_agent)
+        if cookie:
+          req.add_header('Cookie', cookie)
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        try:
+            response = opener.open(req)
+        except urllib2.URLError as e:
+            xbmc.log('Error opening %s' % url)
+            sys.exit(1)
+        link = response.read()
+        response.close()
+        return link
     else: return _loadwithoutcookies(url, user_agent)
 
 def _loadwithoutcookies(url, user_agent):
+    xbmc.log('Loading without cookies')
     url = url.replace('http:', 'https:')
     req = urllib2.Request(url)
     req.add_header('User-Agent', user_agent)
