@@ -2,6 +2,7 @@
 
 - Updated: xhamster
 - Fixed: video list
+- Fixed: categories
 
 [B]Version 1.7.186[/B]
 
