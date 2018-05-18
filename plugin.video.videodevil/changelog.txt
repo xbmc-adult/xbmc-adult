@@ -3,6 +3,8 @@
 - Updated: xhamster
 - Fixed: video list
 - Fixed: categories
+- Updated: redtube
+- Fixed: video list
 
 [B]Version 1.7.186[/B]
 
