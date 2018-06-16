@@ -7,7 +7,7 @@
 	<GetSearchResults dest="3">
 		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="3">
 			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://straight.theater.aebn.net/dispatcher/movieDetail?movieId=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
-				<expression repeat="yes" trim="1,2">&lt;a id="FTSMovieSearch_link_title_detail_[0-9]+" href="/dispatcher/movieDetail\?(?s).*movieId=([0-9]+)[^"]*"[^&gt;]*&gt;([^&lt;]+)&lt;/a&gt;</expression>
+				<expression repeat="yes" trim="1,2">&lt;a id=&quot;FTSMovieSearch_link_title_detail_[0-9]+&quot; href=&quot;\/dispatcher\/movieDetail\?genreId=[0-9]+&amp;amp;theaterId=[0-9]+&amp;amp;movieId=([0-9]+)[^&quot;]*&quot;[^&gt;]*&gt;([^&lt;]+)&lt;\/a&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
 		</RegExp>
@@ -17,7 +17,7 @@
 			<RegExp input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5">
 				<expression trim="1">&lt;h1[^&gt;]*&gt;(.*?)&lt;/h1&gt;</expression>
 			</RegExp>
-			<RegExp input="$$1" output="&lt;thumb&gt;\1&lt;/thumb&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;thumb&gt;https:\1&lt;/thumb&gt;" dest="5+">
 				<expression>id="md-boxCover"&gt;&lt;a href="([^"]*)"</expression>
 			</RegExp>
 			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
@@ -68,7 +68,7 @@
 			<RegExp input="$$1" output="&lt;name&gt;\1&lt;/name&gt;" dest="5+">
 				<expression clear="yes" trim="1">pornStarDetailsBlock"&gt;\s*&lt;div class="componentHeader"&gt;&lt;div&gt;([^&lt;]*)&lt;/div&gt;</expression>
 			</RegExp>
-			<RegExp input="$$1" output="&lt;thumb&gt;\1&lt;/thumb&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;thumb&gt;https:\1&lt;/thumb&gt;" dest="5+">
 				<expression noclean="1">&lt;div class="starInfo"&gt;\s*&lt;img[^&gt;]*src="([^"]*)"</expression>
 			</RegExp>
 			<expression noclean="1" />
