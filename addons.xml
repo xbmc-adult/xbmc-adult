@@ -20,7 +20,7 @@
 
 <addon id="metadata.movie.aebn.gay.net"
        name="AEBN Gay"
-       version="1.2.3"
+       version="1.2.4"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -38,7 +38,7 @@
 
 <addon id="metadata.movie.aebn.net"
        name="AEBN"
-       version="1.2.3"
+       version="1.2.4"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
