@@ -1,3 +1,8 @@
+[B]Version 1.7.188[/B]
+
+- Updated: pornhub
+- Fixed: next button
+
 [B]Version 1.7.187[/B]
 
 - Updated: xhamster
