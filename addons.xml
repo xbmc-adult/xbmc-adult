@@ -215,7 +215,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.188"
+  version="1.7.189"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
@@ -250,7 +250,7 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.16"
+       version="1.0.17"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
