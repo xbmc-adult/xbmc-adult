@@ -33,7 +33,7 @@ def INDEX(url):
         link = getHtml(url)
         link = re.compile('content">[\s\S]+<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
         matchname = re.compile('title">[^>]+>([^<]+)').findall(link)
-        matchurl = re.compile('class="frame video" href="(/videos/.+?\d+.html)').findall(link)
+        matchurl = re.compile('class="frame[^"]*" href="(/videos/.+?\d+.html)').findall(link)
         matchthumb = re.compile('img-responsive" alt="" src="([^"]+jpg)').findall(link)
         matchduration = re.compile('time">(\d{1,}:\d{2}:?\d{0,2})').findall(link)
         for name, url, thumb, duration in zip(matchname, matchurl, matchthumb, matchduration):
