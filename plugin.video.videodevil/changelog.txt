@@ -4,6 +4,8 @@
 - Fixed: next button
 - Fixed: gay section
 - Fixed: shemale section
+- Updated: xvideos
+- Fixed: next button
 
 [B]Version 1.7.188[/B]
 
@@ -572,7 +574,7 @@ Jarvis
 - Updated: sunporno
 - Fixed: video listing
 - Fixed: catcher
-- Updated: xvideo
+- Updated: xvideos
 - Fixed: video listing
 
 [B]Version 1.7.99[/B]
