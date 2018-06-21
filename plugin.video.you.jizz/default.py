@@ -38,7 +38,7 @@ def INDEX(url):
         matchduration = re.compile('time">(\d{1,}:\d{2}:?\d{0,2})').findall(link)
         for name, url, thumb, duration in zip(matchname, matchurl, matchthumb, matchduration):
                 addDownLink(name + ' ' + '(' + duration + ')', url, 2, "https:" + thumb)
-        matchpage = re.compile('pagination".+?active.+?<li><a href="([^"]+html)').findall(link)
+        matchpage = re.compile('pagination-next" href="([^"]+html)').findall(link)
         if matchpage:
                 addDir('Next Page', BASE_URL + '' + matchpage[0], 1, '')
 
