@@ -1,6 +1,7 @@
 1.0.18
  - Fixed Next
  - Fixed video URL for search results
+ - Fixed thumb URL for search results
 
 1.0.17
  - Fixed video URL
