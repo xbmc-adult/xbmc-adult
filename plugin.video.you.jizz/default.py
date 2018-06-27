@@ -59,6 +59,7 @@ def VIDEOLINKS(url, name):
                                 listitem = xbmcgui.ListItem(name)
                                 listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
                                 xbmc.Player().play('https:' + url, listitem)
+                                return
 
 
 def SEARCHVIDEOS(url):
