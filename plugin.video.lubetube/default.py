@@ -32,6 +32,7 @@ def VIDEOLINKS(url, name):
         listitem = xbmcgui.ListItem(name)
         listitem.setInfo('video', {'Title': name, 'Genre': 'Porn'})
         xbmc.Player().play(url, listitem)
+        return
 
 def add_next(url):
     match = re.compile('(\d+)$').findall(url)

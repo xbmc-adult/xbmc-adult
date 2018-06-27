@@ -1,3 +1,7 @@
+[B]1.18[/B]
+
+- Don't try to play all URLs only try the first one
+
 [B]1.17[/B]
 
 - Get rid of "CreateLoader - unsupported protocol(plugin)" warnings
