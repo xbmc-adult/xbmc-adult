@@ -1,3 +1,7 @@
+1.0.19
+ - Fixed video URL
+ - Fixed thumb URL
+
 1.0.18
  - Fixed Next
  - Fixed video URL for search results
