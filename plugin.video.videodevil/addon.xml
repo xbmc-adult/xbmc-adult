@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.video.videodevil"
-  version="1.7.189"
+  version="1.7.190"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>

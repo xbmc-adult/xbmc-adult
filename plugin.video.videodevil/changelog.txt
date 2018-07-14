@@ -1,3 +1,8 @@
+[B]Version 1.7.190[/B]
+
+- Updated: motherless
+- Fixed: videolist
+
 [B]Version 1.7.189[/B]
 
 - Updated: xhamster
