@@ -2,6 +2,8 @@
 
 - Updated: motherless
 - Fixed: videolist
+- Updated: pornhub
+- Fixed: videolist
 
 [B]Version 1.7.189[/B]
 
