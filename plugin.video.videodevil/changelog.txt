@@ -1,9 +1,16 @@
+[B]Version 1.7.191[/B]
+
+- Removed: faapy
+- Removed: indiangilma
+
 [B]Version 1.7.190[/B]
 
 - Updated: motherless
 - Fixed: videolist
 - Updated: pornhub
 - Fixed: videolist
+- Removed: faapy
+- Removed: indiangilma
 
 [B]Version 1.7.189[/B]
 
