@@ -57,13 +57,6 @@ director=VideoDevil
 icon=video.devil.image|extremetube.png
 url=extremetube.com.cfg
 ########################################################
-title=Faapy
-type=rss
-genre=faapy.com
-director=VideoDevil
-icon=https://faapy.com/images_new/logo.png
-url=faapy.com.cfg
-########################################################
 title=Fapdu
 type=rss
 genre=fapdu
