@@ -2,6 +2,8 @@
 
 - Updated: spankwire
 - Fixed: videolist
+- Updated: vporn
+- Fixed: videolist
 
 [B]Version 1.7.192[/B]
 
