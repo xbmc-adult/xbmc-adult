@@ -1,6 +1,11 @@
+[B]Version 1.7.193[/B]
+
+- Updated: spankwire
+- Fixed: videolist
+
 [B]Version 1.7.192[/B]
 
-- Removed: porn.com
+- Updated: porn.com
 - Fixed: videolist
 
 [B]Version 1.7.191[/B]
