@@ -4,6 +4,9 @@
 - Fixed: videolist
 - Updated: vporn
 - Fixed: videolist
+- Updated: sexu
+- Fixed: videolist
+- Fixed: catcher
 
 [B]Version 1.7.192[/B]
 
