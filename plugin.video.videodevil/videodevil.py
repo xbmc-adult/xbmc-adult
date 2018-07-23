@@ -1265,6 +1265,8 @@ class Main:
         u = sys.argv[0] + '?url=' + quoted_url
         if ' ' in icon:  # Some sites such as hentaigasm have space character in thumbnail
             icon = urllib.quote(icon, safe=':/')
+        if 'http' in icon: # Some sites such as vmasala reject Kodi User-Agent
+            icon = icon + '|User-Agent=%s'%USERAGENT
         liz = xbmcgui.ListItem(title, title, icon, icon)
         if self.currentlist.getFileExtension(url) == 'videodevil' \
             and self.currentlist.skill.find('nodownload') == -1:
@@ -1317,6 +1319,7 @@ class Main:
                                     infoLabels={capitalize(info_name): info_value})
                 except:
                     pass
+
         xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),
                                     url=u,
                                     listitem=liz,
