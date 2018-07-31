@@ -495,6 +495,10 @@ extension=mp4
 quality=high
 ########################################################
 title=javhihi.com
+target=source\s*src="([^"]+)[^>]+360p
+url=%s
+extension=mp4
+quality=low
 target=source\s*src="([^"]+)[^>]+480p
 url=%s
 extension=mp4
