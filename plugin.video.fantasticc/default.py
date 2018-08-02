@@ -451,7 +451,7 @@ def GET_LINK(url, collections, url2):
     elif 'xtube' in url2:
         match = re.compile('(https?://www.xtube.com/.+?)"').findall(html)
         html = get_html(match[0])
-        match = re.compile('videoMp4 = "(.+?)"').findall(html)
+        match = re.compile('},videoUrl:"([^"]+)').findall(html)
         for each in match:
             fetchurl = each.replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
