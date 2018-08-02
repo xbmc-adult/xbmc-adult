@@ -1,4 +1,9 @@
-[B]Version 1.7.193[/B]
+[B]Version 1.7.196[/B]
+
+- Updated: videodevil
+- Fixed: quoting
+
+[B]Version 1.7.195[/B]
 
 - Updated: eporner
 - Fixed: next button
@@ -9,7 +14,7 @@
 - Added: javbuz
 - Added: letfap
 
-[B]Version 1.7.193[/B]
+[B]Version 1.7.194[/B]
 
 - Updated: porn300
 - Fixed: videolist
