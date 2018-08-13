@@ -29,7 +29,13 @@ build=%s|Referer=https://www.ah-me.com/
 quality=standard
 ########################################################
 title=clipsage.com
-target=file:\s*"([^"]+)"
+target=file:\s*"([^"]+)
+url=%s
+build=%s|User-Agent=iPad
+quality=standard
+########################################################
+title=desixnxx.net
+target=source\s*src='([^']+)
 url=%s
 build=%s|User-Agent=iPad
 quality=standard
