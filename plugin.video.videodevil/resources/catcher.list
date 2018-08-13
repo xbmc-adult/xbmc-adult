@@ -28,6 +28,12 @@ url=%s
 build=%s|Referer=https://www.ah-me.com/
 quality=standard
 ########################################################
+title=clipsage.com
+target=file:\s*"([^"]+)"
+url=%s
+build=%s|User-Agent=iPad
+quality=standard
+########################################################
 title=madthumbs.com
 target=<source src="([^"]+)"
 url=%s
