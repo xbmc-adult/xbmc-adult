@@ -203,6 +203,11 @@ action=quote
 quality=standard
 ########################################################
 title=spankwire.com
+target=cdnPath180.*?=\s*'([^']+)
+url=%s
+build=http:%s
+extension=mp4
+quality=low
 target=cdnPath240.*?=\s*'([^']+)
 url=%s
 build=http:%s
