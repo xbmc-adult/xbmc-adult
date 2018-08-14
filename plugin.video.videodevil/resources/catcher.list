@@ -291,6 +291,8 @@ quality=standard
 title=slutload.com
 target=data-url="([^"]+)"
 url=%s
+build=http:%s
+extension=mp4
 action=decode
 quality=standard
 ########################################################
