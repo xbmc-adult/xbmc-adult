@@ -490,6 +490,11 @@ target=mp4"\s*src="([^"]+)
 url=%s
 quality=standard
 ########################################################
+title=sunporno.com
+target=video\s*src="([^"]+)
+url=%s
+quality=standard
+########################################################
 title=porn300.com
 target=source\s*src="([^"]+)
 url=%s
