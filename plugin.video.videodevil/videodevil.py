@@ -34,7 +34,7 @@ if cj:
         try:
             cj.load(xbmc.translatePath(cookiePath))
         except cookielib.LoadError as e:
-            xbmc.log('Failed to open cookie file %s' % e)
+            xbmc.log('Failed to open cookie file %s' % e,xbmc.LOGNOTICE)
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 else:
     opener = urllib2.build_opener()
@@ -43,7 +43,7 @@ urllib2.install_opener(opener)
 
 if addon.getSetting('enable_debug') == 'true':
     enable_debug = True
-    xbmc.log('VideoDevil debug logging enabled')
+    xbmc.log('VideoDevil debug logging enabled',xbmc.LOGNOTICE)
 else:
     enable_debug = False
 
@@ -356,7 +356,7 @@ class CCurrentList:
                     + smart_unicode(urllib.quote_plus(item.infos_dict['url'])))
             except KeyError:
                 xbmc.log('Skipping %s probably has unicode'
-                         % item.infos_dict['url'].encode('utf-8'))
+                         % item.infos_dict['url'].encode('utf-8'),xbmc.LOGNOTICE)
         if len(suffix) > 0:
             url = url + '.' + suffix
         return url
@@ -446,20 +446,20 @@ class CCurrentList:
     def loadLocal(self, filename, recursive=True, lItem=None,
                   lCatcher=False):
         if enable_debug:
-            xbmc.log('loadLocal: ' + str(filename))
+            xbmc.log('loadLocal: ' + str(filename),xbmc.LOGNOTICE)
         for local_path in [resDir, cacheDir, '']:
             try:
                 data = smart_read_file(local_path, filename)
                 if enable_debug:
                     xbmc.log('Local file ' + \
                               str(os.path.join(local_path, filename)) + \
-                              ' opened')
+                              ' opened',xbmc.LOGNOTICE)
                 break
             except:
                 if enable_debug:
                     xbmc.log('File: ' + \
                              str(os.path.join(local_path, filename)) + \
-                             ' not found')
+                             ' not found',xbmc.LOGNOTICE)
                     if local_path == '':
                         traceback.print_exc(file=sys.stdout)
                 if local_path == '':
@@ -517,7 +517,7 @@ class CCurrentList:
                         ret = self.loadCatcher(value)
                         if ret != 0:
                             if enable_debug:
-                                xbmc.log('Error while loading catcher')
+                                xbmc.log('Error while loading catcher',xbmc.LOGNOTICE)
                             return ret
                     except:
                         if enable_debug:
@@ -613,7 +613,7 @@ class CCurrentList:
     def loadRemote(self, remote_url, recursive=True, lItem=None):
         remote_url = urllib.unquote_plus(remote_url)
         if enable_debug:
-            xbmc.log('loadRemote: ' + repr(remote_url))
+            xbmc.log('loadRemote: ' + repr(remote_url),xbmc.LOGNOTICE)
         if lItem is None:
             lItem = self.decodeUrl(remote_url)
         try:
@@ -669,12 +669,12 @@ class CCurrentList:
             except ValueError:
                 if enable_debug:
                     xbmc.log('Failed to save the cookie jar,'
-                             ' expire time out of bounds')
+                             ' expire time out of bounds',xbmc.LOGNOTICE)
             current_url_page = curr_url
             if enable_debug:
                 f.write(data)
                 f.close()
-                xbmc.log('Remote URL ' + str(curr_url) + ' opened')
+                xbmc.log('Remote URL ' + str(curr_url) + ' opened',xbmc.LOGNOTICE)
         except IOError:
             if enable_debug:
                 traceback.print_exc(file=sys.stdout)
@@ -896,12 +896,12 @@ class ContentFetcher:
     def sendRequest(self, name, rule, url, request):
         if enable_debug:
             xbmc.log('Sending HTTP-Request %s (%s)' %
-                (request.get_full_url(), name))
+                (request.get_full_url(), name),xbmc.LOGNOTICE)
         try:
             response = opener.open(request)
         except urllib2.HTTPError as e:
             xbmc.log('HTTP-Request failed %s %s' %
-                (e, request.get_full_url()))
+                (e, request.get_full_url()),xbmc.LOGNOTICE)
             self.dumpRequest(name, rule, url, request, str(e))
             raise
         if rule.limit == 0:
@@ -949,7 +949,7 @@ class ContentMatcher:
 
         match = matches.group(1).strip()
         if enable_debug:
-            xbmc.log('pre-action target is %s' % match)
+            xbmc.log('pre-action target is %s' % match,xbmc.LOGNOTICE)
         if rule.action.find('unquote') != -1:
             match = unquote_safe(match)
         elif rule.action.find('decode') != -1:
@@ -961,14 +961,14 @@ class ContentMatcher:
         if rule.build.find('%s') != -1:
             match = rule.build % match
         if enable_debug:
-            xbmc.log('target is %s' % match)
+            xbmc.log('target is %s' % match,xbmc.LOGNOTICE)
 
         return match
 
 class Main:
     def __init__(self):
         if enable_debug:
-            xbmc.log('Initializing VideoDevil')
+            xbmc.log('Initializing VideoDevil',xbmc.LOGNOTICE)
         self.pDialog = None
         self.urlList = []
         self.extensionList = []
@@ -980,18 +980,18 @@ class Main:
         self.extFetcher = ContentFetcher()
         self.matcher = ContentMatcher()
         if enable_debug:
-            xbmc.log('VideoDevil initialized')
+            xbmc.log('VideoDevil initialized',xbmc.LOGNOTICE)
         self.run()
 
     def showErrorNotification(self, errorCode):
         message = __language__(errorCode)
-        xbmc.log('an error occured [%d]: %s' % (errorCode, message))
+        xbmc.log('an error occured [%d]: %s' % (errorCode, message),xbmc.LOGNOTICE)
         xbmcgui.Dialog().notification(
             __addonname__, message, xbmcgui.NOTIFICATION_ERROR, sound=False)
 
     def getDirectLink(self, original_url):
         if enable_debug:
-            xbmc.log('getting direct link (%s)' % original_url)
+            xbmc.log('getting direct link (%s)' % original_url,xbmc.LOGNOTICE)
         original_url = original_url.strip()
 
         for source in self.currentlist.catcher:
@@ -1033,7 +1033,7 @@ class Main:
         preference = int(addon.getSetting('video_type'))
         if enable_debug:
             xbmc.log('found %d urls, prefered video type: %d'
-                % (len(self.urlList), preference))
+                % (len(self.urlList), preference),xbmc.LOGNOTICE)
         if len(self.urlList) == 0:
             self.showErrorNotification(30067)
             return ''
@@ -1110,17 +1110,18 @@ class Main:
 
         if flv_file != None and os.path.isfile(flv_file):
             if enable_debug:
-                xbmc.log('Play: ' + str(flv_file))
+                xbmc.log('Play: ' + str(flv_file),xbmc.LOGNOTICE)
             xbmc.Player().play(str(flv_file), listitem)
         else:
             if enable_debug:
-                xbmc.log('Play: ' + str(url))
+                xbmc.log('Play: ' + str(url),xbmc.LOGNOTICE)
             xbmc.Player().play(str(url), listitem)
         xbmc.sleep(200)
 
     def downloadMovie(self, url, title):
+        url = url.split('|')[0]
         if enable_debug:
-            xbmc.log('Trying to download video ' + str(url))
+            xbmc.log('Trying to download video ' + str(url),xbmc.LOGNOTICE)
         download_path = addon.getSetting('download_path')
         if download_path == '':
             try:
@@ -1333,7 +1334,7 @@ class Main:
 
     def run(self):
         if enable_debug:
-            xbmc.log('VideoDevil running')
+            xbmc.log('VideoDevil running',xbmc.LOGNOTICE)
         try:
             self.handle = int(sys.argv[1])
             paramstring = sys.argv[2]
@@ -1347,31 +1348,31 @@ class Main:
                                                   __language__(30066)):
                         return
                 if enable_debug:
-                    xbmc.log('Settings directory: ' + str(settingsDir))
-                    xbmc.log('Cache directory: ' + str(cacheDir))
-                    xbmc.log('Resource directory: ' + str(resDir))
-                    xbmc.log('Image directory: ' + str(imgDir))
+                    xbmc.log('Settings directory: ' + str(settingsDir),xbmc.LOGNOTICE)
+                    xbmc.log('Cache directory: ' + str(cacheDir),xbmc.LOGNOTICE)
+                    xbmc.log('Resource directory: ' + str(resDir),xbmc.LOGNOTICE)
+                    xbmc.log('Image directory: ' + str(imgDir),xbmc.LOGNOTICE)
                 if not os.path.exists(settingsDir):
                     if enable_debug:
-                        xbmc.log('Creating settings directory ' + str(settingsDir))
+                        xbmc.log('Creating settings directory ' + str(settingsDir),xbmc.LOGNOTICE)
                     os.mkdir(settingsDir)
                     if enable_debug:
-                        xbmc.log('Settings directory created')
+                        xbmc.log('Settings directory created',xbmc.LOGNOTICE)
                 if not os.path.exists(cacheDir):
                     if enable_debug:
-                        xbmc.log('Creating cache directory ' + str(cacheDir))
+                        xbmc.log('Creating cache directory ' + str(cacheDir),xbmc.LOGNOTICE)
                     os.mkdir(cacheDir)
                     if enable_debug:
-                        xbmc.log('Cache directory created')
+                        xbmc.log('Cache directory created',xbmc.LOGNOTICE)
                 if enable_debug:
-                    xbmc.log('Purging cache directory')
+                    xbmc.log('Purging cache directory',xbmc.LOGNOTICE)
                 self.purgeCache()
                 if enable_debug:
-                    xbmc.log('Cache directory purged')
+                    xbmc.log('Cache directory purged',xbmc.LOGNOTICE)
                 self.parseView('sites.list')
                 del self.currentlist.items[:]
                 if enable_debug:
-                    xbmc.log('End of directory')
+                    xbmc.log('End of directory',xbmc.LOGNOTICE)
                 xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
             else:
                 currentView = paramstring[5:]
@@ -1380,11 +1381,11 @@ class Main:
                     unquoted_currentView = urllib2.unquote(currentView)
                     unquoted_currentView = urllib2.unquote(unquoted_currentView)
                     xbmc.log(
-                      'currentView: ' + unquoted_currentView.replace('&', '\n'))
+                      'currentView: ' + unquoted_currentView.replace('&', '\n'),xbmc.LOGNOTICE)
                 if self.parseView(currentView) == 0:
                     xbmcplugin.endOfDirectory(int(sys.argv[1]))
                     if enable_debug:
-                        xbmc.log('End of directory')
+                        xbmc.log('End of directory',xbmc.LOGNOTICE)
         except Exception, e:
             if enable_debug:
                 traceback.print_exc(file=sys.stdout)
