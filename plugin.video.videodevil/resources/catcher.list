@@ -136,9 +136,14 @@ action=prefix
 quality=high
 ########################################################
 title=xvideos.com
-target=flv_url=(http[^"]+?)&amp;
+target=setVideoUrlLow\('([^']+)
 url=%s
+extension=mp4
 quality=standard
+target=setVideoUrlHigh\('([^']+)
+url=%s
+extension=mp4
+quality=high
 ########################################################
 title=moviesand.com
 target=<source src="([^"]+)" type='video/mp4' />
