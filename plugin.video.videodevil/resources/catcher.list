@@ -463,18 +463,22 @@ target=source\s*src="([^"]+)[^']+[^\s]+\s*label='240p'
 url=%s
 build=%s|User-Agent=iPhone
 quality=low
+extension=mp4
 target=source\s*src="([^"]+)[^']+[^\s]+\s*label='(?:360p|SD)'
 url=%s
 build=%s|User-Agent=iPhone
 quality=standard
+extension=mp4
 target=source\s*src="([^"]+)[^']+[^\s]+\s*label='480p'
 url=%s
 build=%s|User-Agent=iPhone
 quality=standard
+extension=mp4
 target=source\s*src="([^"]+)[^']+[^\s]+\s*label='(?:720p|HD)'
 url=%s
 build=%s|User-Agent=iPad
 quality=high
+extension=mp4
 ########################################################
 title=spankingtube.com
 target=<source src="([^"]+)"
