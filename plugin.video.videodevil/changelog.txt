@@ -1,3 +1,8 @@
+[B]Version 1.7.198[/B]
+
+- Added: analdin
+- Added: plugin logging when kodi debug logging is off
+
 [B]Version 1.7.197[/B]
 
 - Updated: clipsage
