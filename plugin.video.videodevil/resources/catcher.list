@@ -28,6 +28,12 @@ url=%s
 build=%s|Referer=https://www.ah-me.com/
 quality=standard
 ########################################################
+title=analdin.com
+target=video_url: '([^']+)'
+url=%s
+build=%s|Referer=https://www.analdin.com/
+quality=standard
+########################################################
 title=clipsage.com
 target=file:\s*"([^"]+)
 url=%s
