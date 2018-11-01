@@ -574,3 +574,21 @@ ext_url=%s
 extension=mp4
 quality=high
 ########################################################
+title=porntrex.com
+target=url.?: '(https://www.porntrex.com/get_file/[^_]+_360p[^']+)'
+url=%s
+extension=mp4
+quality=low
+target=url.?: '(https://www.porntrex.com/get_file/[^_']+)'
+url=%s
+extension=mp4
+quality=standard
+target=url.?: '(https://www.porntrex.com/get_file/[^_]+_720p[^']+)'
+url=%s
+extension=mp4
+quality=high
+target=url.?: '(https://www.porntrex.com/get_file/[^_]+_1080p[^']+)'
+url=%s
+extension=mp4
+quality=high
+########################################################
