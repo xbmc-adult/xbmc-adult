@@ -313,29 +313,20 @@ action=decode
 quality=standard
 ########################################################
 title=tukif.com
-target=<iframe src="([^"]+)"
+target=href="(https://videos.tukif.com/download/[^"]+270p)" class="post_download_link clearfix"><span class="pull-left">270p
 url=%s
-ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="360p
-ext_url=%s
-header=Referer|https://tukif.com
 quality=low
-target=<iframe src="([^"]+)"
+target=href="(https://videos.tukif.com/download/[^"]+360p)" class="post_download_link clearfix"><span class="pull-left">360p
 url=%s
-ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="540p
-ext_url=%s
-header=Referer|https://tukif.com
 quality=standard
-target=<iframe src="([^"]+)"
+target=href="(https://videos.tukif.com/download/[^"]+540p)" class="post_download_link clearfix"><span class="pull-left">540p
 url=%s
-ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="720p
-ext_url=%s
-header=Referer|https://tukif.com
+quality=standard
+target=href="(https://videos.tukif.com/download/[^"]+720p)" class="post_download_link clearfix"><span class="pull-left">720p
+url=%s
 quality=high
-target=<iframe src="([^"]+)"
+target=href="(https://videos.tukif.com/download/[^"]+1080p)" class="post_download_link clearfix"><span class="pull-left">1080p
 url=%s
-ext_target=source\ssrc="([^"]+)"\stype="video/mp4"\slabel="1080p
-ext_url=%s
-header=Referer|https://tukif.com
 quality=high
 ########################################################
 title=yuvutu.com
