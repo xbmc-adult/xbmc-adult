@@ -81,6 +81,14 @@ target="(/dload/[^"]+1080p.mp4)
 url=%s
 build=http://www.eporner.com%s
 quality=high
+target="(/dload/[^"]+1440p.mp4)
+url=%s
+build=http://www.eporner.com%s
+quality=high
+target="(/dload/[^"]+2160p.mp4)
+url=%s
+build=http://www.eporner.com%s
+quality=high
 ########################################################
 title=2video.de
 target=<div id="box">[^<]*<h2>Download</h2>[^<]*<p><a href="([^"]+)" target="_blank">
