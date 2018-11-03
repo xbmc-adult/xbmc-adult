@@ -1,3 +1,13 @@
+[B]Version 1.7.203[/B]
+
+- Added: porntrex.com
+- Updated: tukif
+- Fixed: catcher
+- Updated: youporn
+- Fixed: categories
+- Updated: eporner
+- Added: HD categories for 2K and 4K
+
 [B]Version 1.7.202[/B]
 
 - Added: rartube.com
