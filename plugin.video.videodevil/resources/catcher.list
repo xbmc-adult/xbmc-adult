@@ -209,12 +209,6 @@ url=%s
 build=https:%s
 quality=standard
 ########################################################
-title=clipa.tv
-target=<a href="([/]get-video.flv[?]uri=.+?)" class="download"
-url=http://en.clipa.tv/?uri=%s
-build=http://en.clipa.tv%s
-quality=standard
-########################################################
 title=simple-match
 target=(https*://[^"<]+?.(mp4|flv))
 url=%s
@@ -255,18 +249,6 @@ ext_target=<videoLink>(.+?)</videoLink>
 ext_url=%s
 quality=standard
 ########################################################
-#title=keepvid.com
-#target=<a href="([^"]+)" class="link" target="\_blank">[^<]+</a>[^<]+<em>\(video\.flv - Low Quality\)
-#url=http://keepvid.com/?url=%s
-#header=Referer|http://keepvid.com/
-#extension=flv
-#quality=standard
-#target=<a href="([^"]+)" class="link" target="\_blank">[^<]+</a>[^<]+<em>\(video\.mp4 - High Quality\)
-#extension=mp4
-#quality=high
-#target=<a href="([^"]+)" class="link" target="\_blank">
-#quality=fallback
-########################################################
 title=pornhub.com
 target=var player_quality_240p = '([^"]+.mp4[^']*)';
 url=%s
@@ -294,13 +276,6 @@ target=quality":"1080[^"]*",[^}]+videoUrl":"(https:[^"]+)
 url=%s
 header=Cookie|platform=tablet
 quality=high
-########################################################
-#title=viloader.net
-#target=unescape%28%22(http.+?\.flv)%22%29%3
-#url=http://www.viloader.net/mybic_server.php
-#data=skill=formDownload&url=%s&json=false
-#header=Referer|http://www.viloader.net
-#quality=standard
 ########################################################
 title=empflix.com
 target=contentUrl" content="([^"]+)
@@ -461,13 +436,6 @@ ext_url=%s
 ext_header=Origin|https://www.fux.com/
 quality=fallback
 ########################################################
-title=indiangilma.com
-target=new SWFObject.".*?config=([^"]+)"
-url=%s
-ext_target=<file>([^<]+)<
-ext_url=%s
-quality=standard
-########################################################
 title=vmasala.com
 target=source\s*src="([^"]+)[^']+[^\s]+\s*label='240p'
 url=%s
@@ -492,11 +460,6 @@ extension=mp4
 ########################################################
 title=spankingtube.com
 target=<source src="([^"]+)"
-url=%s
-quality=standard
-########################################################
-title=indianpornvideos.com
-target=mp4"\s*src="([^"]+)
 url=%s
 quality=standard
 ########################################################
@@ -528,24 +491,6 @@ quality=standard
 ########################################################
 title=stileproject.com
 target=source\s*src="([^"]+)
-url=%s
-extension=mp4
-quality=high
-########################################################
-title=javhihi.com
-target=source\s*src="([^"]+)[^>]+360p
-url=%s
-extension=mp4
-quality=low
-target=source\s*src="([^"]+)[^>]+480p
-url=%s
-extension=mp4
-quality=standard
-target=source\s*src="([^"]+)[^>]+720p
-url=%s
-extension=mp4
-quality=high
-target=source\s*src="([^"]+)[^>]+1080p
 url=%s
 extension=mp4
 quality=high
