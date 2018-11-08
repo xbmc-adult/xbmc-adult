@@ -1,3 +1,9 @@
+[B]Version 1.7.204[/B]
+
+- Updated: porntrex.com
+- Fixed: icons
+- Fixed: categories
+
 [B]Version 1.7.203[/B]
 
 - Added: porntrex.com
