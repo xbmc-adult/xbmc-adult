@@ -52,7 +52,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornoxo.com
-target=source src="([^"]+)"
+target=source\s*src="([^"]+)"
 url=%s
 quality=standard
 target=file":\s*"([^"]+)",\s*"label":\s*"Standard
