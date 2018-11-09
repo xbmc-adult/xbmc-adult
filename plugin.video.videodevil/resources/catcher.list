@@ -23,7 +23,7 @@
 # Catcher sites
 ########################################################
 title=ahme.com
-target=video src="([^"]+)"
+target=video\s*src="([^"]+)"
 url=%s
 build=%s|Referer=https://www.ah-me.com/
 quality=standard
