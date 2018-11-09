@@ -1262,6 +1262,10 @@ class Main:
         return result
 
     def addListItem(self, title, url, icon, totalItems, lItem):
+        # Remove \ in json urls
+        url = url.replace('\/','/')
+        url = url.replace('%5C%2F','%2F')
+        icon = icon.replace('\/','/')
         # in Frodo url parameters need to be encoded
         # ignore characters that can't be converted to ascii
         quoted_url = urllib2.quote(url.encode('ascii', 'ignore'))
