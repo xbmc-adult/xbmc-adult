@@ -420,9 +420,34 @@ url=%s
 quality=standard
 ########################################################
 title=bitporno.com
-target=source src="([^"]+)
+target=href="([^"]+360p)"
 url=%s
+ext_target=source\s*src="([^"]+)
+ext_url=%s
+extension=mp4
+quality=low
+target=href="([^"]+480p)"
+url=%s
+ext_target=source\s*src="([^"]+)
+ext_url=%s
+extension=mp4
 quality=standard
+target=href="([^"]+720p)"
+url=%s
+ext_target=source\s*src="([^"]+)
+ext_url=%s
+extension=mp4
+quality=high
+target=href="([^"]+1080p)"
+url=%s
+ext_target=source\s*src="([^"]+)
+ext_url=%s
+extension=mp4
+quality=high
+target=source\s*src="([^"]+)
+url=%s
+extension=mp4
+quality=fallback
 ########################################################
 title=fux.com
 target=<button id="download720p.*?data-id="([^"]+)"
