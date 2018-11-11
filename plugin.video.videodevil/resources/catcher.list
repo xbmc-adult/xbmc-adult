@@ -397,18 +397,22 @@ extension=mp4
 quality=fallback
 ########################################################
 title=vporn.com
-target=<source src="([^"]+)" type="video/mp4" label="720p HD"
-url=%s
-header=Referer|https://www.vporn.com
-quality=high
-target=<source src="([^"]+)" type="video/mp4" label="480p"
-url=%s
-header=Referer|https://www.vporn.com
-quality=standard
-target=<source src="([^"]+)" type="video/mp4" label="320p"
+target=<source\s*src="([^"]+)[^^]+?label="320p
 url=%s
 header=Referer|https://www.vporn.com
 quality=low
+target=<source\s*src="([^"]+)[^^]+?label="480p
+url=%s
+header=Referer|https://www.vporn.com
+quality=standard
+target=<source\s*src="([^"]+)[^^]+?label="720p
+url=%s
+header=Referer|https://www.vporn.com
+quality=high
+target=<source\s*src="([^"]+)[^^]+?label="1080p
+url=%s
+header=Referer|https://www.vporn.com
+quality=high
 ########################################################
 title=pornhd.com
 target=sources:.+?360p":"([^"]+)
