@@ -385,11 +385,6 @@ url=%s
 quality=standard
 ########################################################
 title=sexu.com
-target="src":"([^"]+)
-url=%s
-build=http:%s
-extension=mp4
-quality=high
 target="src":"([^"]+240p-x.mp4)
 url=%s
 build=http:%s
@@ -405,6 +400,11 @@ url=%s
 build=http:%s
 extension=mp4
 quality=high
+target="src":"([^"]+)
+url=%s
+build=http:%s
+extension=mp4
+quality=fallback
 ########################################################
 title=vporn.com
 target=<source src="([^"]+)" type="video/mp4" label="720p HD"
