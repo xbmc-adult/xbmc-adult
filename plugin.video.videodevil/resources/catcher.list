@@ -29,10 +29,21 @@ build=%s|Referer=https://www.ah-me.com/
 quality=standard
 ########################################################
 title=analdin.com
-target=video_url: '([^']+)'
+target=video_(?:alt_)*url\d*:\s*'([^']+)[^/]+?video_(?:alt_)*url\d*_text:\s*'(?:480p|540p)
 url=%s
+extension=mp4
 build=%s|Referer=https://www.analdin.com/
 quality=standard
+target=video_(?:alt_)*url\d*:\s*'([^']+)[^/]+?video_(?:alt_)*url\d*_text:\s*'(?:720p)
+url=%s
+extension=mp4
+build=%s|Referer=https://www.analdin.com/
+quality=high
+target=video_(?:alt_)*url\d*:\s*'([^']+)[^/]+?video_(?:alt_)*url\d*_text:\s*'(?:1080p)
+url=%s
+extension=mp4
+build=%s|Referer=https://www.analdin.com/
+quality=high
 ########################################################
 title=clipsage.com
 target=file:\s*"([^"]+)
@@ -237,9 +248,8 @@ build=https:%s
 quality=standard
 ########################################################
 title=simple-match
-target=(https*://[^"<]+?.(mp4|flv))
+target=(https*://[^"'<]+?\.(mp4|flv))
 url=%s
-action=quote
 quality=standard
 ########################################################
 title=spankwire.com
