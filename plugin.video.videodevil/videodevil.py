@@ -654,9 +654,8 @@ class CCurrentList:
             if enable_debug:
                 f = open(os.path.join(cacheDir, 'page.html'), 'w')
                 f.write('<Title>'+ curr_url + '</Title>\n\n')
-            curr_url = urllib.unquote_plus(curr_url)
-            # Replace Space due to unqote_plus with + when using search terms with space
-            curr_url = curr_url.replace(' ','+')            
+
+            curr_url = urllib.unquote(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
                 handle = urlopen(req)
