@@ -120,6 +120,13 @@ director=VideoDevil
 icon=http://www.moviefap.com/images/logo.gif
 url=moviefap.com.cfg
 ########################################################
+title=PlusOne8
+type=rss
+genre=PlusOne8
+director=VideoDevil
+icon=video.devil.image|plusone8.png
+url=plusone8.com.cfg
+########################################################
 title=Porn.com
 type=rss
 genre=porn.com
