@@ -611,3 +611,11 @@ url=%s
 extension=mp4
 quality=high
 ########################################################
+title=plusone8.com
+target=<source src="([^"]+)" type="video/mp4"></video>
+url=%s
+build=%s|Referer=http://plusone8.com
+header=Referer|http://plusone8.com
+extension=mp4
+quality=standard
+########################################################

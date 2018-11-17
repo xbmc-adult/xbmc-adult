@@ -28,6 +28,7 @@
     <setting id="MofoSex" type="bool" label="MofoSex" default="true" />
     <setting id="Motherless" type="bool" label="Motherless" default="true" />
     <setting id="MovieFap" type="bool" label="MovieFap" default="true" />
+    <setting id="PlusOne8" type="bool" label="PlusOne8" default="true" />
     <setting id="Porn.com" type="bool" label="Porn.com" default="true" />
     <setting id="Porn300" type="bool" label="Porn300" default="true" />
     <setting id="Pornburst.xxx" type="bool" label="Pornburst.xxx" default="true" />
