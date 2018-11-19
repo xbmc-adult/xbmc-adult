@@ -23,6 +23,7 @@
     <setting id="Fux" type="bool" label="Fux" default="true" />
     <setting id="GirlfriendVideos" type="bool" label="GirlfriendVideos" default="true" />
     <setting id="Hentaigasm" type="bool" label="Hentaigasm" default="true" />
+    <setting id="JAVWhores" type="bool" label="JAVWhores" default="true" />
     <setting id="MadThumbs" type="bool" label="MadThumbs" default="true" />
     <setting id="MofoSex" type="bool" label="MofoSex" default="true" />
     <setting id="Motherless" type="bool" label="Motherless" default="true" />
