@@ -1,3 +1,7 @@
+[B]1.19[/B]
+
+- Switch to https to fix urls and categories.
+
 [B]1.18[/B]
 
 - Don't try to play all URLs only try the first one
