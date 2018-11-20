@@ -514,8 +514,8 @@ def GET_LINK(url, collections, url2):
     elif 'xhcdn' in url2:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
-        match = re.compile('file":"([^"]+)').findall(html)
-        fetchurl = match[0]
+        match = re.compile('mp4":{.*?"[0-9]+p":"([^"]+)').findall(html)
+        fetchurl = match[0].replace('\\','')
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'spankwire' in url2:
         match = re.compile('data-origin-source="(https?://www.spankwire.com/.+?)">').findall(html)
