@@ -557,6 +557,7 @@ def addLink(name, url, mode, iconimage):
     liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png',
                            thumbnailImage=iconimage)
     liz.setProperty('IsPlayable', 'true')
+    liz.setInfo(type='Video', infoLabels={'Title': name})
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
                                      listitem=liz)
     return ok
