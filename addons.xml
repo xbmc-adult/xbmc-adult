@@ -162,7 +162,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.45"
+       version="2.3.46"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -182,7 +182,7 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.18"
+       version="1.19"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -250,7 +250,7 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.19"
+       version="1.0.20"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
