@@ -619,3 +619,29 @@ header=Referer|http://plusone8.com
 extension=mp4
 quality=standard
 ########################################################
+title=hqporner.com
+target=src="([^"]+)" frameborder="0"
+url=%s
+build=https:%s|Referer=https://hqporner.com
+ext_target=<a href='([^']+)' style='color:#ddd'>360p</a>
+ext_url=%s
+ext_build=http:%s
+extension=mp4
+quality=low
+target=src="([^"]+)" frameborder="0"
+url=%s
+build=https:%s|Referer=https://hqporner.com
+ext_target=<a href='([^']+)' style='color:#ddd'>720p HD</a>
+ext_url=%s
+ext_build=http:%s
+extension=mp4
+quality=standard
+target=src="([^"]+)" frameborder="0"
+url=%s
+build=https:%s|Referer=https://hqporner.com
+ext_target=<a href='([^']+)' style='color:#ddd'>1080p Full HD</a>
+ext_url=%s
+ext_build=http:%s
+extension=mp4
+quality=high
+########################################################
