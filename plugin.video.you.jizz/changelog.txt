@@ -1,3 +1,7 @@
+1.0.20
+ - Fixed content URL
+ - Fixed thumb URL
+
 1.0.19
  - Fixed video URL
  - Fixed thumb URL

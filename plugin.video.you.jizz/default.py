@@ -23,7 +23,7 @@ def _get_keyboard(default="", heading="", hidden=False):
 def CATEGORIES():
         addDir('Newest', BASE_URL + '/newest-clips/1.html', 1, '')
         addDir('Top Rated', BASE_URL + '/top-rated/1.html', 1, '')
-        addDir('Random Videos', BASE_URL + '/random.php', 1, '')
+        addDir('Random Videos', BASE_URL + '/random', 1, '')
         INDEX(BASE_URL + '/most-popular' + '/1.html')
 
 
@@ -31,10 +31,10 @@ def INDEX(url):
         addDir('Search', BASE_URL + '/search/%s-1.html', 3, '')
         addDir('Home', '', None, '')
         link = getHtml(url)
-        link = re.compile('content">[\s\S]+<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
+        link = re.compile('<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
         matchname = re.compile('title">[^>]+>([^<]+)').findall(link)
         matchurl = re.compile('class="frame[^"]*" href="(/videos/.+?\d+.html)" target="_self">').findall(link)
-        matchthumb = re.compile('img-responsive" (?:alt=""|) src="([^"]+jpg)"  ').findall(link)
+        matchthumb = re.compile('img-responsive" (?:alt=""|) src="([^"]+jpg[^"]+)"  ').findall(link)
         matchduration = re.compile('time">(\d{1,}:\d{2}:?\d{0,2})').findall(link)
         for name, url, thumb, duration in zip(matchname, matchurl, matchthumb, matchduration):
                 addDownLink(name + ' ' + '(' + duration + ')', url, 2, "https:" + thumb)
