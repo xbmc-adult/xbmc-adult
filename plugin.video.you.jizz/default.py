@@ -28,15 +28,13 @@ def CATEGORIES():
 
 
 def INDEX(url):
+        full_regex = r'class="frame[^"]*" href="(/videos/.+?\d+.html)" target="_self">.+?img-responsive" (?:alt=""|) src="([^"]+jpg[^"]+)"  .+?title">[^>]+>([^<]+).+?time">([\d:]+)'
         addDir('Search', BASE_URL + '/search/%s-1.html', 3, '')
         addDir('Home', '', None, '')
         link = getHtml(url)
         link = re.compile('<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
-        matchname = re.compile('title">[^>]+>([^<]+)').findall(link)
-        matchurl = re.compile('class="frame[^"]*" href="(/videos/.+?\d+.html)" target="_self">').findall(link)
-        matchthumb = re.compile('img-responsive" (?:alt=""|) src="([^"]+jpg[^"]+)"  ').findall(link)
-        matchduration = re.compile('time">(\d{1,}:\d{2}:?\d{0,2})').findall(link)
-        for name, url, thumb, duration in zip(matchname, matchurl, matchthumb, matchduration):
+        matches = re.compile(full_regex).findall(link)
+        for url, thumb, name, duration in matches:
                 addDownLink(name + ' ' + '(' + duration + ')', url, 2, "https:" + thumb)
         matchpage = re.compile('pagination-next" href="([^"]+html)').findall(link)
         if matchpage:
