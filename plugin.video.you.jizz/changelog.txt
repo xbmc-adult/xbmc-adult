@@ -1,3 +1,9 @@
+1.0.22
+ - Fixed video listing
+
+1.0.21
+ - Removed use of zip
+
 1.0.20
  - Fixed content URL
  - Fixed thumb URL

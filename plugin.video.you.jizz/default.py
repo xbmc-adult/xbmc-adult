@@ -33,7 +33,7 @@ def INDEX(url):
         addDir('Home', '', None, '')
         link = getHtml(url)
         link = re.compile('<div class="desktop-only">([.\s\S]+)<div class="mobile-only').findall(link)[0]
-        matches = re.compile(full_regex).findall(link)
+        matches = re.compile(full_regex, re.DOTALL).findall(link)
         for url, thumb, name, duration in matches:
                 addDownLink(name + ' ' + '(' + duration + ')', url, 2, "https:" + thumb)
         matchpage = re.compile('pagination-next" href="([^"]+html)').findall(link)
