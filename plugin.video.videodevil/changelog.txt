@@ -1,3 +1,9 @@
+[B]Version 1.7.208[/B]
+
+- Updated: porntrex
+- Fixed: video listing
+- Fixed: icon
+
 [B]Version 1.7.207[/B]
 
 - Updated: porntrex
