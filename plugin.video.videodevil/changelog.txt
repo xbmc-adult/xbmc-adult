@@ -1,3 +1,9 @@
+[B]Version 1.7.211[/B]
+
+- Updated: porntrex
+- Updated: hqporner
+- Fixed: video regex
+
 [B]Version 1.7.210[/B]
 
 - Updated: porntrex
