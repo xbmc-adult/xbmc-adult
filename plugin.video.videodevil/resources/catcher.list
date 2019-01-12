@@ -45,6 +45,13 @@ extension=mp4
 build=%s|Referer=https://www.analdin.com/
 quality=high
 ########################################################
+title=ashemaletube.com
+target=source\s*src="([^"]+)
+url=%s
+extension=mp4
+build=%s|User-Agent=iPad
+quality=standard
+########################################################
 title=clipsage.com
 target=file:\s*"([^"]+)
 url=%s
