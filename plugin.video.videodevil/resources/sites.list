@@ -15,6 +15,13 @@ director=VideoDevil
 icon=video.devil.image|analdin.png
 url=analdin.com.cfg
 ########################################################
+title=AShemaleTube
+type=rss
+genre=Shemale
+director=VideoDevil
+icon=https://t.ashemaletube.com/ast/www/img/ast/logo-b.png
+url=ashemaletube.com.cfg
+########################################################
 title=BitPorno
 type=rss
 genre=BitPorno
