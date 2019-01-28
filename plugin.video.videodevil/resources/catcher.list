@@ -651,6 +651,14 @@ ext_url=%s
 ext_build=http:%s
 extension=mp4
 quality=high
+target=src="([^"]+)" frameborder="0"
+url=%s
+build=https:%s|Referer=https://hqporner.com
+ext_target=<a href='([^']+)' style='color:#ddd'>4K Ultra HD</a>
+ext_url=%s
+ext_build=http:%s
+extension=mp4
+quality=high
 ########################################################
 title=spankbang.com
 target=var\s*stream_url_240p\s*=\s*'([^']+)
