@@ -257,7 +257,7 @@ url=%s
 quality=standard
 ########################################################
 title=pornomovies
-target=source src="([^"]+)"
+target=source\s*src="([^"]+)"
 url=%s
 build=https:%s
 quality=standard
