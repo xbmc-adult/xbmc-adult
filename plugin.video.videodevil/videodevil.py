@@ -1269,10 +1269,14 @@ class Main:
         # ignore characters that can't be converted to ascii
         quoted_url = urllib2.quote(url.encode('ascii', 'ignore'))
         u = sys.argv[0] + '?url=' + quoted_url
+        
         if ' ' in icon:  # Some sites such as hentaigasm have space character in thumbnail
             icon = urllib.quote(icon, safe=':/')
-        if 'http' in icon: # Some sites such as vmasala reject Kodi User-Agent
-            icon = icon + '|User-Agent=%s'%USERAGENT
+        if '$HEADERS$' in icon:
+            icon = icon.replace('$HEADERS$','|')
+        if 'http' in icon and 'User-Agent' not in icon: # Some sites such as vmasala reject Kodi User-Agent
+            icon += '|User-Agent=%s'%USERAGENT if '|' not in icon else '&User-Agent=%s'%USERAGENT
+            
         liz = xbmcgui.ListItem(title, title, icon, icon)
         if self.currentlist.getFileExtension(url) == 'videodevil' \
             and self.currentlist.skill.find('nodownload') == -1:
