@@ -197,10 +197,14 @@ title=xvideos.com
 target=setVideoUrlLow\('([^']+)
 url=%s
 extension=mp4
-quality=standard
+quality=low
 target=setVideoUrlHigh\('([^']+)
 url=%s
 extension=mp4
+quality=standard
+target=setVideoHLS\('([^']+)
+url=%s
+extension=m3u8
 quality=high
 ########################################################
 title=moviesand.com
