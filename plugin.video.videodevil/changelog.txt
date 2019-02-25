@@ -1,3 +1,10 @@
+[B]Version 1.7.217[/B]
+
+- Updated: porntrex
+- Fixed: icons
+- Updated: xvideos
+- Fixed: catcher
+
 [B]Version 1.7.216[/B]
 
 - Updated: pornomovies
