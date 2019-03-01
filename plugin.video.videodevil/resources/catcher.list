@@ -352,6 +352,20 @@ extension=mp4
 action=decode
 quality=standard
 ########################################################
+title=thumbzilla.com
+target=data-quality="([^"]+)">240P
+url=%s
+extension=mp4
+quality=low
+target=data-quality="([^"]+)">480P
+url=%s
+extension=mp4
+quality=standard
+target=data-quality="([^"]+)">720P
+url=%s
+extension=mp4
+quality=high
+########################################################
 title=tukif.com
 target=href="(https://videos.tukif.com/download/[^"]+270p)" class="post_download_link clearfix"><span class="pull-left">270p
 url=%s
