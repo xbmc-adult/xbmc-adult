@@ -300,11 +300,34 @@ url=%s
 quality=standard
 ########################################################
 title=moviefap.com
-target=flashvars.config = escape."([^ ]+)VID=
+target=flashvars\.config\s*=\s*escape\("([^&]+)
 url=%s
-ext_target=<videoLink>(.+?)</videoLink>
+ext_target=<res>360p</res>\n[^>]+>([^&]+)
 ext_url=%s
+ext_header=Referer|https://www.moviefap.com/
+extension=mp4
+quality=low
+target=flashvars\.config\s*=\s*escape\("([^&]+)
+url=%s
+ext_target=<res>480p</res>\n[^>]+>([^&]+)
+ext_url=%s
+ext_header=Referer|https://www.moviefap.com/
+extension=mp4
 quality=standard
+target=flashvars\.config\s*=\s*escape\("([^&]+)
+url=%s
+ext_target=<res>720p</res>\n[^>]+>([^&]+)
+ext_url=%s
+ext_header=Referer|https://www.moviefap.com/
+extension=mp4
+quality=high
+target=flashvars\.config\s*=\s*escape\("([^&]+)
+url=%s
+ext_target=<res>1080p</res>\n[^>]+>([^&]+)
+ext_url=%s
+ext_header=Referer|https://www.moviefap.com/
+extension=mp4
+quality=high
 ########################################################
 title=pornhub.com
 target=var player_quality_240p = '([^"]+.mp4[^']*)';
