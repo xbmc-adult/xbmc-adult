@@ -1,8 +1,20 @@
+[B]Version 1.7.219[/B]
+
+- Updated: moviefap
+- Fixed: catcher
+- Fixed: video listing
+
 [B]Version 1.7.218[/B]
 
 - Updated: empflix
 - Fixed: catcher
 - Added: thumbzilla
+
+[B]Version 1.7.217[/B]
+- Updated: porntrex
+- Fixed: icons
+- Updated: xvideos
+- Fixed: catcher
 
 [B]Version 1.7.216[/B]
 
