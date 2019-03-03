@@ -1,9 +1,8 @@
-[B]Version 1.7.217[/B]
+[B]Version 1.7.218[/B]
 
-- Updated: porntrex
-- Fixed: icons
-- Updated: xvideos
+- Updated: empflix
 - Fixed: catcher
+- Added: thumbzilla
 
 [B]Version 1.7.216[/B]
 
