@@ -639,6 +639,13 @@ url=%s
 extension=mp4
 quality=high
 ########################################################
+title=doodhwali.com
+target=file:\s*"([^"]+)"
+url=%s
+build=%s|Referer=https://www.doodhwali2.com/
+extension=mp4
+quality=standard
+########################################################
 title=smutindia.com
 target=file:\s*"([^"]+)"
 url=%s
