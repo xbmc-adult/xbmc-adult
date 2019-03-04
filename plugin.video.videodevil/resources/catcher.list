@@ -667,8 +667,9 @@ extension=mp4
 quality=high
 ########################################################
 title=smutindia.com
-target=file:\s*"([^"]+)"
+target=<source.+?src="([^"]+)
 url=%s
+build=%s|Referer=https://www.smutindia.com/
 extension=mp4
 quality=standard
 ########################################################
