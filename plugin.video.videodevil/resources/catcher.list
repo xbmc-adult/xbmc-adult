@@ -52,6 +52,11 @@ extension=mp4
 build=%s|User-Agent=iPad
 quality=standard
 ########################################################
+title=cliphunter.com
+target="url":"([^"]+)
+url=%s
+quality=standard
+########################################################
 title=clipsage.com
 target=file:\s*"([^"]+)
 url=%s
