@@ -99,13 +99,6 @@ director=VideoDevil
 icon=http://cdn.thumbs.fapdu.com/FapDu/b1.png
 url=fapdu.com.cfg
 ########################################################
-title=Fux
-type=rss
-genre=fux
-director=VideoDevil
-icon=video.devil.image|fux.png
-url=fux.com.cfg
-########################################################
 title=GirlfriendVideos
 type=rss
 genre=GirlfriendVideos
