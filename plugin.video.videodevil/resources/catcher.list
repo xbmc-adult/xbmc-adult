@@ -276,6 +276,11 @@ target=(https*://[^"'<]+?\.(mp4|flv))
 url=%s
 quality=standard
 ########################################################
+title=kissjav.com
+target=content-tab-download"[^\n]+\s*<a\s*href="([^"]+)
+url=%s
+quality=standard
+########################################################
 title=spankwire.com
 target=(?s)class="video".+?data-video-id="([^"]+)
 url=%s
