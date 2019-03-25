@@ -1,4 +1,11 @@
-[B]Version 1.7.221[/B]
+[B]Version 1.7.223[/B]
+
+- Updated: pornoxo
+- Fixed: url list
+- Updated: porntrex
+- Fixed: icons
+
+[B]Version 1.7.222[/B]
 
 - Updated: porn.com
 - Fixed: url list
