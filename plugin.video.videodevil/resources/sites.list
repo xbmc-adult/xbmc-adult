@@ -176,6 +176,13 @@ director=VideoDevil
 icon=http://www.moviefap.com/images/logo.gif
 url=moviefap.com.cfg
 ########################################################
+title=NewDesiX
+type=rss
+genre=Indian
+director=VideoDevil
+icon=http://newdesix.com/wp-content/uploads/2018/09/2018-09-19_004333.jpg
+url=newdesix.com.cfg
+########################################################
 title=PerfectGirls
 type=rss
 genre=PerfectGirls
