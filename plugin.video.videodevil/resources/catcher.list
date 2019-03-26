@@ -843,3 +843,13 @@ ext_header=Referer|https://spankbang.com/
 extension=mp4
 quality=high
 ########################################################
+title=xruniversity.com
+target=<iframe.+?src="([^"]+)
+url=%s
+build=https:%s
+ext_target=m3u8SourceUrl":\s*"([^"]+)
+ext_url=%s
+ext_header=Referer|https://www.xruniversity.com/
+extension=m3u8
+quality=standard
+########################################################
