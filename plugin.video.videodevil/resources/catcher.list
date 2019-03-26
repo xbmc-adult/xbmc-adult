@@ -681,11 +681,11 @@ url=%s
 quality=standard
 ########################################################
 title=celebsnudeworld.com
-target=source\s*src="([^"]+)[^<]+res="360"
+target=source\s*src="([^"]+)[^>]+title="360p
 url=%s
 extension=mp4
 quality=standard
-target=source\s*src="([^"]+)[^<]+res="720"
+target=source\s*src="([^"]+)[^>]+title="720p
 url=%s
 extension=mp4
 quality=high
