@@ -279,6 +279,12 @@ target='(http[^']+mp4)
 url=%s
 quality=standard
 ########################################################
+title=newdesix.com
+target=source\s*src="\s*([^"]+)
+url=%s
+build=http://newdesix.com%s
+quality=standard
+########################################################
 title=pornomovies
 target=source\s*src="([^"]+)"
 url=%s
