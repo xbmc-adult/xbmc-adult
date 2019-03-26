@@ -64,6 +64,7 @@
     <setting id="VMasala" type="bool" label="VMasala" default="true" />
     <setting id="Vporn" type="bool" label="Vporn" default="true" />
     <setting id="xHamster" type="bool" label="xHamster" default="true" />
+    <setting id="XRUniversity" type="bool" label="XRUniversity" default="true" />
     <setting id="XVideos" type="bool" label="XVideos" default="true" />
     <setting id="YouPorn" type="bool" label="YouPorn" default="true" />
     <setting id="yuvutu" type="bool" label="yuvutu" default="true" />

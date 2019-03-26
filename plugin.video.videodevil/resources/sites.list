@@ -379,6 +379,13 @@ director=VideoDevil
 icon=video.devil.image|xhamster.png
 url=xhamster.com.cfg
 ########################################################
+title=XRUniversity
+type=rss
+genre=xruniversity
+director=VideoDevil
+icon=https://xruniversity.com/framework/wp-content/uploads/2018/02/xrup.png
+url=xruniversity.com.cfg
+########################################################
 title=XVideos
 type=rss
 genre=XVideos
