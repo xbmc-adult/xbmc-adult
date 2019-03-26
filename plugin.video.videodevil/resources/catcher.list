@@ -63,6 +63,13 @@ url=%s
 build=%s|User-Agent=iPad
 quality=standard
 ########################################################
+title=desihdx.com
+target=source\s*src="([^"]+)"
+url=%s
+build=http://desihdx.com%s
+extension=mp4
+quality=standard
+########################################################
 title=desixnxx.net
 target=source\s*src='([^']+)
 url=%s
