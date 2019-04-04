@@ -475,21 +475,46 @@ extension=mp4
 quality=high
 ########################################################
 title=tukif.com
-target=href="(https://videos.tukif.com/download/[^"]+270p)" class="post_download_link clearfix"><span class="pull-left">270p
+target=<iframe\s*src="([^"]+)
 url=%s
+ext_target=src":\s*"([^"]+)",[^,]+,\s*"label":\s*"360
+ext_url=%s
+ext_header=Referer|https://tukif.com/
+ext_build=%s|Referer=https://videos.tukif.com/
+extension=webm
 quality=low
-target=href="(https://videos.tukif.com/download/[^"]+360p)" class="post_download_link clearfix"><span class="pull-left">360p
+target=<iframe\s*src="([^"]+)
 url=%s
+ext_target=src":\s*"([^"]+)",[^,]+,\s*"label":\s*"540
+ext_url=%s
+ext_header=Referer|https://tukif.com/
+ext_build=%s|Referer=https://videos.tukif.com/
+extension=webm
 quality=standard
-target=href="(https://videos.tukif.com/download/[^"]+540p)" class="post_download_link clearfix"><span class="pull-left">540p
+target=<iframe\s*src="([^"]+)
 url=%s
-quality=standard
-target=href="(https://videos.tukif.com/download/[^"]+720p)" class="post_download_link clearfix"><span class="pull-left">720p
-url=%s
+ext_target=src":\s*"([^"]+)",[^,]+,\s*"label":\s*"720
+ext_url=%s
+ext_header=Referer|https://tukif.com/
+ext_build=%s|Referer=https://videos.tukif.com/
+extension=webm
 quality=high
-target=href="(https://videos.tukif.com/download/[^"]+1080p)" class="post_download_link clearfix"><span class="pull-left">1080p
+target=<iframe\s*src="([^"]+)
 url=%s
+ext_target=src":\s*"([^"]+)",[^,]+,\s*"label":\s*"1080
+ext_url=%s
+ext_header=Referer|https://tukif.com/
+ext_build=%s|Referer=https://videos.tukif.com/
+extension=webm
 quality=high
+target=<iframe\s*src="([^"]+)
+url=%s
+ext_target=src":\s*"([^"]+)",[^,]+,\s*"label":\s*"270
+ext_url=%s
+ext_header=Referer|https://tukif.com/
+ext_build=%s|Referer=https://videos.tukif.com/
+extension=webm
+quality=fallback
 ########################################################
 title=yuvutu.com
 target=<iframe src="([^"]+)"
