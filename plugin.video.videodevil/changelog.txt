@@ -1,3 +1,11 @@
+[B]Version 1.7.226[/B]
+
+- Updated: tukif
+- Fixed: url listing
+- Fixed: catcher
+- Updated: Redtube
+- Fixed: url listing
+
 [B]Version 1.7.225[/B]
 
 - Added: XXXTubeDesi
