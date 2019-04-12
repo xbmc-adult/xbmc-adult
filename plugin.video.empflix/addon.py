@@ -44,11 +44,11 @@ def SORTMETHOD(url):
 
 def VIDEOLIST(url, page):
     link = openURL(url + '/?page=' + str(page))
-    match = re.compile(r"data-vid.+?data-name='([^']+)'.+?href='([^']+).+?data-original='([^']+)'.+?'>([\d:]+)",
+    match = re.compile(r"data-vid='([^']+)'.+?data-name='([^']+)'.+?data-original='([^']+)'.+?'>([\d:]+)",
                        re.DOTALL).findall(link)
-    for name, videourl, thumb, duration in match:
+    for videourl, name, thumb, duration in match:
         addLink(name + ' (' + duration + ')',
-                'http://www.empflix.com' + videourl + '?',
+                'http://player.empflix.com/video/' + videourl + '?',
                 3,
                 thumb.strip())
     if len(match) == 24:
@@ -58,8 +58,11 @@ def VIDEOLIST(url, page):
 
 def PLAYVIDEO(url):
     link = openURL(url)
-    match = re.compile('contentUrl" content="([^"]+)').findall(link)
-    xbmc.Player().play(match[0])
+    match = re.compile('flashvars\.config\s*=\s*escape\("([^&]+)').findall(link)
+    link = openURL('https:' + match[0])
+    match = re.compile('<res>.+p</[^/]+([^]]+)').findall(link)
+    match.reverse()
+    xbmc.Player().play('https:' + match[0])
 
 
 def get_params():
@@ -102,7 +105,9 @@ def addDir(name, url, mode, iconimage, page):
 
 
 def openURL(url):
+    xbmc.log("Opening %s" % url)
     req = urllib2.Request(url)
+    req.add_header('Referer', 'https://www.empflix.com/')
     response = urllib2.urlopen(req)
     link = response.read()
     response.close()
