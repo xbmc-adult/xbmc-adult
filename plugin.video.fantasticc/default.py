@@ -41,8 +41,8 @@ fip = 'http://77.247.181.97/'
 # 3rd Party video Sites that are currently supported are listed below
 
 SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'phncdn',
-                  'redtube', 'spankwire', 'tnaflix', 'tube8', 'xhamster',
-                  'xhcdn', 'xtube', 'xvideos', 'you_porn']
+                  'redtube', 'spankwire', 'tnaflix', 'tube8', 't8cdn',
+                  'xhamster', 'xhcdn', 'xtube', 'xvideos', 'you_porn']
 
 
 def get_html(url, cookie=None, user_agent=None):
@@ -476,7 +476,7 @@ def GET_LINK(url, collections, url2):
                 return
         fetchurl = fetchurl.replace('\\', '')
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'tube8' in url2:
+    elif 'tube8' in url2 or 't8cdn' in url2:
         match = re.compile('source='
                            '"(https?://www.tube8.com/[^"]+)"').findall(html)
         html = get_html(match[0])
