@@ -305,9 +305,8 @@ def INDEX(url):
             #xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
     else:
-        match = re.compile('<a href="([^"]+)"><img src="([^"]+)"'
-                           ' alt="([^"]+)"[^>]+>.+?'
-                           'style="font-size:11px;">\s+([\d:h ]+)',
+        match = re.compile('href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"'
+                           '.+?font-size:11px;">\s+([^.]+). Uploaded',
                            re.DOTALL).findall(html)
         for gurl, thumbnail, name, duration in match:
             name = '%s  (%s min)' % (name, duration.rstrip())
