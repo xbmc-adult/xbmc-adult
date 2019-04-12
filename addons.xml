@@ -145,7 +145,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.empflix" name="Empflix" version="2.0.12" provider-name="xbmc-adult">
+<addon id="plugin.video.empflix" name="Empflix" version="2.0.13" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -162,7 +162,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.46"
+       version="2.3.47"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
