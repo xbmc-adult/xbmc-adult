@@ -163,10 +163,11 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.47"
+       version="2.3.48"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.future"/>
         <import addon="script.module.pil"/>
     </requires>
     <extension point="xbmc.python.pluginsource"
@@ -183,10 +184,11 @@
 
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.19"
+       version="1.20"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.future"/>
   </requires>
   <extension point="xbmc.python.pluginsource"
             library="default.py">
@@ -199,9 +201,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.12" provider-name="xbmc-adult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.13" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.future"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>video</provides>
@@ -251,10 +254,11 @@
 
 <addon id="plugin.video.you.jizz"
        name="YouJizz.com"
-       version="1.0.22"
+       version="1.0.23"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.future"/>
     </requires>
     <extension point="xbmc.python.pluginsource"
                library="default.py">
