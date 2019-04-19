@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.lubetube"
        name="Lubetube (Adult)"
-       version="1.19"
+       version="1.20"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.future"/>
   </requires>
   <extension point="xbmc.python.pluginsource"
             library="default.py">
