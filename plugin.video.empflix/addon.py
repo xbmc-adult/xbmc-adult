@@ -113,7 +113,7 @@ def openURL(url):
     req = urllib.request.Request(url)
     req.add_header('Referer', 'https://www.empflix.com/')
     response = urllib.request.urlopen(req)
-    link = response.read()
+    link = response.read().decode('utf-8')
     response.close()
     return link
 
