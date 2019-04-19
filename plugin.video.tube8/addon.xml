@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.tube8" name="Tube8" version="2.1.12" provider-name="xbmc-adult">
+<addon id="plugin.video.tube8" name="Tube8" version="2.1.13" provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.future"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>video</provides>
