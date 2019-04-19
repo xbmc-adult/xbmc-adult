@@ -1,7 +1,11 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 import sys
-import urllib
-import urllib2
-import cookielib
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
+import http.cookiejar
 import re
 import xbmc
 import xbmcgui
@@ -9,9 +13,9 @@ import xbmcplugin
 import xbmcaddon
 
 xbmcaddon.Addon(id='plugin.video.empflix')
-cookiejar = cookielib.LWPCookieJar()
-cookie_handler = urllib2.HTTPCookieProcessor(cookiejar)
-urllib2.build_opener(cookie_handler)
+cookiejar = http.cookiejar.LWPCookieJar()
+cookie_handler = urllib.request.HTTPCookieProcessor(cookiejar)
+urllib.request.build_opener(cookie_handler)
 
 
 def CATEGORIES():
@@ -83,8 +87,8 @@ def get_params():
 
 
 def addLink(name, url, mode, iconimage):
-    u = sys.argv[0] + '?url=' + urllib.quote_plus(url) + '&mode=' + str(mode)\
-        + '&name=' + urllib.quote_plus(name)
+    u = sys.argv[0] + '?url=' + urllib.parse.quote_plus(url) + '&mode=' + str(mode)\
+        + '&name=' + urllib.parse.quote_plus(name)
     ok = True
     liz = xbmcgui.ListItem(name, iconImage='DefaultFolder.png',
                            thumbnailImage=iconimage)
@@ -94,8 +98,8 @@ def addLink(name, url, mode, iconimage):
 
 
 def addDir(name, url, mode, iconimage, page):
-    u = sys.argv[0] + '?url=' + urllib.quote_plus(url) + '&mode=' + str(mode) +\
-        '&name=' + urllib.quote_plus(name) + '&page=' + str(page)
+    u = sys.argv[0] + '?url=' + urllib.parse.quote_plus(url) + '&mode=' + str(mode) +\
+        '&name=' + urllib.parse.quote_plus(name) + '&page=' + str(page)
     ok = True
     liz = xbmcgui.ListItem(name, iconImage='DefaultFolder.png',
                            thumbnailImage=iconimage)
@@ -106,9 +110,9 @@ def addDir(name, url, mode, iconimage, page):
 
 def openURL(url):
     xbmc.log("Opening %s" % url)
-    req = urllib2.Request(url)
+    req = urllib.request.Request(url)
     req.add_header('Referer', 'https://www.empflix.com/')
-    response = urllib2.urlopen(req)
+    response = urllib.request.urlopen(req)
     link = response.read()
     response.close()
     return link
@@ -121,7 +125,7 @@ def main():
     page = 1
 
     try:
-        url = urllib.unquote_plus(params['url'])
+        url = urllib.parse.unquote_plus(params['url'])
     except:
         pass
     try:
