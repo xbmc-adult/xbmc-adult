@@ -1,3 +1,7 @@
+[B]2.0.15[/B]
+
+Update for python3 compatibility
+
 [B]2.0.13[/B]
 
 Fix video url
