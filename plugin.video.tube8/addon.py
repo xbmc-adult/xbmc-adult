@@ -51,7 +51,7 @@ def showCategories(localpath, handle):
 	a=f.read()
 	f.close()
 
-	catRE = re.compile('<li><a href="(http://www\.tube8\.com/cat/.+?)".+?span>(.+?)</a>', re.DOTALL)
+	catRE = re.compile('<li><a href="(https://www\.tube8\.com/cat/[^"]+)".+?>([^<]+)</span>', re.DOTALL)
 	match = catRE.findall(a)
 	categories = []
 	for url, name in match:
@@ -88,12 +88,7 @@ def showListCommon(localpath, handle, pageUrl):
 	f=urllib2.urlopen(pageUrl)
 	a=f.read()
 	f.close()
-
-	if 'tube8.com/top/' in pageUrl:
-		thumbRE = '<img class="videoThumbs" .+?\s+src="(.+?)"'
-	else:
-		thumbRE = 'class="videoThumbs[^\[]+?src="([^"]+)'
-        dataRE = 'thumb_box">\s*<a href="([^"]+).+?data-thumb="([^"]+)"\s*src="[^"]+"\s*data-mediabook="[^"]*"\s*alt="([^"]+).+?video_duration">([^<]+)<'
+        dataRE = 'thumb_box">\s*<a href="([^"]+).+?data-thumb="([^"]+)"\s*src="[^"]+"\s*data-mediabook="[^"]*"\s*alt="([^"]+).+?video-duration">([^<]+)<'
         dataPattern = re.compile(dataRE, re.DOTALL)
 	for url, thumb, name, duration in dataPattern.findall(a):
                 title = "%s (%s)" % (name, duration)
