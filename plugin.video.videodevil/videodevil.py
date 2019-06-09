@@ -9,6 +9,10 @@ import xbmc, xbmcgui
 import os, traceback
 import cookielib, htmlentitydefs
 
+import httplib
+httplib.HTTPConnection._http_vsn = 10
+httplib.HTTPConnection._http_vsn_str = 'HTTP/1.0'
+
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 __language__ = addon.getLocalizedString
 __addonname__ = addon.getAddonInfo('name')

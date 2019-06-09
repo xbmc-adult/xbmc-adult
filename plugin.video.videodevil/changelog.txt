@@ -1,3 +1,8 @@
+[B]Version 1.7.229[/B]
+
+- Updated: Pornhub
+- Fixed: incomplete read error
+
 [B]Version 1.7.228[/B]
 
 - Updated: DesiHDx
