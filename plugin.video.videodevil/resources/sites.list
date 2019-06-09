@@ -372,13 +372,6 @@ director=VideoDevil
 icon=video.devil.image|tukif.png
 url=tukif.com.cfg
 ########################################################
-title=VMasala
-type=rss
-genre=Indian
-director=VideoDevil
-icon=https://www.vmasala.com/images/logo/logo.png
-url=vmasala.com.cfg
-########################################################
 title=Vporn
 type=rss
 genre=vporn.com
