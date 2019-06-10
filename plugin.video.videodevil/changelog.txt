@@ -1,3 +1,10 @@
+[B]Version 1.7.232[/B]
+
+- Updated: PlusOne8
+- Fixed: url listing
+- Fixed: categories
+- Fixed: sorting
+
 [B]Version 1.7.231[/B]
 
 - Updated: DoodhWali
