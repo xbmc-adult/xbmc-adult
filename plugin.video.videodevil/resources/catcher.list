@@ -297,8 +297,9 @@ url=%s
 quality=standard
 ########################################################
 title=kissjav.com
-target=content-tab-download"[^\n]+\s*<a\s*href="([^"]+)
+target=<source\s*src="([^"]+)
 url=%s
+build=%s|Referer=https://kissjav.com/
 quality=standard
 ########################################################
 title=spankwire.com
