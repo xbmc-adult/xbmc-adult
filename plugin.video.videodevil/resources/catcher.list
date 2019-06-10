@@ -706,6 +706,7 @@ quality=standard
 title=sunporno.com
 target=video\s*src="([^"]+)
 url=%s
+build=%s|Referer=https://www.sunporno.com/
 quality=standard
 ########################################################
 title=perfectgirls.net
