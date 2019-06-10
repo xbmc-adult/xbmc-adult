@@ -44,6 +44,11 @@ url=%s
 extension=mp4
 build=%s|Referer=https://www.analdin.com/
 quality=high
+target=video_(?:alt_)*url\d*:\s*'([^']+)
+url=%s
+extension=mp4
+build=%s|Referer=https://www.analdin.com/
+quality=fallback
 ########################################################
 title=ashemaletube.com
 target=source\s*src="([^"]+)
