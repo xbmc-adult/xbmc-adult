@@ -185,14 +185,17 @@ title=youporn.com
 target="quality":"240","videoUrl":"([^"]+)
 url=%s
 build=%s|Referer=https://www.youporn.com/
+extension=mp4
 quality=low
 target="quality":"480","videoUrl":"([^"]+)
 url=%s
 build=%s|Referer=https://www.youporn.com/
+extension=mp4
 quality=standard
 target="quality":"720","videoUrl":"([^"]+)
 url=%s
 build=%s|Referer=https://www.youporn.com/
+extension=mp4
 quality=high
 ########################################################
 title=extremetube.com
