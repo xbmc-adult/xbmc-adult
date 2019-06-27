@@ -901,6 +901,7 @@ build=https:%s
 ext_target=source\s*src="([^"]+)
 ext_url=%s
 ext_header=Referer|https://xxxtube.desi/
+ext_action=decode
 ext_build=%s|User-Agent=iPad
 extension=mp4
 quality=standard
@@ -910,6 +911,7 @@ build=https:%s
 ext_target=setVideoUrlHigh\('([^']+)
 ext_url=%s
 ext_header=Referer|https://xxxtube.desi/
+ext_action=decode
 ext_build=%s|User-Agent=iPad
 extension=mp4
 quality=standard
