@@ -748,6 +748,13 @@ build=%s|Referer=https://www.doodhwali2.com/
 extension=mp4
 quality=standard
 ########################################################
+title=indiansexmovies.com
+target=<source.+?src="([^"]+)"
+url=%s
+build=%s|Referer=https://www.indiansexmovies.com/
+extension=mp4
+quality=standard
+########################################################
 title=smutindia.com
 target=<source.+?src="([^"]+)
 url=%s
