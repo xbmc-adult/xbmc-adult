@@ -854,7 +854,7 @@ quality=high
 title=spankbang.com
 target=data-streamkey="([^"]+)
 url=%s
-ext_target=stream_url_240p":"([^"]+)
+ext_target=stream_url_240p":\[?"([^"]+)
 ext_url=https://spankbang.com/api/videos/stream
 ext_data=id=%s
 ext_header=Referer|https://spankbang.com/
@@ -862,7 +862,7 @@ extension=mp4
 quality=low
 target=data-streamkey="([^"]+)
 url=%s
-ext_target=stream_url_320p":"([^"]+)
+ext_target=stream_url_320p":\[?"([^"]+)
 ext_url=https://spankbang.com/api/videos/stream
 ext_data=id=%s
 ext_header=Referer|https://spankbang.com/
@@ -870,7 +870,7 @@ extension=mp4
 quality=low
 target=data-streamkey="([^"]+)
 url=%s
-ext_target=stream_url_480p":"([^"]+)
+ext_target=stream_url_480p":\[?"([^"]+)
 ext_url=https://spankbang.com/api/videos/stream
 ext_data=id=%s
 ext_header=Referer|https://spankbang.com/
@@ -878,7 +878,7 @@ extension=mp4
 quality=standard
 target=data-streamkey="([^"]+)
 url=%s
-ext_target=stream_url_720p":"([^"]+)
+ext_target=stream_url_720p":\[?"([^"]+)
 ext_url=https://spankbang.com/api/videos/stream
 ext_data=id=%s
 ext_header=Referer|https://spankbang.com/
@@ -886,7 +886,7 @@ extension=mp4
 quality=high
 target=data-streamkey="([^"]+)
 url=%s
-ext_target=stream_url_1080p":"([^"]+)
+ext_target=stream_url_1080p":\[?"([^"]+)
 ext_url=https://spankbang.com/api/videos/stream
 ext_data=id=%s
 ext_header=Referer|https://spankbang.com/
@@ -894,7 +894,7 @@ extension=mp4
 quality=high
 target=data-streamkey="([^"]+)
 url=%s
-ext_target=stream_url_4k":"([^"]+)
+ext_target=stream_url_4k":\[?"([^"]+)
 ext_url=https://spankbang.com/api/videos/stream
 ext_data=id=%s
 ext_header=Referer|https://spankbang.com/
