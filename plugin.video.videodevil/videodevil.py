@@ -1399,7 +1399,7 @@ class Main:
                     xbmcplugin.endOfDirectory(int(sys.argv[1]))
                     if enable_debug:
                         xbmc.log('End of directory',xbmc.LOGNOTICE)
-        except Exception, e:
+        except Exception as e:
             if enable_debug:
                 traceback.print_exc(file=sys.stdout)
             xbmcgui.Dialog().ok('VideoDevil Error',
