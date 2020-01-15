@@ -1,0 +1,272 @@
+# Kodi Media Center language file
+# Addon Name: VideoDevil
+# Addon id: plugin.video.videodevil
+
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Adult\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-12 00:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "Play videos from different adult streaming sites"
+msgstr "Reproduza vídeos de diferentes sites de streaming adulto"
+
+msgctxt "Addon Description"
+msgid "This addon plays videos from YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies and some other adult streaming sites. It contains explicit adult material. You may only view this addon if you are at least 18 years of age, or at least the age of majority in the jurisdiction where you reside or from which you access this content. If you do not meet these requirements, then you do not have permission to use this addon."
+msgstr "Este complemento reproduz vídeos do YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies e alguns outros sites de streaming adulto. Ele contém material adulto explícito. Você só pode visualizar este complemento se tiver pelo menos 18 anos de idade ou maioridade na jurisdição em que reside ou da qual acessa este conteúdo. Se você não atender a esses requisitos, não terá permissão para usar este complemento."
+
+msgctxt "Addon Disclaimer"
+msgid "The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider."
+msgstr "O autor não hospeda nem distribui nenhum conteúdo exibido por este complemento. O autor não tem nenhuma afiliação com o provedor de conteúdo."
+
+
+msgctxt "#20191"
+msgid "Enable debug logging"
+msgstr "Activar depuração"
+
+msgctxt "#30000"
+msgid "VideoDevil"
+msgstr "VideoDevil"
+
+msgctxt "#30001"
+msgid "Kodi Media Center"
+msgstr "Kodi Media Center"
+
+msgctxt "#30002"
+msgid "Disable disclaimer"
+msgstr "Desactivar avisor"
+
+# empty strings with id 30003 to 30006
+
+msgctxt "#30007"
+msgid "Save video"
+msgstr "Salvar vídeo"
+
+msgctxt "#30008"
+msgid "Download path"
+msgstr "Pasta de Transferência"
+
+msgctxt "#30009"
+msgid "Ask for download before playing video"
+msgstr "Pedir para fazer transferência antes de visualizar vídeo"
+
+msgctxt "#30010"
+msgid "Add shortcut"
+msgstr "Adicionar atalho"
+
+msgctxt "#30011"
+msgid "Remove shortcut"
+msgstr "Remover atalho"
+
+msgctxt "#30012"
+msgid "Video quality (if many available)"
+msgstr "Qualidade do Vídeo (se existirem várias disponíveis)"
+
+msgctxt "#30013"
+msgid "Ask me"
+msgstr "Perguntar-me"
+
+msgctxt "#30014"
+msgid "Low"
+msgstr "Baixa"
+
+msgctxt "#30015"
+msgid "Standard"
+msgstr "Standard"
+
+msgctxt "#30016"
+msgid "High"
+msgstr "Alta"
+
+msgctxt "#30017"
+msgid "Select download path:"
+msgstr "Seleccionar a pasta de transferência:"
+
+msgctxt "#30018"
+msgid "Enabled Sites"
+msgstr "Sites ativados"
+
+# empty strings with id 30019 to 30049
+
+msgctxt "#30050"
+msgid "Downloading video..."
+msgstr "A transferir vídeo..."
+
+msgctxt "#30051"
+msgid "Please wait..."
+msgstr "Por favor aguardar..."
+
+msgctxt "#30052"
+msgid "Do you want to download this video?"
+msgstr "Quer transferir este vídeo?"
+
+msgctxt "#30053"
+msgid "Video download failed. Trying to stream video..."
+msgstr "Transferência de vídeo falhou. A tentar visualizar o vídeo..."
+
+msgctxt "#30054"
+msgid "Do you really want to remove this shortcut?"
+msgstr "Quer mesmo remover este atalho?"
+
+msgctxt "#30055"
+msgid "Many video sources available. Please choose one:"
+msgstr "árias fontes disponíveis. Por favor escolha uma:"
+
+msgctxt "#30056"
+msgid "Low quality"
+msgstr "Qualidade Baixa"
+
+msgctxt "#30057"
+msgid "Standard quality"
+msgstr "Qualidade Standard"
+
+msgctxt "#30058"
+msgid "High quality"
+msgstr "Alta Qualidade"
+
+msgctxt "#30059"
+msgid "Update"
+msgstr "Actualizar"
+
+msgctxt "#30060"
+msgid "VideoDevil has been successfully updated"
+msgstr "VideoDevil foi actualizado com sucesso"
+
+msgctxt "#30061"
+msgid "WARNING :This plugin contains explicit adult material."
+msgstr "AVISO: Este plugin contém material adulto explícito."
+
+msgctxt "#30062"
+msgid "You may enter only if you are at least 18 years of age"
+msgstr "Pode entrar se tiver pelo menos 18 anos"
+
+msgctxt "#30063"
+msgid "or at least the legal age in the jurisdiction where"
+msgstr "ou idade legal dependendo da lei do país onde vive"
+
+msgctxt "#30064"
+msgid "you reside or from which you access this content."
+msgstr "ou de onde acede a este conteúdo."
+
+msgctxt "#30065"
+msgid "Exit"
+msgstr "Sair"
+
+msgctxt "#30066"
+msgid "Enter"
+msgstr "Entrar"
+
+msgctxt "#30067"
+msgid "Sorry! Unable to find the video"
+msgstr "Desculpa! Não foi possível encontrar o vídeo"
+
+# empty strings with id 30068 to 30099
+
+msgctxt "#30100"
+msgid "Categories"
+msgstr "Categorias"
+
+msgctxt "#30101"
+msgid "Subcategories"
+msgstr "Subcategorias"
+
+msgctxt "#30102"
+msgid "Search"
+msgstr "Pesquisar"
+
+msgctxt "#30103"
+msgid "Next page"
+msgstr "Próxima Página"
+
+msgctxt "#30104"
+msgid "More"
+msgstr "Mais"
+
+msgctxt "#30105"
+msgid "Genre"
+msgstr "Género"
+
+msgctxt "#30106"
+msgid "Current"
+msgstr "Actual"
+
+msgctxt "#30107"
+msgid "Artist"
+msgstr "Artista"
+
+msgctxt "#30108"
+msgid "Videos"
+msgstr "Vídeos"
+
+msgctxt "#30109"
+msgid "Sorting"
+msgstr "Ordenação"
+
+msgctxt "#30110"
+msgid "Suggestion"
+msgstr "Sugestão"
+
+msgctxt "#30111"
+msgid "Refine"
+msgstr "Refinar"
+
+msgctxt "#30112"
+msgid "Region"
+msgstr "Região"
+
+msgctxt "#30113"
+msgid "Time span"
+msgstr "Linha Temporal"
+
+msgctxt "#30114"
+msgid "Sport"
+msgstr "Desporto"
+
+msgctxt "#30115"
+msgid "Kids"
+msgstr "Crianças"
+
+msgctxt "#30116"
+msgid "Music"
+msgstr "Música"
+
+msgctxt "#30117"
+msgid "Related videos"
+msgstr "Vídeos Relacionados"
+
+msgctxt "#30118"
+msgid "Pornstars"
+msgstr "Porno estrelas"
+
+msgctxt "#30119"
+msgid "Popular by Country"
+msgstr "Popular por país"
+
+msgctxt "#30120"
+msgid "Top Rated"
+msgstr "Mais votado"
+
+msgctxt "#30121"
+msgid "Most Viewed"
+msgstr "Mais visto"
+
+msgctxt "#30122"
+msgid "Gay"
+msgstr "Homossexual"
+
+msgctxt "#30123"
+msgid "Shemale"
+msgstr "Transexual"
+
+msgctxt "#30218"
+msgid "General"
+msgstr "Geral"
