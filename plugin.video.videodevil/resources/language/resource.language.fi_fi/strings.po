@@ -1,0 +1,272 @@
+# Kodi Media Center language file
+# Addon Name: VideoDevil
+# Addon id: plugin.video.videodevil
+
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Adult\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-12 00:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "Play videos from different adult streaming sites"
+msgstr "Toista videoita aikuisten suoratoistosivustoilta"
+
+msgctxt "Addon Description"
+msgid "This addon plays videos from YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies and some other adult streaming sites. It contains explicit adult material. You may only view this addon if you are at least 18 years of age, or at least the age of majority in the jurisdiction where you reside or from which you access this content. If you do not meet these requirements, then you do not have permission to use this addon."
+msgstr "Tämä lisäosa toistaa videoita YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies ja joistakin muista aikuisten suoratoistosivustoista. Se sisältää nimenomaista aikuisille tarkoitettua materiaalia. Voit tarkastella tätä lisäosaa vain, jos olet vähintään 18-vuotias tai vähintään täysi-ikäinen sen lainkäyttöalueella, jossa asut tai josta käytät tätä sisältöä. Jos et täytä näitä vaatimuksia, sinulla ei ole lupaa käyttää tätä lisäosaa."
+
+msgctxt "Addon Disclaimer"
+msgid "The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider."
+msgstr "Kirjoittaja ei isännöi tai jaa mitään tämän lisäosan näytettyä sisältöä. Kirjoittajalla ei ole mitään siteitä sisällöntuottajaan."
+
+
+msgctxt "#20191"
+msgid "Enable debug logging"
+msgstr "Suorituslokin tallennus (debug log)"
+
+msgctxt "#30000"
+msgid "VideoDevil"
+msgstr "VideoDevil"
+
+msgctxt "#30001"
+msgid "Kodi Media Center"
+msgstr "Kodi Media Center"
+
+msgctxt "#30002"
+msgid "Disable disclaimer"
+msgstr "Poista vastuuvapauslauseke"
+
+# empty strings with id 30003 to 30006
+
+msgctxt "#30007"
+msgid "Save video"
+msgstr "Tallenna video"
+
+msgctxt "#30008"
+msgid "Download path"
+msgstr "Latauspolku"
+
+msgctxt "#30009"
+msgid "Ask for download before playing video"
+msgstr "Kysy latauksesta ennen toistoa"
+
+msgctxt "#30010"
+msgid "Add shortcut"
+msgstr "Lisää kirjanmerkki"
+
+msgctxt "#30011"
+msgid "Remove shortcut"
+msgstr "Poista kirjanmerkki"
+
+msgctxt "#30012"
+msgid "Video quality (if many available)"
+msgstr "Videon kuvanlaatu (jos valittavissa)"
+
+msgctxt "#30013"
+msgid "Ask me"
+msgstr "Kysy"
+
+msgctxt "#30014"
+msgid "Low"
+msgstr "Matala"
+
+msgctxt "#30015"
+msgid "Standard"
+msgstr "Normaali"
+
+msgctxt "#30016"
+msgid "High"
+msgstr "Korkea"
+
+msgctxt "#30017"
+msgid "Select download path:"
+msgstr "Valitse latauspolku:"
+
+msgctxt "#30018"
+msgid "Enabled Sites"
+msgstr "Käytössä olevat sivustot"
+
+# empty strings with id 30019 to 30049
+
+msgctxt "#30050"
+msgid "Downloading video..."
+msgstr "Ladataan videota..."
+
+msgctxt "#30051"
+msgid "Please wait..."
+msgstr ">Odota hetki..."
+
+msgctxt "#30052"
+msgid "Do you want to download this video?"
+msgstr "Haluatko ladata tämän videon?"
+
+msgctxt "#30053"
+msgid "Video download failed. Trying to stream video..."
+msgstr "Videon lataus epäonnistui. Yritetään katsoa videota..."
+
+msgctxt "#30054"
+msgid "Do you really want to remove this shortcut?"
+msgstr "Haluatko poistaa kirjanmerkin?"
+
+msgctxt "#30055"
+msgid "Many video sources available. Please choose one:"
+msgstr "Monta videon lähdettä saatavilla. Valitse yksi:"
+
+msgctxt "#30056"
+msgid "Low quality"
+msgstr "Matala laatu"
+
+msgctxt "#30057"
+msgid "Standard quality"
+msgstr "Normaali laatu"
+
+msgctxt "#30058"
+msgid "High quality"
+msgstr "Korkea laatu"
+
+msgctxt "#30059"
+msgid "Update"
+msgstr "Päivittää"
+
+msgctxt "#30060"
+msgid "VideoDevil has been successfully updated"
+msgstr "VideoDevil on päivitetty onnistuneesti."
+
+msgctxt "#30061"
+msgid "WARNING :This plugin contains explicit adult material."
+msgstr "Tämä lisäosa sisältää aikuisille suunnattua materiaalia."
+
+msgctxt "#30062"
+msgid "You may enter only if you are at least 18 years of age"
+msgstr "Voit käyttää lisäosaa mikäli olet vähintään 18v vanha"
+
+msgctxt "#30063"
+msgid "or at least the legal age in the jurisdiction where"
+msgstr "tai sen ikäinen mikä on määritelty oikeuskelpoiseksi"
+
+msgctxt "#30064"
+msgid "you reside or from which you access this content."
+msgstr "paikassa, josta haluat sisältöä käyttää."
+
+msgctxt "#30065"
+msgid "Exit"
+msgstr "Poistu"
+
+msgctxt "#30066"
+msgid "Enter"
+msgstr "Sisään"
+
+msgctxt "#30067"
+msgid "Sorry! Unable to find the video"
+msgstr "Sorry! Videota ei voitu löytää"
+
+# empty strings with id 30068 to 30099
+
+msgctxt "#30100"
+msgid "Categories"
+msgstr "Kategoria"
+
+msgctxt "#30101"
+msgid "Subcategories"
+msgstr "Alikategoria"
+
+msgctxt "#30102"
+msgid "Search"
+msgstr "Haku"
+
+msgctxt "#30103"
+msgid "Next page"
+msgstr "Seuraava sivu"
+
+msgctxt "#30104"
+msgid "More"
+msgstr "Muita"
+
+msgctxt "#30105"
+msgid "Genre"
+msgstr "Lajityyppi"
+
+msgctxt "#30106"
+msgid "Current"
+msgstr "Nykyinen"
+
+msgctxt "#30107"
+msgid "Artist"
+msgstr "Esittäjä"
+
+msgctxt "#30108"
+msgid "Videos"
+msgstr "Videot"
+
+msgctxt "#30109"
+msgid "Sorting"
+msgstr "Lajittelu"
+
+msgctxt "#30110"
+msgid "Suggestion"
+msgstr "Ehdotus"
+
+msgctxt "#30111"
+msgid "Refine"
+msgstr "Tarkenna"
+
+msgctxt "#30112"
+msgid "Region"
+msgstr "Maa"
+
+msgctxt "#30113"
+msgid "Time span"
+msgstr "Ajan askellus"
+
+msgctxt "#30114"
+msgid "Sport"
+msgstr "Urheilu"
+
+msgctxt "#30115"
+msgid "Kids"
+msgstr "Lapsille"
+
+msgctxt "#30116"
+msgid "Music"
+msgstr "Musiikki"
+
+msgctxt "#30117"
+msgid "Related videos"
+msgstr "Aiheeseen liittyvät videot"
+
+msgctxt "#30118"
+msgid "Pornstars"
+msgstr "Pornonäyttelijöistä"
+
+msgctxt "#30119"
+msgid "Popular by Country"
+msgstr "Suosittuja maittain"
+
+msgctxt "#30120"
+msgid "Top Rated"
+msgstr "Suosituimmat"
+
+msgctxt "#30121"
+msgid "Most Viewed"
+msgstr "Eniten katsottu"
+
+msgctxt "#30122"
+msgid "Gay"
+msgstr "Homo"
+
+msgctxt "#30123"
+msgid "Shemale"
+msgstr "Transseksualisti"
+
+msgctxt "#30218"
+msgid "General"
+msgstr "Yleinen"
