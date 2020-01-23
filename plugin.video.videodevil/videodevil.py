@@ -700,7 +700,7 @@ class CCurrentList(object):
                              ' expire time out of bounds', xbmc.LOGNOTICE)
             current_url_page = curr_url
             if enable_debug:
-                f.write(data)
+                f.write(data.encode('utf-8'))
                 f.close()
                 xbmc.log('Remote URL ' + str(curr_url) + ' opened', xbmc.LOGNOTICE)
         except IOError:
@@ -966,7 +966,7 @@ class ContentFetcher(object):
         f.write('</Request>\n')
 
         f.write('<Response>\n')
-        f.write(contents)
+        f.write(contents.encode('utf-8'))
         f.write('</Response>\n')
         f.close()
 
