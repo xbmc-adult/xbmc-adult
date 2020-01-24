@@ -986,6 +986,8 @@ class ContentMatcher(object):
             match = decode(match)
         elif rule.action.find('quote') != -1:
             match = quote_safe(match)
+        elif rule.action.find('clean') != -1:
+            match = clean2(match)
         elif rule.action.find('prefix') != -1:
             match = prefix(match)
         if rule.build.find('%s') != -1:
