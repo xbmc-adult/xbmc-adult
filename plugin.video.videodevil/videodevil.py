@@ -912,7 +912,7 @@ class ContentFetcher(object):
             data = None
         else:
             url = rule.url
-            data = rule.data % original_url
+            data = (rule.data % original_url).encode('utf8')
 
         req = Request(url, data)
         req.add_header('User-Agent', USERAGENT)
