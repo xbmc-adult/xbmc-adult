@@ -1292,6 +1292,8 @@ class Main(object):
                                      m_icon,
                                      len(self.currentlist.items),
                                      m)
+        # Force Wall viewmode
+        xbmc.executebuiltin('Container.SetViewMode(500)')                    
         return result
 
     def addListItem(self, title, url, icon, totalItems, lItem):
