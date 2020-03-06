@@ -1,12 +1,12 @@
 <scraper framework="1.1" date="2013-03-09" name="AEBN.net" content="movies" thumb="aebn.jpg" language="en">
 	<CreateSearchUrl dest="3">
-		<RegExp input="$$1" output="&lt;url&gt;http://straight.theater.aebn.net/dispatcher/fts?userQuery=&quot;\1&quot;&amp;searchType=movie&amp;imageType=Small&lt;/url&gt;" dest="3">
+		<RegExp input="$$1" output="&lt;url&gt;https://straight-classic.aebn.com/dispatcher/fts?userQuery=&quot;\1&quot;&amp;searchType=movie&amp;imageType=Small&lt;/url&gt;" dest="3">
 			<expression noclean="1" />
 		</RegExp>
 	</CreateSearchUrl>
 	<GetSearchResults dest="3">
 		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;results&gt;\1&lt;/results&gt;" dest="3">
-			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;http://straight.theater.aebn.net/dispatcher/movieDetail?movieId=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
+			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2&lt;/title&gt;&lt;url&gt;https://straight-classic.aebn.com/dispatcher/movieDetail?movieId=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
 				<expression repeat="yes" trim="1,2">&lt;a id=&quot;FTSMovieSearch_link_title_detail_[0-9]+&quot; href=&quot;\/dispatcher\/movieDetail\?genreId=[0-9]+&amp;amp;theaterId=[0-9]+&amp;amp;movieId=([0-9]+)[^&quot;]*&quot;[^&gt;]*&gt;([^&lt;]+)&lt;\/a&gt;</expression>
 			</RegExp>
 			<expression noclean="1" />
@@ -49,7 +49,7 @@
 				<RegExp input="$$8" output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="7+">
 					<expression repeat="yes" clear="yes" trim="1">&lt;a href="/dispatcher/starDetail[^"]*"[^&gt;]*&gt;&lt;span[^&gt;]*&gt;([^&lt;]*)&lt;/span&gt;</expression>
 				</RegExp>
-				<RegExp input="$$8" output="&lt;url function=&quot;GetActorInfo&quot;&gt;http://straight.theater.aebn.net/dispatcher/starDetail?starId=\1&lt;/url&gt;" dest="7+">
+				<RegExp input="$$8" output="&lt;url function=&quot;GetActorInfo&quot;&gt;https://straight-classic.aebn.com//dispatcher/starDetail?starId=\1&lt;/url&gt;" dest="7+">
 					<expression repeat="yes">/dispatcher/starPopupController\?[^']*starId=([0-9]+)</expression>
 				</RegExp>
 				<expression noclean="1" />
