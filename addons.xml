@@ -38,7 +38,7 @@
 
 <addon id="metadata.movie.aebn.net"
        name="AEBN"
-       version="1.2.4"
+       version="1.2.5"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
