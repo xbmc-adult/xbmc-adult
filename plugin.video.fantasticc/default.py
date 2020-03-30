@@ -1,31 +1,36 @@
 #!/usr/bin/python
-#Code Heavily modified from  Demo by TV DASH - by You 2008.
+# Code Heavily modified from  Demo by TV DASH - by You 2008.
 #
 # Written by Ksosez with help from anarchintosh
 # Released under GPL(v2)
 
-import urllib, urllib2, htmllib
-import re, json
+import urllib
+import urllib2
+import htmllib
+import re
+import json
 import os
 import sys
-import xbmcplugin, xbmcaddon, xbmcgui, xbmc
+import xbmcplugin
+import xbmcaddon
+import xbmcgui
+import xbmc
 
-#addon name
+# addon name
 __addonname__ = 'plugin.video.fantasticc'
 
-#get path the default.py is in.
+# get path the default.py is in.
 __addonpath__ = xbmcaddon.Addon(id=__addonname__).getAddonInfo('path')
 
-#datapath
-__datapath__ = xbmc.translatePath('special://profile/addon_data/'+__addonname__)
-
-#append lib directory
+# append lib directory
 sys.path.append(os.path.join(__addonpath__, 'resources', 'lib'))
 
-#import from lib directory
+# import from lib directory
 import weblogin
 import gethtml
 
+# datapath
+__datapath__ = xbmc.translatePath('special://profile/addon_data/' + __addonname__)
 
 pluginhandle = int(sys.argv[1])
 
@@ -34,79 +39,62 @@ default_image = os.path.join(__addonpath__, 'resources', 'images',
                              'provocative_logo.png')
 
 # string to simplify urls
-main_url = 'http://fantasti.cc/'
-# fantasti.cc's ip
-fip = 'http://77.247.181.97/'
+main_url = 'https://fantasti.cc/'
+
+# User-Agent used for playback
+ios_ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'
+USER_AGENT_STRING = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
 # 3rd Party video Sites that are currently supported are listed below
-
 SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'phncdn',
-                  'redtube', 'spankwire', 'tnaflix', 'tube8', 't8cdn',
+                  'redtube', 'spankwire', 'spankcdn', 'tnaflix', 'tube8', 't8cdn',
                   'xhamster', 'xhcdn', 'xtube', 'xvideos', 'you_porn']
 
 
-def get_html(url, cookie=None, user_agent=None):
-    return gethtml.get(url, __datapath__, cookie=cookie, user_agent=user_agent)
-
-
-def get_avatar(lc):
-    #using lowercase username, build the url to the user's avatar
-    url = fip + 'avatar/' + lc[0] + '/' + lc[1] + '/' + lc[2] + '/' + lc
-
-    #trial and error to find the correct image format
-    urlist = [url + '.jpeg', url + '.jpg', url + '.png', url + '.gif']
-    for surl in urlist:
-        try:
-            urllib2.urlopen(surl)
-        except urllib2.URLError:
-            pass
-        else:
-            return surl
-    return 'http://fantasticc2.so.clients.cdn13.com/no_image_avatar.jpg'
+def get_html(url, cookie=None, user_agent=None, referer=None):
+    return gethtml.get(url, __datapath__, cookie=cookie, user_agent=user_agent, referer=referer)
 
 
 def Notify(title, message, times, icon):
-    xbmc.executebuiltin('XBMC.Notification(' + title + ', ' + message + ', ' +
-                        times + ', ' + icon + ')')
+    msg = title + ', ' + message + ',  ' + times + ', ' + icon
+    xbmc.executebuiltin('XBMC.Notification(' + msg + ')')
 
 
 def LOGIN(username, password, hidesuccess):
     uc = username[0].upper() + username[1:]
     lc = username.lower()
 
-    logged_in = weblogin.doLogin(__datapath__, username, password)
+    logged_in, avatar = weblogin.doLogin(__datapath__, username, password)
     if logged_in:
-        avatar = get_avatar(lc)
-
         if hidesuccess == 'false':
             Notify('Welcome back ' + uc, 'Fantasti.cc loves you', '4000',
                    avatar)
 
         addDir(uc + '\'s Videos',
-               main_url + 'user/' + lc + '/videos/save_date', 1, avatar)
+               main_url + 'user/' + lc + '/videos/save_date/', 1, avatar)
         addDir(uc + '\'s Collections',
-               main_url + 'user/' + lc + '/collections', 2, avatar)
+               main_url + 'user/' + lc + '/collections/', 2, avatar)
         addDir(uc + '\'s Favourited Collections',
-               main_url + 'user/' + lc + '/collections/favorited', 2, avatar)
+               main_url + 'user/' + lc + '/collections/favorited/', 2, avatar)
         addDir(uc + '\'s Rated Collections',
-               main_url + 'user/' + lc + '/collections/rated', 2, avatar)
+               main_url + 'user/' + lc + '/collections/rated/', 2, avatar)
 
-    elif not logged_in:
+    else:
         Notify('Login Failure', uc + ' could not login', '4000', default_image)
 
 
 def STARTUP_ROUTINES():
-    #deal with bug that happens if the datapath doesn't exist
+    # deal with bug that happens if the datapath doesn't exist
     if not os.path.exists(__datapath__):
         os.makedirs(__datapath__)
 
-    #check if user has enabled use-login setting
+    # check if user has enabled use-login setting
     usrsettings = xbmcaddon.Addon(id=__addonname__)
     use_account = usrsettings.getSetting('use-account')
 
     if use_account == 'true':
-        #get username and password and do login with them
-        #also get whether to hid successful login notification
+        # get username and password and do login with them
+        # also get whether to hid successful login notification
         username = usrsettings.getSetting('username')
         password = usrsettings.getSetting('password')
         hidesuccess = usrsettings.getSetting('hide-successful-login-messages')
@@ -119,76 +107,84 @@ def CATEGORIES():
 
     mode = 1
     addDir('Popular Today',
-           main_url+'videos/popular/today/', mode, default_image)
+           main_url + 'videos/popular/today/', mode, default_image)
     addDir('Popular Last 7 Days',
-           main_url+'videos/popular/7days/', mode, default_image)
+           main_url + 'videos/popular/7days/', mode, default_image)
     addDir('Popular Last Month',
-           main_url+'videos/popular/31days/', mode, default_image)
+           main_url + 'videos/popular/31days/', mode, default_image)
     addDir('Popular All Time',
-           main_url+'videos/popular/all_time/', mode, default_image)
-    addDir('Upcoming', main_url+'videos/upcoming/', mode, default_image)
-    addDir('Made Popular', main_url+'videos/made_popular/', mode, default_image)
+           main_url + 'videos/popular/all_time/', mode, default_image)
+    addDir('Upcoming',
+           main_url + 'videos/upcoming/', mode, default_image)
+    addDir('Made Popular',
+           main_url + 'videos/popular/made_popular/', mode, default_image)
 
     mode = 2
     addDir('Collections Upcoming',
-           main_url+'videos/collections/upcoming/',
+           main_url + 'videos/collections/upcoming/',
            mode, default_image)
     addDir('Collections Today - Popular',
-           main_url+'videos/collections/popular/today/',
+           main_url + 'videos/collections/popular/today/',
            mode, default_image)
-    addDir('Collections Today - Most Viewed',
-           main_url+'videos/collections/most_viewed/today/',
+    addDir('Collections Today - Trending',
+           main_url + 'videos/collections/trending/today/',
            mode, default_image)
     addDir('Collections Today - Most Discussed',
-           main_url+'videos/collections/most_discussed/today/',
+           main_url + 'videos/collections/most-discussed/today/',
+           mode, default_image)
+    addDir('Collections Today - Top Rated',
+           main_url + 'videos/collections/top-rated/today/',
            mode, default_image)
     addDir('Collections Today - Top Favorited',
-           main_url+'videos/collections/top_favorites/today/',
+           main_url + 'videos/collections/top-favorites/today/',
            mode, default_image)
     addDir('Collections Last week - Popular',
-           main_url+'videos/collections/popular/7days/',
+           main_url + 'videos/collections/popular/7days/',
            mode, default_image)
-    addDir('Collections Last week - Most Viewed',
-           main_url+'videos/collections/most_viewed/7days/',
+    addDir('Collections Last week - Trending',
+           main_url + 'videos/collections/trending/7days/',
            mode, default_image)
     addDir('Collections Last week - Most Discussed',
-           main_url+'videos/collections/most_discussed/7days/',
+           main_url + 'videos/collections/most-discussed/7days/',
            mode, default_image)
     addDir('Collections Last week - Top Rated',
-           main_url+'videos/collections/top_rated/7days/',
+           main_url + 'videos/collections/top-rated/7days/',
            mode, default_image)
     addDir('Collections Last week - Top Favorited',
-           main_url+'videos/collections/top_favorites/7days/',
+           main_url + 'videos/collections/top-favorites/7days/',
            mode, default_image)
     addDir('Collections Last month - Popular',
-           main_url+'videos/collections/popular/31days/',
+           main_url + 'videos/collections/popular/31days/',
            mode, default_image)
-    addDir('Collections Last month - Most Viewed',
-           main_url+'videos/collections/most_viewed/31days/',
+    addDir('Collections Last month - Trending',
+           main_url + 'videos/collections/trending/31days/',
            mode, default_image)
     addDir('Collections Last month - Most Discussed',
-           main_url+'videos/collections/most_discussed/31days/',
+           main_url + 'videos/collections/most-discussed/31days/',
            mode, default_image)
     addDir('Collections Last month - Top Rated',
-           main_url+'videos/collections/top_rated/31days/',
+           main_url + 'videos/collections/top-rated/31days/',
            mode, default_image)
     addDir('Collections Last month - Top Favorited',
-           main_url+'videos/collections/top_favorites/31days/',
+           main_url + 'videos/collections/top-favorites/31days/',
            mode, default_image)
     addDir('Collections All-Time - Popular',
-           main_url+'videos/collections/popular/all_time/',
+           main_url + 'videos/collections/popular/all_time/',
+           mode, default_image)
+    addDir('Collections All-Time - Trending',
+           main_url + 'videos/collections/trending/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Most Viewed',
-           main_url+'videos/collections/most_viewed/all_time/',
+           main_url + 'videos/collections/most-viewed/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Most Discussed',
-           main_url+'videos/collections/most_discussed/all_time/',
+           main_url + 'videos/collections/most-discussed/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Top Rated',
-           main_url+'videos/collections/top_rated/all_time/',
+           main_url + 'videos/collections/top-rated/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Top Favorited',
-           main_url+'videos/collections/top_favorites/all_time/',
+           main_url + 'videos/collections/top-favorites/all_time/',
            mode, default_image)
 
     # didn't need to pass search a url. so i was lazy and passed it the
@@ -213,7 +209,7 @@ def SEARCH(url):
         search = kb.getText()
 
         # if the search text is not nothing
-        if search is not '':
+        if search != '':
 
             # encode the search phrase to put in url
             # (ie replace ' ' with '+' etc)
@@ -229,7 +225,7 @@ def SEARCH(url):
             first_page = get_html(search_url)
 
             # do a search to see if no results found
-            no_results_found = re.search('result-items">\s+</div>', first_page)
+            no_results_found = re.search(r'result-items">\s+</div>', first_page)
 
             # if there are results on page...
             if not no_results_found:
@@ -237,7 +233,7 @@ def SEARCH(url):
                 # scrape to get the number of all the results pages (this is
                 # listed on the first page)
                 match = re.compile(
-                    '([^"]+)page_(\d+)">last').findall(first_page)
+                    r'([^"]+)page_(\d+)">last').findall(first_page)
 
                 # if there weren't any multiple pages of search results
                 if not match:
@@ -252,28 +248,16 @@ def SEARCH(url):
                     # list of integers, so we can use them for calculations
                     xbmc.log('Number of pages:%s' % match[0][1])
                     total_pages = int(match[0][1])
-
-                    # generate a list of numbers 1 to total_pages (eg if
-                    # total_pages is 3 generate: 1, 2, 3)
-                    num = 1
-                    numlist = list('1')
-                    while num < total_pages:
-                        num = num+1
-                        numlist.append(str(num))
+                    search_url = main_url[:-1] + match[0][0]
 
                     # for every number in the list
-                    for thenumber in numlist:
-
-                        # transform thenumber from an integer to a string, to
-                        # use in name and url strings
-                        thenumber = str(thenumber)
+                    for thenumber in range(1, total_pages + 1):
 
                         # make the page name
-                        name = 'Page ' + thenumber
+                        name = 'Page %s' % thenumber
 
-                        search_url = main_url + match[0][0]
                         # make the page url
-                        url = search_url + 'page_' + thenumber
+                        url = '%spage_%s' % (search_url, thenumber)
 
                         # add the results page as a directory
                         addDir(name, url, 6, default_image)
@@ -286,43 +270,43 @@ def SEARCH_RESULTS(url, html=False):
     if html is False:
         xbmc.log(url)
         html = get_html(url)
-    match = re.compile('searchVideo">\s+<a href="([^"]+)" >\s+<img src="([^"]+)"'
-                      ).findall(html)
-    for gurl, thumbnail in match:
-        name = gurl.split('/')[-2]
+    match = re.compile(r'searchVideo">.+?href="([^"]+).+?src="([^"]+).+?n>([^<]+)', re.DOTALL
+                       ).findall(html)
+    for gurl, thumbnail, name in match:
         addSupportedLinks(gurl, name, thumbnail)
 
 
 def INDEX(url):
     html = get_html(url)
-    if 'collection' in url: # Collections
-        videosJSON = json.loads(re.findall('videosJSON = (\[.*?\]);', html)[0])
+    if 'collection' in url:  # Collections
+        videosJSON = json.loads(re.findall(r'videosJSON = (\[.*?\]);', html)[0])
         for item in videosJSON:
             name = item['title'].encode('utf8')
-            realurl = 'http://fantasti.cc/video.php?id=%s' % item['id']
+            realurl = 'https://fantasti.cc/video.php?id=%s' % item['id']
             thumbnail = item['rawThumb']
             mode = 4
-            #xbmc.log('realurl %s' % realurl)
+            # xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
     else:
-        match = re.compile('href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"'
-                           '.+?font-size:11px;">\s+([^.]+). Uploaded',
+        match = re.compile(r'href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"'
+                           r'.+?font-size:11px;">\s+([^.]+). Uploaded',
                            re.DOTALL).findall(html)
-        for gurl, thumbnail, name, duration in match:
-            name = '%s  (%s min)' % (name, duration.rstrip())
-            addSupportedLinks(gurl, name, thumbnail)
-        match = re.compile('<a href="([^"]+)">next &gt;&gt;</a></span></div>'
-                          ).findall(html)
-        mode = 1
-        fixedNext = 'http://fantasti.cc%s' % match[0]
-        addDir('Next Page', fixedNext, mode, default_image)
+        if match:
+            for gurl, thumbnail, name, duration in match:
+                name = '%s  (%s min)' % (name, duration.rstrip())
+                addSupportedLinks(gurl, name, thumbnail)
+            match = re.compile('<a href="([^"]+)">next &gt;&gt;</a></span></div>'
+                               ).findall(html)
+            mode = 1
+            fixedNext = 'https://fantasti.cc%s' % match[0]
+            addDir('Next Page', fixedNext, mode, default_image)
     xbmcplugin.endOfDirectory(pluginhandle)
 
 
 def addSupportedLinks(gurl, name, thumbnail):
     for each in SUPPORTEDSITES:
         if each in thumbnail:
-            realurl = 'http://fantasti.cc%s' % gurl
+            realurl = 'https://fantasti.cc%s' % gurl
             mode = 4
             addLink(name, realurl, mode, thumbnail)
             return
@@ -333,16 +317,16 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
 
-    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div ' +
+    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div '
                        'class="tag-list">', re.DOTALL).findall(html)
 
     for gurl, name, chtml in match:
         xbmc.log('Name [%s]' % name)
-        realurl = 'http://fantasti.cc%s' % gurl
+        realurl = 'https://fantasti.cc%s' % gurl
         name = unescape(name)
         mode = 1
 
-        #scrape number of vids
+        # scrape number of vids
         vidnumber = re.search('"videosListNumber"><b>(.*?)<', chtml)
         if vidnumber:
             num_of_vids = vidnumber.group(1)
@@ -353,15 +337,15 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         icons = re.compile("background:.*?(http.*?)'").findall(chtml)
 
         if not icons:
-          continue # some collections are empty so they don't have icons
+            continue  # some collections are empty so they don't have icons
 
-        addDir('%s (%s vids)'%(name, num_of_vids), realurl, mode, icons[0])
+        addDir('%s (%s vids)' % (name, num_of_vids), realurl, mode, icons[0])
 
     try:
         next_match = re.compile(
             '<a href="([^"]+)">next &gt;&gt;</a>').findall(html)
         mode = 2
-        fixedNext = 'http://fantasti.cc%s' % next_match[0]
+        fixedNext = 'https://fantasti.cc%s' % next_match[0]
         xbmc.log('FixedNext: %s' % fixedNext)
         addDir('Next Page', fixedNext, mode, default_image)
     except IndexError:
@@ -377,27 +361,32 @@ def PLAY(url, thumbnail):
     else:
         realurl = GET_LINK(url, 0, thumbnail)
     xbmc.log('Real url: %s' % realurl)
-    if not realurl:
+    if realurl:
+        realurl += '&User-Agent={0}'.format(USER_AGENT_STRING) if '|' in realurl else '|User-Agent={0}'.format(USER_AGENT_STRING)
+        xbmc.log('Real url: %s' % realurl)
+    else:
         Notify('Failure', 'Try another video', '4000', default_image)
-
+        realurl = None
     item = xbmcgui.ListItem(path=realurl)
     return xbmcplugin.setResolvedUrl(pluginhandle, True, item)
 
 
 def GET_LINK(url, collections, url2):
-# Get the real video link and feed it into XBMC
-    xbmc.log('GET_LINK URL: %s \n\tthumbnail: %s' % (url, url2))
+    # Get the real video link and feed it into XBMC
+    xbmc.log('GET_LINK URL: %s \n\tthumbnail: %s' % (url, url2), xbmc.LOGNOTICE)
     html = get_html(url)
+    r = re.search('<iframe.+?src="([^"]+)', html)
+    embed = r.group(1) if r else ''
     if collections == 1:   # Make sure we get a url we can parse
         match = re.compile('<link rel="canonical" href="(.+?)" />'
-                          ).findall(html)
+                           ).findall(html)
         for each in match:
             url = each
 
-    if 'xvideos' in url2:
+    if 'xvideos' in url2 or 'xvideos' in embed:
         match = re.compile('(https?://www.xvideos.com/.+?)"').findall(html)
-        html = get_html(match[0], user_agent='Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1')
-        match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
+        html = get_html(match[0], user_agent=ios_ua)
+        match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
         fetchurl = urllib.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'pornhub' in url2 or 'phncdn' in url2:
@@ -407,12 +396,12 @@ def GET_LINK(url, collections, url2):
                         'platform=tablet')
         match = re.compile('quality":"(?:480|720|1080)[^"]*",[^}]+videoUrl":"(https:[^"]+)').findall(html)
         each = urllib2.unquote(match[0])
-        fetchurl = each.replace('\\', '')
+        fetchurl = each.replace('\\', '') + '|Referer=https://www.pornhub.com/'
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'empflix' in url2:
         match = re.compile('<a style="color:#BBB;" href="([^"]+)"'
                            ' target="_blank" rel="nofollow">empflix</a></span>'
-                          ).findall(html)
+                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -423,23 +412,23 @@ def GET_LINK(url, collections, url2):
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(html)
         fetchurl = match2[0]
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'tnaflix' in url2:
+    elif 'tnaflix' in url2 or 'tnaflix' in embed:
         match = re.compile('iframe src="(https?://player[^"]+)').findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
         match = re.compile('config = "([^"]+)').findall(html)
-        html = get_html('http:' + match[0])
-        match = re.compile('<videoLink><\!\[CDATA\[([^\]]*)').findall(html)
+        html = get_html('http:' + match[0], referer=urlget2)
+        match = re.compile(r'<videoLink><\!\[CDATA\[([^\]]*)').findall(html)
         fetchurl = 'http:' + match[0]
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'xhamster' in url2:
+    elif 'xhamster' in url2 or 'xhamster' in embed:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
         match = re.compile('File":"([^"]+)').findall(html)
-        fetchurl = match[0].replace('\\', '')
+        fetchurl = match[0].replace('\\', '') + '|Referer=https://xhamster.com/'
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'hardsextube' in url2:
+    elif 'hardsextube' in url2 or 'hardsextube' in embed:
         match = re.compile(
             'https?://www.hardsextube.com/(video/.+?)"').findall(html)
         html = get_html('http://m.hardsextube.com/%s' % match[0])
@@ -447,7 +436,7 @@ def GET_LINK(url, collections, url2):
         fetchurl = match[0]
         fetchurl = fetchurl.replace(' ', '+')
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'xtube' in url2:
+    elif 'xtube' in url2 or 'hardsextube' in embed:
         match = re.compile('(https?://www.xtube.com/.+?)"').findall(html)
         html = get_html(match[0])
         match = re.compile('},videoUrl:"([^"]+)').findall(html)
@@ -461,13 +450,13 @@ def GET_LINK(url, collections, url2):
         xbmc.log('urlget2 %s' % urlget2)
         html = get_html(urlget2)
         xbmc.log('html %s' % html)
-        match = re.compile('location>\s*([^<]+)',re.DOTALL).findall(html)
+        match = re.compile(r'location>\s*([^<]+)', re.DOTALL).findall(html)
         fetchurl = urllib.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'redtube' in url2:
-        match = re.compile('(https?://(?:|www.)redtube.com/.+?)"').findall(html)
+    elif 'redtube' in url2 or 'redtube' in embed:
+        match = re.compile(r'(https?://(?:|www\.|embed\.)redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
-        match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
+        match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
         try:
             fetchurl = urllib.unquote(match[0])
         except IndexError:
@@ -483,9 +472,9 @@ def GET_LINK(url, collections, url2):
         match = re.compile('page_params.videoUrlJS = "([^"]+)').findall(html)
         fetchurl = urllib2.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
-    elif 'you_porn' in url2:
+    elif 'you_porn' in url2 or 'you_porn' in embed:
         match = re.compile('"(https?://www.youporn.com/watch/[^"]+)"'
-                          ).findall(html)
+                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -496,7 +485,7 @@ def GET_LINK(url, collections, url2):
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'madthumbs' in url2:
         match = re.compile('source="(https?://www.madthumbs.com/[^"]+)"'
-                          ).findall(html)
+                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -514,7 +503,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
         html = get_html(match[0])
         match = re.compile('mp4":{.*?"[0-9]+p":"([^"]+)').findall(html)
-        fetchurl = match[0].replace('\\','')
+        fetchurl = match[0].replace('\\', '') + '|Referer=https://xhamster.com/'
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'spankwire' in url2:
         match = re.compile('data-origin-source="(https?://www.spankwire.com/.+?)">').findall(html)
@@ -537,8 +526,8 @@ def get_params():
     if len(paramstring) >= 2:
         params = sys.argv[2]
         cleanedparams = params.replace('?', '')
-        if params[len(params)-1] == '/':
-            params = params[0:len(params)-2]
+        if params[len(params) - 1] == '/':
+            params = params[0:len(params) - 2]
         pairsofparams = cleanedparams.split('&')
         for i in range(len(pairsofparams)):
             splitparams = {}
@@ -553,8 +542,10 @@ def addLink(name, url, mode, iconimage):
         + "&name=" + urllib.quote_plus(name) + "&iconimage=" \
         + urllib.quote_plus(iconimage)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png',
-                           thumbnailImage=iconimage)
+    liz = xbmcgui.ListItem(name)
+    liz.setArt({'thumb': iconimage,
+                'icon': 'DefaultVideo.png',
+                'poster': iconimage})
     liz.setProperty('IsPlayable', 'true')
     liz.setInfo(type='Video', infoLabels={'Title': name})
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
@@ -566,8 +557,10 @@ def addDir(name, url, mode, iconimage):
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
         + "&name=" + urllib.quote_plus(name)
     ok = True
-    liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png",
-                           thumbnailImage=iconimage)
+    liz = xbmcgui.ListItem(name)
+    liz.setArt({'thumb': iconimage,
+                'icon': 'DefaultVideo.png',
+                'poster': iconimage})
     liz.setInfo(type='Video', infoLabels={'Title': name})
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u,
                                      listitem=liz, isFolder=True)
