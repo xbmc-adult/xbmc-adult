@@ -373,7 +373,7 @@ def PLAY(url, thumbnail):
 
 def GET_LINK(url, collections, url2):
     # Get the real video link and feed it into XBMC
-    xbmc.log('GET_LINK URL: %s \n\tthumbnail: %s' % (url, url2), xbmc.LOGNOTICE)
+    xbmc.log('GET_LINK URL: %s \n\tthumbnail: %s' % (url, url2))
     html = get_html(url)
     r = re.search('<iframe.+?src="([^"]+)', html)
     embed = r.group(1) if r else ''
