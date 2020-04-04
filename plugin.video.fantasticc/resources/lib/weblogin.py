@@ -22,9 +22,10 @@
 """
 
 import os
-import re
-import urllib, urllib2
+import urllib
+import urllib2
 import cookielib
+import json
 
 ### TESTING SETTINGS (will only be used when running this file independent of
 # your addon)
@@ -38,16 +39,12 @@ mypassword = ''
 
 
 def check_login(source, username):
-
-    #the string you will use to check if the login is successful.
-    #you may want to set it to:    username     (no quotes)
-    logged_in_string = 'Hello'
-
-    #search for the string in the html, without caring about upper or lower case
-    if re.search(logged_in_string, source, re.IGNORECASE):
-        return True
-    else:
-        return False
+    js_data = json.loads(source)
+    # search for the string in the reply, without caring about upper or lower case
+    if js_data.get('status') == 'ok' and \
+       js_data.get('data').get('userName').lower() == username.lower():
+        return (True, js_data.get('data').get('avatar'))
+    return (False, None)
 
 
 def doLogin(cookiepath, username, password):
@@ -67,7 +64,7 @@ def doLogin(cookiepath, username, password):
     if username and password:
 
         #the url you will request to.
-        login_url = 'http://fantasti.cc/signin.php'
+        login_url = 'https://fantasti.cc/signin.php'
 
         #the header used to pretend you are a browser
         header_string = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
@@ -78,37 +75,44 @@ def doLogin(cookiepath, username, password):
                                        'memento':1,
                                        'x':0,
                                        'y':0,
-                                       'do':'login'})
+                                       'do':'login',
+                                       'SSO': ''
+                                       })
 
         #build the request we will make
-        req = urllib2.Request(login_url, login_data)
+        req = urllib2.Request(login_url)
         req.add_header('User-Agent', header_string)
 
         #initiate the cookielib class
         cj = cookielib.LWPCookieJar()
 
-        #install cookielib into the url opener, so that cookies are handled
-        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        # Setup no redirects
+        class NoRedirection(urllib2.HTTPErrorProcessor):
+            def http_response(self, request, response):
+                return response
+            https_response = http_response
 
+        #install cookielib into the url opener, so that cookies are handled
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj), NoRedirection)
+        urllib2.install_opener(opener)
         #do the login and get the response
-        response = opener.open(req)
-        source = response.read()
-        response.close()
+
+        source = urllib2.urlopen(req, login_data).read()
 
         #check the received html for a string that will tell us if the user is
         # logged in
         #pass the username, which can be used to do this.
-        login = check_login(source, username)
+        login, avatar = check_login(source, username)
 
         #if login suceeded, save the cookiejar to disk
         if login:
             cj.save(cookiepath)
 
         #return whether we are logged in or not
-        return login
+        return (login, avatar)
 
     else:
-        return False
+        return (False, False)
 
 #code to enable running the .py independent of addon for testing
 if __name__ == "__main__":
