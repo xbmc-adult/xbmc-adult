@@ -30,7 +30,7 @@ import xbmc
 #set the list of URLs you want to load with cookies.
 #matches bits of url, so that if you want to match www243.megaupload.com/ you
 #can just put '.megaupload.com/' in the list.
-compatible_urllist = ['http://fantasti.cc/', 'https://www.pornhub.com']
+compatible_urllist = ['https://fantasti.cc/', 'https://www.pornhub.com']
 
 USER_AGENT_STRING = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
@@ -44,7 +44,7 @@ def url_for_cookies(url):
         else: url_is_compatible = False
     return url_is_compatible
 
-def get(url, cookiepath=None, cookie=None, user_agent=USER_AGENT_STRING):
+def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
     # use cookies if cookiepath is set and if the cookiepath exists.
     if cookiepath is not None:
         #check if user has supplied only a folder path, or a full path
@@ -59,25 +59,33 @@ def get(url, cookiepath=None, cookie=None, user_agent=USER_AGENT_STRING):
         cj = cookielib.LWPCookieJar()
         cj.load(cookiepath)
         req = urllib2.Request(url)
-        req.add_header('User-Agent', user_agent)
+        if user_agent:
+            req.add_header('User-Agent', user_agent)
+        else:
+            req.add_header('User-Agent', USER_AGENT_STRING)
+        if referer:
+            req.add_header('Referer', referer)
         if cookie:
-          req.add_header('Cookie', cookie)
+            req.add_header('Cookie', cookie)
         opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
         try:
             response = opener.open(req)
         except urllib2.URLError as e:
-            xbmc.log('Error opening %s' % url)
+            xbmc.log('%s Error opening %s' % (e, url))
             sys.exit(1)
         link = response.read()
         response.close()
         return link
     else: return _loadwithoutcookies(url, user_agent)
 
-def _loadwithoutcookies(url, user_agent):
+def _loadwithoutcookies(url, user_agent=None, referer=None):
     xbmc.log('Loading without cookies')
     url = url.replace('http:', 'https:')
     req = urllib2.Request(url)
-    req.add_header('User-Agent', user_agent)
+    if user_agent:
+        req.add_header('User-Agent', user_agent)
+    if referer:
+        req.add_header('Referer', referer)
     try:
         response = urllib2.urlopen(req)
     except urllib2.HTTPError as e:
