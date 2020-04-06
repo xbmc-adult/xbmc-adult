@@ -285,14 +285,17 @@ quality=fallback
 title=xhamster.com
 target="mp4":{.*?"240p":"([^"]+)
 url=%s
+build=%s|Referer=https://xhamster.com/
 extension=mp4
 quality=low
 target="mp4":{.*?"480p":"([^"]+)
 url=%s
+build=%s|Referer=https://xhamster.com/
 extension=mp4
 quality=standard
 target="mp4":{.*?"720p":"([^"]+)
 url=%s
+build=%s|Referer=https://xhamster.com/
 extension=mp4
 quality=high
 ########################################################
