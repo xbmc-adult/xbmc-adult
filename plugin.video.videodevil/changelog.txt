@@ -2,6 +2,10 @@
 
 - Updated: motherless
 - Fixed: videolist
+- Updated: celebsnude
+- Fixed: pagination
+- Updated: xhamster
+- Fixed: catcher
 
 [B]Version 1.7.240[/B]
 
