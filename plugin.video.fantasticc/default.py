@@ -44,7 +44,7 @@ USER_AGENT_STRING = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3)
 
 SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'phncdn',
                   'redtube', 'spankwire', 'spankcdn', 'tnaflix', 'tube8', 't8cdn',
-                  'xhamster', 'xhcdn', 'xtube', 'xvideos', 'you_porn']
+                  'xhamster', 'xhcdn', 'xtube', 'xvideos', 'you_porn', 'fantasti']
 
 
 def get_html(url, cookie=None, user_agent=None, referer=None):
@@ -67,13 +67,21 @@ def LOGIN(username, password, hidesuccess):
                    avatar)
 
         addDir(uc + '\'s Videos',
-               main_url + 'user/' + lc + '/videos/save_date/', 1, avatar)
+               main_url + 'user/' + lc + '/videos/', 3, avatar)
+        addDir(uc + '\'s Turn Videos',
+               main_url + 'user/' + lc + '/videos/?type=video', 3, avatar)
+        addDir(uc + '\'s Turn Tubes',
+               main_url + 'user/' + lc + '/videos/?type=tube', 3, avatar)
+        addDir(uc + '\'s Favourite Videos',
+               main_url + 'user/' + lc + '/videos/?type=favourite', 3, avatar)
         addDir(uc + '\'s Collections',
-               main_url + 'user/' + lc + '/collections/', 2, avatar)
+               main_url + 'user/' + lc + '/collections/recently-updated/all/author/', 2, avatar)
         addDir(uc + '\'s Favourited Collections',
-               main_url + 'user/' + lc + '/collections/favorited/', 2, avatar)
+               main_url + 'user/' + lc + '/collections/recently-updated/all/favorited/', 2, avatar)
         addDir(uc + '\'s Rated Collections',
-               main_url + 'user/' + lc + '/collections/rated/', 2, avatar)
+               main_url + 'user/' + lc + '/collections/recently-updated/all/rated/', 2, avatar)
+        addDir(uc + '\'s Commented Collections',
+               main_url + 'user/' + lc + '/collections/recently-updated/all/commented/', 2, avatar)
 
     else:
         Notify('Login Failure', uc + ' could not login', '4000', default_image)
@@ -297,6 +305,25 @@ def INDEX(url):
     xbmcplugin.endOfDirectory(pluginhandle)
 
 
+def INDEXP(url):
+    html = get_html(url)
+    match = re.compile(r'video">.+?href="([^"]+)[^>]+>([^<]+).+?url'
+                       r'''\('([^']+).+?time">([^<]+)''',
+                       re.DOTALL).findall(html)
+    if match:
+        for gurl, name, thumbnail, duration in match:
+            name = '%s (%s)' % (name, duration)
+            gurl = 'https://fantasti.cc%s' % gurl
+            addLink(name, gurl, 4, thumbnail)
+    nextpg = re.compile(r'class="next\s*".+?href="([^"]+)',
+                        re.DOTALL).findall(html)
+    if nextpg:
+        mode = 3
+        fixedNext = '%s%s' % (url.split('?')[0], nextpg[0])
+        addDir('Next Page', fixedNext, mode, default_image)
+    xbmcplugin.endOfDirectory(pluginhandle)
+
+
 def addSupportedLinks(gurl, name, thumbnail):
     for each in SUPPORTEDSITES:
         if each in thumbnail:
@@ -366,7 +393,7 @@ def PLAY(url, thumbnail):
 
 
 def GET_LINK(url, collections, url2):
-# Get the real video link and feed it into XBMC
+    # Get the real video link and feed it into XBMC
     xbmc.log('GET_LINK URL: %s \n\tthumbnail: %s' % (url, url2))
     html = get_html(url)
     r = re.search('<iframe.+?src="([^"]+)', html)
@@ -380,7 +407,7 @@ def GET_LINK(url, collections, url2):
     if 'xvideos' in url2:
         match = re.compile('(https?://www.xvideos.com/.+?)"').findall(html)
         html = get_html(match[0], user_agent=ios_ua)
-        match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
+        match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
         fetchurl = urllib.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'pornhub' in url2 or 'phncdn' in url2:
@@ -413,14 +440,21 @@ def GET_LINK(url, collections, url2):
         html = get_html(urlget2)
         match = re.compile('config = "([^"]+)').findall(html)
         html = get_html('http:' + match[0], referer=urlget2)
-        match = re.compile('<videoLink><\!\[CDATA\[([^\]]*)').findall(html)
+        match = re.compile(r'<videoLink><\!\[CDATA\[([^\]]*)').findall(html)
         fetchurl = 'http:' + match[0]
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'xhamster' in url2 or 'xhamster' in embed:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
-        html = get_html(match[0])
-        match = re.compile('File":"([^"]+)').findall(html)
+        if match:
+            html = get_html(match[0])
+        else:
+            html = get_html(embed)
+        match = re.compile('file":"([^"]+)', re.IGNORECASE).findall(html)
+        if not match:
+            match = re.compile(r'{"url":"([^"]+)').findall(html)
         fetchurl = match[0].replace('\\', '') + '|Referer=https://xhamster.com/'
+        if not fetchurl.startswith('http'):
+            fetchurl = 'https://xhamster.com' + fetchurl
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'hardsextube' in url2 or 'hardsextube' in embed:
         match = re.compile(
@@ -511,6 +545,12 @@ def GET_LINK(url, collections, url2):
     else:
         xbmc.log('Unknown source (%s).' % url2)
         fetchurl = None
+
+    if fetchurl is None:
+        r = re.search(r'<source\s*src="([^"]+)', html)
+        if r:
+            fetchurl = r.group(1)
+
     return fetchurl
 
 
@@ -605,6 +645,9 @@ elif topmode == 1:
 elif topmode == 2:
     xbmc.log('Indexing Collections')
     INDEXCOLLECT(topurl)
+elif topmode == 3:
+    xbmc.log('Indexing Personal Videos')
+    INDEXP(topurl)
 elif topmode == 4:
     xbmc.log('Play Video')
     PLAY(topurl, topthumbnail)
