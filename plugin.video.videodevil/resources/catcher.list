@@ -637,15 +637,15 @@ header=Referer|https://www.vporn.com
 quality=high
 ########################################################
 title=pornhd.com
-target=sources:.+?360p":"([^"]+)
+target=<source src="([^"]+)".+?360p
 url=%s
 header=Referer|https://www.pornhd.com/
 quality=low
-target=sources:.+?480p":"([^"]+)
+target=<source src="([^"]+)".+?480p
 url=%s
 header=Referer|https://www.pornhd.com/
 quality=standard
-target=sources:.+?720p":"([^"]+)
+target=sources:.+?720p":"([^"]+)^M
 url=%s
 header=Referer|https://www.pornhd.com/
 quality=high
