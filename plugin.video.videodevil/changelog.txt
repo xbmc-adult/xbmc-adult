@@ -1,3 +1,10 @@
+[B]Version 1.7.243[/B]
+
+- Updated: eporner
+- Fixed: videolist
+- Updated: pornhd
+- Fixed: videolist
+
 [B]Version 1.7.242[/B]
 
 - Updated: motherless
