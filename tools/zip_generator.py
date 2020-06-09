@@ -12,8 +12,8 @@ def get_plugin_version(addon_dir):
     node = xml.etree.ElementTree.XML(data)
     return(node.get('version'))
   except Exception as e:
-    print 'Failed to open %s' % addon_file
-    print e.message
+    print('Failed to open %s' % addon_file)
+    print(e)
 
 
 def create_zip_file(addon_dir):
@@ -26,7 +26,7 @@ def create_zip_file(addon_dir):
       for file_path in files:
         if file_path.endswith('.zip'):
           continue
-        print "adding %s" % os.path.join(root, file_path)
+        print("adding %s" % os.path.join(root, file_path))
         addonzip.write(os.path.join(root, file_path))
     addonzip.close()
 

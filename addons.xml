@@ -38,7 +38,7 @@
 
 <addon id="metadata.movie.aebn.net"
        name="AEBN"
-       version="1.2.4"
+       version="1.2.6"
        provider-name="xbmc-adult">
   <requires>
     <import addon="xbmc.metadata" version="1.0"/>
@@ -163,7 +163,7 @@
 
 <addon id="plugin.video.fantasticc"
        name="Fantasti.cc"
-       version="2.3.48"
+       version="2.3.50"
        provider-name="xbmc-adult">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -219,7 +219,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.240"
+  version="1.7.244"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
