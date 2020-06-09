@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="metadata.movie.gaydvdempire.com"
+       name="GayDVDEmpire"
+       version="0.9"
+       provider-name="xbmc-adult">
+  <requires>
+    <import addon="xbmc.metadata" version="1.0"/>
+    <import addon="metadata.common.themoviedb.org" version="1.0"/>
+  </requires>
+  <extension point="xbmc.metadata.scraper.movies"
+             language="en"
+             library="gaydvdempire.xml"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">GayDVDEmpire Scraper</summary>
+    <description lang="en">Download XXX Movie information from gaydvdempire.com</description>
+    <platform>all</platform>
+  </extension>
+</addon>
