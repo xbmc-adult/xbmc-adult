@@ -355,11 +355,6 @@ ext_url=%s
 extension=mp4
 quality=high
 ########################################################
-title=fapdu.com
-target="file" : "([^ ]+)"
-url=%s
-quality=standard
-########################################################
 title=moviefap.com
 target=url: '([^&]+)
 url=%s

@@ -99,13 +99,6 @@ director=VideoDevil
 icon=video.devil.image|extremetube.png
 url=extremetube.com.cfg
 ########################################################
-title=Fapdu
-type=rss
-genre=fapdu
-director=VideoDevil
-icon=http://cdn.thumbs.fapdu.com/FapDu/b1.png
-url=fapdu.com.cfg
-########################################################
 title=GirlfriendVideos
 type=rss
 genre=GirlfriendVideos
