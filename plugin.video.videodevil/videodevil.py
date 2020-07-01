@@ -690,7 +690,13 @@ class CCurrentList(object):
                 if enable_debug:
                     traceback.print_exc(file=sys.stdout)
                 return
-            data = handle.read().decode('utf-8')
+            undecoded = handle.read()
+            try:
+                data = undecoded.decode('utf-8')
+            except UnicodeDecodeError:
+                if enable_debug:
+                    xbmc.log('Could not decode utf-8, trying iso-8859-1', xbmc.LOGNOTICE)
+                data = undecoded.decode('ISO-8859-1')
             # cj.save(os.path.join(resDir, 'cookies.lwp'), ignore_discard=True)
             try:
                 cj.save(cookiePath)
