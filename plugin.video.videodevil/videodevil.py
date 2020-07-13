@@ -1,29 +1,17 @@
 # -*- coding: utf-8 -*-
-from future import standard_library
-standard_library.install_aliases()
-from builtins import chr
-from builtins import zip
-from builtins import str
-from past.builtins import basestring
-from builtins import object
-import xbmcplugin
-import xbmcaddon
-import xbmc
-import xbmcgui
+import six
+from kodi_six import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import sys
 import os.path
 import tempfile
-import urllib.request
-import urllib.error
-import urllib.parse
+from six.moves import urllib_request, urllib_error, urllib_parse
 import re
 import os
 import traceback
-import http.cookiejar
-import html.entities
-import http.client
-http.client.HTTPConnection._http_vsn = 10
-http.client.HTTPConnection._http_vsn_str = 'HTTP/1.1'
+from six.moves import http_cookiejar, html_entities, http_client, html_parser
+
+http_client.HTTPConnection._http_vsn = 10
+http_client.HTTPConnection._http_vsn_str = 'HTTP/1.1'
 
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 __language__ = addon.getLocalizedString
@@ -40,22 +28,22 @@ cookiePath = os.path.join(settingsDir, 'cookies.lwp')
 resDir = os.path.join(rootDir, 'resources')
 imgDir = os.path.join(resDir, 'images')
 
-urlopen = urllib.request.urlopen
-cj = http.cookiejar.LWPCookieJar()
-Request = urllib.request.Request
+urlopen = urllib_request.urlopen
+cj = http_cookiejar.LWPCookieJar()
+Request = urllib_request.Request
 USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18'
 
 if cj:
     if os.path.isfile(xbmc.translatePath(cookiePath)):
         try:
             cj.load(xbmc.translatePath(cookiePath))
-        except http.cookiejar.LoadError as e:
+        except http_cookiejar.LoadError as e:
             xbmc.log('Failed to open cookie file {}'.format(e), xbmc.LOGNOTICE)
-    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
 else:
-    opener = urllib.request.build_opener()
+    opener = urllib_request.build_opener()
 
-urllib.request.install_opener(opener)
+urllib_request.install_opener(opener)
 
 if addon.getSetting('enable_debug') == 'true':
     enable_debug = True
@@ -95,8 +83,7 @@ entitydefs2 = {
 def clean1(s):  # remove &XXX;
     if not s:
         return ''
-    import html.parser
-    h = html.parser.HTMLParser()
+    h = html_parser.HTMLParser()
     return h.unescape(s)
 
 
@@ -104,7 +91,7 @@ def clean2(s):  # remove \\uXXX
     pat = re.compile(r'\\u(....)')
 
     def sub(mo):
-        return chr(int(mo.group(1), 16))
+        return six.unichr(int(mo.group(1), 16))
     return pat.sub(sub, smart_unicode(s))
 
 
@@ -112,7 +99,7 @@ def clean3(s):  # remove &#XXX;
     pat = re.compile(r'&#(\d+);')
 
     def sub(mo):
-        return chr(int(mo.group(1)))
+        return six.unichr(int(mo.group(1)))
     return decode(pat.sub(sub, smart_unicode(s)))
 
 
@@ -120,10 +107,10 @@ def decode(s):
     if not s:
         return ''
     try:
-        dic = html.entities.name2codepoint
+        dic = html_entities.name2codepoint
         for key in dic:
             entity = '&' + key + ';'
-            s = s.replace(entity, chr(dic[key]))
+            s = s.replace(entity, six.unichr(dic[key]))
     except:
         if enable_debug:
             traceback.print_exc(file=sys.stdout)
@@ -146,7 +133,7 @@ def unquote_safe(s):  # unquote
     if not s:
         return ''
     try:
-        for key, value in entitydefs2.items():
+        for key, value in six.iteritems(entitydefs2):
             s = s.replace(value, key)
     except:
         if enable_debug:
@@ -158,7 +145,7 @@ def quote_safe(s):  # quote
     if not s:
         return ''
     try:
-        for key, value in entitydefs2.items():
+        for key, value in six.iteritems(entitydefs2):
             s = s.replace(key, value)
     except:
         if enable_debug:
@@ -170,21 +157,21 @@ def smart_unicode(s):
     if not s:
         return ''
     try:
-        if not isinstance(s, basestring):
+        if not isinstance(s, six.string_types):
             if hasattr(s, '__unicode__'):
-                s = str(s)
+                s = unicode(s) if six.PY2 else str(s)
             else:
-                s = str(str(s), 'UTF-8')
-        elif not isinstance(s, str):
-            s = str(s, 'UTF-8')
+                s = unicode(str(s), 'UTF-8') if six.PY2 else str(str(s), 'UTF-8')
+        elif not isinstance(s, six.text_type):
+            s = unicode(s, 'UTF-8') if six.PY2 else str(s, 'UTF-8')
     except:
-        if not isinstance(s, basestring):
+        if not isinstance(s, six.string_types):
             if hasattr(s, '__unicode__'):
-                s = str(s)
+                s = unicode(s) if six.PY2 else str(s)
             else:
-                s = str(str(s), 'ISO-8859-1')
-        elif not isinstance(s, str):
-            s = str(s, 'ISO-8859-1')
+                s = unicode(str(s), 'ISO-8859-1') if six.PY2 else str(str(s), 'ISO-8859-1')
+        elif not isinstance(s, six.text_type):
+            s = unicode(s, 'ISO-8859-1') if six.PY2 else str(s, 'ISO-8859-1')
     return s
 
 
@@ -278,7 +265,7 @@ class CCurrentList(object):
         kboard = xbmc.Keyboard(default, heading, hidden)
         kboard.doModal()
         if kboard.isConfirmed():
-            return urllib.parse.quote_plus(kboard.getText())
+            return urllib_parse.quote_plus(kboard.getText())
         return ''
 
     def getFileExtension(self, filename):
@@ -384,10 +371,10 @@ class CCurrentList(object):
                 url = smart_unicode(url) \
                     + '&' \
                     + smart_unicode('url:') \
-                    + smart_unicode(urllib.parse.quote_plus(item.infos_dict['url']))
+                    + smart_unicode(urllib_parse.quote_plus(item.infos_dict['url']))
             except KeyError:
                 xbmc.log('Skipping %s probably has unicode'
-                         % item.infos_dict['url'].encode('utf-8'), xbmc.LOGNOTICE)
+                         % item.infos_dict['url'], xbmc.LOGNOTICE)
         if len(suffix) > 0:
             url = url + '.' + suffix
         return url
@@ -482,15 +469,15 @@ class CCurrentList(object):
             try:
                 data = smart_read_file(local_path, filename)
                 if enable_debug:
-                    xbmc.log('Local file ' + \
-                             str(os.path.join(local_path, filename)) + \
-                             ' opened', xbmc.LOGNOTICE)
+                    xbmc.log('Local file '
+                             + str(os.path.join(local_path, filename))
+                             + ' opened', xbmc.LOGNOTICE)
                 break
             except:
                 if enable_debug:
-                    xbmc.log('File: ' + \
-                             str(os.path.join(local_path, filename)) + \
-                             ' not found', xbmc.LOGNOTICE)
+                    xbmc.log('File: '
+                             + str(os.path.join(local_path, filename))
+                             + ' not found', xbmc.LOGNOTICE)
                     if local_path == '':
                         traceback.print_exc(file=sys.stdout)
                 if local_path == '':
@@ -639,7 +626,7 @@ class CCurrentList(object):
         return clean_safe(info_value)
 
     def loadRemote(self, remote_url, recursive=True, lItem=None):
-        remote_url = urllib.parse.unquote_plus(remote_url)
+        remote_url = urllib_parse.unquote_plus(remote_url)
         if enable_debug:
             xbmc.log('loadRemote: ' + repr(remote_url), xbmc.LOGNOTICE)
         if lItem is None:
@@ -656,7 +643,7 @@ class CCurrentList(object):
                 try:
                     if lItem.infos_dict['type'] == u'search':
                         try:
-                            curr_phrase = urllib.parse.unquote_plus(addon.getSetting('curr_search'))
+                            curr_phrase = urllib_parse.unquote_plus(addon.getSetting('curr_search'))
                         except:
                             addon.setSetting('curr_search', '')
                         search_phrase = self.getKeyboard(default=curr_phrase,
@@ -666,7 +653,7 @@ class CCurrentList(object):
                         addon.setSetting('curr_search', search_phrase)
                         xbmc.sleep(10)
                         curr_url = curr_url.replace('%s',
-                                                    urllib.parse.quote_plus(search_phrase))
+                                                    urllib_parse.quote_plus(search_phrase))
                         lItem.infos_dict['url'] = curr_url
                         lItem.infos_dict['type'] = u'rss'
                 except:
@@ -679,10 +666,13 @@ class CCurrentList(object):
                              'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
                              self.reference: self.content}
             if enable_debug:
-                f = open(os.path.join(cacheDir, 'page.html'), 'w')
+                if six.PY2:
+                    f = open(os.path.join(cacheDir, 'page.html'), 'w')
+                else:
+                    f = open(os.path.join(cacheDir, 'page.html'), 'w', encoding='utf-8')
                 f.write('<Title>' + curr_url + '</Title>\n\n')
 
-            curr_url = urllib.parse.unquote(curr_url)
+            curr_url = urllib_parse.unquote(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
                 handle = urlopen(req)
@@ -691,13 +681,20 @@ class CCurrentList(object):
                     traceback.print_exc(file=sys.stdout)
                 return
             undecoded = handle.read()
-            try:
-                data = undecoded.decode('utf-8')
-            except UnicodeDecodeError:
-                if enable_debug:
-                    xbmc.log('Could not decode utf-8, trying iso-8859-1', xbmc.LOGNOTICE)
-                data = undecoded.decode('ISO-8859-1')
-            # cj.save(os.path.join(resDir, 'cookies.lwp'), ignore_discard=True)
+
+            encoding = None
+            content_type = handle.headers.get('content-type', '')
+            if 'charset=' in content_type:
+                encoding = content_type.split('charset=')[-1]
+
+            if encoding is None:
+                epattern = r'<meta\s+http-equiv="Content-Type"\s+content="(?:.+?);\s+charset=(.+?)"'
+                r = re.search(six.b(epattern), undecoded, re.IGNORECASE)
+                if r:
+                    encoding = r.group(1).decode('latin-1') if six.PY3 else r.group(1)
+
+            data = undecoded.decode(encoding.lower(), errors='ignore') if encoding else undecoded.decode('ascii', errors='ignore')
+
             try:
                 cj.save(cookiePath)
             except ValueError:
@@ -706,7 +703,7 @@ class CCurrentList(object):
                              ' expire time out of bounds', xbmc.LOGNOTICE)
             current_url_page = curr_url
             if enable_debug:
-                f.write(data.encode('utf-8'))
+                f.write(data.encode('utf-8') if six.PY2 else data)
                 f.close()
                 xbmc.log('Remote URL ' + str(curr_url) + ' opened', xbmc.LOGNOTICE)
         except IOError:
@@ -918,7 +915,7 @@ class ContentFetcher(object):
             data = None
         else:
             url = rule.url
-            data = (rule.data % original_url).encode('utf8')
+            data = (rule.data % original_url).encode('utf8') if six.PY2 else (rule.data % original_url)
 
         req = Request(url, data)
         req.add_header('User-Agent', USERAGENT)
@@ -934,15 +931,26 @@ class ContentFetcher(object):
                      (request.get_full_url(), name), xbmc.LOGNOTICE)
         try:
             response = opener.open(request)
-        except urllib.error.HTTPError as e:
+        except urllib_error.HTTPError as e:
             xbmc.log('HTTP-Request failed %s %s' %
                      (e, request.get_full_url()), xbmc.LOGNOTICE)
             self.dumpRequest(name, rule, url, request, str(e))
             raise
-        if rule.limit == 0:
-            contents = response.read().decode('utf-8')
-        else:
-            contents = response.read(rule.limit).decode('utf-8')
+
+        encoding = None
+        content_type = response.headers.get('content-type', '')
+        if 'charset=' in content_type:
+            encoding = content_type.split('charset=')[-1]
+
+        contents = response.read() if rule.limit == 0 else response.read(rule.limit)
+
+        if encoding is None:
+            epattern = r'<meta\s+http-equiv="Content-Type"\s+content="(?:.+?);\s+charset=(.+?)"'
+            r = re.search(six.b(epattern), contents, re.IGNORECASE)
+            if r:
+                encoding = r.group(1).decode('latin-1') if six.PY3 else r.group(1)
+
+        contents = contents.decode(encoding, errors='ignore') if encoding else contents.decode('ascii', errors='ignore')
         return contents
 
     def isCached(self, request):
@@ -953,7 +961,10 @@ class ContentFetcher(object):
         return str(request.get_full_url()) + str(request.data)
 
     def dumpRequest(self, name, rule, url, request, contents):
-        f = open(os.path.join(cacheDir, name + '.html'), 'w')
+        if six.PY2:
+            f = open(os.path.join(cacheDir, name + '.html'), 'w')
+        else:
+            f = open(os.path.join(cacheDir, name + '.html'), 'w', encoding='utf-8')
         f.write('<Rule>\n')
         f.write('   <Url>' + rule.url + '</Url>\n')
         f.write('   <Data>' + rule.data + '</Data>\n')
@@ -972,7 +983,7 @@ class ContentFetcher(object):
         f.write('</Request>\n')
 
         f.write('<Response>\n')
-        f.write(contents.encode('utf-8'))
+        f.write(contents.encode('utf-8') if six.PY2 else contents)
         f.write('</Response>\n')
         f.close()
 
@@ -1109,7 +1120,7 @@ class Main(object):
         except:
             title = '...'
         try:
-            urllib.request.urlretrieve(icon, os.path.join(cacheDir, 'thumb.tbn'))
+            urllib_request.urlretrieve(icon, os.path.join(cacheDir, 'thumb.tbn'))
             icon = os.path.join(cacheDir, 'thumb.tbn')
         except:
             if enable_debug:
@@ -1131,16 +1142,20 @@ class Main(object):
             if addon.getSetting('download') == 'true':
                 self.pDialog = xbmcgui.DialogProgress()
                 self.pDialog.create('VideoDevil',
-                                    __language__(30050),
-                                    __language__(30051))
+                                    '{0}[CR]{1}'.format(
+                                        __language__(30050),
+                                        __language__(30051))
+                                    )
                 flv_file = self.downloadMovie(url, title)
                 self.pDialog.close()
             elif addon.getSetting('download') == 'false' and addon.getSetting('download_ask') == 'true':
                 if xbmcgui.Dialog().yesno('', __language__(30052)):
                     self.pDialog = xbmcgui.DialogProgress()
                     self.pDialog.create('VideoDevil',
-                                        __language__(30050),
-                                        __language__(30051))
+                                        '{0}[CR]{1}'.format(
+                                            __language__(30050),
+                                            __language__(30051))
+                                        )
                     flv_file = self.downloadMovie(url, title)
                     self.pDialog.close()
                     if flv_file is None:
@@ -1179,12 +1194,19 @@ class Main(object):
                 pass
         tmp_file = tempfile.mktemp(dir=download_path,
                                    suffix=self.videoExtension)
-        tmp_file = xbmc.makeLegalFilename(tmp_file)
-        urllib.request.urlretrieve(urllib.parse.unquote(url),
+        if six.PY2:
+            tmp_file = xbmc.makeLegalFilename(tmp_file)
+        else:
+            tmp_file = xbmcvfs.makeLegalFilename(tmp_file)
+        urllib_request.urlretrieve(urllib_parse.unquote(url),
                                    tmp_file,
                                    self.video_report_hook)
-        vidfile = xbmc.makeLegalFilename(
-            download_path + clean_filename(title) + self.videoExtension)
+        if six.PY2:
+            vidfile = xbmc.makeLegalFilename(
+                download_path + clean_filename(title) + self.videoExtension)
+        else:
+            vidfile = xbmcvfs.makeLegalFilename(
+                download_path + clean_filename(title) + self.videoExtension)
         try:
             os.rename(tmp_file, vidfile)
             return vidfile
@@ -1193,7 +1215,7 @@ class Main(object):
 
     def video_report_hook(self, count, blocksize, totalsize):
         percent = int(float(count * blocksize * 100) / totalsize)
-        self.pDialog.update(percent, __language__(30050), __language__(30051))
+        self.pDialog.update(percent, "{0}[CR]{1}".format(__language__(30050), __language__(30051)))
         if self.pDialog.iscanceled():
             raise KeyboardInterrupt
 
@@ -1205,24 +1227,24 @@ class Main(object):
         return url
 
     def parseView(self, url):
-        url = urllib.parse.unquote(url)
+        url = urllib_parse.unquote(url)
         lItem = self.currentlist.decodeUrl(url)
         url = lItem.infos_dict['url']
         ext = self.currentlist.getFileExtension(url)
         if ext == 'cfg' or ext == 'list':
             result = self.currentlist.loadLocal(url, lItem=lItem)
         elif ext == 'add':
-            url = urllib.parse.unquote_plus(url)
+            url = urllib_parse.unquote_plus(url)
             self.currentlist.addItem(url[:len(url) - 4])
             return -2
         elif ext == 'remove':
             if xbmcgui.Dialog().yesno('', __language__(30054)):
-                url = urllib.parse.unquote_plus(url)
+                url = urllib_parse.unquote_plus(url)
                 self.currentlist.removeItem(url[:len(url) - 7])
                 xbmc.executebuiltin('Container.Refresh')
             return -2
         elif ext == 'videodevil' or ext == 'dwnlddevil':
-            url = urllib.parse.unquote_plus(url)
+            url = urllib_parse.unquote_plus(url)
             url = url[:len(url) - 11]
             cfg_file = lItem.infos_dict['cfg']
             if lItem.infos_dict['type'] == 'video':
@@ -1239,8 +1261,10 @@ class Main(object):
             else:
                 self.pDialog = xbmcgui.DialogProgress()
                 self.pDialog.create('VideoDevil',
-                                    __language__(30050),
-                                    __language__(30051))
+                                    "{0}[CR]{1}".format(
+                                        __language__(30050),
+                                        __language__(30051))
+                                    )
                 self.downloadMovie(lItem.infos_dict['url'],
                                    lItem.infos_dict['title'])
                 self.pDialog.close()
@@ -1307,11 +1331,12 @@ class Main(object):
         icon = icon.replace(r'\/', '/')
         # in Frodo url parameters need to be encoded
         # ignore characters that can't be converted to ascii
-        quoted_url = urllib.parse.quote(url.encode('ascii', 'ignore'))
+        url = url.encode('utf-8', errors='ignore') if six.PY2 else url
+        quoted_url = urllib_parse.quote(url)
         u = sys.argv[0] + '?url=' + quoted_url
 
         if ' ' in icon:  # Some sites such as hentaigasm have space character in thumbnail
-            icon = urllib.parse.quote(icon, safe=':/')
+            icon = urllib_parse.quote(icon, safe=':/')
         if '$HEADERS$' in icon:
             icon = icon.replace('$HEADERS$', '|')
         if 'http' in icon and 'User-Agent' not in icon:  # Some sites such as vmasala reject Kodi User-Agent
@@ -1322,19 +1347,19 @@ class Main(object):
                     'icon': icon})
         if self.currentlist.getFileExtension(url) == 'videodevil' \
            and self.currentlist.skill.find('nodownload') == -1:
-            action = 'XBMC.RunPlugin(%s.dwnlddevil)' % u[:len(u) - 11]
+            action = 'RunPlugin(%s.dwnlddevil)' % u[:len(u) - 11]
             try:
                 liz.addContextMenuItems([(__language__(30007), action)])
             except:
                 pass
         if self.currentlist.skill.find('add') != -1:
-            action = 'XBMC.RunPlugin(%s.add)' % u
+            action = 'RunPlugin(%s.add)' % u
             try:
                 liz.addContextMenuItems([(__language__(30010), action)])
             except:
                 pass
         if self.currentlist.skill.find('remove') != -1:
-            action = 'XBMC.RunPlugin(%s.remove)' % u
+            action = 'RunPlugin(%s.remove)' % u
             try:
                 liz.addContextMenuItems([(__language__(30011), action)])
             except:
@@ -1345,7 +1370,7 @@ class Main(object):
                     cItem = lItem
                     cItem.infos_dict['url'] = info_value
                     cItem.infos_dict['type'] = 'rss'
-                    action = 'XBMC.RunPlugin(%s)' % (sys.argv[0] + '?url=' + self.currentlist.codeUrl(cItem))
+                    action = 'RunPlugin(%s)' % (sys.argv[0] + '?url=' + self.currentlist.codeUrl(cItem))
                     liz.addContextMenuItems(
                         [(info_name[info_name.find('.') + 1:], action)])
                 except:
@@ -1392,11 +1417,12 @@ class Main(object):
             if len(paramstring) <= 2:
                 if addon.getSetting('hide_warning') == 'false':
                     if not xbmcgui.Dialog().yesno(__language__(30061),
-                                                  __language__(30062),
-                                                  __language__(30063),
-                                                  __language__(30064),
-                                                  __language__(30065),
-                                                  __language__(30066)):
+                                                  "{0}[CR]{1}[CR]{2}".format(
+                                                      __language__(30062),
+                                                      __language__(30063),
+                                                      __language__(30064)),
+                                                  nolabel=__language__(30065),
+                                                  yeslabel=__language__(30066)):
                         return
                 if enable_debug:
                     xbmc.log('Settings directory: ' + str(settingsDir), xbmc.LOGNOTICE)
@@ -1429,8 +1455,8 @@ class Main(object):
                 currentView = paramstring[5:]
                 if enable_debug:
                     # unquote twice otherwise url is not unquoted
-                    unquoted_currentView = urllib.parse.unquote(currentView)
-                    unquoted_currentView = urllib.parse.unquote(unquoted_currentView)
+                    unquoted_currentView = urllib_parse.unquote(currentView)
+                    unquoted_currentView = urllib_parse.unquote(unquoted_currentView)
                     xbmc.log(
                         'currentView: ' + unquoted_currentView.replace('&', '\n'), xbmc.LOGNOTICE)
                 if self.parseView(currentView) == 0:
