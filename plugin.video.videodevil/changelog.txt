@@ -1,3 +1,7 @@
+[B]Version 1.7.246[/B]
+
+- Updated: Use kodi-six
+
 [B]Version 1.7.245[/B]
 
 - Removed: fapdu
