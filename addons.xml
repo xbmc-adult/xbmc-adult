@@ -219,17 +219,19 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.7.245"
+  version="1.7.246"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
-   <import addon="xbmc.python" version="2.14.0"/>
-   <import addon="script.module.future" version="0.0.1"/>
+    <!-- Commenting xbmc.python allows install on all versions of Kodi -->
+    <!-- <import addon="xbmc.python" version="2.14.0"/> -->
+    <import addon="script.module.six"/>
+    <import addon="script.module.kodi-six"/>
   </requires>
   <extension
     point="xbmc.python.pluginsource"
     library="default.py">
-   <provides>video</provides>
+    <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="de_DE">Spielen Sie Videos von verschiedenen Streaming-Sites für Erwachsene ab</summary>
@@ -251,6 +253,9 @@
     <disclaimer lang="pt_PT">O autor não hospeda nem distribui nenhum conteúdo exibido por este complemento. O autor não tem nenhuma afiliação com o provedor de conteúdo.</disclaimer>
     <disclaimer lang="sv_SE">Författaren är inte värd eller distribuerar något av innehållet som visas av detta tillägg. Författaren har ingen anknytning till innehållsleverantören.</disclaimer>
     <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
   </extension>
 </addon>
 
