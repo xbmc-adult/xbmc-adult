@@ -36,7 +36,7 @@ USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/
 if cj:
     if os.path.isfile(xbmc.translatePath(cookiePath)):
         try:
-            cj.load(xbmc.translatePath(cookiePath))
+            cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
         except http_cookiejar.LoadError as e:
             xbmc.log('Failed to open cookie file {}'.format(e), xbmc.LOGNOTICE)
     opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
@@ -121,7 +121,7 @@ def prefix(s):
     if not s:
         return ''
     try:
-        if 'http' not in s:
+        if not s.startswith('http'):
             s = 'https:' + s
     except:
         if enable_debug:
@@ -675,7 +675,11 @@ class CCurrentList(object):
             curr_url = urllib_parse.unquote(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
+                cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+                opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
+                urllib_request.install_opener(opener)
                 handle = urlopen(req)
+                cj.save(xbmc.translatePath(cookiePath), ignore_discard=True)
             except:
                 if enable_debug:
                     traceback.print_exc(file=sys.stdout)
@@ -693,14 +697,7 @@ class CCurrentList(object):
                 if r:
                     encoding = r.group(1).decode('latin-1') if six.PY3 else r.group(1)
 
-            data = undecoded.decode(encoding.lower(), errors='ignore') if encoding else undecoded.decode('ascii', errors='ignore')
-
-            try:
-                cj.save(cookiePath)
-            except ValueError:
-                if enable_debug:
-                    xbmc.log('Failed to save the cookie jar,'
-                             ' expire time out of bounds', xbmc.LOGNOTICE)
+            data = undecoded.decode(encoding.lower(), errors='ignore') if encoding else undecoded.decode('latin-1', errors='ignore')
             current_url_page = curr_url
             if enable_debug:
                 f.write(data.encode('utf-8') if six.PY2 else data)
@@ -930,7 +927,11 @@ class ContentFetcher(object):
             xbmc.log('Sending HTTP-Request %s (%s)' %
                      (request.get_full_url(), name), xbmc.LOGNOTICE)
         try:
+            cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+            opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
+            urllib_request.install_opener(opener)
             response = opener.open(request)
+            cj.save(xbmc.translatePath(cookiePath), ignore_discard=True)
         except urllib_error.HTTPError as e:
             xbmc.log('HTTP-Request failed %s %s' %
                      (e, request.get_full_url()), xbmc.LOGNOTICE)
@@ -950,7 +951,7 @@ class ContentFetcher(object):
             if r:
                 encoding = r.group(1).decode('latin-1') if six.PY3 else r.group(1)
 
-        contents = contents.decode(encoding, errors='ignore') if encoding else contents.decode('ascii', errors='ignore')
+        contents = contents.decode(encoding, errors='ignore') if encoding else contents.decode('latin-1', errors='ignore')
         return contents
 
     def isCached(self, request):
@@ -1070,6 +1071,14 @@ class Main(object):
             if match == '':
                 return
 
+        hdrs = {'User-Agent': USERAGENT,
+                'Referer': original_url}
+        cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+        cookies = {c.name: c.value for c in cj}
+        if cookies:
+            cookies = "; ".join("=".join(pair) for pair in cookies.items())
+            hdrs.update({'Cookie': cookies})
+        match += '|{0}'.format('&'.join(['{0}={1}'.format(key, urllib_parse.quote_plus(hdrs[key])) for key in hdrs]))
         source.match = match
         self.urlList.append(source.match)
         self.extensionList.append(source.extension)
@@ -1444,6 +1453,8 @@ class Main(object):
                 if enable_debug:
                     xbmc.log('Purging cache directory', xbmc.LOGNOTICE)
                 self.purgeCache()
+                cj.clear()
+                cj.save(xbmc.translatePath(cookiePath))
                 if enable_debug:
                     xbmc.log('Cache directory purged', xbmc.LOGNOTICE)
                 self.parseView('sites.list')
