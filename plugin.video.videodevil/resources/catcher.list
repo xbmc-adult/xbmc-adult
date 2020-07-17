@@ -69,7 +69,7 @@ build=%s|User-Agent=iPad
 quality=standard
 ########################################################
 title=desihdx.com
-target=source\s*src="([^"]+)"
+target=<source[^>]+?src="([^"]+)"
 url=%s
 build=http://desihdx.com%s
 extension=mp4
