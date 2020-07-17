@@ -632,18 +632,21 @@ header=Referer|https://www.vporn.com
 quality=high
 ########################################################
 title=pornhd.com
-target=<source src="([^"]+)".+?360p
+target=<source\s*src="([^"]+)[^>]+?label=['"]360p
 url=%s
 header=Referer|https://www.pornhd.com/
 quality=low
-target=<source src="([^"]+)".+?480p
+extension=mp4
+target=<source\s*src="([^"]+)[^>]+?label=['"]480p
 url=%s
 header=Referer|https://www.pornhd.com/
 quality=standard
-target=sources:.+?720p":"([^"]+)^M
+extension=mp4
+target=<source\s*src="([^"]+)[^>]+?label=['"]720p
 url=%s
 header=Referer|https://www.pornhd.com/
 quality=high
+extension=mp4
 ########################################################
 title=faapy.com
 target=(?:video_url|file):\s['"]([^'"]+)
