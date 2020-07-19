@@ -1425,13 +1425,24 @@ class Main(object):
             paramstring = sys.argv[2]
             if len(paramstring) <= 2:
                 if addon.getSetting('hide_warning') == 'false':
-                    if not xbmcgui.Dialog().yesno(__language__(30061),
-                                                  "{0}[CR]{1}[CR]{2}".format(
-                                                      __language__(30062),
-                                                      __language__(30063),
-                                                      __language__(30064)),
-                                                  nolabel=__language__(30065),
-                                                  yeslabel=__language__(30066)):
+                    if six.PY2:
+                        msg = "{0} {1} {2}".format(__language__(30062).encode('utf8'),
+                                                   __language__(30063).encode('utf8'),
+                                                   __language__(30064).encode('utf8'))
+                        nolabel = __language__(30065).encode('utf8')
+                        yeslabel = __language__(30066).encode('utf8')
+                        heading = __language__(30061).encode('utf8')
+                    else:
+                        msg = "{0} {1} {2}".format(__language__(30062),
+                                                   __language__(30063),
+                                                   __language__(30064))
+                        nolabel = __language__(30065)
+                        yeslabel = __language__(30066)
+                        heading = __language__(30061)
+                    if not xbmcgui.Dialog().yesno(heading,
+                                                  msg,
+                                                  nolabel=nolabel,
+                                                  yeslabel=yeslabel):
                         return
                 if enable_debug:
                     xbmc.log('Settings directory: ' + str(settingsDir), xbmc.LOGNOTICE)
