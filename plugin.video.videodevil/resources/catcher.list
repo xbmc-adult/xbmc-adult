@@ -893,3 +893,13 @@ ext_header=Referer|https://www.xruniversity.com/
 extension=m3u8
 quality=standard
 ########################################################
+title=tranny.one
+target=data-mobile-videolink="([^"]+)
+url=%s
+extension=mp4
+quality=standard
+target=data-videolink="([^"]+)
+url=%s
+extension=mp4
+quality=high
+########################################################
