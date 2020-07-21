@@ -901,3 +901,13 @@ ext_header=Referer|https://view.vzaar.com/
 extension=mp4
 quality=standard
 ########################################################
+title=tranny.one
+target=data-mobile-videolink="([^"]+)
+url=%s
+extension=mp4
+quality=standard
+target=data-videolink="([^"]+)
+url=%s
+extension=mp4
+quality=high
+########################################################
