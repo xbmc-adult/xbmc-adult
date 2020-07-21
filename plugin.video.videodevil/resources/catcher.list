@@ -892,4 +892,12 @@ ext_url=%s
 ext_header=Referer|https://www.xruniversity.com/
 extension=m3u8
 quality=standard
+target=<iframe[^>]+?class="vzaar[^>]+?name="vzvd-([^"]+)
+url=%s
+build=https://playback.dacast.com/content/access?contentId=%s&provider=vzaar
+ext_target="mp4":"([^"]+)
+ext_url=%s
+ext_header=Referer|https://view.vzaar.com/
+extension=mp4
+quality=standard
 ########################################################
