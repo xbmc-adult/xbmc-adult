@@ -459,8 +459,9 @@ extension=mp4
 quality=fallback
 ########################################################
 title=tnaflix.com
-target=([^"]+mp4[^"]+)
+target=contentUrl"\scontent="([^"]+)
 url=%s
+extension=mp4
 quality=standard
 ########################################################
 title=slutload.com
