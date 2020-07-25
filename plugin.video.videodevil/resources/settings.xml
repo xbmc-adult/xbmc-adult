@@ -45,6 +45,7 @@
     <setting id="Pornhd" type="bool" label="Pornhd" default="true" />
     <setting id="Pornhub" type="bool" label="Pornhub" default="true" />
     <setting id="Pornmaki" type="bool" label="Pornmaki" default="true" />
+    <setting id="PornOne" type="bool" label="PornOne" default="true" />
     <setting id="PornoMovies" type="bool" label="PornoMovies" default="true" />
     <setting id="PornoXO" type="bool" label="PornoXO" default="true" />
     <setting id="Porntrex" type="bool" label="Porntrex" default="true" />
@@ -62,7 +63,6 @@
     <setting id="TnAflix" type="bool" label="TnAflix" default="true" />
     <setting id="TrannyOne" type="bool" label="TrannyOne" default="true" />
     <setting id="Tukif" type="bool" label="Tukif" default="true" />
-    <setting id="Vporn" type="bool" label="Vporn" default="true" />
     <setting id="xHamster" type="bool" label="xHamster" default="true" />
     <setting id="XRUniversity" type="bool" label="XRUniversity" default="true" />
     <setting id="XVideos" type="bool" label="XVideos" default="true" />
