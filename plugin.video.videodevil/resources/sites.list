@@ -253,6 +253,13 @@ director=VideoDevil
 icon=video.devil.image|pornomovies.png
 url=pornomovies.com.cfg
 ########################################################
+title=PornOne
+type=rss
+genre=mixed
+director=VideoDevil
+icon=https://th-eu4.pornone.com/images/logo-dark-theme.png
+url=pornone.com.cfg
+########################################################
 title=PornoXO
 type=rss
 genre=pornoxo
@@ -364,13 +371,6 @@ genre=Tukif
 director=VideoDevil
 icon=video.devil.image|tukif.png
 url=tukif.com.cfg
-########################################################
-title=Vporn
-type=rss
-genre=vporn.com
-director=VideoDevil
-icon=https://th-us2.vporn.com/images/logo%20Dark%20theme.png
-url=vporn.com.cfg
 ########################################################
 title=xHamster
 type=rss
