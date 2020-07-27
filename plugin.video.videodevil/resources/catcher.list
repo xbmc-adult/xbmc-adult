@@ -670,9 +670,16 @@ extension=mp4
 quality=fallback
 ########################################################
 title=spankingtube.com
-target=<source src="([^"]+)"
+target=<source\s*src="([^"]+)".+?res='540
 url=%s
+extension=mp4
+action=prefix
 quality=standard
+target=<source\s*src="([^"]+)".+?res='720
+url=%s
+extension=mp4
+action=prefix
+quality=high
 ########################################################
 title=sunporno.com
 target=video\s*src="([^"]+)
