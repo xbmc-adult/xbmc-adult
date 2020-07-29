@@ -48,7 +48,6 @@
     <setting id="PornoMovies" type="bool" label="PornoMovies" default="true" />
     <setting id="PornoXO" type="bool" label="PornoXO" default="true" />
     <setting id="Porntrex" type="bool" label="Porntrex" default="true" />
-    <setting id="RarTube" type="bool" label="RarTube" default="true" />
     <setting id="RedTube" type="bool" label="RedTube" default="true" />
     <setting id="Sexu" type="bool" label="Sexu" default="true" />
     <setting id="Slutload" type="bool" label="Slutload" default="true" />
