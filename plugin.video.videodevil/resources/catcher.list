@@ -464,14 +464,6 @@ url=%s
 extension=mp4
 quality=standard
 ########################################################
-title=slutload.com
-target=data-url="([^"]+)"
-url=%s
-build=http:%s
-extension=mp4
-action=decode
-quality=standard
-########################################################
 title=thumbzilla.com
 target=data-quality="([^"]+)">240P
 url=%s
