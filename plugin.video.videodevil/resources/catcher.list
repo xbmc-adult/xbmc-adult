@@ -304,7 +304,7 @@ quality=standard
 title=pornomovies
 target=source\s*src="([^"]+)"
 url=%s
-build=https:%s
+action=prefix
 quality=standard
 ########################################################
 title=simple-match
