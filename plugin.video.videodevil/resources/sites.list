@@ -288,13 +288,6 @@ director=VideoDevil
 icon=https://sexu.com/images/logo.png
 url=sexu.com.cfg
 ########################################################
-title=Slutload
-type=rss
-genre=slutload
-director=VideoDevil
-icon=http://www.slutload.com/img/logo_desktop.png
-url=slutload.com.cfg
-########################################################
 title=SmutIndia
 type=rss
 genre=Indian
