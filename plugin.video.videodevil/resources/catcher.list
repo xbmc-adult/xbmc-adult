@@ -393,31 +393,25 @@ extension=mp4
 quality=high
 ########################################################
 title=pornhub.com
-target=var player_quality_240p = '([^"]+.mp4[^']*)';
+target=quality":"240[^"]*",[^}]+videoUrl":"(http[^"]+)
 url=%s
+header=Cookie|platform=tablet
+extension=mp4
 quality=low
-target=var player_quality_480p = '([^"]+.mp4[^']*)';
+target=quality":"480[^"]*",[^}]+videoUrl":"(http[^"]+)
 url=%s
+header=Cookie|platform=tablet
+extension=mp4
 quality=standard
-target=var player_quality_720p = '([^"]+.mp4[^']*)';
-url=%s
-quality=high
-target=var player_quality_1080p = '([^"]+.mp4[^']*)';
-url=%s
-quality=high
-########################################################
-title=m.pornhub.com
-target=quality":"480[^"]*",[^}]+videoUrl":"(https:[^"]+)
+target=quality":"720[^"]*",[^}]+videoUrl":"(http[^"]+)
 url=%s
 header=Cookie|platform=tablet
-quality=standard
-target=quality":"720[^"]*",[^}]+videoUrl":"(https:[^"]+)
-url=%s
-header=Cookie|platform=tablet
+extension=mp4
 quality=high
-target=quality":"1080[^"]*",[^}]+videoUrl":"(https:[^"]+)
+target=quality":"1080[^"]*",[^}]+videoUrl":"(http[^"]+)
 url=%s
 header=Cookie|platform=tablet
+extension=mp4
 quality=high
 ########################################################
 title=empflix.com
