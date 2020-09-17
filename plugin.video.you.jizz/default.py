@@ -28,7 +28,7 @@ def CATEGORIES():
 
 
 def INDEX(url):
-        full_regex = r'class="frame[^"]*" href="(/videos/.+?\d+.html)" target="_self">.+?img-responsive" (?:alt=""|) src="([^"]+jpg[^"]+)"  .+?title">[^>]+>([^<]+).+?time">([\d:]+)'
+        full_regex = r'class="frame[^"]*" href="(/videos/.+?\d+.html)" target="_self".+?img-responsive" (?:alt=""|) src="([^"]+jpg[^"]*)" .+?title">[^>]+>([^<]+).+?time">([\d:]+)'
         addDir('Search', BASE_URL + '/search/%s-1.html', 3, '')
         addDir('Home', '', None, '')
         link = getHtml(url)
@@ -44,7 +44,7 @@ def INDEX(url):
 def VIDEOLINKS(url, name):
         h = HTMLParser.HTMLParser()
         link = getHtml(BASE_URL + '' + url)
-        encodings = re.compile('var encodings = (\[[.\s\S]+?\]);').findall(link)
+        encodings = re.compile('var dataEncodings = (\[[.\s\S]+?\]);').findall(link)
 
         if not encodings:
                 xbmc.log("Failed to find video URL")
