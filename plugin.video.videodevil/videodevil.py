@@ -84,7 +84,13 @@ def clean1(s):  # remove &XXX;
     if not s:
         return ''
     h = html_parser.HTMLParser()
-    return h.unescape(s)
+    try:
+      rets = h.unescape(s)
+    except AttributeError:
+      import html
+      rets = html.unescape(s)
+
+    return rets
 
 
 def clean2(s):  # remove \\uXXX
