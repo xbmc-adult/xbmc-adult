@@ -4,11 +4,13 @@
 # Written by Ksosez with help from anarchintosh
 # Released under GPL(v2)
 
-import urllib, urllib2, htmllib
+from __future__ import absolute_import
+import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error, six.moves.urllib.request, six.moves.urllib.error, six.moves.urllib.parse
 import re, json
 import os
 import sys
-import xbmcplugin, xbmcaddon, xbmcgui, xbmc
+from kodi_six import xbmcplugin, xbmcaddon, xbmcgui, xbmc
+from six.moves import range
 
 #addon name
 __addonname__ = 'plugin.video.fantasticc'
@@ -48,7 +50,8 @@ SUPPORTEDSITES = ['deviantclip', 'empflix', 'madthumbs', 'pornhub', 'phncdn',
 
 
 def get_html(url, cookie=None, user_agent=None, referer=None):
-    return gethtml.get(url, __datapath__, cookie=cookie, user_agent=user_agent, referer=referer)
+    d = gethtml.get(url, __datapath__, cookie=cookie, user_agent=user_agent, referer=referer)
+    return six.ensure_text(d) if six.PY3 else d
 
 
 def Notify(title, message, times, icon):
@@ -211,7 +214,7 @@ def SEARCH(url):
         search = kb.getText()
 
         # if the search text is not nothing
-        if search is not '':
+        if search != '':
 
             # encode the search phrase to put in url
             # (ie replace ' ' with '+' etc)
@@ -344,7 +347,6 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     for gurl, name, chtml in match:
         xbmc.log('Name [%s]' % name)
         realurl = 'https://fantasti.cc%s' % gurl
-        name = unescape(name)
         mode = 1
 
         #scrape number of vids
@@ -408,7 +410,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('(https?://www.xvideos.com/.+?)"').findall(html)
         html = get_html(match[0], user_agent=ios_ua)
         match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
-        fetchurl = urllib.unquote(match[0])
+        fetchurl = six.moves.urllib.parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'pornhub' in url2 or 'phncdn' in url2:
         match = re.compile('source="([^"]+)').findall(html)
@@ -416,7 +418,7 @@ def GET_LINK(url, collections, url2):
         html = get_html(linkurl.replace('http://', 'https://'),
                         'platform=tablet')
         match = re.compile('quality":"(?:480|720|1080)[^"]*",[^}]+videoUrl":"(https:[^"]+)').findall(html)
-        each = urllib2.unquote(match[0])
+        each = six.moves.urllib.parse.unquote(match[0])
         fetchurl = each.replace('\\', '') + '|Referer=https://www.pornhub.com/'
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'empflix' in url2:
@@ -428,7 +430,7 @@ def GET_LINK(url, collections, url2):
         html = get_html(urlget2)
         match = re.compile('name="config" value="([^"]+)"').findall(html)
         for configurl in match:
-            linkurl = urllib.unquote(configurl)
+            linkurl = six.moves.urllib.parse.unquote(configurl)
         html = get_html(linkurl)
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(html)
         fetchurl = match2[0]
@@ -479,14 +481,14 @@ def GET_LINK(url, collections, url2):
         html = get_html(urlget2)
         xbmc.log('html %s' % html)
         match = re.compile('location>\s*([^<]+)',re.DOTALL).findall(html)
-        fetchurl = urllib.unquote(match[0])
+        fetchurl = six.moves.urllib.parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'redtube' in url2 or 'redtube' in embed:
         match = re.compile(r'(https?://(?:|www\.|embed\.)redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
         match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
         try:
-            fetchurl = urllib.unquote(match[0])
+            fetchurl = six.moves.urllib.parse.unquote(match[0])
         except IndexError:
             if re.search('video has been removed', html):
                 Notify('Failure', 'Video Removed', '4000', default_image)
@@ -498,7 +500,7 @@ def GET_LINK(url, collections, url2):
                            '"(https?://www.tube8.com/[^"]+)"').findall(html)
         html = get_html(match[0])
         match = re.compile('page_params.videoUrlJS = "([^"]+)').findall(html)
-        fetchurl = urllib2.unquote(match[0])
+        fetchurl = six.moves.urllib.parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'you_porn' in url2 or 'you_porn' in embed:
         match = re.compile('"(https?://www.youporn.com/watch/[^"]+)"'
@@ -525,7 +527,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('(https?://pornxs.com/.+?)"').findall(html)
         html = get_html(match[0])
         match = re.compile('config-final-url="(.+?)"').findall(html)
-        fetchurl = urllib.unquote(match[0])
+        fetchurl = six.moves.urllib.parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'xhcdn' in url2:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
@@ -540,7 +542,7 @@ def GET_LINK(url, collections, url2):
         qualityarray = match
         # Play highest quality version
         qualityarray.reverse()
-        fetchurl = urllib.unquote(qualityarray[0])
+        fetchurl = six.moves.urllib.parse.unquote(qualityarray[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     else:
         xbmc.log('Unknown source (%s).' % url2)
@@ -572,9 +574,9 @@ def get_params():
 
 
 def addLink(name, url, mode, iconimage):
-    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
-        + "&name=" + urllib.quote_plus(name) + "&iconimage=" \
-        + urllib.quote_plus(iconimage)
+    u = sys.argv[0] + "?url=" + six.moves.urllib.parse.quote_plus(url) + "&mode=" + str(mode) \
+        + "&name=" + six.moves.urllib.parse.quote_plus(name) + "&iconimage=" \
+        + six.moves.urllib.parse.quote_plus(iconimage)
     ok = True
     liz = xbmcgui.ListItem(name)
     liz.setArt({'thumb': iconimage,
@@ -588,8 +590,8 @@ def addLink(name, url, mode, iconimage):
 
 
 def addDir(name, url, mode, iconimage):
-    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) \
-        + "&name=" + urllib.quote_plus(name)
+    u = sys.argv[0] + "?url=" + six.moves.urllib.parse.quote_plus(url) + "&mode=" + str(mode) \
+        + "&name=" + six.moves.urllib.parse.quote_plus(name)
     ok = True
     liz = xbmcgui.ListItem(name)
     liz.setArt({'thumb': iconimage,
@@ -601,13 +603,6 @@ def addDir(name, url, mode, iconimage):
     return ok
 
 
-def unescape(s):
-    p = htmllib.HTMLParser(None)
-    p.save_bgn()
-    p.feed(s)
-    return p.save_end()
-
-
 topparams = get_params()
 topurl = None
 topname = None
@@ -615,11 +610,11 @@ topmode = None
 topthumbnail = None
 
 try:
-    topurl = urllib.unquote_plus(topparams['url'])
+    topurl = six.moves.urllib.parse.unquote_plus(topparams['url'])
 except:
     pass
 try:
-    topname = urllib.unquote_plus(topparams['name'])
+    topname = six.moves.urllib.parse.unquote_plus(topparams['name'])
 except:
     pass
 try:
@@ -628,7 +623,7 @@ except:
     pass
 
 try:
-    topthumbnail = urllib.unquote_plus(topparams['iconimage'])
+    topthumbnail = six.moves.urllib.parse.unquote_plus(topparams['iconimage'])
 except:
     pass
 

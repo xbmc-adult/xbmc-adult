@@ -19,8 +19,9 @@ to load html with cookies
 source = gethtml.get(url, 'my-path-to-cookiefile')
 '''
 
-import urllib2
-import cookielib
+from __future__ import absolute_import
+import six.moves.urllib.request, six.moves.urllib.error, six.moves.urllib.parse
+import six.moves.http_cookiejar
 import os
 import re
 import sys
@@ -56,9 +57,9 @@ def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
         if not os.path.exists(cookiepath):
             with open(cookiepath, 'w') as f:
                 f.write('#LWP-Cookies-2.0\n')
-        cj = cookielib.LWPCookieJar()
+        cj = six.moves.http_cookiejar.LWPCookieJar()
         cj.load(cookiepath)
-        req = urllib2.Request(url)
+        req = six.moves.urllib.request.Request(url)
         if user_agent:
             req.add_header('User-Agent', user_agent)
         else:
@@ -67,10 +68,10 @@ def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
             req.add_header('Referer', referer)
         if cookie:
             req.add_header('Cookie', cookie)
-        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        opener = six.moves.urllib.request.build_opener(six.moves.urllib.request.HTTPCookieProcessor(cj))
         try:
             response = opener.open(req)
-        except urllib2.URLError as e:
+        except six.moves.urllib.error.URLError as e:
             xbmc.log('%s Error opening %s' % (e, url))
             sys.exit(1)
         link = response.read()
@@ -81,14 +82,14 @@ def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
 def _loadwithoutcookies(url, user_agent=None, referer=None):
     xbmc.log('Loading without cookies')
     url = url.replace('http:', 'https:')
-    req = urllib2.Request(url)
+    req = six.moves.urllib.request.Request(url)
     if user_agent:
         req.add_header('User-Agent', user_agent)
     if referer:
         req.add_header('Referer', referer)
     try:
-        response = urllib2.urlopen(req)
-    except urllib2.HTTPError as e:
+        response = six.moves.urllib.request.urlopen(req)
+    except six.moves.urllib.error.HTTPError as e:
         xbmc.log("%s %s" % (url, e.reason), xbmc.LOGFATAL)
         sys.exit(0)
     link = response.read()

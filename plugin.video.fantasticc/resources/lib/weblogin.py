@@ -21,10 +21,12 @@
  successful.
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 import os
-import urllib
-import urllib2
-import cookielib
+import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error
+import six.moves.urllib.request, six.moves.urllib.error, six.moves.urllib.parse
+import six.moves.http_cookiejar
 import json
 
 ### TESTING SETTINGS (will only be used when running this file independent of
@@ -70,7 +72,7 @@ def doLogin(cookiepath, username, password):
         header_string = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
         #build the form data necessary for the login
-        login_data = urllib.urlencode({'user':username,
+        login_data = six.moves.urllib.parse.urlencode({'user':username,
                                        'pass':password,
                                        'memento':1,
                                        'x':0,
@@ -80,11 +82,11 @@ def doLogin(cookiepath, username, password):
                                        })
 
         #build the request we will make
-        req = urllib2.Request(login_url)
+        req = six.moves.urllib.request.Request(login_url)
         req.add_header('User-Agent', header_string)
 
         #initiate the cookielib class
-        cj = cookielib.LWPCookieJar()
+        cj = six.moves.http_cookiejar.LWPCookieJar()
 
         # Setup no redirects
         class NoRedirection(urllib2.HTTPErrorProcessor):
@@ -93,11 +95,11 @@ def doLogin(cookiepath, username, password):
             https_response = http_response
 
         #install cookielib into the url opener, so that cookies are handled
-        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj), NoRedirection)
-        urllib2.install_opener(opener)
+        opener = six.moves.urllib.request.build_opener(six.moves.urllib.request.HTTPCookieProcessor(cj), NoRedirection)
+        six.moves.urllib.request.install_opener(opener)
         #do the login and get the response
 
-        source = urllib2.urlopen(req, login_data).read()
+        source = six.moves.urllib.request.urlopen(req, login_data).read()
 
         #check the received html for a string that will tell us if the user is
         # logged in
@@ -117,7 +119,7 @@ def doLogin(cookiepath, username, password):
 #code to enable running the .py independent of addon for testing
 if __name__ == "__main__":
     if myusername is '' or mypassword is '':
-        print 'YOU HAVE NOT SET THE USERNAME OR PASSWORD!'
+        print('YOU HAVE NOT SET THE USERNAME OR PASSWORD!')
     else:
         logged_in = doLogin(os.getcwd(), myusername, mypassword)
-        print 'LOGGED IN:', logged_in
+        print('LOGGED IN:', logged_in)
