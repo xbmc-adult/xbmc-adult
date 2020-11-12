@@ -844,11 +844,11 @@ extension=mp4
 quality=standard
 ########################################################
 title=tranny.one
-target=data-mobile-videolink="([^"]+)
+target=video_url\s*=\s*'([^']+)';\n[^\n]+\n[^\n]+low
 url=%s
 extension=mp4
 quality=standard
-target=data-videolink="([^"]+)
+target=video_url\s*=\s*'([^']+)';\n[^\n]+\n[^\n]+high
 url=%s
 extension=mp4
 quality=high
