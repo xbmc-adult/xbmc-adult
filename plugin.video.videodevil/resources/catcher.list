@@ -492,11 +492,8 @@ extension=webm
 quality=fallback
 ########################################################
 title=yuvutu.com
-target=<iframe src="([^"]+)"
+target=sources:\s*\[\s*{\s*file\s*:\s*"([^"]+)
 url=%s
-build= http://www.yuvutu.com%s
-ext_target=file:\s*"([^"]+)"
-ext_url=%s
 quality=standard
 ########################################################
 title=hentaigasm.com
