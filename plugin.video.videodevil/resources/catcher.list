@@ -685,7 +685,7 @@ extension=mp4
 quality=standard
 ########################################################
 title=stileproject.com
-target=source\s*src="([^"]+)
+target=desktopFile\s*=\s*'([^']+)
 url=%s
 extension=mp4
 quality=high
