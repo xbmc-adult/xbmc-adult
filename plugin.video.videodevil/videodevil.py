@@ -86,14 +86,8 @@ entitydefs2 = {
 def clean1(s):  # remove &XXX;
     if not s:
         return ''
-    h = html_parser.HTMLParser()
-    try:
-      rets = h.unescape(s)
-    except AttributeError:
-      import html
-      rets = html.unescape(s)
-
-    return rets
+    h = six.moves.html_parser.HTMLParser()
+    return h.unescape(s) if PY3 else h.unescape(s.decode('utf8')).encode('utf8')
 
 
 def clean2(s):  # remove \\uXXX
