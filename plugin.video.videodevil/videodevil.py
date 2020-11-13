@@ -13,6 +13,10 @@ from six.moves import http_cookiejar, html_entities, http_client, html_parser
 http_client.HTTPConnection._http_vsn = 10
 http_client.HTTPConnection._http_vsn_str = 'HTTP/1.1'
 
+# python 2 and 3 compatibility defs
+INFO = xbmc.LOGINFO if six.PY3 else xbmc.LOGNOTICE
+TRANSLATEPATH = xbmcvfs.translatePath if six.PY3 else xbmc.translatePath
+
 addon = xbmcaddon.Addon(id='plugin.video.videodevil')
 __language__ = addon.getLocalizedString
 __addonname__ = addon.getAddonInfo('name')
@@ -20,16 +24,13 @@ __icon__ = addon.getAddonInfo('icon')
 rootDir = addon.getAddonInfo('path')
 if rootDir[-1] == ';':
     rootDir = rootDir[0:-1]
-rootDir = xbmc.translatePath(rootDir)
+rootDir = TRANSLATEPATH(rootDir)
 settingsDir = addon.getAddonInfo('profile')
-settingsDir = xbmc.translatePath(settingsDir)
+settingsDir = TRANSLATEPATH(settingsDir)
 cacheDir = os.path.join(settingsDir, 'cache')
 cookiePath = os.path.join(settingsDir, 'cookies.lwp')
 resDir = os.path.join(rootDir, 'resources')
 imgDir = os.path.join(resDir, 'images')
-
-# python 2 and 3 compatibility defs
-INFO = xbmc.LOGINFO if six.PY3 else xbmc.LOGNOTICE
 
 urlopen = urllib_request.urlopen
 cj = http_cookiejar.LWPCookieJar()
@@ -37,9 +38,9 @@ Request = urllib_request.Request
 USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18'
 
 if cj:
-    if os.path.isfile(xbmc.translatePath(cookiePath)):
+    if os.path.isfile(TRANSLATEPATH(cookiePath)):
         try:
-            cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+            cj.load(TRANSLATEPATH(cookiePath), ignore_discard=True)
         except http_cookiejar.LoadError as e:
             xbmc.log('Failed to open cookie file {}'.format(e), INFO)
     opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
@@ -86,8 +87,8 @@ entitydefs2 = {
 def clean1(s):  # remove &XXX;
     if not s:
         return ''
-    h = six.moves.html_parser.HTMLParser()
-    return h.unescape(s) if PY3 else h.unescape(s.decode('utf8')).encode('utf8')
+    h = html_parser.HTMLParser()
+    return h.unescape(s) if six.PY3 else h.unescape(s.decode('utf8')).encode('utf8')
 
 
 def clean2(s):  # remove \\uXXX
@@ -678,11 +679,11 @@ class CCurrentList(object):
             curr_url = urllib_parse.unquote(curr_url)
             req = Request(curr_url, None, txheaders)
             try:
-                cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+                cj.load(TRANSLATEPATH(cookiePath), ignore_discard=True)
                 opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
                 urllib_request.install_opener(opener)
                 handle = urlopen(req)
-                cj.save(xbmc.translatePath(cookiePath), ignore_discard=True)
+                cj.save(TRANSLATEPATH(cookiePath), ignore_discard=True)
             except:
                 if enable_debug:
                     traceback.print_exc(file=sys.stdout)
@@ -930,11 +931,11 @@ class ContentFetcher(object):
             xbmc.log('Sending HTTP-Request %s (%s)' %
                      (request.get_full_url(), name), INFO)
         try:
-            cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+            cj.load(TRANSLATEPATH(cookiePath), ignore_discard=True)
             opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
             urllib_request.install_opener(opener)
             response = opener.open(request)
-            cj.save(xbmc.translatePath(cookiePath), ignore_discard=True)
+            cj.save(TRANSLATEPATH(cookiePath), ignore_discard=True)
         except urllib_error.HTTPError as e:
             xbmc.log('HTTP-Request failed %s %s' %
                      (e, request.get_full_url()), INFO)
@@ -1076,7 +1077,7 @@ class Main(object):
 
         hdrs = {'User-Agent': USERAGENT,
                 'Referer': original_url}
-        cj.load(xbmc.translatePath(cookiePath), ignore_discard=True)
+        cj.load(TRANSLATEPATH(cookiePath), ignore_discard=True)
         cookies = {c.name: c.value for c in cj}
         if cookies:
             cookies = "; ".join("=".join(pair) for pair in cookies.items())
@@ -1468,7 +1469,7 @@ class Main(object):
                     xbmc.log('Purging cache directory', INFO)
                 self.purgeCache()
                 cj.clear()
-                cj.save(xbmc.translatePath(cookiePath))
+                cj.save(TRANSLATEPATH(cookiePath))
                 if enable_debug:
                     xbmc.log('Cache directory purged', INFO)
                 self.parseView('sites.list')
