@@ -1,6 +1,15 @@
 [B]Version 1.8.5[/B]
 
 - Fixes for Kodi 19
+- Updated: spankbang
+- Updated: stileproject
+- Updated: tukif
+- Updated: trannyone
+- Updated: yuvutu
+
+[B]Version 1.8.5[/B]
+
+- Fixes for Kodi 19
 
 [B]Version 1.8.4[/B]
 
