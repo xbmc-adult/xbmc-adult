@@ -392,7 +392,7 @@ extension=mp4
 quality=high
 ########################################################
 title=empflix.com
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<res>360p</[^/]+([^]]+)
@@ -401,7 +401,7 @@ ext_header=Referer|https://www.empflix.com/
 ext_build=https:%s|Referer=https://www.empflix.com/
 extension=mp4
 quality=low
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<res>480p</[^/]+([^]]+)
@@ -410,7 +410,7 @@ ext_header=Referer|https://www.empflix.com/
 ext_build=https:%s|Referer=https://www.empflix.com/
 extension=mp4
 quality=standard
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<res>720p</[^/]+([^]]+)
@@ -419,7 +419,7 @@ ext_header=Referer|https://www.empflix.com/
 ext_build=https:%s|Referer=https://www.empflix.com/
 extension=mp4
 quality=high
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<videoLink>[^/]+([^]]+)
