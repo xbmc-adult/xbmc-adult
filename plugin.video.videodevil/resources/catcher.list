@@ -638,14 +638,17 @@ title=perfectgirls.net
 target=href="([^"]+)"\s*class="player[^>]+[^-]+-text-small">360p
 url=%s
 extension=mp4
+build=http:%s
 quality=low
 target=href="([^"]+)"\s*class="player[^>]+[^-]+-text-small">480p
 url=%s
 extension=mp4
+build=http:%s
 quality=standard
 target=href="([^"]+)"\s*class="player[^>]+[^-]+-text-small">720p
 url=%s
 extension=mp4
+build=http:%s
 quality=high
 ########################################################
 title=porn300.com
