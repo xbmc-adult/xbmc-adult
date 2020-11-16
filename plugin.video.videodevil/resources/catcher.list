@@ -91,11 +91,6 @@ url=%s
 extension=mp4
 quality=fallback
 ########################################################
-title=madthumbs.com
-target=<source src="([^"]+)"
-url=%s
-quality=standard
-########################################################
 title=pornoxo.com
 target=src":"([^"]+)","desc":"360p
 url=%s
