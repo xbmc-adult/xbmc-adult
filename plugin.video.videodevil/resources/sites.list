@@ -36,13 +36,6 @@ director=VideoDevil
 icon=https://celebsnudeworld.com/templates/defboot/images/logo.png
 url=celebsnudeworld.com.cfg
 ########################################################
-title=ClipsAge
-type=rss
-genre=Indian
-director=VideoDevil
-icon=http://clipsage.com/images/logo_ClipsAge_Indian_Sex_Tube_Blog.png
-url=clipsage.com.cfg
-########################################################
 title=ClipHunter
 type=rss
 genre=ClipHunter
@@ -133,6 +126,13 @@ genre=Indian
 director=VideoDevil
 icon=https://www.indiansexmovies.com/img/logo.png
 url=indiansexmovies.com.cfg
+########################################################
+title=KamaBaba
+type=rss
+genre=Indian
+director=VideoDevil
+icon=video.devil.image|kamababa.png
+url=kamababa.com.cfg
 ########################################################
 title=KissJAV
 type=rss
