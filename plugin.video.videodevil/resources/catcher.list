@@ -56,9 +56,13 @@ target="url":"([^"]+)
 url=%s
 quality=standard
 ########################################################
-title=clipsage.com
-target=file:\s*"([^"]+)
+title=kamababa.com
+target=player">\s*<iframe\s*src="([^"]+)
 url=%s
+ext_target=<source\s*src="([^"]+)
+ext_url=%s
+ext_header=Referer|https://www.kamababa.com/
+extension=mp4
 quality=standard
 ########################################################
 title=desihdx.com
