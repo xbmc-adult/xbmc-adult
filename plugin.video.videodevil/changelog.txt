@@ -1,4 +1,16 @@
-[B]Version 1.8.5[/B]
+[B]Version 1.8.7[/B]
+
+- Fixes for Kodi 19
+- Updated: perfectgirls	
+- Removed: newdesix
+- Removed: madthumbs
+- Updated: extremetube
+- Updated: empflix
+- Updated: clipsage
+- Removed: javwhores
+- Removed: mofosex
+
+[B]Version 1.8.6[/B]
 
 - Fixes for Kodi 19
 - Updated: spankbang
