@@ -56,9 +56,13 @@ target="url":"([^"]+)
 url=%s
 quality=standard
 ########################################################
-title=clipsage.com
-target=file:\s*"([^"]+)
+title=kamababa.com
+target=player">\s*<iframe\s*src="([^"]+)
 url=%s
+ext_target=<source\s*src="([^"]+)
+ext_url=%s
+ext_header=Referer|https://www.kamababa.com/
+extension=mp4
 quality=standard
 ########################################################
 title=desihdx.com
@@ -70,11 +74,6 @@ quality=standard
 ########################################################
 title=desixnxx.net
 target=source\s*src='([^']+)
-url=%s
-quality=standard
-########################################################
-title=madthumbs.com
-target=<source src="([^"]+)"
 url=%s
 quality=standard
 ########################################################
@@ -277,12 +276,6 @@ target='(http[^']+mp4)
 url=%s
 quality=standard
 ########################################################
-title=newdesix.com
-target=source\s*src="\s*([^"]+)
-url=%s
-build=http://newdesix.com%s
-quality=standard
-########################################################
 title=pornomovies
 target=source\s*src="([^"]+)"
 url=%s
@@ -374,7 +367,7 @@ extension=mp4
 quality=high
 ########################################################
 title=empflix.com
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<res>360p</[^/]+([^]]+)
@@ -383,7 +376,7 @@ ext_header=Referer|https://www.empflix.com/
 ext_build=https:%s|Referer=https://www.empflix.com/
 extension=mp4
 quality=low
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<res>480p</[^/]+([^]]+)
@@ -392,7 +385,7 @@ ext_header=Referer|https://www.empflix.com/
 ext_build=https:%s|Referer=https://www.empflix.com/
 extension=mp4
 quality=standard
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<res>720p</[^/]+([^]]+)
@@ -401,7 +394,7 @@ ext_header=Referer|https://www.empflix.com/
 ext_build=https:%s|Referer=https://www.empflix.com/
 extension=mp4
 quality=high
-target=flashvars\.config\s*=\s*escape\("([^&]+)
+target=config\s*=\s*"([^"]+)
 url=%s
 action=prefix
 ext_target=<videoLink>[^/]+([^]]+)
@@ -620,14 +613,17 @@ title=perfectgirls.net
 target=href="([^"]+)"\s*class="player[^>]+[^-]+-text-small">360p
 url=%s
 extension=mp4
+build=http:%s
 quality=low
 target=href="([^"]+)"\s*class="player[^>]+[^-]+-text-small">480p
 url=%s
 extension=mp4
+build=http:%s
 quality=standard
 target=href="([^"]+)"\s*class="player[^>]+[^-]+-text-small">720p
 url=%s
 extension=mp4
+build=http:%s
 quality=high
 ########################################################
 title=porn300.com
