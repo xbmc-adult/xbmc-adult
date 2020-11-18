@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.empflix" name="Empflix" version="2.0.15" provider-name="xbmc-adult">
     <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <import addon="script.module.future" version="0.0.1"/>
+        <!-- Commenting xbmc.python allows install on all versions of Kodi -->
+        <!-- <import addon="xbmc.python" version="2.1.0"/> -->
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>video</provides>
@@ -12,5 +14,8 @@
         <description>Empflix.com features a variety of adult videos. This addon contains explicit adult material. You may only view this addon if you are at least 18 years of age, or at least the age of majority in the jurisdiction where you reside or from which you access this content. If you do not meet these requirements, then you do not have permission to use this addon.  All content is hosted by empflix.com.</description>
         <disclaimer>The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
     <platform>all</platform>
+    <assets>
+        <icon>icon.png</icon>
+    </assets>
     </extension>
 </addon>
