@@ -19,13 +19,11 @@ to load html with cookies
 source = gethtml.get(url, 'my-path-to-cookiefile')
 '''
 
-from __future__ import absolute_import
-import six.moves.urllib.request, six.moves.urllib.error, six.moves.urllib.parse
-import six.moves.http_cookiejar
+from six.moves import urllib_request, urllib_error, http_cookiejar
 import os
 import re
 import sys
-import xbmc
+from kodi_six import xbmc
 
 #!!!!!!!!!!! Please set the compatible_urllist
 #set the list of URLs you want to load with cookies.
@@ -42,7 +40,8 @@ def url_for_cookies(url):
         if re.search(compatible_url, url):
             url_is_compatible = True
             break
-        else: url_is_compatible = False
+        else:
+            url_is_compatible = False
     return url_is_compatible
 
 def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
@@ -57,9 +56,9 @@ def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
         if not os.path.exists(cookiepath):
             with open(cookiepath, 'w') as f:
                 f.write('#LWP-Cookies-2.0\n')
-        cj = six.moves.http_cookiejar.LWPCookieJar()
+        cj = http_cookiejar.LWPCookieJar()
         cj.load(cookiepath)
-        req = six.moves.urllib.request.Request(url)
+        req = urllib_request.Request(url)
         if user_agent:
             req.add_header('User-Agent', user_agent)
         else:
@@ -68,28 +67,29 @@ def get(url, cookiepath=None, cookie=None, user_agent=None, referer=None):
             req.add_header('Referer', referer)
         if cookie:
             req.add_header('Cookie', cookie)
-        opener = six.moves.urllib.request.build_opener(six.moves.urllib.request.HTTPCookieProcessor(cj))
+        opener = urllib_request.build_opener(urllib_request.HTTPCookieProcessor(cj))
         try:
             response = opener.open(req)
-        except six.moves.urllib.error.URLError as e:
+        except urllib_error.URLError as e:
             xbmc.log('%s Error opening %s' % (e, url))
             sys.exit(1)
         link = response.read()
         response.close()
         return link
-    else: return _loadwithoutcookies(url, user_agent)
+    else:
+        return _loadwithoutcookies(url, user_agent)
 
 def _loadwithoutcookies(url, user_agent=None, referer=None):
     xbmc.log('Loading without cookies')
     url = url.replace('http:', 'https:')
-    req = six.moves.urllib.request.Request(url)
+    req = urllib_request.Request(url)
     if user_agent:
         req.add_header('User-Agent', user_agent)
     if referer:
         req.add_header('Referer', referer)
     try:
-        response = six.moves.urllib.request.urlopen(req)
-    except six.moves.urllib.error.HTTPError as e:
+        response = urllib_request.urlopen(req)
+    except urllib_error.HTTPError as e:
         xbmc.log("%s %s" % (url, e.reason), xbmc.LOGFATAL)
         sys.exit(0)
     link = response.read()

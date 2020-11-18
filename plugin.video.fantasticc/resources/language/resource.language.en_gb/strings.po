@@ -24,3 +24,23 @@ msgstr ""
 msgctxt "Addon Description"
 msgid "Browse collections (user designed categories) as well as the most popular videos today/week/month as decided by the users of the site"
 msgstr ""
+
+msgctxt "#30100"
+msgid "Account"
+msgstr ""
+
+msgctxt "#30200"
+msgid "Use Fantasti.cc account"
+msgstr ""
+
+msgctxt "#30201"
+msgid "Username"
+msgstr ""
+
+msgctxt "#30202"
+msgid "Password"
+msgstr ""
+
+msgctxt "#30203"
+msgid "Hide successful login notifications"
+msgstr ""

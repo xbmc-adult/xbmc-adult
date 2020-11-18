@@ -8,8 +8,6 @@
         <!-- <import addon="xbmc.python" version="2.1.0"/> -->
         <import addon="script.module.kodi-six"/>
         <import addon="script.module.six"/>
-        <import addon="script.module.future"/>
-        <import addon="script.module.pil"/>
     </requires>
     <extension point="xbmc.python.pluginsource"
                library="default.py">

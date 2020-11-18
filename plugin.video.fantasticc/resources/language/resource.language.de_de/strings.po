@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: UNKNOWN\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgctxt "Addon Summary"
@@ -24,3 +24,23 @@ msgstr ""
 msgctxt "Addon Description"
 msgid "Browse collections (user designed categories) as well as the most popular videos today/week/month as decided by the users of the site"
 msgstr ""
+
+msgctxt "#30100"
+msgid "Account"
+msgstr "Konto"
+
+msgctxt "#30200"
+msgid "Use Fantasti.cc account"
+msgstr "Verwenden Sie das Konto Fantasti.cc"
+
+msgctxt "#30201"
+msgid "Username"
+msgstr "Benutzername"
+
+msgctxt "#30202"
+msgid "Password"
+msgstr "Passwort"
+
+msgctxt "#30203"
+msgid "Hide successful login notifications"
+msgstr "Erfolgreiche Anmeldemeldungen ausblenden"
