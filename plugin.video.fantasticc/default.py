@@ -5,12 +5,17 @@
 # Released under GPL(v2)
 
 from __future__ import absolute_import
-import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error, six.moves.urllib.request, six.moves.urllib.error, six.moves.urllib.parse
-import re, json
+import six
+from six.moves import urllib_parse, range
+import re
+import json
 import os
 import sys
-from kodi_six import xbmcplugin, xbmcaddon, xbmcgui, xbmc
-from six.moves import range
+from kodi_six import xbmcplugin, xbmcaddon, xbmcgui, xbmc, xbmcvfs
+
+
+# python 2 and 3 compatibility defs
+TRANSLATEPATH = xbmcvfs.translatePath if six.PY3 else xbmc.translatePath
 
 #addon name
 __addonname__ = 'plugin.video.fantasticc'
@@ -19,7 +24,7 @@ __addonname__ = 'plugin.video.fantasticc'
 __addonpath__ = xbmcaddon.Addon(id=__addonname__).getAddonInfo('path')
 
 #datapath
-__datapath__ = xbmc.translatePath('special://profile/addon_data/'+__addonname__)
+__datapath__ = TRANSLATEPATH('special://profile/addon_data/' + __addonname__)
 
 #append lib directory
 sys.path.append(os.path.join(__addonpath__, 'resources', 'lib'))
@@ -55,8 +60,7 @@ def get_html(url, cookie=None, user_agent=None, referer=None):
 
 
 def Notify(title, message, times, icon):
-    xbmc.executebuiltin('XBMC.Notification(' + title + ', ' + message + ', ' +
-                        times + ', ' + icon + ')')
+    xbmcgui.Dialog().notification(title, message, icon, times, False)
 
 
 def LOGIN(username, password, hidesuccess):
@@ -66,7 +70,7 @@ def LOGIN(username, password, hidesuccess):
     logged_in, avatar = weblogin.doLogin(__datapath__, username, password)
     if logged_in:
         if hidesuccess == 'false':
-            Notify('Welcome back ' + uc, 'Fantasti.cc loves you', '4000',
+            Notify('Welcome back ' + uc, 'Fantasti.cc loves you', 4000,
                    avatar)
 
         addDir(uc + '\'s Videos',
@@ -87,7 +91,7 @@ def LOGIN(username, password, hidesuccess):
                main_url + 'user/' + lc + '/collections/recently-updated/all/commented/', 2, avatar)
 
     else:
-        Notify('Login Failure', uc + ' could not login', '4000', default_image)
+        Notify('Login Failure', uc + ' could not login', 4000, default_image)
 
 
 def STARTUP_ROUTINES():
@@ -230,7 +234,7 @@ def SEARCH(url):
             first_page = get_html(search_url)
 
             # do a search to see if no results found
-            no_results_found = re.search('result-items">\s+</div>', first_page)
+            no_results_found = re.search(r'result-items">\s+</div>', first_page)
 
             # if there are results on page...
             if not no_results_found:
@@ -238,7 +242,7 @@ def SEARCH(url):
                 # scrape to get the number of all the results pages (this is
                 # listed on the first page)
                 match = re.compile(
-                    '([^"]+)page_(\d+)">last').findall(first_page)
+                    r'([^"]+)page_(\d+)">last').findall(first_page)
 
                 # if there weren't any multiple pages of search results
                 if not match:
@@ -284,7 +288,7 @@ def SEARCH_RESULTS(url, html=False):
 def INDEX(url):
     html = get_html(url)
     if 'collection' in url: # Collections
-        videosJSON = json.loads(re.findall('videosJSON = (\[.*?\]);', html)[0])
+        videosJSON = json.loads(re.findall(r'videosJSON = (\[.*?\]);', html)[0])
         for item in videosJSON:
             name = item['title'].encode('utf8')
             realurl = 'https://fantasti.cc/video.php?id=%s' % item['id']
@@ -293,8 +297,8 @@ def INDEX(url):
             #xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
     else:
-        match = re.compile('href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"'
-                           '.+?font-size:11px;">\s+([^.]+). Uploaded',
+        match = re.compile(r'href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"'
+                           r'.+?font-size:11px;">\s+([^.]+). Uploaded',
                            re.DOTALL).findall(html)
         if match:
             for gurl, thumbnail, name, duration in match:
@@ -360,7 +364,7 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         icons = re.compile("background:.*?(http.*?)'").findall(chtml)
 
         if not icons:
-          continue # some collections are empty so they don't have icons
+            continue # some collections are empty so they don't have icons
 
         addDir('%s (%s vids)'%(name, num_of_vids), realurl, mode, icons[0])
 
@@ -480,13 +484,13 @@ def GET_LINK(url, collections, url2):
         xbmc.log('urlget2 %s' % urlget2)
         html = get_html(urlget2)
         xbmc.log('html %s' % html)
-        match = re.compile('location>\s*([^<]+)',re.DOTALL).findall(html)
+        match = re.compile(r'location>\s*([^<]+)',re.DOTALL).findall(html)
         fetchurl = six.moves.urllib.parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'redtube' in url2 or 'redtube' in embed:
         match = re.compile(r'(https?://(?:|www\.|embed\.)redtube.com/.+?)"').findall(html)
         html = get_html(match[0])
-        match = re.compile('(https?:[^"]+\.mp4[^"]+)').findall(html)
+        match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
         try:
             fetchurl = six.moves.urllib.parse.unquote(match[0])
         except IndexError:
@@ -574,9 +578,9 @@ def get_params():
 
 
 def addLink(name, url, mode, iconimage):
-    u = sys.argv[0] + "?url=" + six.moves.urllib.parse.quote_plus(url) + "&mode=" + str(mode) \
-        + "&name=" + six.moves.urllib.parse.quote_plus(name) + "&iconimage=" \
-        + six.moves.urllib.parse.quote_plus(iconimage)
+    u = sys.argv[0] + "?url=" + urllib_parse.quote_plus(url) + "&mode=" + str(mode) \
+        + "&name=" + urllib_parse.quote_plus(name) + "&iconimage=" \
+        + urllib_parse.quote_plus(iconimage)
     ok = True
     liz = xbmcgui.ListItem(name)
     liz.setArt({'thumb': iconimage,
@@ -590,8 +594,8 @@ def addLink(name, url, mode, iconimage):
 
 
 def addDir(name, url, mode, iconimage):
-    u = sys.argv[0] + "?url=" + six.moves.urllib.parse.quote_plus(url) + "&mode=" + str(mode) \
-        + "&name=" + six.moves.urllib.parse.quote_plus(name)
+    u = sys.argv[0] + "?url=" + urllib_parse.quote_plus(url) + "&mode=" + str(mode) \
+        + "&name=" + urllib_parse.quote_plus(name)
     ok = True
     liz = xbmcgui.ListItem(name)
     liz.setArt({'thumb': iconimage,
@@ -610,11 +614,11 @@ topmode = None
 topthumbnail = None
 
 try:
-    topurl = six.moves.urllib.parse.unquote_plus(topparams['url'])
+    topurl = urllib_parse.unquote_plus(topparams['url'])
 except:
     pass
 try:
-    topname = six.moves.urllib.parse.unquote_plus(topparams['name'])
+    topname = urllib_parse.unquote_plus(topparams['name'])
 except:
     pass
 try:
@@ -623,7 +627,7 @@ except:
     pass
 
 try:
-    topthumbnail = six.moves.urllib.parse.unquote_plus(topparams['iconimage'])
+    topthumbnail = urllib_parse.unquote_plus(topparams['iconimage'])
 except:
     pass
 
