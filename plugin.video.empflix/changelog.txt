@@ -1,4 +1,4 @@
-[B]2.0.15[/B]
+[B]2.1.0[/B]
 
 Update for python3 compatibility
 
