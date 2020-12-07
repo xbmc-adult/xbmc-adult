@@ -489,8 +489,8 @@ def GET_LINK(url, collections, url2):
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'redtube' in url2 or 'redtube' in embed:
         match = re.compile(r'(https?://(?:|www\.|embed\.)redtube.com/.+?)"').findall(html)
-        html = get_html(match[0])
-        match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
+        html = get_html(match[0].replace('http://', 'https://'))
+        match = re.compile(r'videoUrl":"(https?:[^"]+\.mp4[^"]+)').findall(html)
         try:
             fetchurl = six.moves.urllib.parse.unquote(match[0])
         except IndexError:
