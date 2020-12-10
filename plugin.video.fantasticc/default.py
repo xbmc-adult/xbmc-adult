@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#Code Heavily modified from  Demo by TV DASH - by You 2008.
+# Code Heavily modified from  Demo by TV DASH - by You 2008.
 #
 # Written by Ksosez with help from anarchintosh
 # Released under GPL(v2)
@@ -17,19 +17,19 @@ from kodi_six import xbmcplugin, xbmcaddon, xbmcgui, xbmc, xbmcvfs
 # python 2 and 3 compatibility defs
 TRANSLATEPATH = xbmcvfs.translatePath if six.PY3 else xbmc.translatePath
 
-#addon name
+# addon name
 __addonname__ = 'plugin.video.fantasticc'
 
-#get path the default.py is in.
+# get path the default.py is in.
 __addonpath__ = xbmcaddon.Addon(id=__addonname__).getAddonInfo('path')
 
-#datapath
+# datapath
 __datapath__ = TRANSLATEPATH('special://profile/addon_data/' + __addonname__)
 
-#append lib directory
+# append lib directory
 sys.path.append(os.path.join(__addonpath__, 'resources', 'lib'))
 
-#import from lib directory
+# import from lib directory
 import weblogin
 import gethtml
 
@@ -95,17 +95,17 @@ def LOGIN(username, password, hidesuccess):
 
 
 def STARTUP_ROUTINES():
-    #deal with bug that happens if the datapath doesn't exist
+    # deal with bug that happens if the datapath doesn't exist
     if not os.path.exists(__datapath__):
         os.makedirs(__datapath__)
 
-    #check if user has enabled use-login setting
+    # check if user has enabled use-login setting
     usrsettings = xbmcaddon.Addon(id=__addonname__)
     use_account = usrsettings.getSetting('use-account')
 
     if use_account == 'true':
-        #get username and password and do login with them
-        #also get whether to hid successful login notification
+        # get username and password and do login with them
+        # also get whether to hid successful login notification
         username = usrsettings.getSetting('username')
         password = usrsettings.getSetting('password')
         hidesuccess = usrsettings.getSetting('hide-successful-login-messages')
@@ -118,82 +118,82 @@ def CATEGORIES():
 
     mode = 1
     addDir('Popular Today',
-           main_url+'videos/popular/today/', mode, default_image)
+           main_url + 'videos/popular/today/', mode, default_image)
     addDir('Popular Last 7 Days',
-           main_url+'videos/popular/7days/', mode, default_image)
+           main_url + 'videos/popular/7days/', mode, default_image)
     addDir('Popular Last Month',
-           main_url+'videos/popular/31days/', mode, default_image)
+           main_url + 'videos/popular/31days/', mode, default_image)
     addDir('Popular All Time',
-           main_url+'videos/popular/all_time/', mode, default_image)
-    addDir('Upcoming', main_url+'videos/upcoming/', mode, default_image)
-    addDir('Made Popular', main_url+'videos/made_popular/', mode, default_image)
+           main_url + 'videos/popular/all_time/', mode, default_image)
+    addDir('Upcoming', main_url + 'videos/upcoming/', mode, default_image)
+    addDir('Made Popular', main_url + 'videos/made_popular/', mode, default_image)
 
     mode = 2
     addDir('Collections Upcoming',
-           main_url+'videos/collections/upcoming/',
+           main_url + 'videos/collections/upcoming/',
            mode, default_image)
     addDir('Collections Today - Popular',
-           main_url+'videos/collections/popular/today/',
+           main_url + 'videos/collections/popular/today/',
            mode, default_image)
     addDir('Collections Today - Trending',
-           main_url+'videos/collections/trending/today/',
+           main_url + 'videos/collections/trending/today/',
            mode, default_image)
     addDir('Collections Today - Most Discussed',
-           main_url+'videos/collections/most-discussed/today/',
+           main_url + 'videos/collections/most-discussed/today/',
            mode, default_image)
     addDir('Collections Today - Top Rated',
            main_url + 'videos/collections/top-rated/today/',
            mode, default_image)
     addDir('Collections Today - Top Favorited',
-           main_url+'videos/collections/top-favorites/today/',
+           main_url + 'videos/collections/top-favorites/today/',
            mode, default_image)
     addDir('Collections Last week - Popular',
-           main_url+'videos/collections/popular/7days/',
+           main_url + 'videos/collections/popular/7days/',
            mode, default_image)
     addDir('Collections Last week - Trending',
            main_url + 'videos/collections/trending/7days/',
            mode, default_image)
     addDir('Collections Last week - Most Discussed',
-           main_url+'videos/collections/most-discussed/7days/',
+           main_url + 'videos/collections/most-discussed/7days/',
            mode, default_image)
     addDir('Collections Last week - Top Rated',
-           main_url+'videos/collections/top-rated/7days/',
+           main_url + 'videos/collections/top-rated/7days/',
            mode, default_image)
     addDir('Collections Last week - Top Favorited',
-           main_url+'videos/collections/top-favorites/7days/',
+           main_url + 'videos/collections/top-favorites/7days/',
            mode, default_image)
     addDir('Collections Last month - Popular',
-           main_url+'videos/collections/popular/31days/',
+           main_url + 'videos/collections/popular/31days/',
            mode, default_image)
     addDir('Collections Last month - Trending',
-           main_url+'videos/collections/trending/31days/',
+           main_url + 'videos/collections/trending/31days/',
            mode, default_image)
     addDir('Collections Last month - Most Discussed',
-           main_url+'videos/collections/most-discussed/31days/',
+           main_url + 'videos/collections/most-discussed/31days/',
            mode, default_image)
     addDir('Collections Last month - Top Rated',
-           main_url+'videos/collections/top-rated/31days/',
+           main_url + 'videos/collections/top-rated/31days/',
            mode, default_image)
     addDir('Collections Last month - Top Favorited',
-           main_url+'videos/collections/top-favorites/31days/',
+           main_url + 'videos/collections/top-favorites/31days/',
            mode, default_image)
     addDir('Collections All-Time - Popular',
-           main_url+'videos/collections/popular/all_time/',
+           main_url + 'videos/collections/popular/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Trending',
            main_url + 'videos/collections/trending/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Most Viewed',
-           main_url+'videos/collections/most-viewed/all_time/',
+           main_url + 'videos/collections/most-viewed/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Most Discussed',
-           main_url+'videos/collections/most-discussed/all_time/',
+           main_url + 'videos/collections/most-discussed/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Top Rated',
-           main_url+'videos/collections/top-rated/all_time/',
+           main_url + 'videos/collections/top-rated/all_time/',
            mode, default_image)
     addDir('Collections All-Time - Top Favorited',
-           main_url+'videos/collections/top-favorites/all_time/',
+           main_url + 'videos/collections/top-favorites/all_time/',
            mode, default_image)
 
     # didn't need to pass search a url. so i was lazy and passed it the
@@ -287,14 +287,14 @@ def SEARCH_RESULTS(url, html=False):
 
 def INDEX(url):
     html = get_html(url)
-    if 'collection' in url: # Collections
+    if 'collection' in url:  # Collections
         videosJSON = json.loads(re.findall(r'videosJSON = (\[.*?\]);', html)[0])
         for item in videosJSON:
             name = item['title'].encode('utf8')
             realurl = 'https://fantasti.cc/video.php?id=%s' % item['id']
             thumbnail = item['rawThumb']
             mode = 4
-            #xbmc.log('realurl %s' % realurl)
+            # xbmc.log('realurl %s' % realurl)
             addLink(name, realurl, mode, thumbnail)
     else:
         match = re.compile(r'href="([^"]+)"><img src="([^"]+)" alt="([^"]+)"'
@@ -345,15 +345,15 @@ def INDEXCOLLECT(url):   # Index Collections Pages
     xbmc.log('URL Loading: %s' % url)
     html = get_html(url)
 
-    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div ' +
-                       'class="tag-list">', re.DOTALL).findall(html)
+    match = re.compile('<a class="clnk" href="(.+?)">(.+?)</a>(.+?)<div '
+                       + 'class="tag-list">', re.DOTALL).findall(html)
 
     for gurl, name, chtml in match:
         xbmc.log('Name [%s]' % name)
         realurl = 'https://fantasti.cc%s' % gurl
         mode = 1
 
-        #scrape number of vids
+        # scrape number of vids
         vidnumber = re.search('"videosListNumber"><b>(.*?)<', chtml)
         if vidnumber:
             num_of_vids = vidnumber.group(1)
@@ -364,9 +364,9 @@ def INDEXCOLLECT(url):   # Index Collections Pages
         icons = re.compile("background:.*?(http.*?)'").findall(chtml)
 
         if not icons:
-            continue # some collections are empty so they don't have icons
+            continue  # some collections are empty so they don't have icons
 
-        addDir('%s (%s vids)'%(name, num_of_vids), realurl, mode, icons[0])
+        addDir('%s (%s vids)' % (name, num_of_vids), realurl, mode, icons[0])
 
     try:
         next_match = re.compile(
@@ -406,7 +406,7 @@ def GET_LINK(url, collections, url2):
     embed = r.group(1) if r else ''
     if collections == 1:   # Make sure we get a url we can parse
         match = re.compile('<link rel="canonical" href="(.+?)" />'
-                          ).findall(html)
+                           ).findall(html)
         for each in match:
             url = each
 
@@ -414,7 +414,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('(https?://www.xvideos.com/.+?)"').findall(html)
         html = get_html(match[0], user_agent=ios_ua)
         match = re.compile(r'(https?:[^"]+\.mp4[^"]+)').findall(html)
-        fetchurl = six.moves.urllib.parse.unquote(match[0])
+        fetchurl = urllib_parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'pornhub' in url2 or 'phncdn' in url2:
         match = re.compile('source="([^"]+)').findall(html)
@@ -422,19 +422,19 @@ def GET_LINK(url, collections, url2):
         html = get_html(linkurl.replace('http://', 'https://'),
                         'platform=tablet')
         match = re.compile('quality":"(?:480|720|1080)[^"]*",[^}]+videoUrl":"(https:[^"]+)').findall(html)
-        each = six.moves.urllib.parse.unquote(match[0])
+        each = urllib_parse.unquote(match[0])
         fetchurl = each.replace('\\', '') + '|Referer=https://www.pornhub.com/'
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'empflix' in url2:
         match = re.compile('<a style="color:#BBB;" href="([^"]+)"'
                            ' target="_blank" rel="nofollow">empflix</a></span>'
-                          ).findall(html)
+                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
         match = re.compile('name="config" value="([^"]+)"').findall(html)
         for configurl in match:
-            linkurl = six.moves.urllib.parse.unquote(configurl)
+            linkurl = urllib_parse.unquote(configurl)
         html = get_html(linkurl)
         match2 = re.compile('<videoLink>([^<]+)</videoLink>').findall(html)
         fetchurl = match2[0]
@@ -484,15 +484,15 @@ def GET_LINK(url, collections, url2):
         xbmc.log('urlget2 %s' % urlget2)
         html = get_html(urlget2)
         xbmc.log('html %s' % html)
-        match = re.compile(r'location>\s*([^<]+)',re.DOTALL).findall(html)
-        fetchurl = six.moves.urllib.parse.unquote(match[0])
+        match = re.compile(r'location>\s*([^<]+)', re.DOTALL).findall(html)
+        fetchurl = urllib_parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'redtube' in url2 or 'redtube' in embed:
         match = re.compile(r'(https?://(?:|www\.|embed\.)redtube.com/.+?)"').findall(html)
         html = get_html(match[0].replace('http://', 'https://'))
         match = re.compile(r'videoUrl":"(https?:[^"]+\.mp4[^"]+)').findall(html)
         try:
-            fetchurl = six.moves.urllib.parse.unquote(match[0])
+            fetchurl = urllib_parse.unquote(match[0])
         except IndexError:
             if re.search('video has been removed', html):
                 Notify('Failure', 'Video Removed', '4000', default_image)
@@ -504,11 +504,11 @@ def GET_LINK(url, collections, url2):
                            '"(https?://www.tube8.com/[^"]+)"').findall(html)
         html = get_html(match[0])
         match = re.compile('page_params.videoUrlJS = "([^"]+)').findall(html)
-        fetchurl = six.moves.urllib.parse.unquote(match[0])
+        fetchurl = urllib_parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'you_porn' in url2 or 'you_porn' in embed:
         match = re.compile('"(https?://www.youporn.com/watch/[^"]+)"'
-                          ).findall(html)
+                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -519,7 +519,7 @@ def GET_LINK(url, collections, url2):
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'madthumbs' in url2:
         match = re.compile('source="(https?://www.madthumbs.com/[^"]+)"'
-                          ).findall(html)
+                           ).findall(html)
         for gurl in match:
             urlget2 = gurl
         html = get_html(urlget2)
@@ -531,7 +531,7 @@ def GET_LINK(url, collections, url2):
         match = re.compile('(https?://pornxs.com/.+?)"').findall(html)
         html = get_html(match[0])
         match = re.compile('config-final-url="(.+?)"').findall(html)
-        fetchurl = six.moves.urllib.parse.unquote(match[0])
+        fetchurl = urllib_parse.unquote(match[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     elif 'xhcdn' in url2:
         match = re.compile('https?://xhamster.com/movies/[^"]*').findall(html)
@@ -546,7 +546,7 @@ def GET_LINK(url, collections, url2):
         qualityarray = match
         # Play highest quality version
         qualityarray.reverse()
-        fetchurl = six.moves.urllib.parse.unquote(qualityarray[0])
+        fetchurl = urllib_parse.unquote(qualityarray[0])
         xbmc.log('fetchurl: %s' % fetchurl)
     else:
         xbmc.log('Unknown source (%s).' % url2)
@@ -566,8 +566,8 @@ def get_params():
     if len(paramstring) >= 2:
         params = sys.argv[2]
         cleanedparams = params.replace('?', '')
-        if params[len(params)-1] == '/':
-            params = params[0:len(params)-2]
+        if params[len(params) - 1] == '/':
+            params = params[0:len(params) - 2]
         pairsofparams = cleanedparams.split('&')
         for i in range(len(pairsofparams)):
             splitparams = {}
