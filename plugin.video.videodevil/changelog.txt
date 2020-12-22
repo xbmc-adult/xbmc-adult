@@ -1,3 +1,7 @@
+[B]Version 1.8.8[/B]
+
+- Updated: pornhub
+
 [B]Version 1.8.7[/B]
 
 - Fixes for Kodi 19
