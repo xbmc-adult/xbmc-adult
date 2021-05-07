@@ -765,8 +765,9 @@ class CCurrentList(object):
                     tmp.infos_dict[info_name] = self.infoFormatter(info_name,
                                                                    info_value,
                                                                    self.cfg)
-                    if info_name.rfind('.append') != -1:
-                        tmp.infos_dict[info_name[:info_name.rfind('.append')]] = smart_unicode(tmp.infos_dict[info_name[:info_name.rfind('.append')]]) + smart_unicode(info_value)
+                    if info_name + '.append' in tmp.infos_dict:
+                        tmp.infos_dict[info_name] = smart_unicode(
+                            smart_unicode(info_value) + tmp.infos_dict[info_name + '.append'])
                 tmp.infos_dict['url'] = smart_unicode(item_rule.url_build % (smart_unicode(tmp.infos_dict['url'])))
                 if item_rule.skill.find('append') != -1:
                     tmp.infos_dict['url'] = curr_url + tmp.infos_dict['url']
