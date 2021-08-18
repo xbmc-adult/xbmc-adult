@@ -1,3 +1,8 @@
+[B]Version 1.8.15[/B]
+
+- Updated: next button in motherless
+- Updated: next button in gfvideos
+
 [B]Version 1.8.14[/B]
 
 - Updated: motherless groups
