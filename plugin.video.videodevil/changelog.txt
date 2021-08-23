@@ -1,3 +1,7 @@
+[B]Version 1.8.16[/B]
+
+- Updated: categories in gfvideos
+
 [B]Version 1.8.15[/B]
 
 - Updated: next button in motherless
