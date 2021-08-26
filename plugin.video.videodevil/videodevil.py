@@ -88,8 +88,8 @@ def clean1(s):  # remove &XXX;
     if not s:
         return ''
     if six.PY3:
-      import html
-      return html.parser.unescape(s)
+        import html
+        return html.parser.unescape(s)
     h = html_parser.HTMLParser()
     return h.unescape(s.decode('utf8')).encode('utf8')
 
@@ -920,7 +920,7 @@ class ContentFetcher(object):
             data = None
         else:
             url = rule.url
-            data = (rule.data % original_url).encode('utf8') if six.PY2 else (rule.data % original_url)
+            data = (rule.data % original_url).encode('utf8')
 
         req = Request(url, data)
         req.add_header('User-Agent', USERAGENT)
