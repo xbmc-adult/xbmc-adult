@@ -679,7 +679,7 @@ class CCurrentList(object):
                     f = open(os.path.join(cacheDir, 'page.html'), 'w', encoding='utf-8')
                 f.write('<Title>' + curr_url + '</Title>\n\n')
 
-            curr_url = urllib_parse.unquote(curr_url)
+            curr_url = urllib_parse.unquote(curr_url).replace('\\/', '/')
             req = Request(curr_url, None, txheaders)
             try:
                 cj.load(TRANSLATEPATH(cookiePath), ignore_discard=True)
@@ -922,7 +922,7 @@ class ContentFetcher(object):
             url = rule.url
             data = (rule.data % original_url).encode('utf8') if six.PY2 else (rule.data % original_url)
 
-        req = Request(url, data)
+        req = Request(url.replace('\\/', '/'), data)
         req.add_header('User-Agent', USERAGENT)
         if rule.reference != '':
             req.add_header(
