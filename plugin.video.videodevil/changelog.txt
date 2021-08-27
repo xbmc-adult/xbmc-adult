@@ -1,3 +1,12 @@
+[B]Version 1.8.17[/B]
+
+- Updated: xhamster
+- Updated: kamaba
+- Updated: redtube
+- Updated: sexu playback
+- Updated: thumbzilla
+- Updated: youporn
+
 [B]Version 1.8.16[/B]
 
 - Updated: categories in gfvideos
