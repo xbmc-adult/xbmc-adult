@@ -777,9 +777,11 @@ class CCurrentList(object):
                 if item_rule.skill.find('striptoslash') != -1:
                     curr_match = re.search(r'(.+?/)[^/]+$', current_url_page)
                     if curr_match:
-                        if curr_match.group(1) == 'http://':
+                        if curr_match.group(1) == 'http://' or curr_match.group(1) == 'https://':
                             tmp.infos_dict['url'] = curr_url + '/' + tmp.infos_dict['url']
                         else:
+                            if '/' in tmp.infos_dict['url']:
+                                tmp.infos_dict['url'] = re.search(r'(?:.+/)?(.+)', tmp.infos_dict['url']).group(1)
                             tmp.infos_dict['url'] = curr_match.group(1) + tmp.infos_dict['url']
                 if item_rule.skill.find('space') != -1:
                     try:
