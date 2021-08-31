@@ -480,11 +480,11 @@ class CCurrentList(object):
                              + str(os.path.join(local_path, filename))
                              + ' opened', INFO)
                 break
-            except:
+            except Exception as e:
                 if enable_debug:
                     xbmc.log('File: '
                              + str(os.path.join(local_path, filename))
-                             + ' not found', INFO)
+                             + ' error: ' + e.__str__(), INFO)
                     if local_path == '':
                         traceback.print_exc(file=sys.stdout)
                 if local_path == '':

@@ -1,4 +1,15 @@
-[B]Version 1.8.17[/B]
+[B]Version 1.8.19[/B]
+
+
+- Updated: videodevil.py to fix error messages
+- Updated: eporner for Android
+- Updated: gfvideos for Android
+- Updated: pornhd for Android
+- Updated: pornoxo for Android
+- Updated: redtube for Android
+- Updated: youporn for Android
+
+[B]Version 1.8.18[/B]
 
 - Updated: gfvideos
 
