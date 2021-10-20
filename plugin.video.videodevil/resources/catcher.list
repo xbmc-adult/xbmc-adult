@@ -674,7 +674,7 @@ extension=mp4
 quality=high
 ########################################################
 title=plusone8.com
-target=<source src="([^"]+)" type="video/mp4"></video>
+target=contentURL" content="([^"]+)
 url=%s
 header=Referer|http://plusone8.com
 extension=mp4
