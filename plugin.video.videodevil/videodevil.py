@@ -1217,7 +1217,9 @@ class Main(object):
             tmp_file = xbmc.makeLegalFilename(tmp_file)
         else:
             tmp_file = xbmcvfs.makeLegalFilename(tmp_file)
-        urllib_request.urlretrieve(urllib_parse.unquote(url),
+        url = urllib_parse.unquote(url)
+        url = url.replace(' ', '%20')
+        urllib_request.urlretrieve(url,
                                    tmp_file,
                                    self.video_report_hook)
         if six.PY2:
