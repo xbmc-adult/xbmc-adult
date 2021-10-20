@@ -1,5 +1,8 @@
-[B]Version 1.8.19[/B]
+[B]Version 1.8.20[/B]
 
+- Updated pornhub
+
+[B]Version 1.8.19[/B]
 
 - Updated: videodevil.py to fix error messages
 - Updated: eporner for Android
