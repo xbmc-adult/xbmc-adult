@@ -1,3 +1,7 @@
+[B]Version 1.8.23[/B]
+
+- Updated xhamster
+
 [B]Version 1.8.22[/B]
 
 - Updated xhamster
