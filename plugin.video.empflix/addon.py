@@ -1,5 +1,6 @@
 import sys
 import re
+import json
 from six.moves import urllib_request, urllib_parse, http_cookiejar
 from kodi_six import xbmc, xbmcaddon, xbmcplugin, xbmcgui
 
@@ -11,13 +12,13 @@ urllib_request.build_opener(cookie_handler)
 
 
 def CATEGORIES():
-    link = openURL('https://www.empflix.com/categories.php')
-    match = re.compile(r'/([^/]+)/\?a=1&d=" title="([^"]+)"').findall(link)
+    link = openURL('https://www.empflix.com/categories')
+    match = re.compile(r'class="col-6.+?href="([^"]+)">\s*<img.+?src="([^"]+).+?title">([^<]+)', re.DOTALL).findall(link)
     addDir('All', 'https://www.empflix.com/', 1, '', 1)
-    for channame, name in match:
+    for url, thumb, name in match:
         addDir(name,
-               ('https://www.empflix.com/' + channame),
-               2, '', 1)
+               url,
+               2, thumb, 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
@@ -25,7 +26,6 @@ def SORTMETHOD(url):
     if url == 'https://www.empflix.com/':
         addDir('Featured', url + 'featured', 2, '', 1)
         addDir('Most Recent', url + 'new', 2, '', 1)
-        addDir('Most Viewed', url + 'popular', 2, '', 1)
         addDir('Top Rated', url + 'toprated', 2, '', 1)
     else:
         match = re.compile('(https://www.empflix.com/channels/)'
@@ -39,26 +39,24 @@ def SORTMETHOD(url):
 
 
 def VIDEOLIST(url, page):
-    link = openURL(url + '/?page=' + str(page))
-    match = re.compile(r"data-vid='([^']+)'.+?data-name='([^']+)'.+?data-original='([^']+)'.+?'>([\d:]+)",
+    link = openURL(url + '/' + str(page))
+    match = re.compile(r'data-vid="([^"]+).+?src="([^"]+)"\s*alt="([^"]+).+?tion">([^<]+)',
                        re.DOTALL).findall(link)
-    for videourl, name, thumb, duration in match:
+    for videourl, thumb, name, duration in match:
         addLink(name + ' (' + duration + ')',
-                'https://player.empflix.com/video/' + videourl + '?',
+                'https://player.empflix.com/ajax/video-player/' + videourl,
                 3,
                 thumb.strip())
-    if len(match) == 60 or len(match) == 83:
+    if len(match) == 36 or len(match) == 83:
         addDir('Next Page', url, 2, '', page + 1)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 def PLAYVIDEO(url):
     link = openURL(url)
-    match = re.compile(r'config\s*=\s*"([^"]+)').findall(link)
-    link = openURL('https:' + match[0])
-    match = re.compile('<res>.+p</[^/]+([^]]+)').findall(link)
-    match.reverse()
-    xbmc.Player().play('https:' + match[0] + '|Referer=https://www.empflix.com/')
+    link = json.loads(link).get('html')
+    match = re.compile(r'source\s*src="([^"]+)').findall(link)
+    xbmc.Player().play(match[0] + '|Referer=https://www.empflix.com/')
 
 
 def get_params():
