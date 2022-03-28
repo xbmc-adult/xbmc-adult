@@ -2,6 +2,7 @@
 
 - Updated bitporno
 - Fixed catcher
+- Deleted: extremetube
 
 [B]Version 1.8.23[/B]
 
