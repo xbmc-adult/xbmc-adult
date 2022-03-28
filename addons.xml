@@ -145,7 +145,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.empflix" name="Empflix" version="2.1.0" provider-name="xbmc-adult">
+<addon id="plugin.video.empflix" name="Empflix" version="2.1.1" provider-name="xbmc-adult">
     <requires>
         <!-- Commenting xbmc.python allows install on all versions of Kodi -->
         <!-- <import addon="xbmc.python" version="2.1.0"/> -->
@@ -228,7 +228,7 @@
 
 <addon
   id="plugin.video.videodevil"
-  version="1.8.23"
+  version="1.8.24"
   name="VideoDevil"
   provider-name="xbmc-adult">
   <requires>
