@@ -1082,7 +1082,8 @@ class Main(object):
                 return
 
         hdrs = {'User-Agent': USERAGENT,
-                'Referer': original_url}
+                'Referer': original_url,
+                'verifypeer': 'false'}
         cj.load(TRANSLATEPATH(cookiePath), ignore_discard=True)
         cookies = {c.name: c.value for c in cj}
         if cookies:
@@ -1361,7 +1362,7 @@ class Main(object):
         if '$HEADERS$' in icon:
             icon = icon.replace('$HEADERS$', '|')
         if 'http' in icon and 'User-Agent' not in icon:  # Some sites such as vmasala reject Kodi User-Agent
-            icon += '|User-Agent=%s' % USERAGENT if '|' not in icon else '&User-Agent=%s' % USERAGENT
+            icon += '|User-Agent=%s&verifypeer=false' % USERAGENT if '|' not in icon else '&User-Agent=%s&verifypeer=false' % USERAGENT
 
         liz = xbmcgui.ListItem(title)
         liz.setArt({'thumb': icon,
