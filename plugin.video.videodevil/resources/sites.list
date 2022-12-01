@@ -141,13 +141,6 @@ director=VideoDevil
 icon=video.devil.image|plusone8.png
 url=plusone8.com.cfg
 ########################################################
-title=Porn.com
-type=rss
-genre=porn.com
-director=VideoDevil
-icon=video.devil.image|porn.com-logo.png
-url=porn.com.cfg
-########################################################
 title=Porn300
 type=rss
 genre=Porn300
