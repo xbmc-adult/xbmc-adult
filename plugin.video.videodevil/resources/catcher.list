@@ -65,11 +65,6 @@ ext_header=Referer|https://www.kamababa.com/
 extension=mp4
 quality=standard
 ########################################################
-title=desixnxx.net
-target=source\s*src='([^']+)
-url=%s
-quality=standard
-########################################################
 title=pornoxo.com
 target=src":"([^"]+)","desc":"360p
 url=%s
