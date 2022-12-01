@@ -43,13 +43,6 @@ director=VideoDevil
 icon=https://www.cliphunter.com/gfx/new/logo.png
 url=cliphunter.com.cfg
 ########################################################
-title=DesiHDx
-type=rss
-genre=Indian
-director=VideoDevil
-icon=video.devil.image|desihdx.png
-url=desihdx.com.cfg
-########################################################
 title=DesiVdo
 type=rss
 genre=Indian
