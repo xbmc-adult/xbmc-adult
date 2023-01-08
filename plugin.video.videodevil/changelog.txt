@@ -1,3 +1,8 @@
+[B]Version 1.8.27[/B]
+
+- Updated: xhamster
+- Fixed: next
+
 [B]Version 1.8.26[/B]
 
 - Deleted: desihdx
