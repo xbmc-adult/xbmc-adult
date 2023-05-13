@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.livestreamerkodi" name="livestreamerkodi" version="1.12.4" provider-name="moedje">
+  <requires>
+    <import addon="xbmc.python" version="2.24.0"/>
+    <import addon="script.module.xbmcswift2" version="2.4.0"/>
+    <import addon="script.module.requests"
+                      version="1.1.0"
+                     optional="false"/>
+    <import addon="script.module.singledispatch"
+                      version="3.4.0.3"
+                     optional="false"/>
+    <import addon="script.module.futures"
+                      version="2.2.0"
+                     optional="false"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py" />
+  <extension point="xbmc.service" library="service.py" start="startup"/>
+  <extension point="xbmc.python.module" library="livestreamer" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language>en</language>
+    <summary>kodi livestreamer wrapper</summary>
+    <description>small mod of the livestreamer plugin to allow easy RunPlugin(plugin://plugin.video.livestreamerkodi/play/http:%2F...) to attempt to resolve a video on a web page and play in Kodi. Only plays videos from sites that are supported by livestreamer</description>
+    <platform>all</platform>
+    <license>Simplified BSD</license>
+    <source>https://github.com/chrippa/livestreamer.git</source>
+    <website>http://livestreamer.io</website>
+  </extension>
+</addon>

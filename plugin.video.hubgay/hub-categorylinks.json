@@ -1,0 +1,443 @@
+{
+    "URLapi": [
+        "http://www.gaytube.com/api/webmasters/categories/",
+        "http://www.pornhub.com/webmasters/categories",
+        "http://www.spankwire.com/api/HubTrafficApiCall?data=getCategoriesList&output=json&segment=gay",
+        "http://api.tube8.com/api.php?action=getcategorieslist&output=json"
+    ],
+    "URLcategoryies": [
+        {
+            "Amateur": [
+                "http://www.gaytube.com/feed/amateur.xml",
+                "http://www.spankwire.com/categoryRssFeed-Amateur-gay.xml",
+                "http://www.tube8.com/feed/gay/amateur.xml"
+            ]
+        },
+        {
+            "Anal": [
+                "http://www.spankwire.com/categoryRssFeed-Anal-gay.xml",
+                "http://www.gaytube.com/feed/anal_sex_fucking.xml",
+                "http://www.tube8.com/feed/gay/anal.xml"
+            ]
+        },
+        {
+            "Anime": [
+                "http://www.gaytube.com/feed/anime_hentai.xml"
+            ]
+        },
+        {
+            "Asian": [
+                "http://www.gaytube.com/feed/asian.xml",
+                "http://www.pornhub.com/feed/asian-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Asian-gay.xml",
+                "http://www.tube8.com/feed/gay/asian.xml"
+            ]
+        },
+        {
+            "Ass play": [
+                "http://www.gaytube.com/feed/ass_play.xml"
+            ]
+        },
+        {
+            "Bareback": [
+                "http://www.gaytube.com/feed/bareback.xml",
+                "http://www.pornhub.com/feed/bareback-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Bareback-gay.xml"
+            ]
+        },
+        {
+            "BDSM": [
+                "http://www.spankwire.com/categoryRssFeed-Fetish+and+BDSM-gay.xml"
+            ]
+        },
+        {
+            "Bdsm and fetish": [
+                "http://www.gaytube.com/feed/bdsm_and_fetish.xml"
+            ]
+        },
+        {
+            "Bear": [
+                "http://www.pornhub.com/feed/bear-gay.xml",
+                "http://www.gaytube.com/feed/bear_hairy.xml"
+            ]
+        },
+        {
+            "Bears": [
+                "http://www.spankwire.com/categoryRssFeed-BearsandHairy-gay.xml"
+            ]
+        },
+        {
+            "Bi": [
+                "http://www.spankwire.com/categoryRssFeed-BiandStraight+Guys-gay.xml"
+            ]
+        },
+        {
+            "Big cock": [
+                "http://www.gaytube.com/feed/big_cock_8in.xml"
+            ]
+        },
+        {
+            "Big Cocks": [
+                "http://www.spankwire.com/categoryRssFeed-Big+Cocks-gay.xml"
+            ]
+        },
+        {
+            "Big Dick": [
+                "http://www.pornhub.com/feed/big-dick-gay.xml"
+            ]
+        },
+        {
+            "Black": [
+                "http://www.pornhub.com/feed/black-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Black-gay.xml"
+            ]
+        },
+        {
+            "Blowjob": [
+                "http://www.gaytube.com/feed/blowjob.xml",
+                "http://www.pornhub.com/feed/blowjob-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Blowjob-gay.xml",
+                "http://www.tube8.com/feed/gay/blowjob.xml"
+            ]
+        },
+        {
+            "Breeding": [
+                "http://www.gaytube.com/feed/breeding.xml"
+            ]
+        },
+        {
+            "Bubble butt": [
+                "http://www.gaytube.com/feed/bubble_butt.xml"
+            ]
+        },
+        {
+            "College": [
+                "http://www.pornhub.com/feed/college-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-CollegeandJocks-gay.xml"
+            ]
+        },
+        {
+            "Creampie": [
+                "http://www.pornhub.com/feed/creampie-gay.xml"
+            ]
+        },
+        {
+            "Cum": [
+                "http://www.gaytube.com/feed/cum_sperm.xml",
+                "http://www.gaytube.com/feed/cum_eating.xml"
+            ]
+        },
+        {
+            "Daddy": [
+                "http://www.gaytube.com/feed/daddy.xml",
+                "http://www.pornhub.com/feed/daddy-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-DaddyandMature-gay.xml"
+            ]
+        },
+        {
+            "Domination": [
+                "http://www.gaytube.com/feed/domination_submission.xml"
+            ]
+        },
+        {
+            "Ebony": [
+                "http://www.tube8.com/feed/gay/ebony.xml"
+            ]
+        },
+        {
+            "Euro": [
+                "http://www.pornhub.com/feed/euro-gay.xml"
+            ]
+        },
+        {
+            "Erotic": [
+                "http://www.tube8.com/feed/gay/erotic.xml"
+            ]
+        },
+        {
+            "Extreme": [
+                "http://www.gaytube.com/feed/extreme_rough.xml"
+            ]
+        },
+        {
+            "Facial": [
+                "http://www.gaytube.com/feed/facial.xml"
+            ]
+        },
+        {
+            "Fetish": [
+                "http://www.pornhub.com/feed/fetish-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Fetish+and+BDSM-gay.xml",
+                "http://www.tube8.com/feed/gay/fetish.xml"
+            ]
+        },
+        {
+            "Glory hole": [
+                "http://www.gaytube.com/feed/glory_hole.xml"
+            ]
+        },
+        {
+            "Group": [
+                "http://www.pornhub.com/feed/group-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Group-gay.xml"
+            ]
+        },
+        {
+            "Hand-job": [
+                "http://www.gaytube.com/feed/hand_job.xml"
+            ]
+        },
+        {
+            "Hardcore": [
+                "http://www.spankwire.com/categoryRssFeed-Hardcore-gay.xml",
+                "http://www.tube8.com/feed/gay/hardcore.xml"
+            ]
+        },
+        {
+            "HD": [
+                "http://www.spankwire.com/categoryRssFeed-HD-gay.xml",
+                "http://www.tube8.com/feed/gay/hd.xml"
+            ]
+        },
+        {
+            "Hentai": [
+                "http://www.spankwire.com/categoryRssFeed-Hentai+and+Anime-gay.xml"
+            ]
+        },
+        {
+            "Hunk": [
+                "http://www.gaytube.com/feed/hunk_big_muscles.xml"
+            ]
+        },
+        {
+            "Hunks": [
+                "http://www.pornhub.com/feed/hunks-gay.xml"
+            ]
+        },
+        {
+            "Interracial": [
+                "http://www.gaytube.com/feed/interracial.xml",
+                "http://www.pornhub.com/feed/interracial-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Interracial-gay.xml"
+            ]
+        },
+        {
+            "Japanese": [
+                "http://www.pornhub.com/feed/japanese-gay.xml"
+            ]
+        },
+        {
+            "Jock": [
+                "http://www.gaytube.com/feed/jock_athlete.xml"
+            ]
+        },
+        {
+            "Jocks": [
+                "http://www.spankwire.com/categoryRssFeed-CollegeandJocks-gay.xml"
+            ]
+        },
+        {
+            "Latino": [
+                "http://www.gaytube.com/feed/latino.xml",
+                "http://www.pornhub.com/feed/latino-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Latino-gay.xml",
+                "http://www.tube8.com/feed/gay/latino.xml"
+            ]
+        },
+        {
+            "Massage": [
+                "http://www.gaytube.com/feed/massage.xml",
+                "http://www.pornhub.com/feed/massage-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Massage-gay.xml"
+            ]
+        },
+        {
+            "Masturbation": [
+                "http://www.spankwire.com/categoryRssFeed-Solo+and+Masturbation-gay.xml",
+                "http://www.gaytube.com/feed/masturbation_jerking_off.xml"
+            ]
+        },
+        {
+            "Mature": [
+                "http://www.spankwire.com/categoryRssFeed-DaddyandMature-gay.xml",
+                "http://www.gaytube.com/feed/mature_old.xml",
+                "http://www.tube8.com/feed/gay/mature.xml"
+            ]
+        },
+        {
+            "Monster cock": [
+                "http://www.gaytube.com/feed/monster_cock_10in.xml"
+            ]
+        },
+        {
+            "Muscle": [
+                "http://www.pornhub.com/feed/muscle-gay.xml"
+            ]
+        },
+        {
+            "Muscles": [
+                "http://www.spankwire.com/categoryRssFeed-Muscles-gay.xml"
+            ]
+        },
+        {
+            "Older on younger": [
+                "http://www.gaytube.com/feed/older_on_younger.xml"
+            ]
+        },
+        {
+            "Orgy": [
+                "http://www.gaytube.com/feed/orgy_group_sex.xml"
+            ]
+        },
+        {
+            "Outdoors": [
+                "http://www.gaytube.com/feed/outdoors_public.xml"
+            ]
+        },
+        {
+            "Piss": [
+                "http://www.gaytube.com/feed/piss.xml"
+            ]
+        },
+        {
+            "Pool": [
+                "http://www.gaytube.com/feed/pool_spas.xml"
+            ]
+        },
+        {
+            "Porn Stars": [
+                "http://www.spankwire.com/categoryRssFeed-Porn+Stars-gay.xml"
+            ]
+        },
+        {
+            "Pornstar": [
+                "http://www.pornhub.com/feed/pornstar-gay.xml"
+            ]
+        },
+        {
+            "Public": [
+                "http://www.pornhub.com/feed/public-gay.xml"
+            ]
+        },
+        {
+            "Public": [
+                "http://www.spankwire.com/categoryRssFeed-Public-gay.xml"
+            ]
+        },
+        {
+            "Reality": [
+                "http://www.pornhub.com/feed/reality-gay.xml"
+            ]
+        },
+        {
+            "Solo": [
+                "http://www.spankwire.com/categoryRssFeed-Solo+and+Masturbation-gay.xml",
+                "http://www.gaytube.com/feed/solo_1.xml",
+                "http://www.pornhub.com/feed/solo-male-gay.xml"
+            ]
+        },
+        {
+            "Straight Guys": [
+                "http://www.gaytube.com/feed/straight.xml",
+                "http://www.pornhub.com/feed/straight-guys-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-BiandStraight+Guys-gay.xml"
+            ]
+        },
+        {
+            "Strip": [
+                "http://www.tube8.com/feed/gay/strip.xml"
+            ]
+        },
+        {
+            "Twink": [
+                "http://www.gaytube.com/feed/twink.xml",
+                "http://www.pornhub.com/feed/twink-gay.xml",
+                "http://www.spankwire.com/categoryRssFeed-Twinks-gay.xml",
+                "http://www.tube8.com/feed/gay/twink.xml"
+            ]
+        },
+        {
+            "Uncut cock": [
+                "http://www.gaytube.com/feed/uncut_cock.xml"
+            ]
+        },
+        {
+            "Vintage": [
+                "http://www.pornhub.com/feed/vintage-gay.xml"
+            ]
+        },
+        {
+            "Voyeur": [
+                "http://www.spankwire.com/categoryRssFeed-Voyeur-gay.xml"
+            ]
+        }
+    ]
+}
+
+{"categories": [
+{"Amateur":["http://www.gaytube.com/feed/amateur.xml", "http://www.spankwire.com/categoryRssFeed-Amateur-gay.xml", "http://www.tube8.com/feed/gay/amateur.xml"]},
+{"Anal":["http://www.spankwire.com/categoryRssFeed-Anal-gay.xml", "http://www.gaytube.com/feed/anal_sex_fucking.xml", "http://www.tube8.com/feed/gay/anal.xml"]},
+{"Anime": ["http://www.gaytube.com/feed/anime_hentai.xml"]},
+{"Asian": ["http://www.gaytube.com/feed/asian.xml", "http://www.pornhub.com/feed/asian-gay.xml", "http://www.spankwire.com/categoryRssFeed-Asian-gay.xml", "http://www.tube8.com/feed/gay/asian.xml"]},
+{"Ass play": ["http://www.gaytube.com/feed/ass_play.xml"]},
+{"Bareback": ["http://www.gaytube.com/feed/bareback.xml", "http://www.pornhub.com/feed/bareback-gay.xml", "http://www.spankwire.com/categoryRssFeed-Bareback-gay.xml"]},
+{"BDSM": ["http://www.spankwire.com/categoryRssFeed-Fetish+and+BDSM-gay.xml"]},
+{"Bdsm and fetish": ["http://www.gaytube.com/feed/bdsm_and_fetish.xml"]},
+{"Bear": ["http://www.pornhub.com/feed/bear-gay.xml", "http://www.gaytube.com/feed/bear_hairy.xml"]},
+{"Bears": ["http://www.spankwire.com/categoryRssFeed-BearsandHairy-gay.xml"]},
+{"Bi": ["http://www.spankwire.com/categoryRssFeed-BiandStraight+Guys-gay.xml"]},
+{"Big cock": ["http://www.gaytube.com/feed/big_cock_8in.xml"]},
+{"Big Cocks": ["http://www.spankwire.com/categoryRssFeed-Big+Cocks-gay.xml"]},
+{"Big Dick": ["http://www.pornhub.com/feed/big-dick-gay.xml"]},
+{"Black": ["http://www.pornhub.com/feed/black-gay.xml", "http://www.spankwire.com/categoryRssFeed-Black-gay.xml"]},
+{"Blowjob": ["http://www.gaytube.com/feed/blowjob.xml", "http://www.pornhub.com/feed/blowjob-gay.xml", "http://www.spankwire.com/categoryRssFeed-Blowjob-gay.xml", "http://www.tube8.com/feed/gay/blowjob.xml"]},
+{"Breeding": ["http://www.gaytube.com/feed/breeding.xml"]},
+{"Bubble butt": ["http://www.gaytube.com/feed/bubble_butt.xml"]},
+{"College": ["http://www.pornhub.com/feed/college-gay.xml", "http://www.spankwire.com/categoryRssFeed-CollegeandJocks-gay.xml"]},
+{"Creampie": ["http://www.pornhub.com/feed/creampie-gay.xml"]},
+{"Cum": ["http://www.gaytube.com/feed/cum_sperm.xml", "http://www.gaytube.com/feed/cum_eating.xml"]},
+{"Daddy": ["http://www.gaytube.com/feed/daddy.xml", "http://www.pornhub.com/feed/daddy-gay.xml", "http://www.spankwire.com/categoryRssFeed-DaddyandMature-gay.xml"]},
+{"Domination": ["http://www.gaytube.com/feed/domination_submission.xml"]},
+{"Ebony": ["http://www.tube8.com/feed/gay/ebony.xml"]},
+{"Euro": ["http://www.pornhub.com/feed/euro-gay.xml"]},
+{"Erotic": ["http://www.tube8.com/feed/gay/erotic.xml"]},
+{"Extreme": ["http://www.gaytube.com/feed/extreme_rough.xml"]},
+{"Facial": ["http://www.gaytube.com/feed/facial.xml"]},
+{"Fetish": ["http://www.pornhub.com/feed/fetish-gay.xml", "http://www.spankwire.com/categoryRssFeed-Fetish+and+BDSM-gay.xml", "http://www.tube8.com/feed/gay/fetish.xml"]},
+{"Glory hole": ["http://www.gaytube.com/feed/glory_hole.xml"]},
+{"Group": ["http://www.pornhub.com/feed/group-gay.xml", "http://www.spankwire.com/categoryRssFeed-Group-gay.xml"]},
+{"Hand-job": ["http://www.gaytube.com/feed/hand_job.xml"]},
+{"Hardcore": ["http://www.spankwire.com/categoryRssFeed-Hardcore-gay.xml", "http://www.tube8.com/feed/gay/hardcore.xml"]},
+{"HD": ["http://www.spankwire.com/categoryRssFeed-HD-gay.xml", "http://www.tube8.com/feed/gay/hd.xml"]},
+{"Hentai": ["http://www.spankwire.com/categoryRssFeed-Hentai+and+Anime-gay.xml"]},
+{"Hunk": ["http://www.gaytube.com/feed/hunk_big_muscles.xml"]},
+{"Hunks": ["http://www.pornhub.com/feed/hunks-gay.xml"]},
+{"Interracial": ["http://www.gaytube.com/feed/interracial.xml", "http://www.pornhub.com/feed/interracial-gay.xml", "http://www.spankwire.com/categoryRssFeed-Interracial-gay.xml"]},
+{"Japanese": ["http://www.pornhub.com/feed/japanese-gay.xml"]},
+{"Jock": ["http://www.gaytube.com/feed/jock_athlete.xml"]},
+{"Jocks": ["http://www.spankwire.com/categoryRssFeed-CollegeandJocks-gay.xml"]},
+{"Latino": ["http://www.gaytube.com/feed/latino.xml", "http://www.pornhub.com/feed/latino-gay.xml", "http://www.spankwire.com/categoryRssFeed-Latino-gay.xml", "http://www.tube8.com/feed/gay/latino.xml"]},
+{"Massage": ["http://www.gaytube.com/feed/massage.xml", "http://www.pornhub.com/feed/massage-gay.xml", "http://www.spankwire.com/categoryRssFeed-Massage-gay.xml"]},
+{"Masturbation": ["http://www.spankwire.com/categoryRssFeed-Solo+and+Masturbation-gay.xml", "http://www.gaytube.com/feed/masturbation_jerking_off.xml"]},
+{"Mature": ["http://www.spankwire.com/categoryRssFeed-DaddyandMature-gay.xml", "http://www.gaytube.com/feed/mature_old.xml", "http://www.tube8.com/feed/gay/mature.xml"]},
+{"Monster cock": ["http://www.gaytube.com/feed/monster_cock_10in.xml"]},
+{"Muscle": ["http://www.pornhub.com/feed/muscle-gay.xml"]},
+{"Muscles": ["http://www.spankwire.com/categoryRssFeed-Muscles-gay.xml"]},
+{"Older on younger": ["http://www.gaytube.com/feed/older_on_younger.xml"]},
+{"Orgy": ["http://www.gaytube.com/feed/orgy_group_sex.xml"]},
+{"Outdoors": ["http://www.gaytube.com/feed/outdoors_public.xml"]},
+{"Piss": ["http://www.gaytube.com/feed/piss.xml"]},
+{"Pool": ["http://www.gaytube.com/feed/pool_spas.xml"]},
+{"Porn Stars": ["http://www.spankwire.com/categoryRssFeed-Porn+Stars-gay.xml"]},
+{"Pornstar": ["http://www.pornhub.com/feed/pornstar-gay.xml"]},
+{"Public": ["http://www.pornhub.com/feed/public-gay.xml"]},
+{"Public": ["http://www.spankwire.com/categoryRssFeed-Public-gay.xml"]},
+{"Reality": ["http://www.pornhub.com/feed/reality-gay.xml"]},
+{"Solo": ["http://www.spankwire.com/categoryRssFeed-Solo+and+Masturbation-gay.xml", "http://www.gaytube.com/feed/solo_1.xml", "http://www.pornhub.com/feed/solo-male-gay.xml"]},
+{"Straight Guys": ["http://www.gaytube.com/feed/straight.xml", "http://www.pornhub.com/feed/straight-guys-gay.xml", "http://www.spankwire.com/categoryRssFeed-BiandStraight+Guys-gay.xml"]},
+{"Strip": ["http://www.tube8.com/feed/gay/strip.xml"]},
+{"Twink": ["http://www.gaytube.com/feed/twink.xml", "http://www.pornhub.com/feed/twink-gay.xml", "http://www.spankwire.com/categoryRssFeed-Twinks-gay.xml", "http://www.tube8.com/feed/gay/twink.xml"]},
+{"Uncut cock": ["http://www.gaytube.com/feed/uncut_cock.xml"]},
+{"Vintage": ["http://www.pornhub.com/feed/vintage-gay.xml"]},
+{"Voyeur": ["http://www.spankwire.com/categoryRssFeed-Voyeur-gay.xml"]}
+]}
