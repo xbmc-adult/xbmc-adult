@@ -1188,6 +1188,8 @@ class Main(object):
                 xbmc.log('Play: ' + str(flv_file), INFO)
             xbmc.Player().play(str(flv_file), listitem)
         else:
+            # Provide useragent string to player
+            url += '|User-Agent=%s' % USERAGENT
             if enable_debug:
                 xbmc.log('Play: ' + str(url), INFO)
             xbmc.Player().play(str(url), listitem)
