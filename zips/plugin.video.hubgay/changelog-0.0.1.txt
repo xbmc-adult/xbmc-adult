@@ -1,0 +1,22 @@
+v 0.9.5
+- Added first demo of Video's from Tumblr blogs with the v 1.0.0 release I hope to have this addition completed with the ability to search and save a list of Tumblr blogs to display. There is still some bug issue thing with the Playback looping and I think it's something with the Kodiswift framework...but still working on this.
+
+v 0.9.0/0.9.1
+- Removed dependency on my own custom build of Kodiswift as now the addon is part of the main Kodi Repo at version 0.7 so this will be installed automatically now if your system doesn't already have it.
+
+v 0.8.0
+- GayPower removed site appears offline, random bug fixes and improvements, category images added for some standard named categories that can be matched.
+
+v 0.6.0
+- Minor Bug Fixes, Additional attempts to resolve video's on website using slightly modified Livestreamer ex RunPlugin(plugin://plugin.video.livestreamerkodi/play/http...) Fixed Porkytube thumbnail URL spaces encoded to %20 as + caused 404
+v 0.5.0
+- Added PorkyTube site.
+
+v 0.4.0
+- Added Motherless with full search and included in multisite search results more group and tag functionality to come next. Also tried to fix some bugs on playback.
+
+v 0.3.0
+- YouTubeDL to resolve videostream URLs, Download Context Menu, URLResolver added, GayPower streaming, Category Lists, Search All Sites
+
+v 0.0.1
+- First Version attempting to use the HubTraffic affiliate API to present content from the PornHub network of sites.

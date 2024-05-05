@@ -1,0 +1,13 @@
+<settings>
+	<category label="General">
+		<setting id="dostr8" label="Straight Content" values="false" default="false" type="bool" visible="true" />
+		<setting id="dofilter" label="Enable Tags" values="false" default="false" type="bool" visible="true" />
+		<setting id="tags" label="Tags (Comma Seperated)" values="" default="" type="text"  visible="true"  />
+		<setting id="tumblrblog" label="Tumblr Blog" values="" default="" type="text"  visible="true" />
+		<setting id="lastsearch" label="Last Search" values="" default="" type="text"  visible="true"  />
+		<setting id="sortby" label="Sort Method" values="newest|views|mostviewed|rating|favorites|comments|votes|longest|featured" default="newest" type="labelenum" visible="true" />
+        <setting id="viewmode" label="Set View $INFO[Container.Viewmode]" values="500" default="500" type="number" visible="true" />
+		<setting id="downloadpath" label="Download Path" values="" default="" type="folder"  visible="true" />
+		<setting id="debugon" label="DEBUG MODE ON" values="false" default="false" type="bool" visible="true" />
+	</category>
+</settings>

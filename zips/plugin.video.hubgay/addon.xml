@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.hubgay" name="HubGAY" version="0.9.5" provider-name="moedje">
+    <requires>
+        <import addon="xbmc.python" version="2.24.0"/>
+        <import addon="script.module.kodiswift"/>
+        <import addon="script.module.urlresolver"/>
+        <import addon="script.module.simple.downloader"/>
+        <import addon="script.module.youtube.dl"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <language>en</language>
+        <summary>[COLOR red]GAY or STRAIGHT XXX[/COLOR] Porn from Hub Traffic sites and GayPower</summary>
+        <description>STRAIGHT or GAY content filter in Settings default is GAY content. Unlike other addon's this uses the Hub Traffic JSON API's to retrieve video's from the Porn Hub network of sites: [COLOR yellow]PornHub[/COLOR], [COLOR pink]Spankwire[/COLOR], [COLOR green]Tube8[/COLOR], [COLOR blue]GayTube[/COLOR], [COLOR orange]XTube[/COLOR], [COLOR red]RedTube[/COLOR], and [COLOR purple]YouPorn[/COLOR]. [COLOR yellow]GayPower.org[/COLOR] Full Length DVD Streams from FlashX. [COLOR red][B]WARNING:[/B] Only for adults[/COLOR]
+            [B]0.9.5[/B] First attempt to add Tumblr Video's. GayPower removed site appears offline, random bug fixes and improvements, category images added for some standard named categories that can be matched. 0.6.0: Minor Bug Fixes, Additional attempts to resolve video's on website using slightly modified Livestreamer ex RunPlugin(plugin://plugin.video.livestreamerkodi/play/http...) Fixed Porkytube thumbnail URL spaces encoded to %20 as + caused 404 [B]V0.5.0 7/12[/B]: Added PorkyTube site. V0.4.0: Motherless added with full search and included in multisite search results more group and tag functionality to come next. Also tried to fix some bugs on playback. 0.3.0: YouTubeDL to resolve videostream URLs, Download Context Menu, URLResolver added, GayPower streaming, Category Lists, Search All Sites
+REQUIRED [B]Script.Module.URLResolver, Simple.Downloader, YouTubeDL, and KODIswift[/B] (https://github.com/Sinap/kodiswift) Optional Plugin.Video.Livestreamerkodi for additional URL resolving features.
+        </description>
+        <disclaimer>ADULTS ONLY - GAY and STRAIGHT XXX CONTENT
+        </disclaimer>
+    </extension>
+</addon>
