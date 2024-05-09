@@ -35,7 +35,7 @@ imgDir = os.path.join(resDir, 'images')
 urlopen = urllib_request.urlopen
 cj = http_cookiejar.LWPCookieJar()
 Request = urllib_request.Request
-USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18'
+USERAGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0'
 
 if cj:
     if os.path.isfile(TRANSLATEPATH(cookiePath)):
@@ -1188,6 +1188,8 @@ class Main(object):
                 xbmc.log('Play: ' + str(flv_file), INFO)
             xbmc.Player().play(str(flv_file), listitem)
         else:
+            # Provide useragent string to player
+            url += '|User-Agent=%s' % USERAGENT
             if enable_debug:
                 xbmc.log('Play: ' + str(url), INFO)
             xbmc.Player().play(str(url), listitem)
