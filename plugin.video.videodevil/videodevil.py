@@ -35,7 +35,7 @@ imgDir = os.path.join(resDir, 'images')
 urlopen = urllib_request.urlopen
 cj = http_cookiejar.LWPCookieJar()
 Request = urllib_request.Request
-USERAGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-GB; rv:1.8.1.18) Gecko/20081029 Firefox/2.0.0.18'
+USERAGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
 
 if cj:
     if os.path.isfile(TRANSLATEPATH(cookiePath)):
